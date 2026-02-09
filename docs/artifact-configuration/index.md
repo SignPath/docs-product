@@ -30,8 +30,7 @@ For non-trivial artifacts, you may want to edit the resulting artifact configura
 When you create a new project, a default artifact configuration will be added. To create additional artifact configurations, select the project and click **Add** in the **Artifact Configurations** section. In either case, you can
 
 * select **Upload an artifact sample** and select an artifact file to have the artifact configuration generated
-* select a **Ready to use artifact configuration**
-* select one of the **Templates for custom artifact configurations** and edit the XML content
+* select a **Template** and customize it according to your needs
 * select **Custom** and create an artifact configuration from scratch
 
 ### Edit an artifact configuration
