@@ -1,3 +1,29 @@
+- date: '2026-02-10'
+  updates:
+    application:
+      version: 1.205.1
+      new_features:
+        - text: |-
+            Added support for file-based Debian package (`.deb`) signing via [`<debsigs-sign>`](/artifact-configuration/reference#debsigs-sign).
+          issues: [SIGN-8222, SIGN-8276]
+      improvements:
+        - text: |
+            Improved the artifact configuration selection in the project creation UI.
+          issues: [SIGN-8105]
+        - text: |
+            REST API: added `webLink` response property, pointing to the Signing Request UI detail page, in the following routes:
+            * `GET /v1/{organizationId}/SigningRequests/{id}`
+            * `POST /v1/{organizationId}/SigningRequests/Submit*`
+            * `POST /v1/{organizationId}/SigningRequests/SignHash`
+          issues: [SIGN-7742]
+- date: '2026-02-10'
+  updates:
+    powershell_module:
+      version: 4.4.6
+      improvements:
+        - text: |
+            Fixed: Signing request submission errors when user-defined parameters ended on the term "file".
+          issues: [SIGN-8278]
 - date: '2026-01-28'
   updates:
     powershell_module:
@@ -16,7 +42,7 @@
     self_hosted_installations:
       version: 1.204.0
       breaking_changes:
-        - text: Changed recommended Kubernetes version to 1.33.x and `signpathio/kubectl` image tag to 1.33.7.
+        - text: Changed recommended Kubernetes version to 1.33.x and `signpathio/kubectl` image tag to 1.33.
           issues: [SIGN-8203]
     azure_devops_connector:
       version: 0.8.0
