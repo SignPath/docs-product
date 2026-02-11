@@ -75,6 +75,7 @@ redirect_from:
 				{% comment %} extract component id (e.g. application, crypto_providers, etc.) and release {% endcomment %}
 				{% assign componentid = update[0] %}
 				{% assign release = update[1] %}
+				{% assign major_version = release.version | split: '.' | first | times: 1 %}
 				
 				{% assign component_change_type_class_list = 'component' %}
 				{% for changes_per_type in release %}
@@ -109,7 +110,22 @@ redirect_from:
 							</div> <!-- change_type -->
 						{% endif %}
 					{% endfor %}
-				</div>
+					{% assign include_cryptoproviders_download_panel = false %}
+					{%- if componentid == 'macos_cryptotokenkit' and major_version >= 2 -%}
+						{% assign include_cryptoproviders_download_panel = true %}
+					{%- endif -%}
+					{%- if componentid == 'crypto_providers' and major_version >= 6 -%}
+					  {% assign include_cryptoproviders_download_panel = true %}
+					{%- endif -%}
+					{%- if include_cryptoproviders_download_panel -%}
+						{% if componentid == 'crypto_providers' %}
+						  {% assign crypto_provider_components = "cryptoki,windows_ksp" %}
+						{% else %}
+						  {% assign crypto_provider_components = "macos_cryptotokenkit" %}
+						{% endif %}
+						{% include download-cryptoproviders-panel.md version=release.version components=crypto_provider_components %}
+					{%- endif -%}
+				</div> <!-- component -->
 			{% endfor %}
 		{% else %}
 			<p class='no-updates'>No customer facing changes in this release.</p>

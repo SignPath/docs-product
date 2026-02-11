@@ -77,7 +77,7 @@
 - text: Crypto Providers
   path: crypto-providers
   items:
-    - text: Windows CSP and KSP
+    - text: Windows KSP
       path: windows
 
     - text: Cryptoki/PKCS#11
