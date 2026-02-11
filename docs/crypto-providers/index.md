@@ -3,7 +3,7 @@ header: Crypto Providers
 layout: resources
 toc: true
 show_toc: 3
-description: SignPath Crypto Providers (Cryptoki, KSP, CSP, CryptoTokenKit)
+description: SignPath Crypto Providers (Cryptoki, KSP, CryptoTokenKit)
 ---
 
 {% include editions.md feature="hash_based_signing.rest_api" %}
@@ -12,7 +12,7 @@ description: SignPath Crypto Providers (Cryptoki, KSP, CSP, CryptoTokenKit)
 
 The SignPath Crypto Providers allow signing tools such as [SignTool.exe](/crypto-providers/windows#signtool), [OpenSSL](/crypto-providers/cryptoki#openssl) or [jarsigner](/crypto-providers/cryptoki#jarsigner) to sign files locally using keys or certificates stored and managed by SignPath. 
 
-Crypto Providers are generally used to provide a device-independent API for using secure key storage devices such as USB key tokens or Hardware Security Modules (HSMs). You may think of them as device drivers for crypto hardware. Most software tools used for code signing support one Crypto Provider technology, such as Microsoft KSP/CSP or PKCS #11 Cryptoki.
+Crypto Providers are generally used to provide a device-independent API for using secure key storage devices such as USB key tokens or Hardware Security Modules (HSMs). You may think of them as device drivers for crypto hardware. Most software tools used for code signing support one Crypto Provider technology, such as Microsoft KSP or PKCS #11 Cryptoki.
 
 The SignPath Crypto Providers do not access the crypto hardware directly. Instead, they implement these interfaces to provide access to SignPath _Projects_ and _Signing Policies_. During the entire operation, the private key will remain on the HSM.
 
@@ -29,7 +29,6 @@ The following Crypto Providers are available for SignPath:
 |-----------------------------------------------|-----------------------------------------------|---------------------|--------------
 | **Cryptoki** (Cryptographic Token Interface)  | [PKCS #11] version 2.40                       | Windows, Linux
 | **KSP** (Key Storage Provider)                | [CNG] (Cryptographic API: Next Generation)    | Windows
-| **CSP** (Cryptographic Service Provider)      | [CAPI] (CryptoAPI)                            | Windows             | This API is deprecated, most tools now use KSP/CNG
 | **CTK** (CryptoTokenKit)                      | [CTK extension]                               | macOS
 
 [PKCS #11]: https://docs.oasis-open.org/pkcs11/pkcs11-base/v2.40/os/pkcs11-base-v2.40-os.html
@@ -72,11 +71,16 @@ As always, the private key does not leave the boundaries of the HSM.
 
 Depending on the signing tool you're using, the corresponding Crypto Provider needs to be installed (on all build nodes). See the respective pages:
 
-* [SignPath KSP and CSP](/crypto-providers/windows) for _SignTool.exe_ and most native Windows tools
+* [SignPath KSP](/crypto-providers/windows) for _SignTool.exe_ and most native Windows tools
 * [SignPath Cryptoki](/crypto-providers/cryptoki) for _OpenSSL_, _jarsigner_, and many other Open Source tools
 * [GPG-based tools](/crypto-providers/gpg), such as _gpg_, _rpm_, or _dkpg-sig_ use the [SignPath Cryptoki Crypto Provider](/crypto-providers/cryptoki) but require additional configuration steps
 * [SignPath CryptoTokenKit](/crypto-providers/macos) for macOS _codesign_
 * Instead of using a CryptoProvider, it is also possible to [sign hashes directly using the REST API](/crypto-providers/rest-api)
+
+<!-- should really include notation_plugin here also and merge other PR -->
+{% include download-cryptoproviders-panel.md major="6" components="cryptoki,windows_ksp" %}
+
+{% include download-cryptoproviders-panel.md major="2" components="macos_cryptotokenkit" title_details="MacOS CryptoTokenKit" %}
 
 ## Configuration {#crypto-provider-configuration}
 
@@ -129,11 +133,10 @@ Supported log levels: `none`, `fatal`, `error`, `warning`, `info`, `debug`, `ver
 
 #### Timeout settings
 
-| JSON setting                | Environment variable                  | Default Value     | Description
-|-----------------------------|---------------------------------------|-------------------|-------------------------
-| `Timeouts.HttpRequest`      | `SIGNPATH_TIMEOUTS_HTTP_REQUEST`      | `30`              | Timeout for HTTP calls in seconds per attempt
-| `Timeouts.FirstRetryDelay`  | `SIGNPATH_TIMEOUTS_FIRST_RETRY_DELAY` | `1.16`            | Initial delay in seconds in case of failed API HTTP requests
-| `Timeouts.RetryCount`       | `SIGNPATH_TIMEOUTS_RETRY_COUNT`       | `10`              | Maximum number of retries in case of failed API HTTP requests
+| JSON setting                         | Environment variable                               | Default Value | Description
+|--------------------------------------|----------------------------------------------------|---------------|-------------------------
+| `ServiceUnavailableTimeoutInSeconds` | `SIGNPATH_SERVICE_UNAVAILABLE_TIMEOUT_IN_SECONDS ` | `600`         | Total time in seconds that the command will wait for a single service call to succeed (across several retries).
+| `HttpRequestTimeoutInSeconds`        | `SIGNPATH_HTTP_REQUEST_TIMEOUT_IN_SECONDS`         | `30`          | Timeout for HTTP calls in seconds per attempt
 {: .break-column-2}
 
 HTTP timeouts and 5xx server errors (e.g. 503 Service Unavailable errors) are treated as failed requests.
@@ -224,7 +227,7 @@ In order to perform hash-based signing with the Crypto Providers, perform the fo
 
 ### Linux samples {#linux-docker-samples}
 
-The Crypto Provider package contains Linux sample scripts that demonstrate the use of different signing tools, their configuration, and the required dependencies in the `Scenarios` directory. See the `README.md` for the full list. 
+The Cryptoki package for Linux contains sample scripts that demonstrate the use of different signing tools, their configuration, and the required dependencies in the `Scenarios` directory. See the `README.md` for the full list. 
 
 For supported Linux distributions, you can execute the samples using the provided Docker container configurations. See the `Linux/Samples` directory in the Crypto Provider package. See `README.md` for further information and details how to use the `RunScenario.sh` and `RunScenario.ps1` entry point scripts to invoke samples.
 

@@ -1,0 +1,28 @@
+cryptoproviders:
+  v1:
+  - id: cryptoki
+    name: 'Cryptoki'
+    links:
+      - text: 'Linux x64 (.tgz)'
+        link: 'https://download.signpath.io/cryptoproviders/cryptoki/$VERSION/linux/x64/libSignPath.Cryptoki.tgz'
+      - text: 'Windows x64 (.zip)'
+        link: 'https://download.signpath.io/cryptoproviders/cryptoki/$VERSION/windows/x64/SignPath.Cryptoki.zip'
+  - id: windows_ksp
+    name: 'Windows KSP'
+    links:
+      - text: 'Installer (.msi)'
+        link: 'https://download.signpath.io/cryptoproviders/windows-ksp/$VERSION/x64/SignPath.Windows.KSP.msi'
+      - text: 'CycloneDX SBOM (.xml)'
+        link: 'https://download.signpath.io/cryptoproviders/windows-ksp/$VERSION/x64/SignPath.Windows.KSP.bom.xml'
+  - id: macos_cryptotokenkit
+    name: 'MacOs CryptoTokenKit'
+    links:
+      - text: 'Installer (.dmg)'
+        link: 'https://download.signpath.io/cryptoproviders/macos-cryptotokenkit/$VERSION/SignPathCryptoTokenKit.dmg'
+  - id: notation_plugin
+    name: 'Notation Plugin'
+    links:
+      - text: 'Linux x64 (.tgz)'
+        link: 'https://download.signpath.io/cryptoproviders/notation-plugin/$VERSION/linux/x64/notation-signpath.tgz'
+      - text: 'Windows x64 (.zip)'
+        link: 'https://download.signpath.io/cryptoproviders/notation-plugin/$VERSION/windows/x64/notation-signpath.zip'
