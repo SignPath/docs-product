@@ -27,11 +27,29 @@ For non-trivial artifacts, you may want to edit the resulting artifact configura
 
 ### Create an artifact configuration
 
-When you create a new project, a default artifact configuration will be added. To create additional artifact configurations, select the project and click **Add** in the **Artifact Configurations** section. In either case, you can
+When you create a new project, a default artifact configuration will be added. To create additional artifact configurations, select the project and click **Add** in the **Artifact Configurations** section. 
 
-* select **Upload an artifact sample** and select an artifact file to have the artifact configuration generated
-* select a **Template** and customize it according to your needs
-* select **Custom** and create an artifact configuration from scratch
+Choose one of the following options from the drop-down list:
+
+* **Upload an artifact sample**: select an artifact file to have the artifact configuration generated.
+* Any **template**: start with a single file type and customize it according to your needs. 
+    * Check _Sign nested files_ to sign files contained within that file (available for composite file types).
+    * Check _Sign multiple files_ to sign more than one file of the selected type.
+* **Custom**: create an artifact configuration from scratch using XML.
+
+You can customize generated or selected artifact configurations in many ways, e.g.
+
+* add arbitrary file structures
+* add metadata constraints for additional security
+* add verification of existing signatures for upstream and 3rd-party components
+* add user-defined parameters
+
+For uploaded sample artifacts, you need to manually review the resulting artifact configuration:
+
+* Exclude all 3rd party components that you don't want to be signed with your certificate. Consider verifying existing signatures for these components.
+* Consider adding metadata constraints where available for additional security.
+* Replace version numbers that are subject to change with wildcards or user-defined parameters.
+* Consider replacing lists of named files with wildcards.
 
 ### Edit an artifact configuration
 

@@ -225,21 +225,19 @@ rpm --import my_key.asc # Import, i.e. trust, the GPG public key
 rpm --verbose --checksig my_package.rpm
 ~~~
 
-
-
 #### `<debsigs-sign>`: Debian package {#debsigs-sign}
 
 {% include editions.md feature="file_based_signing.deb" %}
 
 {%- include_relative render-ac-directive-table.inc directive="debsigs-sign" -%}
 
-Debsigs is an embedded signature format for Debian packages (`.deb` files). Debsigs signatures are based on GPG and require [signing policies](/projects#signing-policies) with a [GPG key](/managing-certificates#certificate-types) certificate.
+Create embedded signatures for Debian packages (`.deb` files). Package signatures are based on GPG and require [signing policies](/projects#signing-policies) with a [GPG key](/managing-certificates#certificate-types) certificate. SignPath signs packages using the [debsigs] specification.
 
 **Supported options:**  
 
 | Option                 | Optional | Description
-|------------------------|----------|------------------------------------------------------------------------------
-| `signature-type`       | No       | The [signature-type](https://manpages.debian.org/stable/debsigs/debsigs.1p.en.html#SIGNATURE_TYPES) like `origin`, `maint` or `archive`. Debian packages can contain multiple signatures _of different type_. Note that for verification `origin` signatures are mandatory. |
+|------------------------|----------|----------------
+| `signature-type`       | No       | The [signature-type][debsigs-sigtype], e.g. `origin`, `maint`, or `archive`. Debian packages can contain multiple signatures _of different type_. Note that verification requires at least an `origin` signature.
 
 ##### Example
 
@@ -253,11 +251,20 @@ Debsigs is an embedded signature format for Debian packages (`.deb` files). Debs
 
 ##### Verification {#debsigs-verification}
 
-Debsigs signatures are verified implicitly during [`dpkg --install`](https://manpages.debian.org/stable/dpkg/dpkg.1.en.html) operations unless the `--no-debsig` parameter is specified. Note that many popular Distributions like Ubuntu or Debian set `no-debsig` by default in `/etc/dpkg/dpkg.cfg`. The reason is that these distros don't verify individual Debian package files, but the whole package _repository_ via [`Release.gpg`](https://wiki.debian.org/SecureApt#How_apt_uses_Release.gpg).
+Package signatures are verified implicitly during [`dpkg --install`][dpkg] operations unless the `--no-debsig` parameter is specified.
 
-The `dpkg` command internally uses [`debsig-verify`](https://manpages.debian.org/stable/debsig-verify/debsig-verify.1.en.html) which also can be used to directly verify an `.deb` file after importing the GPG key and setting up the Policies (`.pol`) XML file (see man page for details).
+{:.panel.note}
+> **Package signature verification is not the default**
+>
+> Many popular Linux distributions including Ubuntu and Debian set `no-debsig` by default in `/etc/dpkg/dpkg.cfg`. The reason is that these distros don't verify individual Debian package files, but the whole package _repository_ via [`Release.gpg`].
 
+The `dpkg` command internally uses [`debsig-verify`]. You can also use this tool directly to verify a `.deb` file after importing the GPG key and setting up the policies (`.pol`) XML file (see man page for details).
 
+[debsigs]: https://manpages.debian.org/stable/debsigs/debsigs.1p.en.html
+[debsigs-sigtype]: https://manpages.debian.org/stable/debsigs/debsigs.1p.en.html#SIGNATURE_TYPES
+[dpkg]: https://manpages.debian.org/stable/dpkg/dpkg.1.en.html
+[`Release.gpg`]: https://wiki.debian.org/SecureApt#How_apt_uses_Release.gpg
+[`debsig-verify`]: https://manpages.debian.org/stable/debsig-verify/debsig-verify.1.en.html
 
 #### `<xml-sign>`: XML Digital Signature {#xml-sign}
 
