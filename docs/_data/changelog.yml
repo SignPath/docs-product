@@ -1,4 +1,4 @@
-- date: '2026-02-10'
+- date: '2026-02-12'
   updates:
     application:
       version: 1.205.1
@@ -16,7 +16,7 @@
             * `POST /v1/{organizationId}/SigningRequests/Submit*`
             * `POST /v1/{organizationId}/SigningRequests/SignHash`
           issues: [SIGN-7742]
-- date: '2026-02-10'
+- date: '2026-02-12'
   updates:
     powershell_module:
       version: 4.4.6
