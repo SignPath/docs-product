@@ -19,7 +19,7 @@ The SignPath Crypto Providers do not access the crypto hardware directly. Instea
 {:.panel.info}
 > **Version info**
 >
-> This documentation contains information about the latest version of the CryptoProviders. See the [CryptoProvider changelog](/changelog?component=crypto_providers) or the [macOS CryptoTokenKit changelog](/changelog?component=macos_cryptotokenkit) for updates.
+> This documentation contains information about the latest version of the Crypto Providers. See the [Crypto Provider changelog](/changelog?component=crypto_providers) or the [macOS CryptoTokenKit changelog](/changelog?component=macos_cryptotokenkit) for updates.
 
 ### Crypto Providers
 
@@ -67,20 +67,21 @@ With small platform-specific variations, the general flow of a signing operation
 
 As always, the private key does not leave the boundaries of the HSM.
 
-## Installation and usage
+## Download and installation {#download}
 
-Depending on the signing tool you're using, the corresponding Crypto Provider needs to be installed (on all build nodes). See the respective pages:
+Choose the correct package and install it on all build agents ():
 
-* [SignPath KSP](/crypto-providers/windows) for _SignTool.exe_ and most native Windows tools
-* [SignPath Cryptoki](/crypto-providers/cryptoki) for _OpenSSL_, _jarsigner_, and many other Open Source tools
-* [GPG-based tools](/crypto-providers/gpg), such as _gpg_, _rpm_, or _dkpg-sig_ use the [SignPath Cryptoki Crypto Provider](/crypto-providers/cryptoki) but require additional configuration steps
+* [SignPath Windows KSP](/crypto-providers/windows) for _SignTool.exe_ and most native Windows tools
+* [SignPath Cryptoki library](/crypto-providers/cryptoki) for _OpenSSL_, _jarsigner_, and many other Open Source tools
+* [GPG-based tools](/crypto-providers/gpg), such as _gpg_, _rpm_, or _dkpg-sig_ use the [SignPath Cryptoki library](/crypto-providers/cryptoki) but require additional configuration steps
 * [SignPath CryptoTokenKit](/crypto-providers/macos) for macOS _codesign_
-* Instead of using a CryptoProvider, it is also possible to [sign hashes directly using the REST API](/crypto-providers/rest-api)
 
 <!-- should really include notation_plugin here also and merge other PR -->
 {% include download-cryptoproviders-panel.md major="6" components="cryptoki,windows_ksp" %}
 
 {% include download-cryptoproviders-panel.md major="2" components="macos_cryptotokenkit" title_details="MacOS CryptoTokenKit" %}
+
+Instead of using a CryptoProvider, it is also possible to [sign hashes directly using the REST API](/crypto-providers/rest-api)
 
 ## Configuration {#crypto-provider-configuration}
 
@@ -111,7 +112,7 @@ The [MSI installer](/crypto-providers/windows#installation) for Windows creates 
 You will usually specifiy the Project and Signing Policy and let SignPath select the matching certificate.
 
 The following values
-* should be provieded for other [PKCS #11/Cryptoki](cryptoki) signing tools that don't accept a _key ID_ parameter
+* should be provided for other [PKCS #11/Cryptoki](cryptoki) signing tools that don't accept a _key ID_ parameter
 * are internally used for GPG signing via PKCS #11 (see [GPG](gpg#configure-gnupg))
 * can be provided for macOS CryptoTokenKit as default values (see [macOS](macos#usage-project-signing-policy))
 

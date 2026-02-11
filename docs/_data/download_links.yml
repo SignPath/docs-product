@@ -12,10 +12,10 @@ cryptoproviders:
     links:
       - text: 'Installer (.msi)'
         link: 'https://download.signpath.io/cryptoproviders/windows-ksp/$VERSION/x64/SignPath.Windows.KSP.msi'
-      - text: 'CycloneDX SBOM (.xml)'
+      - text: 'SBOM (CycloneDX .xml)'
         link: 'https://download.signpath.io/cryptoproviders/windows-ksp/$VERSION/x64/SignPath.Windows.KSP.bom.xml'
   - id: macos_cryptotokenkit
-    name: 'MacOs CryptoTokenKit'
+    name: 'macOS CryptoTokenKit'
     links:
       - text: 'Installer (.dmg)'
         link: 'https://download.signpath.io/cryptoproviders/macos-cryptotokenkit/$VERSION/SignPathCryptoTokenKit.dmg'
