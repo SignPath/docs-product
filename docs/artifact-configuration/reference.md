@@ -47,7 +47,7 @@ Since the file's format does not change, the unsigned files are not needed anymo
 * [`<opc-sign>`: Open Packaging Convention](#opc-sign)
 * [`<jar-sign>`: Java Archives](#jar-sign)
 * [`<rpm-sign>`: RPM Package Manager](#rpm-sign)
-* [`<debsigs-sign>`: Debian package](#debsigs-sign)
+* [`<debsigs-sign>`: Debian packages](#debsigs-sign)
 * [`<xml-sign>`: XML Digital Signature](#xml-sign)
 
 The general syntax for embedded signing methods is: `<`_format_`-sign />`
@@ -231,7 +231,7 @@ rpm --verbose --checksig my_package.rpm
 
 {%- include_relative render-ac-directive-table.inc directive="debsigs-sign" -%}
 
-Create embedded signatures for Debian packages (`.deb` files). Package signatures are based on GPG and require [signing policies](/projects#signing-policies) with a [GPG key](/managing-certificates#certificate-types) certificate. SignPath signs packages using the [debsigs] specification.
+Create embedded signatures for Debian packages (`.deb` files). Package signatures are based on GPG and require [signing policies](/projects#signing-policies) with a [GPG key](/managing-certificates#certificate-types) certificate. SignPath signs packages using the [`debsigs`] specification.
 
 **Supported options:**  
 
@@ -256,11 +256,11 @@ Package signatures are verified implicitly during [`dpkg --install`][dpkg] opera
 {:.panel.note}
 > **Package signature verification is not the default**
 >
-> Many popular Linux distributions including Ubuntu and Debian set `no-debsig` by default in `/etc/dpkg/dpkg.cfg`. The reason is that these distros don't verify individual Debian package files, but the whole package _repository_ via [`Release.gpg`].
+> Many popular Linux distributions including Ubuntu and Debian set `no-debsig` by default in `/etc/dpkg/dpkg.cfg`. The reason is that rather than individual Debian package files, these distros verify the whole package _repository_ via [`Release.gpg`].
 
-The `dpkg` command internally uses [`debsig-verify`]. You can also use this tool directly to verify a `.deb` file after importing the GPG key and setting up the policies (`.pol`) XML file (see man page for details).
+The `dpkg` command internally uses [`debsig-verify`]. You can also use this tool directly to verify a `.deb` file after importing the GPG key and setting up the policies (`.pol`) XML file (see [man page][`debsig-verify`] for details).
 
-[debsigs]: https://manpages.debian.org/stable/debsigs/debsigs.1p.en.html
+[`debsigs`]: https://manpages.debian.org/stable/debsigs/debsigs.1p.en.html
 [debsigs-sigtype]: https://manpages.debian.org/stable/debsigs/debsigs.1p.en.html#SIGNATURE_TYPES
 [dpkg]: https://manpages.debian.org/stable/dpkg/dpkg.1.en.html
 [`Release.gpg`]: https://wiki.debian.org/SecureApt#How_apt_uses_Release.gpg
