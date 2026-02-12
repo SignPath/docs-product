@@ -117,16 +117,15 @@ Use this option to sign releases that have been falsely identified as malware. F
 
 ## Artifact configurations {#artifact-configurations}
 
-At the core of each SignPath project is an artifact configuration. It describes the file type of your artifact and a corresponding code signing method (e.g. an EXE file signed 
-with Authenticode).
+Artifact configurations describe your artifact and provide code signing instructions. The simplest form is a single file with a corresponding signing method (e.g. an EXE file signed with Authenticode), but artifacts can be arbitrarily complex and contain additional constraints.
 
 ### Signing multiple files in one step
 
 An artifact configuration may contain instructions to sign multiple files in a single step. Just put them in a single ZIP archive and specify how each file should be signed.
 
-### Signing nested artifacts (deep-signing)
+### Signing nested artifacts (deep signing)
 
-It is commonly necessary to sign files *and* files within those files. In this case you want to specify an artifact configuration for deep-signing. SignPath will extract the files and sign them from the inside out, then re-package everything and sign the containing file.
+It is often necessary to sign files *and* files within those files. In this case you want to specify an artifact configuration for deep signing. SignPath will extract the files and sign them from the inside out, then re-package everything and sign the containing file.
 
 **Examples:** 
 
@@ -134,6 +133,12 @@ It is commonly necessary to sign files *and* files within those files. In this c
 * An **MSI installer** containing an **Office add-in**, which in turn contains **DLL files**
   * the MSI file and the DLLs should be signed using Authenticode
   * the Office add-in has a ClickOnce manifest that requires manifest signing
+
+### Defining artifact configurations
+
+You can create an artifact configuration by selecting one of the **predefined templates** or by **uploading a sample artifact** which will be analyzed by SignPath. You can also **create a custom artifact configuration** from scratch using XML.
+
+For details on how to create, generate or edit an artifact configuration, see [artifact configuration](/artifact-configuration).
 
 ### Keeping versions of artifact configurations
 
@@ -150,14 +155,6 @@ If you want to use versioned artifact configurations with CI
 
 * be sure to check the artifact configuration slug into your source code repository, so you can always access the correct version
 * when calling SignPath from a build script or CI configuration, specify the artifact configuration slug instead of using the default
-
-### Defining artifact configurations
-
-You can create an artifact configuration by selecting one of the **predefined templates** or by **uploading a sample artifact** which will be analyzed by SignPath. 
-
-In the latter case, you need to manually review the resulting artifact configuration and exclude all 3rd party libraries that you don't want to be signed with your certificate.
-
-For details on how to create, generate or edit an artifact configuration, see [artifact configuration](/artifact-configuration).
 
 ## Trusted build systems {#trusted-build-systems}
 
