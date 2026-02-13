@@ -46,6 +46,8 @@ Since the file's format does not change, the unsigned files are not needed anymo
 * [`<office-macro-sign>`: Microsoft Office VBA macros](#office-macro-sign)
 * [`<opc-sign>`: Open Packaging Convention](#opc-sign)
 * [`<jar-sign>`: Java Archives](#jar-sign)
+* [`<rpm-sign>`: RPM Package Manager](#rpm-sign)
+* [`<debsigs-sign>`: Debian packages](#debsigs-sign)
 * [`<xml-sign>`: XML Digital Signature](#xml-sign)
 
 The general syntax for embedded signing methods is: `<`_format_`-sign />`
@@ -192,6 +194,78 @@ jarsigner -verify -strict <file>.zip
 
 Add the `-verbose` option to see the certificate.
 
+
+#### `<rpm-sign>`: RPM Package Manager {#rpm-sign}
+
+{% include editions.md feature="file_based_signing.rpm" %}
+
+{%- include_relative render-ac-directive-table.inc directive="rpm-sign" -%}
+
+RPM is the package manager format for many Linux distributions including Fedora, RedHat, and openSUSE. RPM is based on GPG signatures and requires [signing policies](/projects#signing-policies) with a [GPG key](/managing-certificates#certificate-types) certificate.
+
+##### Example
+
+~~~ xml
+<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
+  <rpm-file>
+    <rpm-sign />
+  </rpm-file>
+</artifact-configuration>
+~~~
+
+##### Verification {#rpm-sign-verification}
+
+Package verification is typically performed automatically by package management tools like yum and DNF.
+
+To manually verify `.rpm` files, use the following commands:
+
+~~~ bash
+rpm --import my_key.asc # Import, i.e. trust, the GPG public key
+
+rpm --verbose --checksig my_package.rpm
+~~~
+
+#### `<debsigs-sign>`: Debian package {#debsigs-sign}
+
+{% include editions.md feature="file_based_signing.deb" %}
+
+{%- include_relative render-ac-directive-table.inc directive="debsigs-sign" -%}
+
+Create embedded signatures for Debian packages (`.deb` files). Package signatures are based on GPG and require [signing policies](/projects#signing-policies) with a [GPG key](/managing-certificates#certificate-types) certificate. SignPath signs packages using the [`debsigs`] specification.
+
+**Supported options:**  
+
+| Option                 | Optional | Description
+|------------------------|----------|----------------
+| `signature-type`       | No       | The [signature-type][debsigs-sigtype], e.g. `origin`, `maint`, or `archive`. Debian packages can contain multiple signatures _of different type_. Note that verification requires at least an `origin` signature.
+
+##### Example
+
+~~~ xml
+<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
+  <deb-file>
+    <debsigs-sign signature-type="origin" />
+  </deb-file>
+</artifact-configuration>
+~~~
+
+##### Verification {#debsigs-verification}
+
+Package signatures are verified implicitly during [`dpkg --install`][dpkg] operations unless the `--no-debsig` parameter is specified.
+
+{:.panel.note}
+> **Package signature verification is not the default**
+>
+> Many popular Linux distributions including Ubuntu and Debian set `no-debsig` by default in `/etc/dpkg/dpkg.cfg`. The reason is that rather than individual Debian package files, these distros verify the whole package _repository_ via [`Release.gpg`].
+
+The `dpkg` command internally uses [`debsig-verify`]. You can also use this tool directly to verify a `.deb` file after importing the GPG key and setting up the policies (`.pol`) XML file (see [man page][`debsig-verify`] for details).
+
+[`debsigs`]: https://manpages.debian.org/stable/debsigs/debsigs.1p.en.html
+[debsigs-sigtype]: https://manpages.debian.org/stable/debsigs/debsigs.1p.en.html#SIGNATURE_TYPES
+[dpkg]: https://manpages.debian.org/stable/dpkg/dpkg.1.en.html
+[`Release.gpg`]: https://wiki.debian.org/SecureApt#How_apt_uses_Release.gpg
+[`debsig-verify`]: https://manpages.debian.org/stable/debsig-verify/debsig-verify.1.en.html
+
 #### `<xml-sign>`: XML Digital Signature {#xml-sign}
 
 {% include editions.md feature="file_based_signing.xml" %}
@@ -215,7 +289,7 @@ The result is a `Signature` element added to the root element (after all existin
 | X.509 Certificate | _See `key-info-x509-data` option_                                             | `/*/Signature/KeyInfo/X509Data`
 {:.break-code}
 
-**Supported options:**  
+**Supported options:**
 
 | Option                       | Optional | Description
 |------------------------------|----------|------------------------------------------------------------------------------
@@ -235,7 +309,7 @@ While the original file is still available, it often needs to be extracted from 
 
 * [`<dsse-sign>`: DSSE (Dead Simple Signing Envelope)](#dsse-sign)
 
-The general syntax for embedded signing methods is: `<`_format_`-sign output-file-name="..." />`
+The general syntax for enveloped signing methods is: `<`_format_`-sign output-file-name="..." />`
 
 #### `<dsse-sign>`: DSSE (Dead Simple Signing Envelope) {#dsse-sign}
 
@@ -338,14 +412,14 @@ The resulting artifact will contain both the original file `myfile.bin` and the 
 Multiple tools support verification of CMS signature. One popular option is `openssl cms`:
 
 ~~~ bash
-openssl cms -verify -purpose codesign -content myfile.bin -inform PEM -in myfile.cms.pem -out /dev/null
+openssl cms -verify -purpose codesign -content myfile.bin -binary -inform PEM -in myfile.bin.cms.pem -out /dev/null
 ~~~
 
 {:.panel.warning}
 > **OpenSSL CMS verification**
 >
 > * Prior to OpenSSL 3.2, the `-purpose` flag does not support `codesign`. Use `any` instead.
-> * When the certificate is not trusted on the target system, specify `-CAFile` with the path of the root certificate. Make sure that the root certificate is distributed in a secure way.
+> * When the certificate is not trusted on the target system, specify `-CAfile` with the path of the root certificate. Make sure that the root certificate is distributed in a secure way.
 
 #### `<create-gpg-signature>`: Detached GPG signing {#create-gpg-signature}
 
@@ -542,6 +616,6 @@ The restrictions can be applied to file elements, [file set elements](syntax#fil
 
 [^jscript]: Note that [JScript](https://en.wikipedia.org/wiki/JScript) is not the same as JavaScript. While it is possible to use this option to sign JavaScript files, JavaScript engines will not be able to use this signature.
 
-[DSSE]: (https://github.com/secure-systems-lab/dsse)
+[DSSE]: https://github.com/secure-systems-lab/dsse
 [RFC 5652]: https://datatracker.ietf.org/doc/html/rfc5652
 [Secure Systems Lab]: https://ssl.engineering.nyu.edu/

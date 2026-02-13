@@ -154,7 +154,7 @@ Read permissions:
 * All users can view configuration information and metadata
 * Access to artifacts is restricted to users with read permissions for the signing request
 * Users have read permissions for a Signing Request if they have
-  * an appropriate global role: *Administrator*, *Global Reader*
+  * an appropriate global role: *Global Administrator*, *Project Administrator*, *Global Reader*, *Support User*
   * a role for the Project: *Reader*, *Configurator*
   * a role for the Signing Policy: *Submitter*, *Approver*
 

@@ -1,10 +1,136 @@
+- date: '2026-02-12'
+  updates:
+    application:
+      version: 1.205.1
+      new_features:
+        - text: |-
+            Added support for file-based Debian package (`.deb`) signing via [`<debsigs-sign>`](/artifact-configuration/reference#debsigs-sign).
+          issues: [SIGN-8222, SIGN-8276]
+      improvements:
+        - text: |
+            Improved the artifact configuration selection in the project creation UI.
+          issues: [SIGN-8105]
+        - text: |
+            REST API: added `webLink` response property, pointing to the Signing Request UI detail page, in the following routes:
+            * `GET /v1/{organizationId}/SigningRequests/{id}`
+            * `POST /v1/{organizationId}/SigningRequests/Submit*`
+            * `POST /v1/{organizationId}/SigningRequests/SignHash`
+          issues: [SIGN-7742]
+- date: '2026-02-12'
+  updates:
+    powershell_module:
+      version: 4.4.6
+      improvements:
+        - text: |
+            Fixed: Signing request submission errors when user-defined parameters ended on the term "file".
+          issues: [SIGN-8278]
+- date: '2026-01-28'
+  updates:
+    powershell_module:
+      version: 4.4.5
+      improvements:
+        - text: Improved authorization error messages.
+          issues: [SIGN-6227]
+- date: '2026-01-27'
+  updates:
+    application:
+      version: 1.204.0
+      improvements:
+        - text: |
+            REST API: specific cause of HTTP 403 (Forbidden) errors is now included in the body.
+          issues: [SIGN-6227]
+    self_hosted_installations:
+      version: 1.204.0
+      breaking_changes:
+        - text: Changed recommended Kubernetes version to 1.33.x and `signpathio/kubectl` image tag to 1.33.
+          issues: [SIGN-8203]
+    azure_devops_connector:
+      version: 0.8.0
+      improvements:
+        - text: Improved performance.
+          issues: [SIGN-8157]
+        - text: Reduced number of required network routes for Azure DevOps Server deployments.
+          issues: [SIGN-8227]
+    github_connector:
+      version: 1.120.0
+      improvements:
+        - text: Improved performance.
+          issues: [SIGN-8157]
+        - text: Reduced number of required network routes for GitHub Enterprise Server deployments.
+          issues: [SIGN-8227]
+      bug_fixes:
+        - text: Fixes wrong values in the repository field for SLSA attestations.
+          issues: [SIGN-8153] 
+    teamcity_connector:
+      version: 0.8.0
+      improvements:
+        - text: Improved performance.
+          issues: [SIGN-8157]
+      bug_fixes:
+        - text: In case of failed artifact uploads, the integration now aborts immediately instead of running into timeouts.
+          issues: [SIGN-8284]
+    teamcity_plugin:
+      version: 0.4.1
+      bug_fixes:
+        - text: Fixes broken documentation links.
+          issues: [SIGN-8263]
+- date: '2026-01-13'
+  updates:
+    application:
+      version: 1.203.0
+      improvements:
+        - text: |-
+            Deep signing with long file paths (> 260 characters) is now supported.
+          issues: [SIGN-8248]
+    self_hosted_installations:
+      version: 1.203.0
+      breaking_changes:
+        - text: |
+            SignService charts: moved Application Insights connection string from `appSecrets.signService.applicationInsights.connectionString` to `appSecrets.shared.applicationInsights.connectionString`.
+          issues: [SIGN-7578]
+    teamcity_plugin:
+      version: 4.0.1
+      bug_fixes:
+        - text: Fixes links to online documentation.
+          issues: [SIGN-8263]
+- date: '2025-12-16'
+  updates:
+    application:
+      version: 1.202.0
+      breaking_changes:
+        - text: |
+            REST API: improved naming of "verify origin policy" on signing policy objects.
+            * Changed the property `verifyOrigin` to `verifyOriginPolicy` and `originVerification` to `originPolicyVerification` in the following API routes:
+              * `POST /v1/{organizationId}/Projects/{projectSlug}/SigningPolicies`
+              * `POST /v1/{organizationId}/Projects/{projectSlug}/SigningPolicies/{signingPolicySlug}`
+            * Changed the property `verifiesOrigin` to `verifiesOriginPolicy` in the following API routes:
+              * `GET /v1/{organizationId}/Projects/{slug}`
+              * `GET /v1/{organizationId}/Projects/{projectSlug}/SigningPolicies/{signingPolicySlug}`
+          issues: [SIGN-8033, SIGN-8259]
+      new_features:
+        - text: |-
+            Added support for file-based RPM Package Manager (`.rpm`) signing via [`<rpm-sign>`](/artifact-configuration/reference#rpm-sign).
+          issues: [SIGN-8134, SIGN-8162]
+      improvements:
+        - text: |
+            Artifact download permissions based on global roles: only some global roles are now eligible (used to be all explicit global roles). See [documentation](/users#permissions).
+          issues: [SIGN-8171]
+        - text: |
+            Improved the history view on the organization details page (missing fields added).
+          issues: [SIGN-8172]
+    self_hosted_installations:
+      version: 1.202.0
+      upgrade_information:
+        - text: |-
+            All Windows containers switched from Windows Server 2019 to Server 2022 base images. Before starting the upgrade, ensure that your Kubernetes cluster has Windows Server 2022 worker nodes available and ready.
+          issues: [SIGN-8113]
 - date: '2025-12-02'
   updates:
     application:
       version: 1.201.4
       new_features:
         - text: |-
-            Added support for the "DSSE (Dead Simple Signing Envelope)" signing format via [`<dsse-sign>`](/artifact-configuration/reference#dsse-sign).
+            Added support for [DSSE (Dead Simple Signing Envelope) signatures][`<dsse-sign>`](/artifact-configuration/reference#dsse-sign).
           issues: [SIGN-8132]
       bug_fixes:
         - text: |-
@@ -14,7 +140,7 @@
       version: 1.201.4
       improvements:
         - text: |-
-            Improved SignService reliability on temporary database outages.
+            Improved SignService reliability during temporary database outages.
           issues: [SIGN-8164]
 - date: '2025-11-27'
   updates:

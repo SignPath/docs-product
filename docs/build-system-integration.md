@@ -50,7 +50,7 @@ You need to provide these values for every single API request.
 
 | Synopsis                    |      |
 |-----------------------------|------|
-| URL                         | `/SigningRequests`
+| URL                         | `/SigningRequests/SubmitWithArtifact`
 | Method                      | `POST`
 | Encoding                    | `multipart/form-data`
 
@@ -71,7 +71,7 @@ curl -H "Authorization: Bearer $API_TOKEN" \
      -F "artifactConfigurationSlug=v2.4" \
      -F "artifact=@$PATH_TO_ARTIFACT" \
      -F "description=$DESCRIPTION" \
-     https://app.signpath.io/API/v1/$ORGANIZATION_ID/SigningRequests
+     https://app.signpath.io/API/v1/$ORGANIZATION_ID/SigningRequests/SubmitWithArtifact
 ~~~
 
 **Success result:** HTTP status code `201`. A HTTP `Location` response-header field is returned with the URL of the created entity.

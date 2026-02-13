@@ -15,9 +15,9 @@ description: GitHub
 * Required for [source code and build policies](#define-policies-for-source-code-and-builds): Install the [SignPath GitHub App](https://github.com/apps/signpath) and allow access to the code repositories.
 
 {:.panel.info}
-> **GitHub Enterprise**
+> **GitHub Enterprise Server**
 >
-> SignPath hosts an instance of the GitHub connector which is linked to GitHub.com For integrating self-hosted GitHub Enterprise instances, contact our [support](https://signpath.io/support) team.
+> SignPath hosts an instance of the GitHub connector which is linked to GitHub.com For integrating self-hosted GitHub Enterprise Server instances, contact our [support](https://signpath.io/support) team.
 
 ## Checks performed by SignPath
 
