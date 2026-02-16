@@ -58,6 +58,10 @@ a {
 	& > code {
 		color: inherit;
 	}
+
+	&:hover {
+		text-decoration: underline;
+	}
 }
 
 header > div, main > section > div 
