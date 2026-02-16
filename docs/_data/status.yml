@@ -1,12 +1,15 @@
 # possible types are good, warning, critical
 current:
-    type: good
-    title: 'All systems are operational' # always restore this message when going back to 'good'
-    #type: good | warning | error
-    #title: 'GitHub integration degradation'
-    #description: |
-    #  Since May 26, 2025 07:21 UTC, GitHub REST APIs are degraded. GitHub integrations may therefore not work as expected. 
-    #link:
+    type: warning #values: good | warning | error
+    title: 'Service portal migration'
+    # title: 'All systems are operational' # always restore this message when going back to 'good'
+    description: |
+      We are currently migrating our service portal at [support.signpath.io](https://support.signpath.io/) to a new system.
+      * New user registration is required at the portal.
+      * Access to existing tickets is currently limited, we are working on it.
+
+      If you experience issues, please email us at [support@signpath.io](mailto:support@signpath.io) in the meantime.
+    # link:
 planned:
 incidents:
   - date: 'May. 26, 2025'
