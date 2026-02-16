@@ -158,7 +158,7 @@ You can group your policy requirements into multiple conditions, each containing
 github-policies:
   runners:
     allowed_groups:
-      - 'GitHub Actions'                         # all jobs need to run on GitHub-hosted runners
+      - 'MySecureRunners'                        # all jobs need to run on runners in the specified group
   build:
     disallow_reruns: true
   branch_rulesets:
