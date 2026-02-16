@@ -135,7 +135,7 @@ You can group your policy requirements into multiple conditions, each containing
 | Section                 | Values                         | Description
 |-------------------------|--------------------------------|----------------------------
 | `rules`                 | See below                      | Rules that must be implemented by one ore more active branch rulesets
-| `allow_bypass_actors`   | boolean                        | If `true`, the branche ruleset is allowed to define bypassers 
+| `allow_bypass_actors`   | boolean                        | If `true`, the branch ruleset is allowed to define bypassers 
 | `enforced_from`         | None, timestamp, or `EARLIEST` | By default, the rules are only evaluated at the time of signing. When provided, defines that these rules must have been in place from the specified date (YAML ISO timestamp) or earliest availability of audit log entries (`EARLIEST`). 
 
 {:.panel.info}
