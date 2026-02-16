@@ -14,25 +14,44 @@ If you want to connect other directories that support the SCIM protocol, please 
 
 ## Synchronization strategy
 
-### User synchronization
+### Manual provisioning
 
-In the default mapping configuration, Entra ID users are initially mapped to SignPath users by comparing the following attribute values: 
-* First, the `externalId` attribute configured in step 5
-* Second, the `displayName` attribute
+Use EntraID to assign users to your SignPath organization. 
 
-Every user must be assigned at most one role other than _Regular User_, otherwise the synchronization will fail.
+### Hybrid user management
 
-When an Entra ID user is removed from all groups that are synchronized, the SignPath user will be deactivated.
+You can keep using the user management functions in SignPath to create and manage users even when synchronizing with Entra ID:
+* Manually created groups can contain synchonized groups and users too.
+* Some organizations prefer to not synchronize user accounts with certain global roles.
 
-### Group synchronization
+Synchronized users and groups cannot be edited manually.
 
+### Provisioning with synchronized groups
+
+Instead of assigning users directly to your Entra ID enterprise application, you can create one or more groups and assign these groups. You can also use these groups to assign global roles in SignPath. 
+
+Limitations:
+* Each user can only have _one_ global role other than _Regular User. If you assign a user to groups that result in multiple global group assignments, provisioning of that user will fail. See [Troubleshooting](#Troubleshooting).
+* Nested groups are not supported for provisioning and role assignment by Microsoft by Microsoft Entra. See the [official Microsoft documentation on scoping]. 
+
+### Assigning project-specific permissions with synchronized groups
+
+You can assign synchronized groups to project and signing policy permissions such as Configurator, Submitter or Approver.
+
+Unlike provisioning, nested groups work fine in this scenario, so you can reference existing Entra ID grous
+
+### Synchronization notes
+
+User synchronization:
+* In the default mapping configuration, Entra ID users are initially mapped to SignPath users by comparing the following attribute values: 
+    * First, the `externalId` attribute configured in step 5
+    * Second, the `displayName` attribute
+* When an Entra ID user is removed from all groups that are synchronized, the SignPath user will be deactivated.
+
+Group synchronization:
 * Groups are initially mapped using their `displayName` attribute. If a group does not exist in SignPath yet, it will be created.
-* Nested groups are not supported by Microsoft by Microsoft Entra. However, if a user is both in a first- and second-level group, their group assignment (but not role assignment) is correctly resolved. See the [official Microsoft documentation on scoping].
-* We suggest creating two "types" of groups:
-	* _Role groups_ like "PKI Team" or "Auditors" where users are mapped to a specific role, e.g. _Certificate Administrator_ or _Global Reader_.
-	* _Project specific groups_ that can be assigned within SignPath, such as "Project 1 Submitters" or "Project 2 Configurators". You can assign these groups the role _Regular User_.
 
-After the first mapping is done, Azure will match users and groups using their unique IDs.
+After users and groups are synchronized the first time, Entra ID will match them using their unique IDs.
 
 ## Configuration steps
 
@@ -48,7 +67,7 @@ Go back to the Microsoft Entra ID main page, select _App registrations_, change 
 
 ![Microsoft Entra ID - finding the App registration](/assets/img/resources/scim/scr_02a-select-app-registration.png){:.margin-left}
 
-Under _App roles_, create an entry for each role in SignPath using "Users/Groups" as allowed member types:
+Go to _App roles_ and create an entry for each role in SignPath using "Users/Groups" as allowed member types:
 
 | Display name                       | Value                                                                  
 |------------------------------------|------------------------------
@@ -63,15 +82,15 @@ _Note: For more information about the permissions assigned to each role, see the
 
 ![Microsoft Entra ID - create app roles](/assets/img/resources/scim/scr_02b-create-app-roles.png){:.margin-left}
 
-### 3. Create a synchronization user on SignPath
+### 3. Create a synchronization user in SignPath
 
-In your SignPath organization, create a CI user, remember the _Api Token_ and change its role to _Directory Synchronizer_. This user will be the service account on SignPath that creates/updates the user and group entities.
+In your SignPath organization, create a CI user, remember the _Api Token_ and change its role to _Directory Synchronizer_. This user will be the service account in SignPath that creates/updates the user and group entities.
 
 ### 4. Configure provisioning for the enterprise application
 
 Go back to the Microsoft Entra ID main page, select _Enterprise applications_ and select the application you have created in step 1. 
 
-Under _Provisioning_, click _Get started_, then enter the following settings:
+Go to _Provisioning_ and click _Get started_, then enter the following settings:
 
 * Use _Automatic_ for the _Provisioning mode_.
 * Enter `https://scim.connectors.`<wbr>`signpath.io/scim/<your-organization-id>/dry-run` as a _Tenant URL_. 
@@ -107,7 +126,7 @@ Change the _Mapping type_ to "Expression" and enter the following expression: `A
 {:.panel.tip}
 > **Mapping expression**
 >
-> To find out the value for `<your-sso-identifier>:`, open an exising user on SignPath. In the _Identity_ field, everything before the first `:` is your SSO identifier.
+> To find out the value for `<your-sso-identifier>:`, open an exising user in SignPath. In the _Identity_ field, everything before the first `:` is your SSO identifier.
 > 
 > ![SignPath - look up SSO identifier](/assets/img/resources/scim/scr_05e-sso-identifier-on-signpath.png)
 > 
@@ -127,11 +146,11 @@ Select a test user that already exists in the SignPath organization and assign t
 
 ![Microsoft Entra ID - test provisioning](/assets/img/resources/scim/scr_06b-test-provisioning.png){:.margin-left}
 
-When the provisioning succeeded, click on "View details" in section _3. Match user between source and target system_. The synchronization should have found an existing user on SignPath that matches. If it attempts to create a new user, there is an error in the configuration.
+When the provisioning succeeded, click on "View details" in section _3. Match user between source and target system_. The synchronization should have found an existing user in SignPath that matches. If it attempts to create a new user, there is an error in the configuration.
 
 ![Microsoft Entra ID - validate provisioning](/assets/img/resources/scim/scr_06c-validate-provisioning.png){:.margin-left}
 
-### 7. Remove the `/dry-run` postfix, assign users and groups and start provisioning
+### 7. Remove the `/dry-run` postfix, assign users and groups, and start provisioning
 
 After you successfully tested the configuration, you can remove the `/dry-run` postfix of the _Tenant URL_ that was entered in step 4. Afterwards, you can start the provisioning on the _Overview_ page of the provisioning settings The assigned Entra ID users and groups will then be synchronized to your SignPath organization.
 
