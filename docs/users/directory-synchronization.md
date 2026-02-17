@@ -10,7 +10,7 @@ description: Documentation for SignPath directory synchronization using Microsof
 
 Directory synchronization is supported for Microsoft Entra ID (previously Azure Active Directory). 
 
-If you want to connect other directories that support the SCIM protocol, please contact our support team.
+If you want to connect other directories that support the SCIM protocol, please [contact our support team](https://signpath.io/support).
 
 ## Synchronization strategy
 
@@ -31,7 +31,7 @@ Synchronized users and groups cannot be edited manually.
 Instead of assigning users directly to your Entra ID enterprise application, you can create one or more groups and assign these groups. You can also use these groups to assign global roles in SignPath. 
 
 Limitations:
-* Each user can only have _one_ global role other than _Regular User. If you assign a user to groups that result in multiple global group assignments, provisioning of that user will fail. See [Troubleshooting](#Troubleshooting).
+* Each user can only have _one_ global role other than _Regular User_. If you assign a user to groups that result in multiple global group assignments, provisioning of that user will fail. See [Troubleshooting](#Troubleshooting).
 * Nested groups are not supported for provisioning and role assignment by Microsoft by Microsoft Entra. See the [official Microsoft documentation on scoping]. 
 
 ### Assigning project-specific permissions with synchronized groups
