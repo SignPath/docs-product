@@ -132,6 +132,9 @@ The following values
 
 Supported log levels: `none`, `fatal`, `error`, `warning`, `info`, `debug`, `verbose`.
 
+Within `Log.File.Directory`/`SIGNPATH_LOG_FILE_DIRECTORY` the log file is named `SignPath.CryptoProviders.<Interface>.txt` (e.g. `SignPath.CryptoProviders.KSP.txt`). In case the log file would exceed 10 MB, the log file gets rotated (up to five "old" log file copies).
+
+
 #### Timeout settings
 
 | JSON setting                         | Environment variable                               | Default Value | Description

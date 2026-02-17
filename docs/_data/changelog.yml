@@ -13,6 +13,8 @@
             See [timeout settings](/crypto-providers#timeout-settings) for details.
         - text: |
             The Cryptoki library for Windows is now provided as a separate download and not part of the Windows installer any more (see [download section](/crypto-providers#download)).
+        - text: |
+            Logging: new file naming scheme; now a single log file gets written instead of one per process (see [logging settings](/crypto-providers#crypto-provider-config-values-logging)).
       new_features:
         - text: The Crypto Providers are now available via stable links on our download share. See the [download section](/crypto-providers#download) for details.
           issues: [SIGN-8265]
