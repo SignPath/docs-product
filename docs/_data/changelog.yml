@@ -4,7 +4,7 @@
       version: 4.4.6
       improvements:
         - text: |
-            Improved error message when a wrong `ApiUrl` is specified.
+            Improved error message when an incorrect `ApiUrl` is specified.
           issues: [SIGN-8055]
       bug_fixes:
         - text: |
