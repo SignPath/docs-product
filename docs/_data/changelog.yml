@@ -92,11 +92,6 @@
         - text: |
             SignService charts: moved Application Insights connection string from `appSecrets.signService.applicationInsights.connectionString` to `appSecrets.shared.applicationInsights.connectionString`.
           issues: [SIGN-7578]
-    teamcity_plugin:
-      version: 4.0.1
-      bug_fixes:
-        - text: Fixes links to online documentation.
-          issues: [SIGN-8263]
 - date: '2025-12-16'
   updates:
     application:
