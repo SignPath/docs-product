@@ -1,3 +1,15 @@
+- date: '2026-02-17'
+  updates:
+    powershell_module:
+      version: 4.4.6
+      improvements:
+        - text: |
+            Improved error message when a wrong `ApiUrl` is specified.
+          issues: [SIGN-8055]
+      bug_fixes:
+        - text: |
+            Fixed a bug that triggered errors for user-defined parameters ending in `File`.
+          issues: [SIGN-8278]
 - date: '2026-02-12'
   updates:
     application:
