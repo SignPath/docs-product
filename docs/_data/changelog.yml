@@ -1,3 +1,15 @@
+- date: '2026-02-17'
+  updates:
+    powershell_module:
+      version: 4.4.6
+      improvements:
+        - text: |
+            Improved error message when an incorrect `ApiUrl` is specified.
+          issues: [SIGN-8055]
+      bug_fixes:
+        - text: |
+            Fixed: Signing request submission errors when user-defined parameters ended on the term "file".
+          issues: [SIGN-8278]
 - date: '2026-02-12'
   updates:
     application:
@@ -16,14 +28,6 @@
             * `POST /v1/{organizationId}/SigningRequests/Submit*`
             * `POST /v1/{organizationId}/SigningRequests/SignHash`
           issues: [SIGN-7742]
-- date: '2026-02-12'
-  updates:
-    powershell_module:
-      version: 4.4.6
-      improvements:
-        - text: |
-            Fixed: Signing request submission errors when user-defined parameters ended on the term "file".
-          issues: [SIGN-8278]
 - date: '2026-01-28'
   updates:
     powershell_module:
