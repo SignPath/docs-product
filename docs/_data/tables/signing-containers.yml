@@ -17,8 +17,8 @@ methods-comparison:
     - _header: 'Feature Support'
     - topic: Transfer signatures between registries
       notary: 'Yes'
-      cosign_fulcio: 'No'
-      cosign_keys: 'No'
+      cosign_fulcio: 'Yes'
+      cosign_keys: 'Yes'
       dct: 'No'
       gpg: 'No'
     - topic: Non-container artifacts
@@ -131,11 +131,9 @@ methods-comparison:
       cosign_fulcio: |
         * Verification only using repository and/or email addresses
         * Signing without the public transparency log is discouraged
-        * Signature is not transferrable between registries
       cosign_keys: |
         * Verification only with public keys or special X.509 certificates
         * Signing without the public transparency log is discouraged
-        * Signature is not transferrable between registries
       dct: |
         * Security concern: potential history rewrite
         * No stable support in AKS
