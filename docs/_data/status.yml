@@ -11,15 +11,20 @@ current:
       If you experience issues, please email us at [support@signpath.io](mailto:support@signpath.io) in the meantime.
     # link:
 planned:
+  - date: 'Mar. 03, 2026'
+    range: 'Mar. 03, 26, 2025, 00:00 - 04:00 UTC'
+    type: warning
+    title: 'Planned maintenance'
+    description: 'Due to an upgrade in our networking infrastructure, expect temporary problems when using or managing HSM keys and certificates. Software keys and customers using dedicated DPoD HSM instances are not affected.'
 incidents:
-  - date: 'May. 26, 2025'
+  - date: 'May 26, 2025'
     range: 'May, 26, 2025, 07:21 - 10:17 UTC'
     type: warning
     title: 'GitHub integration degradation'
     description: |
       GitHub APIs experienced degraded performance which may have affected SignPath's GitHub integration.
     link: 'https://www.githubstatus.com/incidents/d0nm3xcdc5jw'
-  - date: 'May. 13, 2025'
+  - date: 'May 13, 2025'
     range: 'May. 13, 2025, 15:10 - May. 14, 2025 08:35 UTC'
     type: warning
     title: 'File-based signing interruptions'
