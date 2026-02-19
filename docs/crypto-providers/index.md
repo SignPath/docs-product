@@ -69,7 +69,7 @@ As always, the private key does not leave the boundaries of the HSM.
 
 ## Download and installation {#download}
 
-Choose the correct package and install it on all build agents ():
+Choose the correct package and install it on all build agents:
 
 * [SignPath Windows KSP](/crypto-providers/windows) for _SignTool.exe_ and most native Windows tools
 * [SignPath Cryptoki library](/crypto-providers/cryptoki) for _OpenSSL_, _jarsigner_, and many other Open Source tools
