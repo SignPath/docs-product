@@ -3,8 +3,8 @@ cryptoproviders:
   - id: cryptoki
     name: 'Cryptoki'
     links:
-      - text: 'Linux x64 (.tgz)'
-        link: 'https://download.signpath.io/cryptoproviders/cryptoki/$VERSION/linux/x64/libSignPath.Cryptoki.tgz'
+      - text: 'Linux x64 (.tar.gz)'
+        link: 'https://download.signpath.io/cryptoproviders/cryptoki/$VERSION/linux/x64/libSignPath.Cryptoki.tar.gz'
       - text: 'Windows x64 (.zip)'
         link: 'https://download.signpath.io/cryptoproviders/cryptoki/$VERSION/windows/x64/SignPath.Cryptoki.zip'
   - id: windows_ksp
@@ -22,7 +22,7 @@ cryptoproviders:
   - id: notation_plugin
     name: 'Notation Plugin'
     links:
-      - text: 'Linux x64 (.tgz)'
-        link: 'https://download.signpath.io/cryptoproviders/notation-plugin/$VERSION/linux/x64/notation-signpath.tgz'
+      - text: 'Linux x64 (.tar.gz)'
+        link: 'https://download.signpath.io/cryptoproviders/notation-plugin/$VERSION/linux/x64/notation-signpath.tar.gz'
       - text: 'Windows x64 (.zip)'
         link: 'https://download.signpath.io/cryptoproviders/notation-plugin/$VERSION/windows/x64/notation-signpath.zip'
