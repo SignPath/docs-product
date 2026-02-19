@@ -48,7 +48,6 @@
             * `POST /v1/{organizationId}/SigningRequests/Submit*`
             * `POST /v1/{organizationId}/SigningRequests/SignHash`
           issues: [SIGN-7742]
->>>>>>> main
 - date: '2026-01-28'
   updates:
     powershell_module:
