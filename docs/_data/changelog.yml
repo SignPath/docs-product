@@ -1,7 +1,7 @@
 - date: '2026-02-19'
   updates:
     crypto_providers: 
-      version: 6.0.1
+      version: 6.0.2
       breaking_changes:
         - text: |
             The Windows CSP component for the deprecated [Windows CAPI](https://docs.microsoft.com/en-us/windows/win32/seccrypto/cryptographic-service-providers) (Crypto API) is not longer supported.
