@@ -34,12 +34,13 @@ This section provides general information about using the SignPath Cryptoki libr
 | RedHat       | 8 (latest minor)   |
 | RedHat       | 9 (latest minor)   |
 
+<!-- TODO: this panel (and the next?) is not needed any more - right -->
 {:.panel.info}
 > **Dependency on OpenSSL and `ca-certificates`**
 >
 > The Crypto Providers use OpenSSL internally to perform HTTPS requests. So the packages `openssl` and `ca-certificates` (which contains the HTTPS/TLS root certificates) must be present on your system.
 >
-> If you see log messages like `Error in SSL handshake`, these dependencies may be missing. You can test connectivity via the following command:
+> If you see log messages like `Error in SSL handshake` or `The SSL connection could not be established`, these dependencies may be missing. You can test connectivity via the following command:
 > 
 > ```bash
 > curl https://app.signpath.io/Api/healthz
@@ -58,15 +59,11 @@ This section provides general information about using the SignPath Cryptoki libr
 
 #### Windows
 
-The Cryptoki library is installed to `%ProgramFiles%\SignPath\CryptoProviders\SignPath.Cryptoki.dll` by the [MSI installer](/crypto-providers/windows#installation).
-
-Alternatively, you can copy-deploy `Windows\SignPath.Cryptoki.dll` from the Crypto Providers ZIP archive to your target system.
+You can copy-deploy `SignPath.Cryptoki.dll` from the Crypto Providers `.zip` archive to your target system.
 
 #### Linux
 
-Copy-deploy the Cryptoki library `Linux/libSignPath.Cryptoki/$OpenSslVersion/libSignPath.Cryptoki.so` from the Crypto Providers ZIP archive to your target system.
-
-Check the output of `openssl version` on your target system to select the correct OpenSSL version.
+Copy-deploy the Cryptoki library `libSignPath.Cryptoki.so` from the Crypto Providers `.tar.gz` archive to your target system.
 
 ### Configuration
 

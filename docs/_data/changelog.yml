@@ -1,3 +1,23 @@
+- date: '2026-02-19'
+  updates:
+    crypto_providers: 
+      version: 6.0.1
+      breaking_changes:
+        - text: |
+            The Windows CSP component for the deprecated [Windows CAPI](https://docs.microsoft.com/en-us/windows/win32/seccrypto/cryptographic-service-providers) (Crypto API) is not longer supported.
+        - text: |
+            The following configuration settings have been removed: `Timeouts.HttpRequest`, `Timeouts.FirstRetryDelay` and `Timeouts.RetryCount`. 
+            
+            Instead, use the new settings `ServiceUnavailableTimeoutInSeconds` and `HttpRequestTimeoutInSeconds`. 
+            
+            See [timeout settings](/crypto-providers#timeout-settings) for details.
+        - text: |
+            The Cryptoki library for Windows is now provided as a separate download and not part of the Windows installer any more (see [download section](/crypto-providers#download)).
+        - text: |
+            Logging: new file naming scheme; now a single log file gets written instead of one per process (see [logging settings](/crypto-providers#crypto-provider-config-values-logging)).
+      new_features:
+        - text: The Crypto Providers are now available via stable links on our download share. See the [download section](/crypto-providers#download) for details.
+          issues: [SIGN-8265]
 - date: '2026-02-17'
   updates:
     powershell_module:
@@ -940,7 +960,7 @@
 - date: '2024-10-21'
   updates:
     macos_cryptotokenkit:
-      version: '2.0'
+      version: '2.0.0'
       breaking_changes:
         - text: 'Renamed the command-line parameters to align with the other client tools.'
           issues: [3]
