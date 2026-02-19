@@ -40,7 +40,7 @@ This section provides general information about using the SignPath Cryptoki libr
 >
 > The Crypto Providers use OpenSSL internally to perform HTTPS requests. So the packages `openssl` and `ca-certificates` (which contains the HTTPS/TLS root certificates) must be present on your system.
 >
-> If you see log messages like `Error in SSL handshake`, these dependencies may be missing. You can test connectivity via the following command:
+> If you see log messages like `Error in SSL handshake` or `The SSL connection could not be established`, these dependencies may be missing. You can test connectivity via the following command:
 > 
 > ```bash
 > curl https://app.signpath.io/Api/healthz

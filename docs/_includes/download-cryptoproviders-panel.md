@@ -4,13 +4,11 @@ Parameter `components` must be specified
 Parameter `title_details` may be specified
 {% endcomment %}
 <blockquote class="panel download">
-<p><strong>Download Crypto Providers{%- if include.title_details != nil -%} ({{ include.title_details }}){%- endif -%}</strong></p>
+<p><strong>Download Crypto Providers {%- if include.title_details != nil %} ({{ include.title_details }}) {%- endif -%}</strong></p>
 {%- assign components_arr = include.components | split: "," -%}
 {%- if include.version == nil -%}
 <p>
-These download links refer to the latest available {{ include.major }}.x version. This is recommended for automated downloads from build scripts. (SignPath Crypto Providers use semantic versioning.)
-
-Replace `{{include.major}}-latest` in the URL with the specific version number for stable downloads.
+These download links refer to the latest available {{ include.major }}.x version. This is recommended for automated downloads from build scripts. See <a href="/changelog/">Product changes</a> for stable links to a specific version. SignPath Crypto Providers use <a href="https://semver.org/">semantic versioning</a>.
 
 </p>
    {%- assign major_version = include.major -%}
@@ -22,7 +20,7 @@ Replace `{{include.major}}-latest` in the URL with the specific version number f
    {%- if include.version != nil -%}
      <tr>
        <th></th>
-       <th>{{ latest_version}} (Recommended)</th>
+       <th>{{ latest_version}} (recommended)</th>
        <th>{{ include.version }}</th>
      </tr>
    {%- endif -%}
