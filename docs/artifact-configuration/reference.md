@@ -47,6 +47,7 @@ Since the file's format does not change, the unsigned files are not needed anymo
 * [`<opc-sign>`: Open Packaging Convention](#opc-sign)
 * [`<jar-sign>`: Java Archives](#jar-sign)
 * [`<rpm-sign>`: RPM Package Manager](#rpm-sign)
+* [`<debsigs-sign>`: Debian packages](#debsigs-sign)
 * [`<xml-sign>`: XML Digital Signature](#xml-sign)
 
 The general syntax for embedded signing methods is: `<`_format_`-sign />`
@@ -224,6 +225,46 @@ rpm --import my_key.asc # Import, i.e. trust, the GPG public key
 rpm --verbose --checksig my_package.rpm
 ~~~
 
+#### `<debsigs-sign>`: Debian package {#debsigs-sign}
+
+{% include editions.md feature="file_based_signing.deb" %}
+
+{%- include_relative render-ac-directive-table.inc directive="debsigs-sign" -%}
+
+Create embedded signatures for Debian packages (`.deb` files). Package signatures are based on GPG and require [signing policies](/projects#signing-policies) with a [GPG key](/managing-certificates#certificate-types) certificate. SignPath signs packages using the [`debsigs`] specification.
+
+**Supported options:**  
+
+| Option                 | Optional | Description
+|------------------------|----------|----------------
+| `signature-type`       | No       | The [signature-type][debsigs-sigtype], e.g. `origin`, `maint`, or `archive`. Debian packages can contain multiple signatures _of different type_. Note that verification requires at least an `origin` signature.
+
+##### Example
+
+~~~ xml
+<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
+  <deb-file>
+    <debsigs-sign signature-type="origin" />
+  </deb-file>
+</artifact-configuration>
+~~~
+
+##### Verification {#debsigs-verification}
+
+Package signatures are verified implicitly during [`dpkg --install`][dpkg] operations unless the `--no-debsig` parameter is specified.
+
+{:.panel.note}
+> **Package signature verification is not the default**
+>
+> Many popular Linux distributions including Ubuntu and Debian set `no-debsig` by default in `/etc/dpkg/dpkg.cfg`. The reason is that rather than individual Debian package files, these distros verify the whole package _repository_ via [`Release.gpg`].
+
+The `dpkg` command internally uses [`debsig-verify`]. You can also use this tool directly to verify a `.deb` file after importing the GPG key and setting up the policies (`.pol`) XML file (see [man page][`debsig-verify`] for details).
+
+[`debsigs`]: https://manpages.debian.org/stable/debsigs/debsigs.1p.en.html
+[debsigs-sigtype]: https://manpages.debian.org/stable/debsigs/debsigs.1p.en.html#SIGNATURE_TYPES
+[dpkg]: https://manpages.debian.org/stable/dpkg/dpkg.1.en.html
+[`Release.gpg`]: https://wiki.debian.org/SecureApt#How_apt_uses_Release.gpg
+[`debsig-verify`]: https://manpages.debian.org/stable/debsig-verify/debsig-verify.1.en.html
 
 #### `<xml-sign>`: XML Digital Signature {#xml-sign}
 
@@ -248,7 +289,7 @@ The result is a `Signature` element added to the root element (after all existin
 | X.509 Certificate | _See `key-info-x509-data` option_                                             | `/*/Signature/KeyInfo/X509Data`
 {:.break-code}
 
-**Supported options:**  
+**Supported options:**
 
 | Option                       | Optional | Description
 |------------------------------|----------|------------------------------------------------------------------------------

@@ -24,6 +24,7 @@
     android: true
     java: false
     rpm: false
+    deb: false
     office_macros: false
     xml: false
     docker: false
@@ -94,6 +95,7 @@
     android: true
     java: true
     rpm: false
+    deb: false
     office_macros: false
     xml: false
     docker: false
@@ -159,6 +161,7 @@
     android: true
     java: true
     rpm: true
+    deb: true
     office_macros: true
     xml: true
     docker: true
@@ -281,6 +284,7 @@
     android: true
     java: true
     rpm: true
+    deb: false
     office_macros: false
     xml: false
     docker: true

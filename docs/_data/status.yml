@@ -1,22 +1,30 @@
 # possible types are good, warning, critical
 current:
-    type: good
-    title: 'All systems are operational' # always restore this message when going back to 'good'
-    #type: good | warning | error
-    #title: 'GitHub integration degradation'
-    #description: |
-    #  Since May 26, 2025 07:21 UTC, GitHub REST APIs are degraded. GitHub integrations may therefore not work as expected. 
-    #link:
+    type: warning #values: good | warning | error
+    title: 'Service portal migration'
+    # title: 'All systems are operational' # always restore this message when going back to 'good'
+    description: |
+      We are currently migrating our service portal at [support.signpath.io](https://support.signpath.io/) to a new system.
+      * New user registration is required at the portal.
+      * Access to existing tickets is currently limited, we are working on it.
+
+      If you experience issues, please email us at [support@signpath.io](mailto:support@signpath.io) in the meantime.
+    # link:
 planned:
+  - date: 'Mar. 03, 2026'
+    range: 'Mar. 03, 26, 2025, 00:00 - 04:00 UTC'
+    type: warning
+    title: 'Planned maintenance'
+    description: 'Due to an upgrade in our networking infrastructure, expect temporary problems when using or managing HSM keys and certificates. Software keys and customers using dedicated DPoD HSM instances are not affected.'
 incidents:
-  - date: 'May. 26, 2025'
+  - date: 'May 26, 2025'
     range: 'May, 26, 2025, 07:21 - 10:17 UTC'
     type: warning
     title: 'GitHub integration degradation'
     description: |
       GitHub APIs experienced degraded performance which may have affected SignPath's GitHub integration.
     link: 'https://www.githubstatus.com/incidents/d0nm3xcdc5jw'
-  - date: 'May. 13, 2025'
+  - date: 'May 13, 2025'
     range: 'May. 13, 2025, 15:10 - May. 14, 2025 08:35 UTC'
     type: warning
     title: 'File-based signing interruptions'
