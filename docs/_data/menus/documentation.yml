@@ -62,6 +62,9 @@
 
 - text: Origin Verification
   path: origin-verification
+  items:
+    - text: SLSA Attestations
+      path: slsa-attestations
 
 - separator: true
 
