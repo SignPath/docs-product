@@ -53,10 +53,12 @@ The following parameters are used for these URIs:
 | [GitHub Actions]               | `github`         | Build L1 - L3
 | [Azure DevOps]                 | `azure-devops`   | Build L1 - L3
 | [GitLab CI/CD]                 | `gitlab`         | Build L1 - L3
+| [TeamCity]                     | `teamcity`       | Build L1 - L2
 
 [GitHub Actions]: /trusted-build-systems/github
 [Azure DevOps]: /trusted-build-systems/azure-devops
 [GitLab CI/CD]: /trusted-build-systems/gitlab
+[TeamCity]: /trusted-build-systems/teamcity
 
 {:.panel.info}
 > **Attestation vs. code signing**
