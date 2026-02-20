@@ -18,6 +18,43 @@
       new_features:
         - text: The Crypto Providers are now available via stable links on our download share. See the [download section](/crypto-providers#download) for details.
           issues: [SIGN-8265]
+    teamcity_plugin:
+      version: 0.5.0
+      improvements:
+        - text: |
+            Only the TeamCity connector, not the SignPath application needs to be reachable from TeamCity agents.
+          issues: [SIGN-8085]
+    teamcity_connector:
+      version: 0.9.0
+      new_features:
+        - text: |
+            Added support for SLSA Build Level 2 compliance.
+          issues: [SIGN-8236]
+      improvements:
+        - text: |
+            Increased default HTTP client timeout.
+          issues: [SIGN-8353]
+        - text: |
+            Improved logging messages.
+          issues: [SIGN-8268]
+    azure_devops_connector:
+      version: 0.9.0
+      improvements:
+        - text: |
+            Increased default HTTP client timeout.
+          issues: [SIGN-8353]
+        - text: |
+            Improved logging messages.
+          issues: [SIGN-8268]
+    github_connector:
+      version: 1.13.0
+      improvements:
+        - text: |
+            Increased default HTTP client timeout.
+          issues: [SIGN-8353]
+        - text: |
+            Improved logging messages.
+          issues: [SIGN-8268]
 - date: '2026-02-17'
   updates:
     powershell_module:
