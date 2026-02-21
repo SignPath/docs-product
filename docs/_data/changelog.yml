@@ -22,13 +22,13 @@
       version: 0.5.0
       improvements:
         - text: |
-            Only the TeamCity connector, not the SignPath application needs to be reachable from TeamCity agents.
+            TeamCity agents now connect to the SignPath TeamCity connector only. (Agents used to download artifacts from SignPath directly.)
           issues: [SIGN-8085]
     teamcity_connector:
       version: 0.9.0
       new_features:
         - text: |
-            Added support for SLSA Build Level 2 compliance.
+            Added support for SLSA Build Level 2 attestations.
           issues: [SIGN-8236]
       improvements:
         - text: |
