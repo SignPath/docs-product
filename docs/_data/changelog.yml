@@ -1,3 +1,32 @@
+- date: '2026-02-24'
+  updates:
+    application:
+      version: 1.206.0
+      improvements:
+        - text: |
+            Added "cancel" buttons to create/edit screens.
+          issues: [SIGN-8281]
+      bug_fixes:
+        - text: |
+            Fixed: improved error reporting for detached signing directives (e.g. `<create-raw-signature>`) with a missing `output-file-name` parameter in the artifact configuration.
+          issues: [SIGN-8310]
+        - text: |
+            Fixed in REST API: improved error handling for requests with missing/invalid `Content-Type` request headers.
+          issues: [SIGN-8309]
+    self_hosted_installations:
+      version: 1.206.0
+      breaking_changes:
+        - text: |-
+            Due to updated S3 content store client libraries, content store uploads may fail when connecting to older MinIO versions. In such cases, the following option can be appended to the `appSecrets.shared.contentStore` connection string: `;RequestChecksumCalculation=WHEN_REQUIRED`.
+          issues: [SIGN-8288]
+        - text: |-
+            As the Kubernetes NGINX Ingress Controller became [obsolete](https://kubernetes.io/blog/2025/11/11/ingress-nginx-retirement/), the default ingress annotations in the `signpath-application-ingress` chart have been disabled.
+            * They can be manually re-enabled via `chartSettings.ingressAnnotations.nginx.enabled`.
+            * We recommend the [Traefik Kubernetes Ingress provider](https://doc.traefik.io/traefik/reference/install-configuration/providers/kubernetes/kubernetes-ingress/) as replacement (see the "Incoming HTTP traffic" section installation guide for details).
+          issues: [SIGNOPS-253]
+        - text: |-
+            The `javasigningmethodservice` deployment has been ported to a Linux container. Ensure that your cluster has available resources to host its replicas.
+          issues: [SIGN-8298]
 - date: '2026-02-19'
   updates:
     crypto_providers: 
@@ -65,7 +94,7 @@
           issues: [SIGN-8055]
       bug_fixes:
         - text: |
-            Fixed: Signing request submission errors when user-defined parameters ended on the term "file".
+            Fixed: signing request submission errors when user-defined parameters ended on the term "file".
           issues: [SIGN-8278]
 - date: '2026-02-12'
   updates:
