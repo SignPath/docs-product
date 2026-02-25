@@ -16,7 +16,67 @@ If you want to connect other directories that support the SCIM protocol, please 
 
 ### Manual provisioning
 
-Use EntraID to assign users to your SignPath organization. 
+Assign users to your SignPath organization in the "Users and groups" section of your Enterprise application. 
+
+### Providing Entra ID groups for project-specific permissions
+
+You can use synchronized groups to assign project and signing policy permissions like Configurator, Submitter or Approver.
+
+To synchronize a group from Entra ID, add it to the "Users and groups" section of your Enterprise application. Entra ID requires groups to be assigned either directly or through _one_ level of indirection. Other groups will not be synchronized.
+
+Example:
+
+SignPath Enterprise Application | Users and groups:
+
+| Name           | Type  | Role assigned
+|----------------|-------|------------------------
+| All Developers | Group | SignPath Regular User
+
+Group hierarchy:
+
+* All Developers ✓
+  * Department A Developers ✓
+    * Product A.1 Developers ✗
+
+This will synchronize the groups _All Developers_ and _Department A Developers_, but not _Product A.1 Developers_. If you want to synchronize hierarchical groups with SignPath, you can either add all groups to "Users and groups" in your Enterprise application, or create a specific synchronization group (see next section).
+
+See the [official Microsoft documentation on scoping]. 
+
+### Provisioning with Entra ID groups
+
+Instead of assigning users directly to your Entra ID enterprise application, you can create one or more groups and assign these groups to the Enterprise application's "Users and groups". 
+
+Users must be assigned directly to these groups. Entra ID does not support nested groups for provisioning.
+
+### Recommended group synchronization strategy
+
+If you want to fully control provisioning and permissions through Entra ID group memberships, we recommend the following approach.
+
+SignPath Enterprise Application | Users and groups:
+
+| Name              | Type  | Role assigned                  | _Purpose_
+|-------------------|-------|--------------------------------|-----------
+| SP Users          | Group | SignPath Regular User          | Directly contains all SignPath users
+| SP User Admins    | Group | SignPath User Administrator    | Directly contains all users with global User Administrator role
+| SP Project Admins | Group | SignPath Project Administrator | Directly contains all users with global Project Administrator role
+| ...               | Group | ...                            | 
+| SP Synced Groups  | Group | SignPath Regular User          | Directly contains all groups that will be synchronized to SignPath
+
+This approach helps to identify SignPath assignments for all users and groups via their Group Memberships. It is also useful if you perform user administration in a primary directory system that is in turn synchronized to Entra ID.
+
+### Do not mix global roles
+
+Each user can only have _one_ global role other than _Regular User_.
+
+* Role assignments to _Regular User_ are ignored if another global role is assigned.
+* More than one role assignment other then _Regular User_ will result in a provisioning error in Entra ID. See [Troubleshooting](#Troubleshooting) for error logs.
+
+Based on the example in the previous section, the following group memberships would resultin these global roles:
+
+| Entra user | Member of these Entra groups                | Resulting SignPath global role
+|------------|---------------------------------------------|--------------------------------
+| Jim        | SP Users, SP User Admins                    | User Administrator
+| Mary       | SP Users, SP User Admins, SP Project Admins | _provisioning error_
 
 ### Hybrid user management
 
@@ -26,21 +86,7 @@ You can keep using the user management functions in SignPath to create and manag
 
 Synchronized users and groups cannot be edited manually.
 
-### Provisioning with synchronized groups
-
-Instead of assigning users directly to your Entra ID enterprise application, you can create one or more groups and assign these groups. You can also use these groups to assign global roles in SignPath. 
-
-Limitations:
-* Each user can only have _one_ global role other than _Regular User_. If you assign a user to groups that result in multiple global group assignments, provisioning of that user will fail. See [Troubleshooting](#Troubleshooting).
-* Nested groups are not supported for provisioning and role assignment by Microsoft by Microsoft Entra. See the [official Microsoft documentation on scoping]. 
-
-### Assigning project-specific permissions with synchronized groups
-
-You can assign synchronized groups to project and signing policy permissions such as Configurator, Submitter or Approver.
-
-Unlike provisioning, nested groups work fine in this scenario, so you can reference existing Entra ID grous
-
-### Synchronization notes
+### Synchronization attribute mapping
 
 User synchronization:
 * In the default mapping configuration, Entra ID users are initially mapped to SignPath users by comparing the following attribute values: 
