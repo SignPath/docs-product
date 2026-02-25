@@ -192,6 +192,18 @@ main > section.resources-section {
 			}
 		}
 
+		ul.uniform-list {
+			&, 
+			& ul,
+			& ul ul,
+			& ul ul ul,
+			& ul ul ul ul,
+			& ul ul ul ul ul {
+				list-style-type: disc;
+				list-style-position: outside;
+			}
+		}
+
 		/** HIGHLIGHTS **/
 		blockquote.panel {
 			border: 1px solid $grey-border-color;
@@ -251,6 +263,14 @@ main > section.resources-section {
 				& > h6:first-child::before {
 					content: "\e814";
 					font-family: fontello;				
+				}
+			}
+
+			&.example {
+				background-color: $extra-light-grey-background-color;
+				& > p:first-child::before,
+				& > h6:first-child::before {
+					content: "\270e";
 				}
 			}
 
