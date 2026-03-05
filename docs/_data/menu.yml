@@ -45,10 +45,10 @@
   - text: PowerShell
     path: ../powershell
 
-  - text: REST APIs
-    path: rest-apis
+  - text: REST API
+    path: rest-api
 
-  - text: Webhook notifications
+  - text: Webhooks
     path: webhooks
 
 - text: Trusted Build Systems
