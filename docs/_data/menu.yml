@@ -36,8 +36,20 @@
     - text: Examples
       path: examples
 
-- text: Build System Integration
-  path: build-system-integration
+- text: Integration Guide
+  path: integration
+  items:
+  - text: CI/CD Integration
+    path: ci-cd
+
+  - text: PowerShell
+    path: ../powershell
+
+  - text: REST APIs
+    path: rest-apis
+
+  - text: Webhook notifications
+    path: webhooks
 
 - text: Trusted Build Systems
   path: trusted-build-systems

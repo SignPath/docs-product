@@ -26,7 +26,7 @@
 		{%- if parts.size == 1 and parts[0] == "index.md" -%}
 			<span class='no-break'>{{ page.header }}</span>
 		{%- else -%}
-		  {%- for main in site.data.menus.documentation -%}
+		  {%- for main in site.data.menu -%}
 		    {%- if main.path == part0_cleaned -%}
 		    	{%- if parts.size > 2 or parts.size == 2 and parts[-1] != "index.md" -%}
 		    		<span class='no-break'><a href='/{{parts[0]}}'>{{ main.text }}</a>&nbsp;&nbsp;❯&nbsp;&nbsp;</span>
@@ -88,7 +88,7 @@
 				  {%- assign show_nav = 'show' -%}
 				{%- endif -%}
 				<ul class='{{ show_nav }}'>
-					{%- for entry in site.data.menus.documentation -%}
+					{%- for entry in site.data.menu -%}
 						{%- assign activeClass = nil -%}
 						{%- assign currentGroup = nil -%}
 						{%- assign tail = parts[-1] | split: "." -%}

@@ -3,8 +3,10 @@ header: Build System Integration
 layout: resources
 toc: true
 show_toc: 3
-redirect_from: /integrations
 description: Documentation for integrating SignPath with Continuous Integration (CI) platforms and pipelines
+redirect_from: 
+  - /integrations
+  - /build-system-integration
 ---
 
 ## Abstract

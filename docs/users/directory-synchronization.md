@@ -4,6 +4,7 @@ layout: resources
 toc: true
 toc_leves: 3
 description: Documentation for SignPath directory synchronization using Microsoft Entra ID
+redirect_from: /directory-synchronization
 ---
 
 ## Overview
