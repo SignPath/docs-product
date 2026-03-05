@@ -261,7 +261,7 @@ main > section.resources-section {
 				background-color: $extra-light-grey-background-color;
 				& > p:first-child::before,
 				& > h6:first-child::before {
-					content: "\270e";
+					content: "</>";
 				}
 			}
 
