@@ -146,7 +146,7 @@
         - text: Reduced number of required network routes for Azure DevOps Server deployments.
           issues: [SIGN-8227]
     github_connector:
-      version: 1.120.0
+      version: 1.12.0
       improvements:
         - text: Improved performance.
           issues: [SIGN-8157]
