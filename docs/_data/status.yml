@@ -14,8 +14,9 @@ incidents:
       Announced: Due to an upgrade in our networking infrastructure, expect temporary problems when using or managing HSM keys and certificates. Software keys and customers using dedicated DPoD HSM instances are not affected.
 
       Actual downtimes:      
-      * 10 min between 02:10 and 02:50
-      * 17 min 03:43 to 04:00
+      * 8 min 02:10 - 02:19
+      * 2 min 02:47 - 02:50
+      * 17 min 03:43 - 04:00
 
       Unfortunately the update had to be rolled back and will be rescheduled for a later date.
   - date: 'May 26, 2025'
