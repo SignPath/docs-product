@@ -3,7 +3,7 @@
     application:
       version: 1.207.3
       improvements:
-        - text: |
+        - text: |-
             REST API: added possibility to cancel signing requests via the new `POST /v1/{organizationId}/SigningRequests/{id}/Cancel` route.
           issues: [SIGN-1758]
       bug_fixes:
