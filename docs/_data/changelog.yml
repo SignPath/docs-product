@@ -4,27 +4,27 @@
       version: 1.207.3
       improvements:
         - text: |-
-            REST API: added possibility to cancel signing requests via the new `POST /v1/{organizationId}/SigningRequests/{id}/Cancel` route.
+            REST API: new route for cancelling signing requests: `POST /v1/{organizationId}/SigningRequests/{id}/Cancel`
           issues: [SIGN-1758]
       bug_fixes:
         - text: |-
-            Fixed: occasional Jar signing processing errors during high system load.
+            Fixed: occasional JAR signing processing errors during high system load.
           issues: [SIGN-8393]
     self_hosted_installations:
       version: 1.207.3
       breaking_changes:
         - text: |-
-            Within `appSettings.shared.forwardedHeadersOptions` section in the `signpath-application` chart: renamed `knownNetworks` to `knownIPNetworks`.
+            `signpath-application` chart, `appSettings.shared.forwardedHeadersOptions`: renamed `knownNetworks` to `knownIPNetworks`
           issues: [SIGN-8159]
         - text: |-
-            Within `signpath-application` chart: moved whole `openIdConnectOptions` section from `appSecrets.shared` to `appSecrets.webClient`.
+            `signpath-application` chart: moved `openIdConnectOptions` from `appSecrets.shared` to `appSecrets.webClient`
           issues: [SIGN-8159]
         - text: |-
             In the default configuration, OIDC client secrets are now mandatory for the web client configuration, because the authentication flow now uses OAuth Pushed Authorization Requests (PAR).
           issues: [SIGN-8159]
       improvements:
         - text: |-
-            Enable support for ECDSA key management in the nShield SignService variant.
+            ECDSA key management now supported for nShield.
           issues: [SIGN-8354]
 - date: '2026-02-24'
   updates:
