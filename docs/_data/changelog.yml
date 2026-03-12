@@ -20,7 +20,7 @@
             `signpath-application` chart: moved `openIdConnectOptions` from `appSecrets.shared` to `appSecrets.webClient`
           issues: [SIGN-8159]
         - text: |-
-            In the default configuration, OIDC client secrets are now mandatory for the web client configuration, because the authentication flow now uses OAuth Pushed Authorization Requests (PAR).
+            OIDC client secrets are now mandatory for the web client configuration, because the authentication flow now uses OAuth Pushed Authorization Requests (PAR).
           issues: [SIGN-8159]
       improvements:
         - text: |-
