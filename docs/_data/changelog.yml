@@ -14,10 +14,10 @@
       version: 1.207.3
       breaking_changes:
         - text: |-
-            Renamed `knownNetworks` in `appSettings.shared.forwardedHeadersOptions` section to `knownIPNetworks` in the `signpath-application` chart.
+            Within `appSettings.shared.forwardedHeadersOptions` section in the `signpath-application` chart: renamed `knownNetworks` to `knownIPNetworks`.
           issues: [SIGN-8159]
         - text: |-
-            Moved `openIdConnectOptions` section from `appSecrets.shared` to `appSecrets.webClient` in the `signpath-application` chart.
+            Within `signpath-application` chart: moved whole `openIdConnectOptions` section from `appSecrets.shared` to `appSecrets.webClient`.
           issues: [SIGN-8159]
         - text: |-
             In the default configuration, OIDC client secrets are now mandatory for the web client configuration, because the authentication flow now uses OAuth Pushed Authorization Requests (PAR).
