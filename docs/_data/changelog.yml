@@ -247,7 +247,7 @@
       version: 1.201.4
       new_features:
         - text: |-
-            Added support for [DSSE (Dead Simple Signing Envelope) signatures][`<dsse-sign>`](/artifact-configuration/reference#dsse-sign).
+            Added support for DSSE (Dead Simple Signing Envelope) signatures via [`<dsse-sign>`](/artifact-configuration/reference#dsse-sign).
           issues: [SIGN-8132]
       bug_fixes:
         - text: |-
