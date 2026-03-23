@@ -12,7 +12,7 @@ planned:
     description: 'Due to an upgrade in our networking infrastructure, expect temporary problems when using or managing HSM keys and certificates. Software keys and customers using dedicated DPoD HSM instances are not affected.'
 incidents:
   - date: 'Mar. 08, 2026'
-    range: 'Mar. 08, 26, 2026, 00:00 - 04:00 UTC'
+    range: 'Mar. 08, 2026, 00:00 - 04:00 UTC'
     type: warning
     title: 'Planned maintenance'
     description: |
