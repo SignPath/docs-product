@@ -317,7 +317,7 @@ The general syntax for enveloped signing methods is: `<`_format_`-sign output-fi
 
 {%- include_relative render-ac-directive-table.inc directive="dsse-sign" -%}
 
-Create a DSSE signature file that contains the signature and the evenloped original file in JSON format.
+Create a DSSE signature file that contains the signature and the enveloped original file in JSON format.
 
 {:.panel.info}
 > **DSSE (Dead Simple Signing Envelope)**
