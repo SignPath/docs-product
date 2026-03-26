@@ -362,7 +362,7 @@ The resulting artifact will contain both the original file `slsa-vsa.json` and t
 
 {%- include_relative render-ac-directive-table.inc directive="smime-sign" -%}
 
-S/MIME signing can be used to sign arbitrary "messages" with an X.509 certificate. Usually the input is in text form (e.g. the output of the `shasum` utility). The resulting file is a text file which contains both, the input (text) and a CMS signature and can be verified e.g. via `openssl` commands (see below).
+S/MIME signing can be used to sign arbitrary "messages" with an X.509 certificate. Usually the input is in text form (e.g. the output of the `shasum` utility). The resulting file is a text file which contains both, the input (text), and a CMS signature and can be verified e.g. via `openssl` commands (see below).
 
 S/MIME is an [enveloped](#enveloped-signing-methods) signing method and must be used in `<zip-file>` elements.
 
