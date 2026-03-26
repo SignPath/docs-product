@@ -1,3 +1,23 @@
+- date: '2026-03-26'
+  updates:
+    application:
+      version: 1.208.1
+      new_features:
+        - text: |-
+            Added support for S/MIME signing via [`<smime-sign>`](/artifact-configuration/reference#smime-sign).
+          issues: [SIGN-8358, SIGN-8360]
+      bug_fixes:
+        - text: |-
+            Fixed: occasional JAR signing processing errors during high system load.
+          issues: [SIGN-8393, SIGN-8430]
+    self_hosted_installations:
+      version: 1.208.1
+      breaking_changes:
+        - text: |-
+            Renamed Helm charts:
+            * Added "-chart" postfix to all charts
+            * Renamed `signpath-signservice-sw` to `signpath-signservice-software-chart`
+          issues: [SIGN-8348, SIGN-8419]
 - date: '2026-03-12'
   updates:
     application:
@@ -6,10 +26,6 @@
         - text: |-
             REST API: new route for cancelling signing requests: `POST /v1/{organizationId}/SigningRequests/{id}/Cancel`
           issues: [SIGN-1758]
-      bug_fixes:
-        - text: |-
-            Fixed: occasional JAR signing processing errors during high system load.
-          issues: [SIGN-8393]
     self_hosted_installations:
       version: 1.207.3
       breaking_changes:
@@ -247,7 +263,7 @@
       version: 1.201.4
       new_features:
         - text: |-
-            Added support for [DSSE (Dead Simple Signing Envelope) signatures][`<dsse-sign>`](/artifact-configuration/reference#dsse-sign).
+            Added support for DSSE (Dead Simple Signing Envelope) signatures via [`<dsse-sign>`](/artifact-configuration/reference#dsse-sign).
           issues: [SIGN-8132]
       bug_fixes:
         - text: |-
