@@ -1,5 +1,20 @@
 - date: '2026-03-30'
   updates:
+    jenkins_plugin:
+      version: 3.3.0
+      breaking_changes:
+        - text: Requires Jenkins version 2.426.3 or higher.
+          issues: [SIGN-8114]
+      new_features:
+        - text: |-
+            The `archiveArtifact` step is not required any more for signing. Instead of the actual artifact, a digest file is now automatically published to the Jenkins server.
+          issues: [SIGN-8283]
+        - text: |-
+            Added the `inputArtifactRetrievalUrl` and `inputArtifactRetrievalHttpHeaders` parameters to allow retrieving an unsigned artifact from a HTTPS URL.
+          issues: [SIGN-8394]
+      improvements:
+        - text: Various performance improvements.
+          issues: [SIGN-8437]
     application:
       version: 1.208.1
       new_features:
