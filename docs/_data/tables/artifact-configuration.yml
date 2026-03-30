@@ -108,12 +108,13 @@ signing-file-elements:
       isComposite: "No"
       directive: |
         [`<dsse-sign>`](#dsse-sign),
+        [`<smime-sign>`](#smime-sign),
         [`<create-cms-signature>`](#create-cms-signature),
         [`<create-gpg-signature>`](#create-gpg-signature),
         [`<create-raw-signature>`](#create-raw-signature)
       extensions: "*"
       description: |
-        Create enveloped signatures ([DSSE](#dsse-sign))
+        Create enveloped signatures ([DSSE](#dsse-sign) or [S/MIME](#smime-sign))
         and detached signatures ([CMS/PKCS #7](#create-cms-signature), [GPG/OpenPGP](#create-gpg-signature), [raw](#create-raw-signature))
          for arbitrary files (available for Advanced Code Signing).
 
@@ -140,7 +141,8 @@ signing-method-categories:
       description: Adds a new file that contains the unsigned file _and_ the signature.
       original: Preserved
       available: |
-        [`<dsse-sign>`](#dsse-sign)
+        [`<dsse-sign>`](#dsse-sign),
+        [`<smime-sign>`](#smime-sign)
     - category: "[Detached](#detached-signing-methods)"
       description: Adds a new file that contains only the signature.
       original: Preserved

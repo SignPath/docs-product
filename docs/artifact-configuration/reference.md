@@ -308,6 +308,7 @@ While the original file is still available, it often needs to be extracted from 
 #### Supported enveloped formats
 
 * [`<dsse-sign>`: DSSE (Dead Simple Signing Envelope)](#dsse-sign)
+* [`<smime-sign>`: S/MIME signing](#smime-sign)
 
 The general syntax for enveloped signing methods is: `<`_format_`-sign output-file-name="..." />`
 
@@ -317,7 +318,7 @@ The general syntax for enveloped signing methods is: `<`_format_`-sign output-fi
 
 {%- include_relative render-ac-directive-table.inc directive="dsse-sign" -%}
 
-Create a DSSE signature file that contains the signature and the evenloped original file in JSON format.
+Create a DSSE signature file that contains the signature and the enveloped original file in JSON format.
 
 {:.panel.info}
 > **DSSE (Dead Simple Signing Envelope)**
@@ -353,6 +354,64 @@ This example signs SLSA Verification Summary Attestations using DSSE:
 ~~~
 
 The resulting artifact will contain both the original file `slsa-vsa.json` and the enveloped signature`slsa-vsa.dsse`.
+
+
+#### `<smime-sign>`: S/MIME signing {#smime-sign}
+
+{% include editions.md feature="file_based_signing.smime" %}
+
+{%- include_relative render-ac-directive-table.inc directive="smime-sign" -%}
+
+S/MIME signing can be used to sign arbitrary "messages" with an X.509 certificate. Usually the input is in text form (e.g. the output of the `shasum` utility). The resulting file is a text file which contains both, the input (text), and a CMS signature and can be verified e.g. via `openssl` commands (see below).
+
+S/MIME is an [enveloped](#enveloped-signing-methods) signing method and must be used in `<zip-file>` elements.
+
+The `smime-sign` directive supports the following parameters:
+
+| Parameter          | Default value             | Available values             | Description
+|--------------------|---------------------------|------------------------------|-------------------------------------------------
+| `output-file-name` | (mandatory)               |                              | Name of the output file containing the signature. Use `${file.name}` to reference the source file name.
+| `normalization`    | `line-endings`            | `line-endings`, `none`       | Use `line-endings` to normalize line endings to `<CR><LF>` (see [RFC 8551](https://datatracker.ietf.org/doc/html/rfc8551)), else no normalization happens (the input file is treated as binary).
+| `hash-algorithm`   | `sha256`                  | `sha256`, `sha384`, `sha512` | Hash algorithm used to create the signature.
+| `rsa-padding`      | (mandatory for RSA keys)  | `pkcs1`, `pss`               | Padding algorithm (ignored for non-RSA keys).
+
+##### S/MIME signing example
+
+This example signs a hash sum text file as `hashes.txt.msg`:
+
+~~~ xml
+<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
+  <zip-file>
+    <file path="hashes.txt">
+      <smime-sign
+        normalization="line-endings"
+        hash-algorithm="sha256"
+        rsa-padding="pkcs1"
+        output-file-name="${file.name}.msg" />
+    </file>
+  </zip-file>
+</artifact-configuration>
+~~~
+
+##### S/MIME verification
+
+S/MIME signature files can be verified with both, the `openssl cms` or `openssl smime` commands:
+
+~~~ bash
+openssl cms -verify -purpose codesign -in "hashes.txt.msg" -out "hashes.txt"
+
+openssl smime -verify -purpose codesign -in "hashes.txt.msg" -out "hashes.txt"
+~~~
+
+{:.panel.warning}
+> **OpenSSL CMS verification**
+>
+> * Prior to OpenSSL 3.2, the `-purpose` flag does not support `codesign`. Use `any` instead.
+> * When the certificate is not trusted on the target system, specify `-CAfile` with the path of the root certificate. Make sure that the root certificate is distributed in a secure way.
+
+
+
+
 
 ### Detached signing methods {#detached-signing-methods}
 
