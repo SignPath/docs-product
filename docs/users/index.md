@@ -146,8 +146,8 @@ Please always mention your *Organization ID* in support requests.
 
 In addition to these global user roles, the following permissions are assigned per project or signing policy:
 
-* Projects: [*Readers* and *Configurators* permissions](projects#project-settings)
-* Signing policies: [*Submitters* and *Approvers* permissions](projects#signing-policies)
+* Projects: [*Readers* and *Configurators* permissions](/projects#project-settings)
+* Signing policies: [*Submitters* and *Approvers* permissions](/projects#signing-policies)
 
 Read permissions:
 
