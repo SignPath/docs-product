@@ -62,7 +62,7 @@ Include the `submitSigningRequest` and optionally, the `getSignedArtifact` steps
 | `outputArtifactPath`         |                                           | Relative path where the signed artifact is stored after signing
 | `waitForCompletion`          | (mandatory)                               | Set to `true` for synchronous and `false` for asynchronous signing requests
 | `parameters`                 |                                           | [User-defined parameters](/artifact-configuration/syntax#parameters) as `Map<String, String>` key/value pairs
-| `inputArtifactRetrievalUrl`  |                                           | Can be used to retrieve the unsigned artifact from a HTTPS URL instead of uploading it from the agent. _Note: The file referenced via `inputArtifactPath` must be the same one._
+| `inputArtifactRetrievalUrl`  |                                           | Can be used to retrieve the unsigned artifact from a HTTPS URL instead of uploading it from the agent. _Note: To ensure that the artifact is part of the build process, the `inputArtifactPath` must also be specified and reference the same file (same SHA256 hash). The HTTPS URL needs to be reachable from the SignPath installation._
 | `inputArtifactRetrievalHttpHeaders` |                                    | HTTP headers used for retrieving the artifact, as `Map<String, String>` key/value pairs.
 
 #### Parameters for the `getSignedArtifact` step
