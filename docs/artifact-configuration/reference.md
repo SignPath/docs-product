@@ -46,6 +46,7 @@ Since the file's format does not change, the unsigned files are not needed anymo
 * [`<office-macro-sign>`: Microsoft Office VBA macros](#office-macro-sign)
 * [`<opc-sign>`: Open Packaging Convention](#opc-sign)
 * [`<jar-sign>`: Java Archives](#jar-sign)
+* [`<apk-sign>`: Android app packages](#apk-sign)
 * [`<rpm-sign>`: RPM Package Manager](#rpm-sign)
 * [`<debsigs-sign>`: Debian packages](#debsigs-sign)
 * [`<xml-sign>`: XML Digital Signature](#xml-sign)
@@ -178,8 +179,6 @@ Note that not all OPC-based formats use OPC signatures:
 
 {%- include_relative render-ac-directive-table.inc directive="jar-sign" -%}
 
-Android apps and app-bundles: Note that JAR signatures only implement APK signing scheme v1 (v2 and v3 are not yet supported).
-
 ##### Verification {#jar-sign-verification}
 
 * **Java** always verifies signatures for client components. For server components, you will need to create a policy. Please consult the documentation of your application server or [Oracle's documentation](https://docs.oracle.com/javase/tutorial/security/toolsign/receiver.html).
@@ -194,6 +193,32 @@ jarsigner -verify -strict <file>.zip
 
 Add the `-verbose` option to see the certificate.
 
+
+#### `<apk-sign>`: Android app packages {#apk-sign}
+
+{% include editions.md feature="file_based_signing.apk" %}
+
+{%- include_relative render-ac-directive-table.inc directive="apk-sign" -%}
+
+Android app package files support [signatures](https://source.android.com/docs/security/features/apksigning) in different schema versions depending on the app's SDK.
+
+**Supported options:**
+
+| Option                 | Optional | Description
+|------------------------|----------|----------------
+| `min-sdk-version`      | Yes      | The lowest Android framework API level that `apk-sign` uses for verification compatibility. By default, `apk-sign` uses the value of the minSdkVersion attribute from the app's manifest file.
+| `max-sdk-version`      | Yes      | The highest Android framework API level that `apk-sign` uses for verification compatibility.
+
+
+##### Example
+
+~~~ xml
+<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
+  <apk-file>
+    <apk-sign />
+  </apk-file>
+</artifact-configuration>
+~~~
 
 #### `<rpm-sign>`: RPM Package Manager {#rpm-sign}
 
@@ -233,7 +258,7 @@ rpm --verbose --checksig my_package.rpm
 
 Create embedded signatures for Debian packages (`.deb` files). Package signatures are based on GPG and require [signing policies](/projects#signing-policies) with a [GPG key](/managing-certificates#certificate-types) certificate. SignPath signs packages using the [`debsigs`] specification.
 
-**Supported options:**  
+**Supported options:**
 
 | Option                 | Optional | Description
 |------------------------|----------|----------------

@@ -30,6 +30,9 @@
       hint: 'Limits the number of parallel signing requests.'
       href: '/product/editions-explained#ci-pipelines'
 
+
+### !! The following feature data is outdated and currently unused (previously used on th "editions" page) !!
+
 - name: file_based_signing
   title: 'Signing methods and file types'
   href: '/product/editions-explained#file-based-signing'
