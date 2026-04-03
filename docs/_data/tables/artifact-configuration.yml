@@ -68,8 +68,13 @@ signing-file-elements:
     - element: "`<jar-file>`"
       isComposite: "Yes"
       directive: "[`<jar-sign>`](#jar-sign)"
-      extensions: ".jar, .war, .ear, .apk, .aab"
-      description: "Java archives and Android apps. (Not available for Code Signing Starter.)"
+      extensions: ".jar, .war, .ear, .aab"
+      description: "Java packages/archives (not available for Code Signing Starter)"
+    - element: "`<apk-file>`"
+      isComposite: "Yes"
+      directive: "[`<apk-sign>`](#apk-sign)"
+      extensions: ".apk"
+      description: "Android app packages (available for Advanced Code Signing)"
     - element: "`<rpm-file>`"
       isComposite: "Yes"
       directive: "[`<rpm-sign>`](#rpm-sign)"
@@ -135,6 +140,7 @@ signing-method-categories:
         [`<opc-sign>`](#opc-sign),
         [`<nuget-sign>`](#nuget-sign),
         [`<jar-sign>`](#jar-sign),
+        [`<apk-sign>`](#apk-sign),
         [`<office-macro-sign>`](#office-macro-sign),
         [`<xml-sign>`](#xml-sign)
     - category: "[Enveloped](#enveloped-signing-methods)"

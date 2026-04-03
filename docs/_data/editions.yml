@@ -23,6 +23,7 @@
     nuget: true
     android: true
     java: false
+    apk: false
     rpm: false
     deb: false
     office_macros: false
@@ -95,6 +96,7 @@
     nuget: true
     android: true
     java: true
+    apk: false
     rpm: false
     deb: false
     office_macros: false
@@ -162,6 +164,7 @@
     nuget: true
     android: true
     java: true
+    apk: true
     rpm: true
     deb: true
     office_macros: true
@@ -286,6 +289,7 @@
     nuget: true
     android: true
     java: true
+    apk: true
     rpm: true
     deb: false
     office_macros: false

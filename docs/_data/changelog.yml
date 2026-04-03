@@ -1,3 +1,27 @@
+- date: '2026-04-07'
+  updates:
+    application:
+      version: 1.209.0
+      new_features:
+        - text: |-
+            Greatly improved signing request list UI:
+            * New filter possibilities, e.g. used project/signing policy, or "submitted before" date filter.
+            * Better use of screen estate.
+            * Easy access to detailed filters like used certificate or signing request status.
+          issues: [SIGN-8337]
+        - text: |-
+            Added support for Android package (APK) signing via [`<apk-sign>`](/artifact-configuration/reference#apk-sign).
+          issues: [SIGN-8324]
+      improvements:
+        - text: |-
+            The trusted build system details page now shows in which projects/signing policies the trusted build system is used.
+          issues: [SIGN-8306]
+    self_hosted_installations:
+      version: 1.209.0
+      breaking_changes:
+        - text: |-
+            Switched HSM interface for nShield HSMs, which requires a manual key conversion step. Ask SignPath support for further details.
+          issues: [SIGN-8294]
 - date: '2026-03-30'
   updates:
     jenkins_plugin:
