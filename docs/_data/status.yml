@@ -5,12 +5,15 @@ current:
     # description: |      
     # link:
 planned:
+incidents:
   - date: 'Apr. 04, 2026'
     range: 'Apr. 04, 2026, 23:00 - Apr. 05, 2026, 3:00 UTC'
     type: warning
     title: 'Planned maintenance'
-    description: 'Due to an upgrade in our networking infrastructure, expect temporary problems when using or managing HSM keys and certificates. Software keys and customers using dedicated DPoD HSM instances are not affected.'
-incidents:
+    description: |
+      Due to an upgrade in our networking infrastructure, expect temporary problems when using or managing HSM keys and certificates. Software keys and customers using dedicated DPoD HSM instances are not affected.
+
+      No significant downtimes during the maintenance operation.
   - date: 'Mar. 08, 2026'
     range: 'Mar. 08, 2026, 00:00 - 04:00 UTC'
     type: warning
@@ -18,7 +21,7 @@ incidents:
     description: |
       Announced: Due to an upgrade in our networking infrastructure, expect temporary problems when using or managing HSM keys and certificates. Software keys and customers using dedicated DPoD HSM instances are not affected.
 
-      Actual downtimes:      
+      Actual downtimes:
       * 8 min 02:10 - 02:19
       * 2 min 02:47 - 02:50
       * 17 min 03:43 - 04:00
