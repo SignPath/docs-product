@@ -5,6 +5,11 @@
       improvements:
         - text: Updated dependencies. The action now requires NodeJS in version 24.
           issues: [SIGN-8448]
+    azure_devops_extension:
+      version: 4.2.0
+        improvements:
+        - text: Updated dependencies. The action now requires NodeJS in version 24.
+          issues: [SIGN-8448]
 - date: '2026-04-07'
   updates:
     application:
