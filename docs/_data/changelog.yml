@@ -1,3 +1,16 @@
+- date: '2026-04-21'
+  updates:
+    application:
+      version: 1.210.0
+    self_hosted_installations:
+      version: 1.210.0
+      improvements:
+        - text: |-
+            Improved reliability when database outages happen during the upgrade migration process.
+          issues: [SIGN-8493]
+        - text: |-
+            Improved performance for signing request list UI and REST API calls.
+          issues: [SIGN-8495]
 - date: '2026-04-09'
   updates:
     github_actions_action:
