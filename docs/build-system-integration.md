@@ -50,28 +50,28 @@ You need to provide these values for every single API request.
 
 | Synopsis                    |      |
 |-----------------------------|------|
-| URL                         | `/SigningRequests`
+| URL                         | `/SigningRequests/SubmitWithArtifact`
 | Method                      | `POST`
 | Encoding                    | `multipart/form-data`
 
 | Field name                  | Description
 |-----------------------------|------------------
-| `ProjectSlug`               | The project for which you want to create the signing request
-| `SigningPolicySlug`         | Signing policy for which you want to create the signing request
-| `ArtifactConfigurationSlug` | Optional: artifact configuration to use for the signing request (default if not specified)
-| `Artifact`                  | Artifact file
-| `Description`               | Optional: description for your signing request (e.g. version number)
+| `projectSlug`               | The project for which you want to create the signing request
+| `signingPolicySlug`         | Signing policy for which you want to create the signing request
+| `artifactConfigurationSlug` | Optional: artifact configuration to use for the signing request (default if not specified)
+| `artifact`                  | Artifact file
+| `description`               | Optional: description for your signing request (e.g. version number)
 
 **Example:**
 
 ~~~ bash
 curl -H "Authorization: Bearer $API_TOKEN" \
-     -F "ProjectSlug=$PROJECT" \
-     -F "SigningPolicySlug=test-signing" \
-     -F "ArtifactConfigurationSlug=v2.4" \
-     -F "Artifact=@$PATH_TO_ARTIFACT" \
-     -F "Description=$DESCRIPTION" \
-     https://app.signpath.io/API/v1/$ORGANIZATION_ID/SigningRequests
+     -F "projectSlug=$PROJECT" \
+     -F "signingPolicySlug=test-signing" \
+     -F "artifactConfigurationSlug=v2.4" \
+     -F "artifact=@$PATH_TO_ARTIFACT" \
+     -F "description=$DESCRIPTION" \
+     https://app.signpath.io/API/v1/$ORGANIZATION_ID/SigningRequests/SubmitWithArtifact
 ~~~
 
 **Success result:** HTTP status code `201`. A HTTP `Location` response-header field is returned with the URL of the created entity.
@@ -80,9 +80,9 @@ curl -H "Authorization: Bearer $API_TOKEN" \
 
 {% include editions.md feature="artifact_configuration.user_defined_parameters" %}
 
-Values for [user-defined parameters](/artifact-configuration/syntax#parameters) in the artifact configuration can be provided by adding another multipart/form-data field prefixed with `Parameters.`
+Values for [user-defined parameters](/artifact-configuration/syntax#parameters) in the artifact configuration can be provided by adding another multipart/form-data field prefixed with `parameters.`
 
-Example: `-F "Parameters[productVersion]=1.2.0"`
+Example: `-F "parameters.productVersion=1.2.0"`
 
 ### Get signing request data
 
@@ -173,17 +173,17 @@ See [Resubmit an existing signing request](/signing-code#resubmit) for more info
 | URL                         | `/SigningRequests/Resubmit`
 | Method                      | `POST`
 | Encoding                    | `multipart/form-data`
-| `OriginalSigningRequestId`  | The ID of the signing request which you want to resubmit
-| `SigningPolicySlug`         | Signing policy for which you want to create the signing request
-| `Description`               | Optional: description for your signing request (e.g. version number)
+| `originalSigningRequestId`  | ID of the signing request which you want to resubmit
+| `signingPolicySlug`         | Signing policy for which you want to create the signing request
+| `description`               | Optional: description for your signing request (e.g. version number)
 
 **Example:**
 
 ~~~ bash
 curl -H "Authorization: Bearer $API_TOKEN" \
-     -F "OriginalSigningRequestId=$ORIGINAL_SIGNING_REQUEST_ID" \
-     -F "SigningPolicySlug=release-signing" \
-     -F "Description=$DESCRIPTION" \
+     -F "originalSigningRequestId=$ORIGINAL_SIGNING_REQUEST_ID" \
+     -F "signingPolicySlug=release-signing" \
+     -F "description=$DESCRIPTION" \
      https://app.signpath.io/API/v1/$ORGANIZATION_ID/SigningRequests/Resubmit
 ~~~
 

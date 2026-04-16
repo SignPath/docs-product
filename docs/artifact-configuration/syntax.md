@@ -51,7 +51,7 @@ Depending on their type, file elements can contain signing directives.
 </pe-file>
 ~~~
 
-Container elements (e.g. archives, directories, packages and installers) can contain nested files, identified by a required `path` attribute. 
+Composite elements (e.g. archives, directories, packages and installers) can contain nested files, identified by a required `path` attribute. 
 
 Use [`<zip-file>`](#zip-file-element) as root element to sign multiple artifacts in one signing request.
 
@@ -70,7 +70,7 @@ To sign several files, you may use [wildcards](#wildcards) ...
 
 ~~~ xml
 <zip-file>
-  <pe-file path="myapp.*" max-occurences="unbounded"> 
+  <pe-file path="myapp.*" max-matches="unbounded"> 
     <authenticode-sign/> 
   </pe-file>
 </zip-file>
@@ -135,7 +135,7 @@ For root elements, the `path` attribute is optional and cannot contain directori
 
 ### `<directory>` element {#directory-element}
 
-All supported container formats have an internal directory structure. You can see this structure if you extract a container to a local disk.
+All supported composite formats have an internal directory structure. You can see this structure if you extract a composite file to a local disk.
 
 You can either specify these directories in the `path` attribute of each file element or nest these file elements within `<directory>` elements.
 

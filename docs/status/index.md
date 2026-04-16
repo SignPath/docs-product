@@ -21,8 +21,8 @@ layout: status
 			{{ site.data.status.current.title }}
 		</h2>
 
-		<div>
-			{{ site.data.status.current.description | newline_to_br }}
+		<div markdown="1">
+{{ site.data.status.current.description }}
 			{%- if site.data.status.current.link -%} <a href="{{ site.data.status.current.link }}"> (Read more)</a> {%- endif -%}
 		</div>
 

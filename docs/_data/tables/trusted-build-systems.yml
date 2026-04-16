@@ -62,7 +62,10 @@ github-extended-policies-runners:
   body:
     - policy: |
         `allowed_groups`
-      description: Provide a list of GitHub runner group names. Ensures that all jobs of the workflow are executed on runners from one of the listed groups. Note that the `GitHub Actions` group is predefined and represents GitHub-hosted runners.
+      description: Provide a list of GitHub runner group names. Ensures that all jobs of the workflow are executed on runners from one of the listed groups.
+    - policy: |
+        `require_github_hosted`
+      description: Set to `true` to ensure that all jobs of the workflow are executed on Github-hosted runners.
 
 github-extended-policies-build:
   headers:

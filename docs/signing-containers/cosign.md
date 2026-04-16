@@ -8,7 +8,7 @@ description: Documentation for signing Docker images with SignPath using Cosign
 
 ## Cosign Overview
 
-_Cosign_ is part of the [Sigstore](https://www.sigstore.dev/) project. It is primarily targeted at the open source community, allowing individual developers to sign container images using OpenID user accounts from GitHub, Google or Microsoft. For those developers, Sigstore eliminates the need for certificates or locally storeed private keys.
+_Cosign_ is part of the [Sigstore](https://www.sigstore.dev/) project. It is primarily targeted at the open source community, allowing individual developers to sign container images using OpenID user accounts from GitHub, Google or Microsoft. For those developers, Sigstore eliminates the need for certificates or locally stored private keys.
 
 {:.panel.info}
 > **Sigstore architecture**

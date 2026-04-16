@@ -25,9 +25,7 @@ export function changelog() {
 			}
 			history.pushState({}, "", url);
 			
-
-			show_hide_components(select_component.value);
-			
+			filter(select_component.value, select_change_type.value);
 		});
 	}
 
@@ -43,51 +41,64 @@ export function changelog() {
 			}
 			history.pushState({}, "", url);
 			
-
-			show_hide_change_types(select_change_type.value);
-			
+			filter(select_component.value, select_change_type.value);
 		});
 	}
 
 	// parse url to already show hide components on startup
 	const url = new URL(location);
-	if (url.searchParams.has('component')) {
-		let component = url.searchParams.get('component');
-		show_hide_components(component);
+	if (url.searchParams.has('component') || url.searchParams.has('change_type')) {
+		let component = url.searchParams.get('component') || 'all';
 		document.getElementById('changelog-component-select').value = component;
 
-		let change_type = url.searchParams.get('change_type');
-		show_hide_change_types(change_type);
+		let change_type = url.searchParams.get('change_type') || 'all';
 		document.getElementById('changelog-change_type-select').value = change_type;
+
+		filter(component, change_type)
 	}
 
-	// show/hide <article>s on page
-	function show_hide_components(identifier) {
-		document.querySelectorAll('section.changelog div[class^=component-], section.changelog article.release').forEach(function(componentDiv) {
-			if (identifier == 'all') {
-				componentDiv.style.display = 'block';
-			} else {
-				if (componentDiv.classList.contains(`component-${identifier}`)) {
-					componentDiv.style.display = 'block';
-				} else {
-					componentDiv.style.display = 'none';
-				}
-			}
-		});
-		document.getElementById('changelog-feed').href = `/changelog/feeds/${identifier}.xml`
-	}
+	function filter(component, change_type) {
+		function matchesComponent(node) {
+			return component == 'all' || node.classList.contains(`component-${component}`);
+		}
 
-	function show_hide_change_types(identifier) {
-		document.querySelectorAll('section.changelog div[class^=change_type-], section.changelog article.release, section.changelog article.release div.component').forEach(function(changeTypeDiv) {
-			if (identifier == 'all') {
-				changeTypeDiv.style.display = 'block';
+		function matchesChangeType(node) {
+			return change_type == 'all' || node.classList.contains(`change_type-${change_type}`);
+		}
+
+		function showNode(node) {
+			node.style.display = 'block';
+		}
+
+		function hideNode(node) {
+			node.style.display = 'none';
+		}
+
+		document.querySelectorAll('section.changelog article.release').forEach(function(releaseDayDiv) {
+			// release day contains at least a change in the component and at least a change in the change type, but not necessarily related
+			if (matchesComponent(releaseDayDiv) && matchesChangeType(releaseDayDiv) 
+				// and all components or all change_types are requested or the exact combination is available
+				&& (component == 'all' || change_type == 'all' || releaseDayDiv.querySelectorAll(`div.component-${component}.change_type-${change_type}`).length != 0)) {
+				showNode(releaseDayDiv);
+				releaseDayDiv.querySelectorAll('div.component').forEach(function(componentDiv) {
+					if (matchesComponent(componentDiv) && matchesChangeType(componentDiv)) {
+						showNode(componentDiv);
+						componentDiv.querySelectorAll('div[class^=change_type-]').forEach(function(changeTypeDiv) {
+							if (matchesChangeType(changeTypeDiv)) {
+								showNode(changeTypeDiv);
+							} else {
+								hideNode(changeTypeDiv);
+							}
+						});
+					} else {
+						hideNode(componentDiv);
+					}
+				});
 			} else {
-				if (changeTypeDiv.classList.contains(`change_type-${identifier}`)) {
-					changeTypeDiv.style.display = 'block';
-				} else {
-					changeTypeDiv.style.display = 'none';
-				}
+				hideNode(releaseDayDiv);
 			}
 		});
+
+		document.getElementById('changelog-feed').href = `/changelog/feeds/${component}.xml`
 	}
 }

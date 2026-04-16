@@ -1,9 +1,560 @@
+- date: '2026-04-09'
+  updates:
+    github_actions_action:
+      version: 2.1.0
+      improvements:
+        - text: Updated dependencies. The action now requires NodeJS in version 24.
+          issues: [SIGN-8448]
+    azure_devops_extension:
+      version: 4.2.0
+        improvements:
+        - text: Updated dependencies. The action now requires NodeJS in version 24.
+          issues: [SIGN-8448]
+- date: '2026-04-07'
+  updates:
+    application:
+      version: 1.209.0
+      new_features:
+        - text: |-
+            Greatly improved signing request list UI:
+            * New filter possibilities, e.g. used project/signing policy, or "submitted before" date filter.
+            * Better use of screen estate.
+            * Easy access to detailed filters like used certificate or signing request status.
+          issues: [SIGN-8337]
+        - text: |-
+            Added support for Android package (APK) signing via [`<apk-sign>`](/artifact-configuration/reference#apk-sign).
+          issues: [SIGN-8324]
+      improvements:
+        - text: |-
+            The trusted build system details page now shows in which projects/signing policies the trusted build system is used.
+          issues: [SIGN-8306]
+    self_hosted_installations:
+      version: 1.209.0
+      breaking_changes:
+        - text: |-
+            Switched HSM interface for nShield HSMs, which requires a manual key conversion step. Ask SignPath support for further details.
+          issues: [SIGN-8294]
+- date: '2026-03-30'
+  updates:
+    jenkins_plugin:
+      version: 3.3.0
+      breaking_changes:
+        - text: Requires Jenkins version 2.426.3 or higher.
+          issues: [SIGN-8114]
+      new_features:
+        - text: |-
+            The `archiveArtifact` step is not required any more for signing. Instead of the actual artifact, a digest file is now automatically published to the Jenkins server.
+          issues: [SIGN-8283]
+        - text: |-
+            Added the `inputArtifactRetrievalUrl` and `inputArtifactRetrievalHttpHeaders` parameters to allow retrieving an unsigned artifact from a HTTPS URL.
+          issues: [SIGN-8394]
+      improvements:
+        - text: Various performance improvements.
+          issues: [SIGN-8437]
+    application:
+      version: 1.208.1
+      new_features:
+        - text: |-
+            Added support for S/MIME signing via [`<smime-sign>`](/artifact-configuration/reference#smime-sign).
+          issues: [SIGN-8358, SIGN-8360]
+      bug_fixes:
+        - text: |-
+            Fixed: occasional JAR signing processing errors during high system load.
+          issues: [SIGN-8393, SIGN-8430]
+    self_hosted_installations:
+      version: 1.208.1
+      breaking_changes:
+        - text: |-
+            Renamed Helm charts:
+            * Added "-chart" postfix to all charts
+            * Renamed `signpath-signservice-sw` to `signpath-signservice-software-chart`
+          issues: [SIGN-8348, SIGN-8419]
+- date: '2026-03-12'
+  updates:
+    application:
+      version: 1.207.3
+      improvements:
+        - text: |-
+            REST API: new route for cancelling signing requests: `POST /v1/{organizationId}/SigningRequests/{id}/Cancel`
+          issues: [SIGN-1758]
+    self_hosted_installations:
+      version: 1.207.3
+      breaking_changes:
+        - text: |-
+            `signpath-application` chart, `appSettings.shared.forwardedHeadersOptions`: renamed `knownNetworks` to `knownIPNetworks`
+          issues: [SIGN-8159]
+        - text: |-
+            `signpath-application` chart: moved `openIdConnectOptions` from `appSecrets.shared` to `appSecrets.webClient`
+          issues: [SIGN-8159]
+        - text: |-
+            OIDC client secrets are now mandatory for the web client configuration, because the authentication flow now uses OAuth Pushed Authorization Requests (PAR).
+          issues: [SIGN-8159]
+      improvements:
+        - text: |-
+            ECDSA key management now supported for nShield.
+          issues: [SIGN-8354]
+- date: '2026-02-24'
+  updates:
+    application:
+      version: 1.206.0
+      improvements:
+        - text: |
+            Added "cancel" buttons to create/edit screens.
+          issues: [SIGN-8281]
+      bug_fixes:
+        - text: |
+            Fixed: missing `output-file-name` parameters in artifact configurations were reported as system errors. 
+          issues: [SIGN-8310]
+        - text: |
+            Fixed in REST API: requests with missing or invalid `Content-Type` request headers were not properly handled.
+          issues: [SIGN-8309]
+    self_hosted_installations:
+      version: 1.206.0
+      breaking_changes:
+        - text: |-
+            Due to changed behavior in the current AWS S3 SDK, content store uploads will fail when using older MinIO versions.
+            * Last known bad version: RELEASE.2023-07-07T07-13-57Z
+            * Earliest known good version: RELEASE.2025-06-13T11-33-47Z
+
+            If you cannot update immediately, you may temporarily append the following option to the `appSecrets.shared.contentStore` connection string: `;RequestChecksumCalculation=WHEN_REQUIRED`.
+          issues: [SIGN-8288]
+        - text: |-
+            The default ingress annotations in the `signpath-application-ingress` chart are now disabled because the Kubernetes NGINX Ingress Controller became [obsolete](https://kubernetes.io/blog/2025/11/11/ingress-nginx-retirement/).
+            * They can be manually re-enabled via `chartSettings.ingressAnnotations.nginx.enabled`.
+            * We recommend the [Traefik Kubernetes Ingress provider](https://doc.traefik.io/traefik/reference/install-configuration/providers/kubernetes/kubernetes-ingress/) as a replacement (see the "Incoming HTTP traffic" section installation guide for details).
+          issues: [SIGNOPS-253]
+        - text: |-
+            The `javasigningmethodservice` deployment now requires a Linux container. If you use it, ensure that your cluster has available resources to host its replicas.
+          issues: [SIGN-8298]
+- date: '2026-02-19'
+  updates:
+    crypto_providers: 
+      version: 6.0.2
+      breaking_changes:
+        - text: |
+            The Windows CSP component for the deprecated [Windows CAPI](https://docs.microsoft.com/en-us/windows/win32/seccrypto/cryptographic-service-providers) (Crypto API) is not longer supported.
+        - text: |
+            The following configuration settings have been removed: `Timeouts.HttpRequest`, `Timeouts.FirstRetryDelay` and `Timeouts.RetryCount`. 
+            
+            Instead, use the new settings `ServiceUnavailableTimeoutInSeconds` and `HttpRequestTimeoutInSeconds`. 
+            
+            See [timeout settings](/crypto-providers#timeout-settings) for details.
+        - text: |
+            The Cryptoki library for Windows is now provided as a separate download and not part of the Windows installer any more (see [download section](/crypto-providers#download)).
+        - text: |
+            Logging: new file naming scheme; now a single log file gets written instead of one per process (see [logging settings](/crypto-providers#crypto-provider-config-values-logging)).
+      new_features:
+        - text: The Crypto Providers are now available via stable links on our download share. See the [download section](/crypto-providers#download) for details.
+          issues: [SIGN-8265]
+    teamcity_plugin:
+      version: 0.5.0
+      improvements:
+        - text: |
+            TeamCity agents now connect to the SignPath TeamCity connector only. (Agents used to download artifacts from SignPath directly.)
+          issues: [SIGN-8085]
+    teamcity_connector:
+      version: 0.9.0
+      new_features:
+        - text: |
+            Added support for SLSA Build Level 2 attestations.
+          issues: [SIGN-8236]
+      improvements:
+        - text: |
+            Increased default HTTP client timeout.
+          issues: [SIGN-8353]
+        - text: |
+            Improved logging messages.
+          issues: [SIGN-8268]
+    azure_devops_connector:
+      version: 0.9.0
+      improvements:
+        - text: |
+            Increased default HTTP client timeout.
+          issues: [SIGN-8353]
+        - text: |
+            Improved logging messages.
+          issues: [SIGN-8268]
+    github_connector:
+      version: 1.13.0
+      improvements:
+        - text: |
+            Increased default HTTP client timeout.
+          issues: [SIGN-8353]
+        - text: |
+            Improved logging messages.
+          issues: [SIGN-8268]
+- date: '2026-02-17'
+  updates:
+    powershell_module:
+      version: 4.4.6
+      improvements:
+        - text: |
+            Improved error message when an incorrect `ApiUrl` is specified.
+          issues: [SIGN-8055]
+      bug_fixes:
+        - text: |
+            Fixed: signing request submission errors when user-defined parameters ended on the term "file".
+          issues: [SIGN-8278]
+- date: '2026-02-12'
+  updates:
+    application:
+      version: 1.205.1
+      new_features:
+        - text: |-
+            Added support for file-based Debian package (`.deb`) signing via [`<debsigs-sign>`](/artifact-configuration/reference#debsigs-sign).
+          issues: [SIGN-8222, SIGN-8276]
+      improvements:
+        - text: |
+            Improved the artifact configuration selection in the project creation UI.
+          issues: [SIGN-8105]
+        - text: |
+            REST API: added `webLink` response property, pointing to the Signing Request UI detail page, in the following routes:
+            * `GET /v1/{organizationId}/SigningRequests/{id}`
+            * `POST /v1/{organizationId}/SigningRequests/Submit*`
+            * `POST /v1/{organizationId}/SigningRequests/SignHash`
+          issues: [SIGN-7742]
+- date: '2026-01-28'
+  updates:
+    powershell_module:
+      version: 4.4.5
+      improvements:
+        - text: Improved authorization error messages.
+          issues: [SIGN-6227]
+- date: '2026-01-27'
+  updates:
+    application:
+      version: 1.204.0
+      improvements:
+        - text: |
+            REST API: specific cause of HTTP 403 (Forbidden) errors is now included in the body.
+          issues: [SIGN-6227]
+    self_hosted_installations:
+      version: 1.204.0
+      breaking_changes:
+        - text: Changed recommended Kubernetes version to 1.33.x and `signpathio/kubectl` image tag to 1.33.
+          issues: [SIGN-8203]
+    azure_devops_connector:
+      version: 0.8.0
+      improvements:
+        - text: Improved performance.
+          issues: [SIGN-8157]
+        - text: Reduced number of required network routes for Azure DevOps Server deployments.
+          issues: [SIGN-8227]
+    github_connector:
+      version: 1.12.0
+      improvements:
+        - text: Improved performance.
+          issues: [SIGN-8157]
+        - text: Reduced number of required network routes for GitHub Enterprise Server deployments.
+          issues: [SIGN-8227]
+      bug_fixes:
+        - text: Fixes wrong values in the repository field for SLSA attestations.
+          issues: [SIGN-8153] 
+    teamcity_connector:
+      version: 0.8.0
+      improvements:
+        - text: Improved performance.
+          issues: [SIGN-8157]
+      bug_fixes:
+        - text: In case of failed artifact uploads, the integration now aborts immediately instead of running into timeouts.
+          issues: [SIGN-8284]
+    teamcity_plugin:
+      version: 0.4.1
+      bug_fixes:
+        - text: Fixes broken documentation links.
+          issues: [SIGN-8263]
+- date: '2026-01-13'
+  updates:
+    application:
+      version: 1.203.0
+      improvements:
+        - text: |-
+            Deep signing with long file paths (> 260 characters) is now supported.
+          issues: [SIGN-8248]
+    self_hosted_installations:
+      version: 1.203.0
+      breaking_changes:
+        - text: |
+            SignService charts: moved Application Insights connection string from `appSecrets.signService.applicationInsights.connectionString` to `appSecrets.shared.applicationInsights.connectionString`.
+          issues: [SIGN-7578]
+- date: '2025-12-16'
+  updates:
+    application:
+      version: 1.202.0
+      breaking_changes:
+        - text: |
+            REST API: improved naming of "verify origin policy" on signing policy objects.
+            * Changed the property `verifyOrigin` to `verifyOriginPolicy` and `originVerification` to `originPolicyVerification` in the following API routes:
+              * `POST /v1/{organizationId}/Projects/{projectSlug}/SigningPolicies`
+              * `POST /v1/{organizationId}/Projects/{projectSlug}/SigningPolicies/{signingPolicySlug}`
+            * Changed the property `verifiesOrigin` to `verifiesOriginPolicy` in the following API routes:
+              * `GET /v1/{organizationId}/Projects/{slug}`
+              * `GET /v1/{organizationId}/Projects/{projectSlug}/SigningPolicies/{signingPolicySlug}`
+          issues: [SIGN-8033, SIGN-8259]
+      new_features:
+        - text: |-
+            Added support for file-based RPM Package Manager (`.rpm`) signing via [`<rpm-sign>`](/artifact-configuration/reference#rpm-sign).
+          issues: [SIGN-8134, SIGN-8162]
+      improvements:
+        - text: |
+            Artifact download permissions based on global roles: only some global roles are now eligible (used to be all explicit global roles). See [documentation](/users#permissions).
+          issues: [SIGN-8171]
+        - text: |
+            Improved the history view on the organization details page (missing fields added).
+          issues: [SIGN-8172]
+    self_hosted_installations:
+      version: 1.202.0
+      upgrade_information:
+        - text: |-
+            All Windows containers switched from Windows Server 2019 to Server 2022 base images. Before starting the upgrade, ensure that your Kubernetes cluster has Windows Server 2022 worker nodes available and ready.
+          issues: [SIGN-8113]
+- date: '2025-12-02'
+  updates:
+    application:
+      version: 1.201.4
+      new_features:
+        - text: |-
+            Added support for DSSE (Dead Simple Signing Envelope) signatures via [`<dsse-sign>`](/artifact-configuration/reference#dsse-sign).
+          issues: [SIGN-8132]
+      bug_fixes:
+        - text: |-
+            Fixed in UI: Error handling for "resubmit" action when the new signing policy doesn't allow the original signing requests' branch name.
+          issues: [SIGN-7955]
+    self_hosted_installations:
+      version: 1.201.4
+      improvements:
+        - text: |-
+            Improved SignService reliability during temporary database outages.
+          issues: [SIGN-8164]
+- date: '2025-11-27'
+  updates:
+    crypto_providers:
+      version: 5.4.0
+      improvements:
+        - text: |
+            Improved Linux Cryptoki samples:
+            * Added sample code for the [`debsigs`](https://manpages.debian.org/stable/debsigs/debsigs.1p.en.html) Debian package format
+            * Simplified the OpenSSL configuration sample for using the PKCS#11 engine with the SignPath CryptoProvider
+          issues: [SIGN-8064, SIGN-8062]
+        - text: |
+            Added Debian 13 ("trixie") to the supported [Linux distros](/crypto-providers#supported-linux-distributions)
+          issues: [SIGN-7994]
+        - text: |
+            Cryptoki on Linux: updated OpenSSL dependency to 3.4.2
+          issues: [SIGN-7906]
+- date: '2025-11-18'
+  updates:
+    application:
+      version: 1.200.2
+      improvements:
+        - text: |-
+            Quotas are now calculated, displayed and limited annually:
+            * Background: Previously, quotas were observed per month, although subscriptions were annually. While this made it easier to detect excess usage early, it sometimes led to problems for customers with usage spikes in certain months.
+            * Starting with this release, each quota period starts from the day and month of the subscription start and lasts one year. (Note that _contract_ periods may be multiple years.)
+            * All annual quotas are set to the contracted value. This is the previous monthly quota times 12, except for customers who were granted excess monthly quotas to deal with spikes.
+            * Find your consumption, quota period and quota limits on your organization details page.
+            * REST API: changes for `GET /v1/{organizationId}/Organization`
+              * New properties: `yearlyMaxSizeOfArtifactsInBytes`, `yearlyMaxNumberOfIndividualSignatures`, `quotaPeriodStart`, `quotaPeriodEnd`
+              * Removed properties: `monthlyMaxSizeOfArtifactsInBytes` and `maxNumberOfIndividualSignatures`
+          issues: [SIGN-3781]
+          saas_only: true
+        - text: |-
+            REST API: new route `GET /v1/{organizationId}/SigningRequests/{id}/Status` for signing request status polling.
+            * Use instead of `GET /v1/{organizationId}/SigningRequests/{id}` for status polling. This route may become rate-limited in the future.
+            * See [API definition](https://app.signpath.io/Api/swagger) for details.
+          issues: [SIGN-8019]
+    self_hosted_installations:
+      version: 1.200.2
+      improvements:
+        - text: |-
+            Added automatic cleanup of temporary signing request metadata in `ApplicationShared` DB which reduces the overall database size.
+          issues: [SIGN-7728]
+- date: '2025-11-04'
+  updates:
+    application:
+      version: 1.199.0
+      improvements:
+        - text: |-
+            REST API: new route `POST /v1/{organizationId}/Projects/{projectSlug}/TrustedBuildSystemLinks` for linking trusted build systems in projects. See [API definition](https://app.signpath.io/Api/swagger) for details.
+          issues: [SIGN-8118, SIGN-7970]
+        - text: |-
+            Minor improvements in the quota display on the organization details page.
+          issues: [SIGN-7588]
+      bug_fixes:
+        - text: |-
+            Fixed: hash signing requests for ECDSA keys with invalid input hash lengths resulted in internal errors (now responds with status 400).
+          issues: [SIGN-8069]
+    self_hosted_installations:
+      version: 1.199.0
+      breaking_changes:
+        - text: Changed recommended Kubernetes version to 1.32 and `signpathio/kubectl` image tag to 1.32.
+          issues: [SIGN-8081]
+- date: '2025-10-28'
+  updates:
+    teamcity_connector:
+      version: 0.7.0
+      improvements:
+        - text: Improved logging to aid problem analysis.
+          issues: [SIGN-8122]
+- date: '2025-10-23'
+  updates:
+    application:
+      version: 1.198.1
+      breaking_changes:
+        - text: |-
+            [`<create-raw-signature>`](/artifact-configuration/reference#create-raw-signature): dropped the legacy `file-name` attribute (has been renamed to `output-file-name` in version 1.179).
+          issues: [SIGN-8063]
+      improvements:
+        - text: |-
+            REST API: new route `POST /v1/{organizationId}/TrustedBuildSystems/AddPredefined` for adding predefined trusted build systems. See [API definition](https://app.signpath.io/Api/swagger) for details.
+          issues: [SIGN-7970]
+      bug_fixes:
+        - text: |-
+            Fixed: trying to sign Authenticode or Office Macro files with very long paths resulted in a generic "processing error" message.
+          issues: [SIGN-7996]
+        - text: |-
+            Fixed in REST API: multipart/form-data requests with invalid field names resulted in status 500 responses (e.g. user-defined parameters in signing request submission).
+          issues: [SIGN-8061]
+    self_hosted_installations:
+      version: 1.198.1
+      improvements:
+        - text: |-
+            Dropped the fourth part (internal build number) from container image version numbers (e.g. image tag for this release is now simply `1.198.1`). In case you perform image mirroring you may need to update your mirroring scripts.
+          issues: [SIGN-7853]
+        - text: |-
+            Improved self-healing/error recovery on temporary SQL connection outages in SignService.
+          issues: [SIGN-7928]
+    azure_devops_extension:
+      version: 4.1.0
+      improvements:
+        - text: All requests including signed artifact download are now performed via the connector service. The build agent no longer needs direct network access to SignPath.
+          issues: [SIGN-8075]
+    github_actions_action:
+      version: 2.0.0
+      breaking_changes:
+        - text: The `signpath-api-url` output parameter has been removed.
+          issues: [SIGN-8075]
+      improvements:
+        - text: All requests including signed artifact download are now performed via the connector service. The build agent no longer needs direct network access to SignPath.
+          issues: [SIGN-8075]
+- date: '2025-10-22'
+  updates:
+    azure_devops_connector:
+      version: 0.7.1
+      improvements:
+        - text: Cleaned up log levels
+          issues: [SIGN-8098]
+    github_connector:
+      version: 1.11.1
+      improvements:
+        - text: Cleaned up log levels
+          issues: [SIGN-8098]
+    teamcity_connector:
+      version: 0.6.1
+      improvements:
+        - text: Signing requests from [personal builds](https://www.jetbrains.com/help/teamcity/personal-build.html) are now rejected.
+          issues: [SIGN-8028]
+        - text: Improved error messages for operational errors.
+          issues: [SIGN-8003]
+        - text: Cleaned up log levels
+          issues: [SIGN-8098]
+    teamcity_plugin:
+      version: 0.4.0
+      improvements:
+        - text: Improved error logging
+          issues: [SIGN-8028]
+- date: '2025-10-07'
+  updates:
+    application:
+      version: 1.197.0
+      improvements:
+        - text: |-
+            Improved error display on signing request details page for failed custom signer invocations.
+          issues: [SIGN-8035]
+      bug_fixes:
+        - text: |-
+            Fixed: re-upload of X.509 certificates didn't work if they contained an ECDSA key.
+          issues: [SIGN-8009]
+        - text: |-
+            Fixed: missing `output-file-name` attributes on `<create-gpg-signature>` or `<create-raw-signature>` directives led to internal errors (improved error handling).
+          issues: [SIGN-8056]
+    self_hosted_installations:
+      version: 1.197.0
+      breaking_changes:
+        - text: |-
+            New mandatory configuration value in `signpath-application` chart: `appSettings.shared.apiUrlOptions.apiBaseUrl`.
+          issues: [SIGN-8025]
+      improvements:
+        - text: |-
+            Operator API: changed `POST /Api/v1-pre/Organizations` to create an _initial_ CI user, which then can be used for additional setup steps via the REST API.
+          issues: [SIGN-8025, SIGN-8050]
+- date: '2025-09-09'
+  updates:
+    application:
+      version: 1.196.0
+      improvements:
+        - text: |-
+            REST API: `POST SigningRequest` route split for more specific contracts
+            * Deprecated `POST /v1/{organizationId}/SigningRequests`
+            * New `POST /v1/{organizationId}/SigningRequests/SubmitWithArtifact` route
+               * Replaces `POST SigningRequests` for `isFastSigningRequest=false`
+               * Improved _response_ contract with metadata for the created signing request
+            * New `POST /v1/{organizationId}/SigningRequests/SignHash` route
+               * Replaces `POST SigningRequests` for `isFastSigningRequest=true`
+               * _Request_ contract now includes payload
+               * Improved _response_ contract with metadata for the created signing request
+          issues: [SIGN-8017]
+        - text: |-
+            REST API: improvements and fixes in the [API definition](https://app.signpath.io/Api/swagger) for better OpenAPI client code generation
+              * Each route now has an "operation ID"
+              * Order of route segments in the schema now matches the order in the routes (e.g. `{organizationId}`)
+              * Added `format=uuid` annotation for `{organizationId}` segments
+              * Fixed some incorrect `required` and some missing `nullable:false` annotations
+              * Added the previously hidden `GET /v1/{organizationId}/Cryptoki/MySigningPolicies` route (used for hash signing)
+          issues: [SIGN-8017]
+- date: '2025-09-08'
+  updates:
+    powershell_module:
+      version: 4.4.4
+      improvements:
+        - text: |-
+            Changed the links in the cmdlet descriptions to point to the new [docs.signpath.io](https://docs.signpath.io) website.
+          issues: [SIGN-6924, SIGN-7981]
+- date: '2025-08-26'
+  updates:
+    application:
+      version: 1.195.0
+      improvements:
+        - text: |-
+            REST API: All status 4xx error response bodies now conform to the [RFC9457](https://datatracker.ietf.org/doc/html/rfc9457) "problem details" JSON format.
+            * Previously, _some_ 400 "bad request" error responses used RFC9457. Other 400 responses and 401/403 responses just contained a simple plain text body with the error message.
+            * REST API clients that process _error response bodies_ may require adaptions.
+          issues: [SIGN-7868]
+      bug_fixes:
+        - text: |-
+            Fixed in REST API: the `GET /v1/{organizationId}/Organization` route contained a typo (renamed `maxNumberOfIndiviudualSignatures` property to `maxNumberOfIndividualSignatures`).
+          issues: [SIGN-7997]
+    self_hosted_installations:
+      version: 1.195.0
+      improvements:
+        - text: |-
+            An internal delay for deleting/archiving artifacts has been reduced from 24 hours to 1 hour.
+          issues: [SIGN-7988]
+- date: '2025-08-12'
+  updates:
+    application:
+      version: 1.194.0
+      bug_fixes:
+        - text: |-
+            Fixed: response was not stored for webhook calls that returned an error, display link failed.
+          issues: [SIGN-7749]
 - date: '2025-08-21'
   updates:
     github_connector:
       version: 1.9.0
       bug_fixes:
-        - text: Fixed a bug that triggered runner group policy violations for GitHub workflow jobs that do not execute any steps and therefore do not have a runner agent assigned.
+        - text: |
+            Fixed: GitHub workflow jobs that do not execute any steps caused violations of _runner group_ policies. (Cause: these jobs do not have a runner agent assigned.)
           issues: [SIGN-7984] 
 - date: '2025-07-15'
   updates:
@@ -11,10 +562,10 @@
       version: 1.192.0
       bug_fixes:
         - text: |-
-            Fixed a bug that prevented details view for signing requests submitted from a _Trusted Build System_ without origin information.
+            Fixed: signing requests submitted from a _Trusted Build System_, but without origin information, were rendered incorrectly.
           issues: [SIGN-7908]
         - text: |-
-            Fixed a certificate import issue for PFX files generated by OpenSSL.
+            Fixed: certificate import for by OpenSSL-generated PFX files didn't work.
           issues: [SIGN-7372]
 - date: '2025-07-08'
   updates:
@@ -22,7 +573,7 @@
       version: '3.2.0'
       improvements:
         - text: Improved the performance and logging.
-          issues: [SIGN-7681, SIGN-7735, SIGNm-7910]
+          issues: [SIGN-7681, SIGN-7735, SIGN-7910]
     azure_devops_connector:
       version: '0.4.0'
       bug_fixes:
@@ -574,7 +1125,7 @@
 - date: '2024-10-21'
   updates:
     macos_cryptotokenkit:
-      version: '2.0'
+      version: '2.0.0'
       breaking_changes:
         - text: 'Renamed the command-line parameters to align with the other client tools.'
           issues: [3]

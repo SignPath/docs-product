@@ -53,7 +53,7 @@ curl -H "Authorization: Bearer $API_TOKEN" \
      -F "SigningPolicySlug=test-signing" \
      -F "IsFastSigningRequest=true" \
      -F "Artifact=@$PATH_TO_ARTIFACT" 
-     https://app.signpath.io/API/v1/$ORGANIZATION_ID/SigningRequests
+     https://app.signpath.io/API/v1/$ORGANIZATION_ID/SigningRequests/SubmitWithArtifact
 ~~~
 
 **Request artifact:**
@@ -84,7 +84,7 @@ curl -H "Authorization: Bearer $API_TOKEN" \
 
 ## Retrieve Signing Policy details {#retrieve-signing-policy-details}
 
-Use `GET {{site.sp_api_url}}/v1/$OrganizationId/Cryptoki/MySigningPolicies?``projectSlug=$Project&signingPolicySlug=$SigningPolicy` to get information about the signing plicy, including the X.509 certificate and RSA key parameters.
+Use `GET {{site.sp_api_url}}/v1/$OrganizationId/Cryptoki/MySigningPolicies?``projectSlug=$Project&signingPolicySlug=$SigningPolicy` to get information about the signing policy, including the X.509 certificate and RSA key parameters.
 
 (If project and signing policy are not specified, this API returns all signing policies where user identified by the API token is assigned as _Submitter_.)
 

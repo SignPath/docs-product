@@ -146,15 +146,15 @@ Please always mention your *Organization ID* in support requests.
 
 In addition to these global user roles, the following permissions are assigned per project or signing policy:
 
-* Projects: [*Readers* and *Configurators* permissions](projects#project-settings)
-* Signing policies: [*Submitters* and *Approvers* permissions](projects#signing-policies)
+* Projects: [*Readers* and *Configurators* permissions](/projects#project-settings)
+* Signing policies: [*Submitters* and *Approvers* permissions](/projects#signing-policies)
 
 Read permissions:
 
 * All users can view configuration information and metadata
 * Access to artifacts is restricted to users with read permissions for the signing request
 * Users have read permissions for a Signing Request if they have
-  * an appropriate global role: *Administrator*, *Global Reader*
+  * an appropriate global role: *Global Administrator*, *Project Administrator*, *Global Reader*, *Support User*
   * a role for the Project: *Reader*, *Configurator*
   * a role for the Signing Policy: *Submitter*, *Approver*
 

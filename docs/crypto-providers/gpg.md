@@ -10,7 +10,7 @@ description: Creating GPG signatures with SignPath
 
 [GNU Privacy Guard](https://gnupg.org/), also known as GPG or GnuPG, is an Open Source implementation of the OpenPGP standard. This section provides information about using GPG with SignPath, as well as some code signing tools that build on GPG.
 
-## Terminology
+### Terminology
 
 GPG uses various terms for certificates. We use the term **_GPG key_** in our GPG documentation, but keep in mind that other parts of the SignPath documentation will use the general term _certificate_. See [Managing Certificates](/managing-certificates#certificate-types) for more information.
 
@@ -36,7 +36,7 @@ This function sets up GPG using the specified parameters:
   * Sets GnuPG's home dir (`GNUPGHOME` environment variable) to a temporary directory to isolate GnuPG configuration and key store changes
   * Configures GPG and `gnupg-pkcs11-scd` and fetches the private key reference
   * Downloads the transferable GPG public key 
-  * Sets the `SIGNPATH_PROJECT_SLUG` and `SIGNPATH_SIGNING_POLICY_SLUG` environment variables to avoid ambiguities in the PKCS #11/Cryptoki provider (see [Configuration](index/#crypto-provider-config-values-project-signingpolicy))
+  * Sets the `SIGNPATH_PROJECT_SLUG` and `SIGNPATH_SIGNING_POLICY_SLUG` environment variables to avoid ambiguities in the PKCS #11/Cryptoki provider (see [Configuration](/crypto-providers/#crypto-provider-config-values-project-signingpolicy))
   * Imports the GPG key and exposes its key ID via the `GPG_KEY_ID` environment variable
   * Installs a Bash EXIT trap which cleans up the isolated GPG configuration
 
@@ -48,6 +48,8 @@ This function sets up GPG using the specified parameters:
 See [SignPath Crypto Providers](/crypto-providers/#crypto-provider-configuration) for additional configuration options including logging.
 
 ## Signing code with GPG
+
+### Common signing tools
 
 The [Linux samples] contain complete example scripts (including all preparation steps) to sign and verify files using the following formats and tools:
 
@@ -66,7 +68,7 @@ For `gnupg-pkcs11-scd`, `stdout` console output must be disabled. Use the log fi
 
 The [`InitializeSignPathCryptoProviderGpgSigning` helper function](/crypto-providers/gpg#configure-gnupg) uses the following logging directories:
 
-* SignPath Cryptoki logs: `/tmp/SignPathLogs/<timestamp>.log`
+* SignPath Cryptoki logs: `/tmp/SignPathLogs/SignPath.CryptoProviders.Cryptoki.txt`
 * `gnupg-pkcs11-scd` logs: `/tmp/SignPathLogs/gnupg-pkcs11-scd.log`
 * GPG logs: `/tmp/SignPathLogs/gpg-agent.log`
 

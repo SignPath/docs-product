@@ -15,9 +15,9 @@ description: GitHub
 * Required for [source code and build policies](#define-policies-for-source-code-and-builds): Install the [SignPath GitHub App](https://github.com/apps/signpath) and allow access to the code repositories.
 
 {:.panel.info}
-> **GitHub Enterprise**
+> **GitHub Enterprise Server**
 >
-> SignPath hosts an instance of the GitHub connector which is linked to GitHub.com For integrating self-hosted GitHub Enterprise instances, contact our [support](https://signpath.io/support) team.
+> SignPath hosts an instance of the GitHub connector which is linked to GitHub.com For integrating self-hosted GitHub Enterprise Server instances, contact our [support](https://signpath.io/support) team.
 
 ## Checks performed by SignPath
 
@@ -43,7 +43,7 @@ steps:
     path: path/to/your/artifact
 
 - id: optional_step_id
-  uses: signpath/github-action-submit-signing-request@v1.1
+  uses: signpath/github-action-submit-signing-request@v2
   with:
     api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
     organization-id: '<SignPath organization id>'
@@ -62,7 +62,7 @@ steps:
 
 {% raw %}
 | Parameter                                     | Default Value                                  | Description 
-|-----------------------------------------------|----------------------------                    |-------------------------------------------------------------
+|-----------------------------------------------|------------------------------------------------|-------------
 | `connector-url`                               | `https://githubactions.connectors.signpath.io` | The URL of the SignPath connector. Required if self-hosted.
 | `api-token`                                   | (mandatory)                                    | The _Api Token_ for a user with submitter permissions in the specified project/signing policy.
 | `organization-id`                             | (mandatory)                                    | The SignPath organization ID.
@@ -87,10 +87,9 @@ steps:
 ### Action output parameters
 
 The action supports the following output parameters:
-- `signing-request-id`: The id of the newly created signing request
-- `signing-request-web-url`: The url of the signing request in SignPath
-- `signpath-api-url`: The base API url of the SignPath API
-- `signed-artifact-download-url`: The url of the signed artifact in SignPath
+- `signing-request-id`: ID of the newly created signing request
+- `signing-request-web-url`: URL of the signing request in SignPath
+- `signed-artifact-download-url`: download URL of the signed artifact
 
 ## Define policies for source code and builds
 
@@ -136,7 +135,7 @@ You can group your policy requirements into multiple conditions, each containing
 | Section                 | Values                         | Description
 |-------------------------|--------------------------------|----------------------------
 | `rules`                 | See below                      | Rules that must be implemented by one ore more active branch rulesets
-| `allow_bypass_actors`   | boolean                        | If `true`, the branche ruleset is allowed to define bypassers 
+| `allow_bypass_actors`   | boolean                        | If `true`, the branch ruleset is allowed to define bypassers 
 | `enforced_from`         | None, timestamp, or `EARLIEST` | By default, the rules are only evaluated at the time of signing. When provided, defines that these rules must have been in place from the specified date (YAML ISO timestamp) or earliest availability of audit log entries (`EARLIEST`). 
 
 {:.panel.info}
@@ -159,7 +158,7 @@ You can group your policy requirements into multiple conditions, each containing
 github-policies:
   runners:
     allowed_groups:
-      - 'GitHub Actions'                         # all jobs need to run on GitHub-hosted runners
+      - 'MySecureRunners'                        # all jobs need to run on runners in the specified group
   build:
     disallow_reruns: true
   branch_rulesets:

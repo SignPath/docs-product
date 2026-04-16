@@ -6,7 +6,7 @@ show_toc: 3
 description: SignPath macOS CryptoTokenKit Crypto Provider
 ---
 
-## General instructions
+## Setup
 
 This section provides information to use SignPath with any tool that supports macOS CryptoTokenKit.
 
@@ -22,13 +22,13 @@ Simply copy-deploy the `SignPathCryptoTokenKit.app` application to the target sy
 
 See [SignPath Crypto Providers](/crypto-providers/#crypto-provider-configuration) for general configuration options.
 
-### Background
+## Usage
 
-macOS allows CryptoTokenKit extensions to be registered in the system. Through these extensions, key material and certificates can be provided. An extension is only available while the application that provides the extension is running. Therefore, before calling signing tools like `codesign`, the `SignPathCryptoTokenKit.app` needs to be started.
+### General usage
 
-### Usage
+#### Enable the CryptoTokenKit extension
 
-The `SignPathCryptoTokenKit.app` application loads all available certificates for the given parameters and makes them avaialble in the macOS keychain through a CryptoTokenKit extension. The application supports the following parameters (all of them are optional):
+Start the `SignPathCryptoTokenKit.app` application to load certificates into the macOS keychain through a CryptoTokenKit extension. The application supports the following parameters (all optional):
 
 | Parameter               | Value                        | Default                       | Description
 |-------------------------|------------------------------|-------------------------------|---------------------------------------
@@ -49,6 +49,11 @@ open SignPathCryptoTokenKit.app --args \
   --organization-id 0241f767-69c8-448d-ad5e-8bd453916068
 ~~~
 
+{:.panel.info}
+> Background
+> 
+> SignPath uses the CryptoTokenKit extension mechanism to provide keys and certificates can be provided. The application that registers the extension must be running. Therefore, before calling signing tools like `codesign`, the `SignPathCryptoTokenKit.app` needs to be started.
+
 #### Project and signing policy {#usage-project-signing-policy}
 
 Identify a specific _Signing Policy_ by specifying _Project_ and _Signing Policy_ slugs. The SignPath CryptoTokenKit provider will select that policy's certificate.
@@ -62,15 +67,57 @@ Default values can be provided as [configuration values](index#crypto-provider-c
 >
 > This works fine if a certificate clearly identifies a single Signing Policy. However, if a certificate is referenced by more than one available _Signing Policy_, using it will result in an ambiguous reference error.
 
-### Troubleshooting
+### codesign {#codesign}
+
+_[codesign]_ is a command line tool by Apple.
+
+_codesign_ requires the following parameter to find the correct certificate:
+
+| Parameter          | Value                                   | Description
+|--------------------|-----------------------------------------|---------------------------------
+| `-s`               | `$SigningIdentity`                      | A descriptor of the code signing identity that is stored in the keychain by the SignPath CryptoTokenKit. Provide the common name (or a substring) of the certificate.
+
+Sample: sign `MyApp.app`
+
+~~~bash
+codesign -s MyCertificateSubjectName MyApp.app
+~~~
+
+{:.panel.info}
+> **Info: Using the right certificate**
+> 
+> `codesign` requires an "Apple Developer Application" certificate.
+
+### productsign {#productsign}
+
+_productsign_ is a command line tool by Apple.
+
+_productsign_ requires the following parameter to find the correct certificate:
+
+| Parameter          | Value                                   | Description
+|--------------------|-----------------------------------------|---------------------------------
+| `--sign`           | `$SigningIdentity`                      | A descriptor of the code signing identity that is stored in the keychain by the SignPath CryptoTokenKit. Provide the common name (or a substring) of the certificate.
+
+Sample: sign `MyInstaller.pkg`
+
+~~~bash
+productsign --timestamp --sign "XX6NBJ3UUF" MyInstaller.pkg MyInstaller-signed.pkg
+~~~
+
+{:.panel.info}
+> **Info: Using the right certificate**
+> 
+> `productsign` requires an "Apple Developer Installer" certificate.
+
+## Troubleshooting
 
 Loading the certificates and making them available in the macOS keychain can take up to 20 seconds.
 
-#### Logs
+### Logs
 
 Unless specified otherwise, the log files are stored in `~/Library/Logs/SignPathCryptoTokenKit/` and `~/Library/Containers/io.signpath.apps.CryptoTokenKit/Data/Library/Logs/ctk/` respectively.
 
-#### Useful commands:
+### Useful commands
 
 The following commands are helpful to make sure the setup is correct:
 
@@ -101,46 +148,5 @@ killall ctkd
 > 
 > When using codesign (or any other signing tool) directly, you are responsible for correct time stamping. See [Timestamps](/crypto-providers#timestamps)
 
-[codesign]: https://developer.apple.com/library/archive/Security/Conceptual/CodeSigningGuide/Procedures/Procedures.html
+[codesign]: x-man-page://1/codesign
 
-## codesign {#codesign}
-
-_[codesign]_ is a command line tool by Apple.
-
-_codesign_ requires the following parameter to find the correct certificate:
-
-| Parameter          | Value                                   | Description
-|--------------------|-----------------------------------------|---------------------------------
-| `-s`               | `$SigningIdentity`                      | A descriptor of the code signing identity that is stored in the keychain by the SignPath CryptoTokenKit. Provide the common name (or a substring) of the certificate.
-
-Sample: sign `MyApp.app`
-
-~~~bash
-codesign -s MyCertificateSubjectName MyApp.app
-~~~
-
-{:.panel.info}
-> **Info: Using the right certificate**
-> 
-> `codesign` requires an "Apple Developer Application" certificate.
-
-## productsign {#productsign}
-
-_productsign_ is a command line tool by Apple.
-
-_productsign_ requires the following parameter to find the correct certificate:
-
-| Parameter          | Value                                   | Description
-|--------------------|-----------------------------------------|---------------------------------
-| `--sign`           | `$SigningIdentity`                      | A descriptor of the code signing identity that is stored in the keychain by the SignPath CryptoTokenKit. Provide the common name (or a substring) of the certificate.
-
-Sample: sign `MyInstaller.pkg`
-
-~~~bash
-productsign --timestamp --sign "XX6NBJ3UUF" MyInstaller.pkg MyInstaller-signed.pkg
-~~~
-
-{:.panel.info}
-> **Info: Using the right certificate**
-> 
-> `productsign` requires an "Apple Developer Installer" certificate.

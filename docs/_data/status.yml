@@ -1,28 +1,45 @@
 # possible types are good, warning, critical
 current:
-    type: good
-    title: 'All systems are operational' # always restore this message when going back to 'good'
-    #type: good | warning | error
-    #title: 'GitHub integration degradation'
-    #description: |
-    #  Since May 26, 2025 07:21 UTC, GitHub REST APIs are degraded. GitHub integrations may therefore not work as expected. 
-    #link:
+    type: good #values: good | warning | error
+    # title: 'All systems are operational' # always restore this message when going back to 'good'
+    # description: |      
+    # link:
 planned:
 incidents:
-  - date: 'May. 26, 2025'
+  - date: 'Apr. 04, 2026'
+    range: 'Apr. 04, 2026, 23:00 - Apr. 05, 2026, 3:00 UTC'
+    type: warning
+    title: 'Planned maintenance'
+    description: |
+      Due to an upgrade in our networking infrastructure, expect temporary problems when using or managing HSM keys and certificates. Software keys and customers using dedicated DPoD HSM instances are not affected.
+
+      No significant downtimes during the maintenance operation.
+  - date: 'Mar. 08, 2026'
+    range: 'Mar. 08, 2026, 00:00 - 04:00 UTC'
+    type: warning
+    title: 'Planned maintenance'
+    description: |
+      Announced: Due to an upgrade in our networking infrastructure, expect temporary problems when using or managing HSM keys and certificates. Software keys and customers using dedicated DPoD HSM instances are not affected.
+
+      Actual downtimes:
+      * 8 min 02:10 - 02:19
+      * 2 min 02:47 - 02:50
+      * 17 min 03:43 - 04:00
+
+      Unfortunately the update had to be rolled back and will be rescheduled for a later date.
+  - date: 'May 26, 2025'
     range: 'May, 26, 2025, 07:21 - 10:17 UTC'
     type: warning
     title: 'GitHub integration degradation'
     description: |
       GitHub APIs experienced degraded performance which may have affected SignPath's GitHub integration.
     link: 'https://www.githubstatus.com/incidents/d0nm3xcdc5jw'
-  - date: 'May. 13, 2025'
+  - date: 'May 13, 2025'
     range: 'May. 13, 2025, 15:10 - May. 14, 2025 08:35 UTC'
     type: warning
     title: 'File-based signing interruptions'
     description: |
       Some file-based signing requests ran into unexpected "processing errors".
-
       * The issue mainly affected MSI and MSIX files with deep-signing configurations.
       * Hash-based signing was not affected.
   - date: 'Apr. 8, 2025'
@@ -37,7 +54,6 @@ incidents:
     title: 'HSM signing interruptions'
     description: |
       Temporary HSM network performance degradation led to automatic service restart escalation.
-
       * Delayed signing request processing.
       * Possible client-side timeouts concerning hash signing.
       * DPoD Cloud HSM and software certificates were not affected. 
@@ -47,7 +63,6 @@ incidents:
     title: 'HSM signing interruptions'
     description: |
       Temporary HSM network performance degradation led to automatic service restart escalation.
-
       * Delayed signing request processing.
       * Possible client-side timeouts concerning hash signing.
       * DPoD Cloud HSM and software certificates were not affected.
@@ -63,7 +78,6 @@ incidents:
     title: 'HTTPS gateway maintenance'
     description: |
       Planned maintenance for the gateway that handles incoming network traffic.
-
       * During this time range inbound requests may fail, including REST API, Web UI, connectors and and crypto providers.
       * Processing of accepted signing requests will not be affected.
   - date: 'Sep. 11, 2024'
@@ -78,7 +92,6 @@ incidents:
     title: 'HSM infrastructure maintenance'
     description: |
       Planned maintenance for SignPath HSM cluster's infrastructure.
-
       * Slightly longer processing times for signing requests including hash signing
       * Software certificates and Thales DPoD Cloud HSM certificates were not affected
   - date: 'Jun. 19, 2024'
@@ -87,7 +100,6 @@ incidents:
     title: 'HSM maintenance'
     description: |
       Planned maintenance for SignPath's HSM cluster.
-
       * Disabled Creating/importing certificates
       * Slightly longer processing times for signing requests including hash signing
       * Software certificates and Thales DPoD Cloud HSM certificates were not affected
@@ -97,7 +109,6 @@ incidents:
     title: 'HSM maintenance'
     description: |
       Planned maintenance for SignPath's HSM cluster.
-
       * Limited certificate management (disabled certificate creation/import), expect slightly longer signing request processing times and hash signing response times.
       * Software certificates and Thales DPoD Cloud HSM certificates were not affected.
   - date: 'Apr. 23, 2024'
@@ -160,7 +171,6 @@ incidents:
     title: 'HSM maintenance'
     description: |
       Planned maintenance for SignPath's HSM cluster.
-
       * Limited certificate management, slightly longer signing request processing times and hash signing response times.
       * Software certificates and Thales DPoD Cloud HSM certificates were not affected.
   - date: 'Aug. 7, 2023'
@@ -174,7 +184,6 @@ incidents:
     title: 'Performance degradation'
     description: |
       Performance issues due to a regression caused by a dependency. We noticed performance degradation in queue processing during the following periods: 
-
       1. May 11 13:00 - 15:36 UTC: 18 min. processing time in the top 95 percentile, some API calls returned HTTP 502 as a side effect
       2. May 11 17:12 - 18:25 UTC: same processing time, no API errors
       3. May 12 08:45 - 09:22 UTC: 15 min. processing time in the top 95 percentile, no API errors

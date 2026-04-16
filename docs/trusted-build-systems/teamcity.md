@@ -16,17 +16,18 @@ Contact our [support](https://signpath.io/support) team for access to these comp
 
 ### On SignPath
 
-1. Add a custom trusted build system and copy the _Trusted Build System Token_ to your TeamCity connector configuration
-2. Link the trusted build system with all projects built on TeamCity
+1. Add a custom trusted build system and copy the _Trusted Build System Token_ to your TeamCity connector configuration.
+2. Link the trusted build system with all projects built on TeamCity.
 
 
 ## Checks performed by SignPath
 
 The TeamCity connector performs the following checks:
 
-* A build was actually performed by a TeamCity build configuration, not by some other entity in possession of the API token
-* [Origin metadata](/origin-verification) is provided by the TeamCity server, not the build script, and can therefore not be forged
-* The artifact is stored on the TeamCity server before it is submitted for signing
+* The build was actually performed by a TeamCity build configuration, not by some other entity in possession of the API token.
+* [Origin metadata](/origin-verification) is provided by the TeamCity server, not the build script, and can therefore not be forged.
+* The artifact is stored on the TeamCity server before it is submitted for signing.
+* The build is not a [personal build](https://www.jetbrains.com/help/teamcity/personal-build.html), potentially containing uncommitted changes.
 
 ## Usage
 
@@ -90,10 +91,10 @@ Add a build step of type _SignPath: Submit Signing Request_
 
 After the build step is run, the following parameters will be available to subsequent build steps:
 
-- `signingRequestId`: The id of the newly created signing request.
-- `signingRequestWebUrl`: The url of the signing request in SignPath.
-- `signPathApiUrl`: The base API url of the SignPath API. 
-- `signedArtifactDownloadUrl`: The url of the signed artifact in SignPath.
+- `signingRequestId`: ID of the created signing request
+- `signingRequestWebUrl`: URL of the signing request in SignPath UI
+- `signPathApiUrl`: SignPath API base URL
+- `signedArtifactDownloadUrl`: Download URL of the signed artifact in SignPath
 
 ## Example
 

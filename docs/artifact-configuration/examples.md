@@ -37,7 +37,7 @@ This configuration works for all PE files.
 
 ## Signing multiple files
 
-### Signing multiple artifacts in a ZIP container
+### Signing multiple artifacts in a ZIP archive
 
 You can sign multiple unrelated artifacts by packing them into a single ZIP file.
 
@@ -56,7 +56,7 @@ You can sign multiple unrelated artifacts by packing them into a single ZIP file
 
 ### Deep-signing an MSI installer {#msi-sample}
 
-This will sign the PE files `libs/common.dll` and `main.exe`, then re-package their MSI container and sign it too. It also restricts the name of the MSI container file.
+This will sign the PE files `libs/common.dll` and `main.exe`, then re-package their MSI file and sign it too. It also restricts the name of the MSI file.
 
 ~~~ xml
 <artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">

@@ -5,7 +5,7 @@ User-agent: *
 Disallow: /contact-done
 Disallow: /sign-up-successful
 Disallow: /newsletter-subscribed
-Disallow: /change-credit-card-subscription
+Disallow: /change-subscription
 Disallow: /editions-explained
 
 Sitemap: {{ site.url }}/sitemap.xml

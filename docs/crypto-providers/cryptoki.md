@@ -27,12 +27,26 @@ This section provides general information about using the SignPath Cryptoki libr
 |--------------|--------------------|------------------------
 | Debian       | 11 "bullseye"      |
 | Debian       | 12 "bookworm"      |
+| Debian       | 13 "trixie"        |
 | Ubuntu       | 20.04              | Except [osslsigncode](#osslsigncode)
 | Ubuntu       | 22.04              |
 | Ubuntu       | 24.04              |
 | RedHat       | 8 (latest minor)   |
 | RedHat       | 9 (latest minor)   |
 
+<!-- TODO: this panel (and the next?) is not needed any more - right -->
+{:.panel.info}
+> **Dependency on OpenSSL and `ca-certificates`**
+>
+> The Crypto Providers use OpenSSL internally to perform HTTPS requests. So the packages `openssl` and `ca-certificates` (which contains the HTTPS/TLS root certificates) must be present on your system.
+>
+> If you see log messages like `Error in SSL handshake` or `The SSL connection could not be established`, these dependencies may be missing. You can test connectivity via the following command:
+> 
+> ```bash
+> curl https://app.signpath.io/Api/healthz
+> ```
+
+{:.panel.warning}
 > **OpenSSL 3.0.0 - 3.0.8 incompatibility**
 >
 > Distributions with an OpenSSL version between 3.0.0 and 3.0.8 (including) don't support the the [OpenSSL](#openssl) and [osslsigncode](#osslsigncode) scenarios.
@@ -40,21 +54,16 @@ This section provides general information about using the SignPath Cryptoki libr
 > The issue results in _"http_exception occurred (error code= generic:168296454): Error in SSL handshake"_ errors.
 >
 > You need to replace the system's OpenSSL version with >= 3.0.9 or use an isolated OpenSSL installation.
-{:.panel.warning}
 
 ### Installation
 
 #### Windows
 
-The Cryptoki library is installed to `%ProgramFiles%\SignPath\CryptoProviders\SignPath.Cryptoki.dll` by the [MSI installer](/crypto-providers/windows#installation).
-
-Alternatively, you can copy-deploy `Windows\SignPath.Cryptoki.dll` from the Crypto Providers ZIP archive to your target system.
+You can copy-deploy `SignPath.Cryptoki.dll` from the Crypto Providers `.zip` archive to your target system.
 
 #### Linux
 
-Copy-deploy the Cryptoki library `Linux/libSignPath.Cryptoki/$OpenSslVersion/libSignPath.Cryptoki.so` from the Crypto Providers ZIP archive to your target system.
-
-Check the output of `openssl version` on your target system to select the correct OpenSSL version.
+Copy-deploy the Cryptoki library `libSignPath.Cryptoki.so` from the Crypto Providers `.tar.gz` archive to your target system.
 
 ### Configuration
 
@@ -99,7 +108,9 @@ For Cryptoki-based signing, tool setup can be complex. Unlike the KSP/CSP provid
 
 If your signing tool does not provide guidance for using Cryptoki libraries, you probably need a solid understanding of the specific tool chain to configure it. For better results, please also refer to [signing flow](/crypto-providers#flow).
 
-## OpenSSL {#openssl}
+## Common code signing tools
+
+### OpenSSL {#openssl}
 
 _[OpenSSL]_ is a toolkit that provides a range of cryptographic operations, including signing.
 
@@ -108,15 +119,50 @@ _[OpenSSL]_ is a toolkit that provides a range of cryptographic operations, incl
 >
 > Only latest OpenSSL 1.1 and 3.x versions are supported. For Linux, see also the notes in [supported Linux distributions](#supported-linux-distributions).
 
-#### Setup
+#### Setup {#openssl-setup}
 
-_OpenSSL_ cannot directly communicate with a Cryptoki library. Instead, the [OpenSC pkcs11 OpenSSL engine](https://github.com/OpenSC/libp11) can be used as adapter between OpenSSL and the SignPath Cryptoki library.
+##### Install the `libp11` OpenSSL engine
 
-**Windows:** Download `libp11-...-windows.zip ` from [OpenSC libp11 Releases](https://github.com/OpenSC/libp11/releases) and copy-deploy `pkcs11.dll` (x64 version).
+_OpenSSL_ cannot directly communicate with a Cryptoki library. Instead, the [OpenSC pkcs11 OpenSSL engine (`libp11`)](https://github.com/OpenSC/libp11) can be used as adapter between OpenSSL and the SignPath Cryptoki library.
 
-**Linux:** Install the OpenSC pkcs11 engine via your package manager (e.g. `apt-get install libengine-pkcs11-openssl` in Ubuntu).
+**Windows:** Download `libp11-<version>-x64.zip` from [OpenSC `libp11` Releases](https://github.com/OpenSC/libp11/releases) and copy-deploy `pkcs11.dll` (x64 version).
 
-Sample: `openssl-signpath.cnf`
+* For **OpenSSL 1.1**, the latest known compatible version is `0.4.11`. Later versions of `libp11` cause _"DSO support routines:win32_load:could not load the shared library"_ errors.
+* For **OpenSSL 3.x** use the _latest_ `libp11` version (at _least_ version `0.4.12`).
+
+**Linux:** Install the OpenSC pkcs11 engine via your package manager (e.g. `apt-get install libengine-pkcs11-openssl` on Debian-based or `dnf install openssl-pkcs11` on RedHat-based distros).
+
+##### Configure OpenSSL
+
+Set the following variables:
+
+| Environment variable | Value 
+|----------------------|--------------------------------------------------------
+| `OPENSSL_ENGINES`    | Path to the **directory** which contains the `libp11` library `pkcs11.dll`/`libpkcs11.so`. Only necessary when the library hasn't been installed to the OpenSSL default dir (see `openssl info -enginesdir`). So on Linux when installing `libp11` via your package manager, you can skip setting `OPENSSL_ENGINES`.
+| `PKCS11_MODULE_PATH` | Full **file** path to `SignPath.Cryptoki.dll`/`libSignPath.Cryptoki.so`
+
+**Windows example:**
+
+~~~ powershell
+$env:OPENSSL_ENGINES = "C:\path\to\libp11\install_dir" # within this dir, the `pkcs11.dll` has to reside
+$env:PKCS11_MODULE_PATH = "C:\path\to\SignPath.Cryptoki.dll"
+
+# sample signing operation:
+openssl dgst -engine pkcs11 -keyform engine -sign "pkcs11:id=$ProjectSlug/$SigningPolicySlug;type=private;pin-value=CONFIG" -sha256 -out "artifact.sig" "artifact.bin"
+~~~
+
+**Linux example:**
+
+~~~ bash
+export PKCS11_MODULE_PATH="/path/to/libSignPath.Cryptoki.so"
+
+# sample signing operation:
+openssl dgst -engine pkcs11 -keyform engine -sign "pkcs11:id=$ProjectSlug/$SigningPolicySlug;type=private;pin-value=CONFIG" -sha256 -out "artifact.sig" "artifact.bin"
+~~~
+
+##### Alternative OpenSSL configuration via `OPENSSL_CONF`
+
+An _alternative_ to using the `OPENSSL_ENGINES`/`PKCS11_MODULE_PATH` env variables is to use create a `openssl-signpath.cnf` file as follows and set the `OPENSSL_CONF` env to point to the configuration file.
 
 ~~~ ini
 config_diagnostics = 1
@@ -129,40 +175,14 @@ engines = engines_section
 pkcs11 = pkcs11_section
 
 [pkcs11_section]
-engine_id = pkcs11
-dynamic_path = /path/to/libpkcs11.so
-MODULE_PATH = /path/to/libSignPath.Cryptoki.so
+# dynamic_path = C:\\path\\to\\pkcs11.dll # necessary when the library hasn't been installed to the OpenSSL default dir (see `openssl info -enginesdir`). So on Linux when installing `libp11` via your package manager, you can skip setting `dynamic_path`.
+MODULE_PATH = C:\\path\\to\\SignPath.Cryptoki.dll # Linux: /path/to/libSignPath.Cryptoki.so
 default_algorithms = ALL
 init = 0
 PIN = CONFIG
 ~~~
 
-{:.panel.info}
-> **Default installation paths of libp11**
->
-> Note that Linux distributions have different default installation paths for `libpkcs11.so`:
->
-> | Distribution                  | Default path 
-> |-------------------------------|--------------
-> | Debian/Ubuntu w/ OpenSSL 1.1  | `/usr/lib/x86_64-linux-gnu/engines-1.1/libpkcs11.so`
-> | Debian/Ubuntu w/ OpenSSL 3.x  | `/usr/lib/x86_64-linux-gnu/engines-3/libpkcs11.so`
-> | RedHat w/ OpenSSL 1.1         | `/usr/lib64/engines-1.1/libpkcs11.so`
-> | RedHat w/ OpenSSL 3.x         | `/usr/lib64/engines-3/libpkcs11.so`
-
-For Windows use .dll paths respectively (note the double backslashes):
-
-~~~ ini
-dynamic_path = C:\\path\\to\\pkcs11.dll
-MODULE_PATH = C:\\path\\to\\SignPath.Cryptoki.dll
-~~~
-
-Also set the following environment variable:
-
-| Environment variable | Value                               | Description
-|----------------------|-------------------------------------|-------------------------
-| `OPENSSL_CONF`"      | Path to `openssl-signpath.cnf` file | This variable tells OpenSSL to load the custom configuration file
-
-#### Invocation
+#### Invocation {#openssl-invocation}
 
 _OpenSSL_ provides a variety of commands that can be used for signing. In this section, a few of them are outlined.
 
@@ -178,11 +198,11 @@ _OpenSSL_ provides a variety of commands that can be used for signing. In this s
 
 Generally, all commands require the following parameters to work with the SignPath Cryptoki library:
 
-| Parameter    | Value                                                     | Description
-|--------------|-----------------------------------------------------------|----------------------------
-| `-keyform`   | `engine`                                                  | Use the specified engine to access the key.
-| `-engine`    | `pkcs11`                                                  | Use the _libp11_ engine specified in the `openssl-signpath.cnf` file.
-| `-inkey`     | `pkcs11:id=$ProjectSlug/$SigningPolicySlug;type=private`  | A PKCS #11 URI including _Project_ and _Signing Policy_ slug, see also [Cryptoki parameters](#cryptoki-parameters).
+| Parameter    | Value                                                                      | Description
+|--------------|----------------------------------------------------------------------------|-------------------------------------------------------------------
+| `-keyform`   | `engine`                                                                   | Use the specified engine to access the key.
+| `-engine`    | `pkcs11`                                                                   | Use the `pkcs11` engine provided by _libp11_.
+| `-inkey`     | `pkcs11:id=$ProjectSlug/$SigningPolicySlug;type=private;pin-value=CONFIG`  | A PKCS #11 URI including _Project_ and _Signing Policy_ slug, see also [Cryptoki parameters](#cryptoki-parameters).
 {: .break-column-2 }
 
 ##### openssl dgst
@@ -192,7 +212,7 @@ The _[dgst][openssl-dsgt]_ command calculates digests of files, but can also be 
 Sample: sign `artifact.bin` and write the signature to `artifact.sig`.
 
 ~~~ powershell
-openssl dgst -engine pkcs11 -keyform engine -sign "pkcs11:id=$ProjectSlug/$SigningPolicySlug;type=private" -sha256 -out "artifact.sig" "artifact.bin"
+openssl dgst -engine pkcs11 -keyform engine -sign "pkcs11:id=$ProjectSlug/$SigningPolicySlug;type=private;pin-value=CONFIG" -sha256 -out "artifact.sig" "artifact.bin"
 ~~~ 
 
 {:.panel.info}
@@ -204,31 +224,28 @@ openssl dgst -engine pkcs11 -keyform engine -sign "pkcs11:id=$ProjectSlug/$Signi
 
 The _[pkeyutl][openssl-pkeyutl]_ command performs low-level cryptographic operations, such as signing.
 
-<!-- todo omit?-->
 {:.panel.info}
 > **Note: provide binary hash digest**
 >
 > The command does hash the input data but will use the data directly as an input for the signature algorithm. To create the hash of a file, you can use the following snippet:
-> 
+>
 > ~~~ powershell
-> $ArtifactHash = Get-FileHash "artifact.bin" -Algorithm "SHA256" # SHA1, SHA256, SHA384 and SHA512 are supported
-> $ArtifactHashBytes = [byte[]] -split ($ArtifactHash.Hash -replace '..', '0x$& ')
-> [IO.File]::WriteAllBytes("artifact.hash.bin", $ArtifactHashBytes)
+> openssl dgst -sha256 -binary -out "artifact.hash.bin" "artifact.bin"
 > ~~~
 
 Sample: sign the hash code in `artifact.hash.bin` using PKCS1 padding, write the signature to `artifact.sig`
 
 ~~~ powershell
-openssl pkeyutl -engine pkcs11 -keyform engine -inkey "pkcs11:id=$ProjectSlug/$SigningPolicySlug;type=private" -sign -in "artifact.hash.bin" -out "artifact.sig" -pkeyopt digest:sha256 -pkeyopt rsa_padding_mode:pkcs1
+openssl pkeyutl -engine pkcs11 -keyform engine -inkey "pkcs11:id=$ProjectSlug/$SigningPolicySlug;type=private;pin-value=CONFIG" -sign -in "artifact.hash.bin" -out "artifact.sig" -pkeyopt digest:sha256 -pkeyopt rsa_padding_mode:pkcs1
 ~~~
 
 Sample: sign the hash code in `artifact.hash.bin` using PSS padding, write the signature to `artifact.sig`
 
 ~~~ powershell
-openssl pkeyutl -engine pkcs11 -keyform engine -inkey "pkcs11:id=$ProjectSlug/$SigningPolicySlug;type=private" -sign -in "artifact.hash.bin" -out "artifact.sig" -pkeyopt digest:sha256 -pkeyopt rsa_padding_mode:pss -pkeyopt rsa_pss_saltlen:-1 -pkeyopt rsa_mgf1_md:sha256
+openssl pkeyutl -engine pkcs11 -keyform engine -inkey "pkcs11:id=$ProjectSlug/$SigningPolicySlug;type=private;pin-value=CONFIG" -sign -in "artifact.hash.bin" -out "artifact.sig" -pkeyopt digest:sha256 -pkeyopt rsa_padding_mode:pss -pkeyopt rsa_pss_saltlen:-1 -pkeyopt rsa_mgf1_md:sha256
 ~~~
 
-#### openssl cms
+##### openssl cms
 
 The _[cms][openssl-cms]_ command can be used to create embedded S/MIME or detached PEM/DER signatures. It uses the Cryptographic Message Syntax format (CMS, formerly known as PKCS#7).
 
@@ -241,10 +258,10 @@ openssl x509 -inform DER -in "certificate.cer" -outform PEM -out "certificate.pe
 Sample: sign the file `artifact.bin` using `certificate.pem`, write the detached signature to `artifact.sig` in PEM format
 
 ~~~ powershell
-openssl cms -engine pkcs11 -signer "certificate.pem" -inkey "pkcs11:id=$ProjectSlug/$SigningPolicySlug;type=private" -keyform engine -sign -binary -in "artifact.bin" -noattr -out "artifact.sig" -outform PEM
+openssl cms -engine pkcs11 -signer "certificate.pem" -inkey "pkcs11:id=$ProjectSlug/$SigningPolicySlug;type=private;pin-value=CONFIG" -keyform engine -sign -binary -in "artifact.bin" -noattr -out "artifact.sig" -outform PEM
 ~~~
 
-## osslsigncode {#osslsigncode}
+### osslsigncode {#osslsigncode}
 
 _[osslsigncode]_ is a tool that allows applying Windows Authenticode signatures on Linux systems using OpenSSL. Accordingly, it also requires an OpenSC pkcs11 OpenSSL engine installation. See the [OpenSSL](#openssl) section for details.
 
@@ -253,7 +270,7 @@ _[osslsigncode]_ is a tool that allows applying Windows Authenticode signatures 
 >
 > Only osslsigncode 2.x or higher is supported. Also see the notes in [supported Linux distributions](#supported-linux-distributions) regarding the supported OpenSSL versions.
 
-#### Setup
+#### Setup {#osslsigncode-setup}
 
 `osslsigncode` requires the X.509 certificate corresponding to the SignPath Project and Signing Policy to be downloaded from SignPath and converted to _PEM format_. You can convert the certificate using OpenSSL via the following example.
 
@@ -261,7 +278,7 @@ _[osslsigncode]_ is a tool that allows applying Windows Authenticode signatures 
 openssl x509 -inform DER -in "certificate.cer" -outform PEM -out "certificate.pem"
 ~~~
 
-#### Invocation
+#### Invocation {#osslsigncode-invocation}
 
 ~~~ powershell
 osslsigncode sign `
@@ -286,11 +303,11 @@ osslsigncode sign `
 > ./RunScenario.sh -Scenario osslsigncode -OrganizationId "$OrganizationId" -ApiToken "$ApiToken" -ProjectSlug "hash-signing" -SigningPolicySlug "test-signing"
 > ```
 
-## OpenSC pkcs11-tool (Linux)
+### OpenSC pkcs11-tool (Linux) {#opensc-pkcs11-tool}
 
 The [OpenSC](https://github.com/OpenSC/OpenSC) [`pkcs11-tool`](https://linux.die.net/man/1/pkcs11-tool) utility can be used to troubleshoot PKCS #11 modules (e.g. listing all available objects or supported algorithms) but also can be used to read certificates/public keys and to perform signing operations.
 
-#### Setup
+#### Setup {#opensc-pkcs11-tool-setup}
 
 {:.panel.info}
 > **`pkcs11-tool` before version 0.23**
@@ -299,7 +316,7 @@ The [OpenSC](https://github.com/OpenSC/OpenSC) [`pkcs11-tool`](https://linux.die
 >
 > _Background: `pkcs11-tool` used to open the Cryptoki session in a read/write mode (see [GitHub issue #2182](https://github.com/OpenSC/OpenSC/issues/2182)) and therefore fails with `PKCS11 function C_OpenSession failed: rv = CKR_TOKEN_WRITE_PROTECTED`. This flag enables compatibility with these earlier versions._
 
-#### Invocation
+#### Invocation {#opensc-pkcs11-tool-invocation}
 
 {:.panel.tip}
 > **Tip**
@@ -322,7 +339,7 @@ pkcs11-tool --module $LibSignPathCryptokiPath --pin CONFIG ...
 | `--module`         | `/path/to/libSignPath.Cryptoki.so`      | Path to the SignPath Cryptoki library
 | `--pin`            | `CONFIG` or `$OrganizationId:$ApiToken` | See [PIN parameter](#cryptoki-parameters)
 
-##### Listing of the available PKCS #11 objects
+##### Listing available PKCS #11 objects
 
 The following command lists available objects, which corresponds to the list of signing policies for which the authenticated user has _Submitter_ permissions.
 
@@ -347,11 +364,11 @@ pkcs11-tool --module $LibSignPathCryptokiPath --pin CONFIG `
 | `--label`          | `$ProjectSlug/$SigningPolicySlug` | _Project_ and _Signing Policy_ slugs, separated by a forward slash
 | `--input-file`     | `/path/to/hash.bin`               | File containing a hash in _binary_ form
 
-## Java jarsigner {#jarsigner}
+### Java jarsigner {#jarsigner}
 
 The [`jarsigner`](https://docs.oracle.com/en/java/javase/17/docs/specs/man/jarsigner.html) command signs and verifies Java archives (e.g. JAR, WAR, EAR). It is included with the Java Development Kit (JDK).
 
-#### Setup
+#### Setup {#jarsigner-setup}
 
 1. Configure the SunPKCS11 Provider
    * OpenJDK: the provider is configured automatically
@@ -366,7 +383,7 @@ library=<path>\SignPath.Cryptoki.dll
 slot=1
 ~~~
 
-#### Invocation
+#### Invocation {#jarsigner-invocation}
 
 {:.panel.tip}
 > **Tip**
