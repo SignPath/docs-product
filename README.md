@@ -33,6 +33,11 @@ For JS development (compiled JS is currently checked in):
 	yarn build
 	(./node_modules/.bin/webpack | (cd docs/ && bundle exec jekyll build))
 
+	# alternative: run webpack directly
+	$env:NODE_OPTIONS="--openssl-legacy-provider" # workaround for newer Node.js versions
+	./node_modules/.bin/webpack
+
+
 
 ### Running it using Docker
 You need to have Docker installed.
