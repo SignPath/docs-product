@@ -31,6 +31,11 @@ The TeamCity connector performs the following checks:
 
 ## Usage
 
+{:.panel.info}
+> **Published artifacts**
+>
+> The build runner publishes the input artifact as a build artifact. This step is necessary to determine that the artifact was actually created from within the running build. If the (signed) output artifact should also published, it must have a different name.
+
 ### Usage with versioned settings
 The SignPath TeamCity Plugin provides a build runner that can be used for submitting signing requests to SignPath.
 
