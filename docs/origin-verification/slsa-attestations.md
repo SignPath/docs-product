@@ -143,6 +143,7 @@ Guarantee: If the provenance is signed by SignPath, the build was executed on a 
 | --             | ------------------------------ |
 | Azure DevOps   | The build was executed on a runner from the Microsoft-hosted pools, which offer isolation (see [the official documentation](https://learn.microsoft.com/en-us/azure/devops/pipelines/security/misc))
 | GitHub Actions | The build was executed on a GitHub-hosted runner, each job is run in a fresh instance of the runner image (see [the official documentation](https://docs.github.com/en/actions/how-tos/manage-runners/github-hosted-runners/use-github-hosted-runners))
+
 <!--| GitLab CI/CD   | The build was executed on a GitLab-hosted runner, each job runs in a newly provisioned VM (see [the oficial documentation](https://docs.gitlab.com/ci/runners/hosted_runners/))-->
 
 {:.quote}
@@ -152,6 +153,7 @@ Guarantee: If the provenance is signed by SignPath, the build was executed on a 
 | --             | ------------------------------ |
 | Azure DevOps   | The build was executed on a runner from the Microsoft-hosted pools, which provide a clean virtual machine for each build run (see [the official documentation](https://learn.microsoft.com/en-us/azure/devops/pipelines/security/misc))
 | GitHub Actions | The build was executed on a GitHub-hosted runner, each job is run in a fresh instance of the runner image (see [the official documentation](https://docs.github.com/en/actions/how-tos/manage-runners/github-hosted-runners/use-github-hosted-runners))
+
 <!--| GitLab CI/CD   | The build was executed on a GitLab-hosted runner, each job runs in a newly provisioned VM (see [the oficial documentation](https://docs.gitlab.com/ci/runners/hosted_runners/))-->
 
 {:.quote}
@@ -161,6 +163,7 @@ Guarantee: If the provenance is signed by SignPath, the build was executed on a 
 | --             | ------------------------------ |
 | Azure DevOps   | Cache usage has to be explicitly defined in the pipeline definition and cannot be shared across pipelines or branches (see [the official documentation](https://learn.microsoft.com/en-us/azure/devops/pipelines/release/caching?view=azure-devops&tabs=bundler#cache-isolation-and-security))
 | GitHub Actions | Cache usage has to be explicitly defined in the workflow definition (see [the official definition](https://docs.github.com/en/actions/reference/workflows-and-actions/dependency-caching))
+
 <!--| GitLab CI/CD   | TODO: https://docs.gitlab.com/ci/caching/-->
 
 {:.quote}
@@ -170,4 +173,5 @@ Guarantee: If the provenance is signed by SignPath, the build was executed on a 
 | --             | ------------------------------ |
 | Azure DevOps   | The build was executed on a runner from the Microsoft-hosted pools, which do not provide the ability to remotely connect (see [the official documentation](https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/hosted)).
 | GitHub Actions | The build was executed on a GitHub-hosted runner which does not provide the ability to remotely connect, unless explicitly specified in the build definition (see [the official documentation](https://docs.github.com/en/actions/how-tos/manage-runners/github-hosted-runners/connect-to-a-private-network)) 
+
 <!--| GitLab CI/CD   | The build was executed on a GitLab-hosted runner wich does not allow remote connections (see [the official documentation](https://docs.gitlab.com/ci/runners/hosted_runners/))-->

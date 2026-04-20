@@ -769,8 +769,7 @@ openssl verify -CApath /etc/ssl/certs -untrusted SignPath_SLSA.pem SignPath_SLSA
 # 2. Extract the public key of the Attestation Signer certificate
 openssl x509 -pubkey -noout -in SignPath_SLSA.pem > SignPath_SLSA.pubkey.pem
 
-# 3. Verify the SLSA provenance attestation
-$artifactHash = $(cat myApp.exe | sha256sum | cut -d' ' -f1)
+# 3. Verify the SLSA verification summary attestation
 slsa-verifier verify-vsa \
   --subject-digest "sha256:$artifactHash" \
   --attestation-path /path/to/slsa-vsa.dsse.json \
