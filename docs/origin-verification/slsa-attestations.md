@@ -31,6 +31,8 @@ SignPath creates SLSA attestation in three distinct steps:
 > 
 > SignPath cannot attest builds from customer-operated CI/CD systems. However, SignPath provides features for customers to self-attest builds from centrally operated CI/CD systems for individual teams.
 
+For details how to create SLSA attestations with SignPath, see the respective [artifact configuration directives](/artifact-configuration/reference#create-provenance-file).
+
 ## Build type and builder identifier
 
 SignPath identifies build types and builders using the following URIs:
