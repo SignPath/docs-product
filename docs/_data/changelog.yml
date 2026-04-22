@@ -1,3 +1,11 @@
+- date: '2026-04-22'
+  updates:
+    github_actions_action:
+      version: 2.2.0
+      new_features:
+        - text: |-
+            Added support for unzipped artifacts using the `skip-decompress` parameter.
+          issues: [SIGN-8404]
 - date: '2026-04-09'
   updates:
     github_actions_action:
