@@ -105,7 +105,7 @@ We recommend signing the image before it is pushed to a container registry. This
 
 Alternatively, you can use the default `docker` driver and save the image to a tarball after building:
 
-    docker save -o image.tar <identifier>
+    docker save -o image.tar $imageReference
 
 #### 2. Optional: Strip the content layers
 
@@ -115,7 +115,7 @@ If you do not want to upload the entire container image to SignPath, we provide 
 <!-- TODO: change URL -->
 
     curl -s https://download.signpath.io/cryptoproviders/sp-oci/latest-main/linux/x64/sp-oci.tar.gz | tar -xzf - sp-oci
-    ./sp-oci strip image.tar --reference <image-reference> --directory /tmp/image-binary-layers
+    ./sp-oci strip image.tar --reference $imageReference --directory /tmp/image-binary-layers
 
 {:.panel.info}
 > **No security degradation**
@@ -131,21 +131,15 @@ If you do not want to upload the entire container image to SignPath, we provide 
 
 In case you stripped the content layers of the image in step 2, now it is time to repack them:
 
-    ./sp-oci repack image-signed.tar --reference <image-reference> --directory /tmp/image-binary-layers
+    ./sp-oci repack image-signed.tar --reference $imageReference --directory /tmp/image-binary-layers
 
 #### 5. Publish the signed image
 
 Use the [oras tool](https://github.com/oras-project/oras) to publish the container image including the signatures to your registry:
 
-    oras cp -r --from-oci-layout image-signed.tar:<tag> myregistry.com/<image-reference>
+    oras cp -r --from-oci-layout image-signed.tar:$imageTag registry.mycompany.com/$imageReference
 
-{:.panel.info}
-> **Image references**
->
-> An **image reference** consists 
-> For images hosted on Docker Hub, the image reference is `docker.io/$namespace/$repository:$tag`, e.g. `docker.io/jetbrains/teamcity-server:latest`. 
-> 
-> If you are using your own registry, specify the value you would use for Docker CLI commands, e.g. `myregistry.com/myrepo/myimage:latest`.
+{% include container_image_reference_panel.md %}
 
 ### With the Code Signing Gateway
 

@@ -51,7 +51,7 @@ notation plugin install --file "${env:TEMP}\notation-signpath\notation-signpath.
 {:.panel.info}
 > **Verifying the `notation-signpath.exe` signature**
 >
-> You can verify the signature of the `notation-signpat.exe` binary by calling
+> You can verify the signature of the `notation-signpath.exe` binary by calling
 > ~~~ powershell
 > Get-AuthenticodeSignature "${env:TEMP}\notation-signpath\notation-signpath.exe"
 > ~~~
@@ -79,6 +79,6 @@ notation sign \
 ~~~
 {% endraw %}
 
-{% include container_image_and_tag_panel.md %}
+{% include container_image_reference_panel.md %}
 
 [notation]: https://github.com/notaryproject/notation
