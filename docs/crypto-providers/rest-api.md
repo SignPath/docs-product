@@ -53,7 +53,7 @@ curl -H "Authorization: Bearer $API_TOKEN" \
      -F "SigningPolicySlug=test-signing" \
      -F "IsFastSigningRequest=true" \
      -F "Artifact=@$PATH_TO_ARTIFACT" 
-     https://app.signpath.io/API/v1/$ORGANIZATION_ID/SigningRequests
+     https://app.signpath.io/API/v1/$ORGANIZATION_ID/SigningRequests/SubmitWithArtifact
 ~~~
 
 **Request artifact:**

@@ -23,10 +23,15 @@
     nuget: true
     android: true
     java: false
+    apk: false
+    rpm: false
+    deb: false
     office_macros: false
     xml: false
     docker: false
     sbom: false
+    dsse: false
+    smime: false
     cms: false
     gpg: false
     raw: false
@@ -91,10 +96,15 @@
     nuget: true
     android: true
     java: true
+    apk: false
+    rpm: false
+    deb: false
     office_macros: false
     xml: false
     docker: false
     sbom: false
+    dsse: false
+    smime: false
     cms: false
     gpg: false
     raw: false
@@ -154,10 +164,15 @@
     nuget: true
     android: true
     java: true
+    apk: true
+    rpm: true
+    deb: true
     office_macros: true
     xml: true
     docker: true
     sbom: true
+    dsse: true
+    smime: true
     cms: true
     gpg: true
     raw: true
@@ -274,10 +289,15 @@
     nuget: true
     android: true
     java: true
+    apk: true
+    rpm: true
+    deb: false
     office_macros: false
     xml: false
     docker: true
     sbom: false
+    dsse: false
+    smime: false
     cms: false
     gpg: false
     raw: false

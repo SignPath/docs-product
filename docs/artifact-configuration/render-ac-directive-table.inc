@@ -1,6 +1,6 @@
 {%- assign table-filter-column = "directive" -%}
 {%- assign table-filter-value = include.directive -%}
-{% assign table-omit-columns = "directive,isContainer" | split: ',' %}
+{% assign table-omit-columns = "directive,isComposite" | split: ',' %}
 
 <p><strong>Supported elements:</strong></p>
 

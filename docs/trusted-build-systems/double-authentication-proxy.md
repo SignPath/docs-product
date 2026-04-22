@@ -6,6 +6,11 @@ show_toc: 3
 description: Double Authentication Proxy
 ---
 
+{:.panel.warning}
+> **Obsolete**
+>
+> The Double Authentication Proxy connector is scheduled for retirement. Please let us know if you need it for any scenarios currently not covered by other connectors.
+
 The Double Authentication Proxy is a connector that will let you use mutual TLS (TLS/SSL client certificates) for build node authentication. 
 
 This results in a two-fold authentication strategy:

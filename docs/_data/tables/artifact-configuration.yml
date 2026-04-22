@@ -1,8 +1,8 @@
 signing-file-elements:
   headers:
     element: Element
-    isContainer: "[Container format](#containers)"
-    directive: Signing directive
+    isComposite: "[Container format](#containers)"
+    directive: Signing directives
     extensions: Extensions
     description: Description
     _attributes:
@@ -10,37 +10,37 @@ signing-file-elements:
       directive: {style: "width: 10em;"}
   body:
     - element: "`<pe-file>`"
-      isContainer: "No"
+      isComposite: "No"
       directive: "[`<authenticode-sign>`](#authenticode-sign)"
       extensions: ".exe, .dll, .acm, .ax, .cpl, .drv, .efi, .mui, .ocx, .scr, .sys, .tsp"
       description: "Portable Executable (PE) files: EXE, DLL, and other executable files"
     - element: "`<powershell-file>`"
-      isContainer: "No"
+      isComposite: "No"
       directive: "[`<authenticode-sign>`](#authenticode-sign)"
       extensions: ".ps1, .psm1, psd1, .psdc1, .ps1xml"
       description: "PowerShell scripts and modules"
     - element: "`<windows-script-file>`"
-      isContainer: "No"
+      isComposite: "No"
       directive: "[`<authenticode-sign>`](#authenticode-sign)"
       extensions: ".wsf, ,vbs, .js"
       description: "Windows scripts for Windows Scripting Host, typically VBScript and JScript[^jscript]. (Not available for Code Signing Starter.)"
     - element: "`<msi-file>`"
-      isContainer: "Yes"
+      isComposite: "Yes"
       directive: "[`<authenticode-sign>`](#authenticode-sign)"
       extensions: ".msi, .msm, .msp"
       description: "Microsoft installer files"
     - element: "`<cab-file>`"
-      isContainer: "Yes"
+      isComposite: "Yes"
       directive: "[`<authenticode-sign>`](#authenticode-sign)"
       extensions: ".cab"
       description: "Windows cabinet files"
     - element: "`<catalog-file>`"
-      isContainer: "No"
+      isComposite: "No"
       directive: "[`<authenticode-sign>`](#authenticode-sign)"
       extensions: ".cat"
       description: "Windows catalog files"
     - element: "`<appx-file>`"
-      isContainer: "Yes"
+      isComposite: "Yes"
       directive: "[`<authenticode-sign>`](#authenticode-sign)"
       extensions: ".appx, .appxbundle"
       description: |
@@ -49,59 +49,116 @@ signing-file-elements:
         {:.p.info}
         The Common Name of the code signing certificate must match the `PublisherDisplayName` in the `AppxManifest.xml` file.
     - element: "`<msix-file>`"
-      isContainer: "Yes"
+      isComposite: "Yes"
       directive: "[`<authenticode-sign>`](#authenticode-sign)"
       extensions: ".msix, .msixbundle"
       description: "MSIX installer app packages for Microsoft Windows"
     - element: "`<opc-file>`"
-      isContainer: "Yes"
+      isComposite: "Yes"
       directive: "[`<opc-sign>`](#opc-sign)"
       extensions: ".vsix, .xps, hlkx, ..."
       description: >-
         Open Packaging Conventions (OPC) files including Visual Studio Extensions (VSIX) and Hardware Lab Kit driver signing packages. 
         (Driver signing not available for Code Signing Starter.) File size limit: 40 MB.
     - element: "`<nupkg-file>`"
-      isContainer: "Yes"
+      isComposite: "Yes"
       directive: "[`<nuget-sign>`](#nuget-sign)"
       extensions: ".nupkg"
       description: "NuGet packages"
     - element: "`<jar-file>`"
-      isContainer: "Yes"
+      isComposite: "Yes"
       directive: "[`<jar-sign>`](#jar-sign)"
-      extensions: ".jar, .war, .ear, .apk, .aab"
-      description: "Java archives and Android apps. (Not available for Code Signing Starter.)"
+      extensions: ".jar, .war, .ear, .aab"
+      description: "Java packages/archives (not available for Code Signing Starter)"
+    - element: "`<apk-file>`"
+      isComposite: "Yes"
+      directive: "[`<apk-sign>`](#apk-sign)"
+      extensions: ".apk"
+      description: "Android app packages (available for Advanced Code Signing)"
+    - element: "`<rpm-file>`"
+      isComposite: "Yes"
+      directive: "[`<rpm-sign>`](#rpm-sign)"
+      extensions: ".rpm"
+      description: "RPM Package Manager files (available for Advanced Code Signing)"
+    - element: "`<deb-file>`"
+      isComposite: "Yes"
+      directive: "[`<debsigs-sign>`](#debsigs-sign)"
+      extensions: ".deb"
+      description: "Debian package files (available for Advanced Code Signing)"
     - element: "[`<zip-file>`](syntax#zip-file-element)"
-      isContainer: "Yes"
+      isComposite: "Yes"
       directive: "[`<jar-sign>`](#jar-sign)"
       extensions: ".zip"
       description: "Use ZIP archives to sign multiple files at once. (ZIP archives can also be signed and verified using the [JAR format](#jar-sign).)"
     - element: "`<office-oxml-file>`"
-      isContainer: "No"
+      isComposite: "No"
       directive: "[`<office-macro-sign>`](#office-macro-sign)"
       extensions: ".xlsm, .xltm, .docm, .dotm, .pptm, .potm, .vsdm, vstm, ... "
       description: "Sign VBA macros in Microsoft Office Open XML files and templates: Excel, Word, PowerPoint and Visio (available for Advanced Code Signing)"
     - element: "`<office-binary-file>`"
-      isContainer: "No"
+      isComposite: "No"
       directive: "[`<office-macro-sign>`](#office-macro-sign)"
       extensions: ".xls, .xlt, .doc, .dot, .pot, .ppa, .pps, .ppt, .mpp, .mpt, .pub, .vsd, .vst, ... "
       description: "Sign VBA macros in binary Microsoft Office files and templates: Project, Publisher, and legacy Excel, Word, PowerPoint and Visio (available for Advanced Code Signing)"
     - element: "`<xml-file>`"
-      isContainer: "No"
+      isComposite: "No"
       directive: "[`<xml-sign>`](#xml-sign)"
       extensions: ".xml"
       description: "Use this directive to sign XML files using [XMLDSIG](https://www.w3.org/TR/xmldsig-core1/) (available for Advanced Code Signing). File size limit: 2 MB."
     - element: "[`<directory>`](syntax#directory-element)"
-      isContainer: "Yes"
+      isComposite: "Yes"
       directive: "[`<clickonce-sign>`](#clickonce-sign)"
       description: "Directories within container files. This directive is primarily used to structure further elements within containers, e.g. ZIP, MSI, or other directories. It can also be used to sign ClickOnce files and VSTO add-ins."
     - element: "`<file>`"
-      isContainer: "No"
+      isComposite: "No"
       directive: |
+        [`<dsse-sign>`](#dsse-sign),
+        [`<smime-sign>`](#smime-sign),
         [`<create-cms-signature>`](#create-cms-signature),
         [`<create-gpg-signature>`](#create-gpg-signature),
         [`<create-raw-signature>`](#create-raw-signature)
       extensions: "*"
-      description: "Arbitrary files. Create detached [CMS/PKCS #7](#create-cms-signature), [GPG/OpenPGP](#create-gpg-signature) or [raw](#create-raw-signature) signatures (available for Advanced Code Signing)."
+      description: |
+        Create enveloped signatures ([DSSE](#dsse-sign) or [S/MIME](#smime-sign))
+        and detached signatures ([CMS/PKCS #7](#create-cms-signature), [GPG/OpenPGP](#create-gpg-signature), [raw](#create-raw-signature))
+         for arbitrary files (available for Advanced Code Signing).
+
+signing-method-categories:
+  headers:
+    category: Category
+    description: How it works
+    original: Original file
+    available: Available methods
+    _attributes:
+      directive: {style: "font-weight: bold;"}
+  body:
+    - category: "[Embedded](#embedded-signing-methods)"
+      description: Adds a signature to an existing file.
+      original: Replaced by signed file
+      available: |
+        [`<authenticode-sign>`](#authenticode-sign),
+        [`<opc-sign>`](#opc-sign),
+        [`<nuget-sign>`](#nuget-sign),
+        [`<jar-sign>`](#jar-sign),
+        [`<apk-sign>`](#apk-sign),
+        [`<office-macro-sign>`](#office-macro-sign),
+        [`<xml-sign>`](#xml-sign)
+    - category: "[Enveloped](#enveloped-signing-methods)"
+      description: Adds a new file that contains the unsigned file _and_ the signature.
+      original: Preserved
+      available: |
+        [`<dsse-sign>`](#dsse-sign),
+        [`<smime-sign>`](#smime-sign)
+    - category: "[Detached](#detached-signing-methods)"
+      description: Adds a new file that contains only the signature.
+      original: Preserved
+      available: |
+        [`<create-cms-signature>`](#create-cms-signature),
+        [`<create-gpg-signature>`](#create-gpg-signature),
+        [`<create-raw-signature>`](#create-raw-signature)
+    - category: "[Other](#other-signing-methods)"
+      available: |
+        [`<clickonce-sign>`](#clickonce-sign)
 
 authenticode-attributes:
   headers:

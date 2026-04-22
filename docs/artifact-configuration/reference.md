@@ -2,7 +2,7 @@
 header: Reference
 layout: resources
 toc: true
-show_toc: 2
+show_toc: 3
 description: Artifact Configuration Reference
 datasource: tables/artifact-configuration
 ---
@@ -12,31 +12,58 @@ datasource: tables/artifact-configuration
 {%- include render-table.html table=site.data.tables.artifact-configuration.signing-file-elements -%}
 {:.nowrap-code-column-3}
 
-### Container formats {#containers}
+### Composite formats {#containers}
 
-Container elements such as directories, archives, installers and package formats allow nested file elements. See [Syntax](syntax#structure) for more information.
+Composite element types such as directories, archives, installers and package formats allow nested file elements. See [Syntax](syntax#structure) for more information.
 
-## Signing methods
+## Signing methods {#signing-methods}
+
+### Directives and categories
 
 <!-- markdownlint-disable MD026 no trailing punctuation -->
 
-Signing methods are used in:
+Use signing directives in:
 
 * file elements (e.g. `<authenticode-sign` in `<pe-file>`)
 * directory elements (`<clickonce-sign>` in `<directory`)
 * [file and directory sets](syntax#file-and-directory-sets) (in the `<for-each>` element)
 
-### `<authenticode-sign>`: Authenticode (Windows) {#authenticode-sign}
+Signing directives are available for several code signing methods. There are three major categories of signing methods:
+
+{%- include render-table.html table=site.data.tables.artifact-configuration.signing-method-categories -%}
+{:.nowrap-code-column-4}
+
+### Embedded signing methods {#embedded-signing-methods}
+
+These signing methods add signatures to existing files. Several platforms including Windows, Apple, and Java provide a variety of file formats that support embedded signatures. 
+
+Since the file's format does not change, the unsigned files are not needed anymore. SignPath will only return the signed files in Signing Requests.
+
+#### Supported embedded formats
+
+* [`<authenticode-sign>`: Authenticode (Windows)](#authenticode-sign)
+* [`<nuget-sign>`: NuGet packages](#nuget-sign)
+* [`<office-macro-sign>`: Microsoft Office VBA macros](#office-macro-sign)
+* [`<opc-sign>`: Open Packaging Convention](#opc-sign)
+* [`<jar-sign>`: Java Archives](#jar-sign)
+* [`<apk-sign>`: Android app packages](#apk-sign)
+* [`<rpm-sign>`: RPM Package Manager](#rpm-sign)
+* [`<debsigs-sign>`: Debian packages](#debsigs-sign)
+* [`<xml-sign>`: XML Digital Signature](#xml-sign)
+
+The general syntax for embedded signing methods is: `<`_format_`-sign />`
+
+#### `<authenticode-sign>`: Authenticode (Windows) {#authenticode-sign}
 
 {%- include_relative render-ac-directive-table.inc directive="authenticode-sign" -%}
 
 Microsoft Authenticode is the primary signing method on the Windows platform. Authenticode is a versatile and extensible mechanism that works for many different file types. Using `<authenticode-sign>` is equivalent to using Microsoft's `SignTool.exe`.
 
-#### Optional attributes {#authenticode-sign-attributes}
+##### Optional attributes {#authenticode-sign-attributes}
 
 {%- include render-table.html table=site.data.tables.artifact-configuration.authenticode-attributes -%}
 
-##### _append_ attribute
+##### `append` attribute
 
 File formats that support appending signatures:
 
@@ -75,25 +102,7 @@ See also:
 * Verify existing signatures using [`authenticode-verify`](#authenticode-verify).
 * Use [metadata restrictions](#metadata-restrictions) for `<pe-file>` to restrict product name and version.
 
-### `<clickonce-sign>`: Microsoft ClickOnce and VSTO Office add-ins {#clickonce-sign}
-
-{%- include_relative render-ac-directive-table.inc directive="clickonce-sign" -%}
-
-ClickOnce signing, also called 'manifest signing', is a method used for ClickOnce applications and Microsoft Office Add-ins created using Visual Studio Tools for Office (VSTO). Using `<clickonce-sign>` is equivalent to using Microsoft's `mage.exe`.
-
-ClickOnce signing applies to directories, not to individual files. Therefore, you need to specify a `<directory>` element for this method. If you want to sign files in the root directory of a container, specify `path="."`.
-
-~~~ xml
-<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
-  <zip-file>
-    <directory path=".">
-      <clickonce-sign/>
-    </directory>
-  </zip-file>
-</artifact-configuration>
-~~~
-
-### `<nuget-sign>`: NuGet packages {#nuget-sign}
+#### `<nuget-sign>`: NuGet packages {#nuget-sign}
 
 {%- include_relative render-ac-directive-table.inc directive="nuget-sign" -%}
 
@@ -117,7 +126,7 @@ Although the NuGet Package format is based on OPC (see next section), it uses it
 >
 > If certificate chains can be resolved at signing time, they will be embedded in the signature.
 
-### `<office-macro-sign>`: Microsoft Office VBA macros {#office-macro-sign}
+#### `<office-macro-sign>`: Microsoft Office VBA macros {#office-macro-sign}
 
 {% include editions.md feature="file_based_signing.office_macros" %}
 
@@ -146,7 +155,7 @@ Macro signatures apply only to the macros within the document files and are not 
 >
 > Only publisher certificates are embedded in Office macro signatures.
 
-### `<opc-sign>`: Open Packaging Convention {#opc-sign}
+#### `<opc-sign>`: Open Packaging Convention {#opc-sign}
 
 {%- include_relative render-ac-directive-table.inc directive="opc-sign" -%}
 
@@ -164,15 +173,13 @@ Note that not all OPC-based formats use OPC signatures:
 
 <!-- markdownlint-enable MD026 no trailing punctuation -->
 
-### `<jar-sign>`: Java Archives {#jar-sign}
+#### `<jar-sign>`: Java Archives {#jar-sign}
 
 {% include editions.md feature="file_based_signing.java" %}
 
 {%- include_relative render-ac-directive-table.inc directive="jar-sign" -%}
 
-Android apps and app-bundles: Note that JAR signatures only implement APK signing scheme v1 (v2 and v3 are not yet supported).
-
-#### Verification {#jar-sign-verification}
+##### Verification {#jar-sign-verification}
 
 * **Java** always verifies signatures for client components. For server components, you will need to create a policy. Please consult the documentation of your application server or [Oracle's documentation](https://docs.oracle.com/javase/tutorial/security/toolsign/receiver.html).
 * **Android** always verifies App signatures, but current Android versions require signing schemes v2 or v3.
@@ -186,7 +193,105 @@ jarsigner -verify -strict <file>.zip
 
 Add the `-verbose` option to see the certificate.
 
-### `<xml-sign>`: XML Digital Signature {#xml-sign}
+
+#### `<apk-sign>`: Android app packages {#apk-sign}
+
+{% include editions.md feature="file_based_signing.apk" %}
+
+{%- include_relative render-ac-directive-table.inc directive="apk-sign" -%}
+
+Android app package files support [signatures](https://source.android.com/docs/security/features/apksigning) in different schema versions depending on the app's SDK.
+
+**Supported options:**
+
+| Option                 | Optional | Description
+|------------------------|----------|----------------
+| `min-sdk-version`      | Yes      | The lowest Android framework API level that `apk-sign` uses for verification compatibility. By default, `apk-sign` uses the value of the minSdkVersion attribute from the app's manifest file.
+| `max-sdk-version`      | Yes      | The highest Android framework API level that `apk-sign` uses for verification compatibility.
+
+
+##### Example
+
+~~~ xml
+<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
+  <apk-file>
+    <apk-sign />
+  </apk-file>
+</artifact-configuration>
+~~~
+
+#### `<rpm-sign>`: RPM Package Manager {#rpm-sign}
+
+{% include editions.md feature="file_based_signing.rpm" %}
+
+{%- include_relative render-ac-directive-table.inc directive="rpm-sign" -%}
+
+RPM is the package manager format for many Linux distributions including Fedora, RedHat, and openSUSE. RPM is based on GPG signatures and requires [signing policies](/projects#signing-policies) with a [GPG key](/managing-certificates#certificate-types) certificate.
+
+##### Example
+
+~~~ xml
+<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
+  <rpm-file>
+    <rpm-sign />
+  </rpm-file>
+</artifact-configuration>
+~~~
+
+##### Verification {#rpm-sign-verification}
+
+Package verification is typically performed automatically by package management tools like yum and DNF.
+
+To manually verify `.rpm` files, use the following commands:
+
+~~~ bash
+rpm --import my_key.asc # Import, i.e. trust, the GPG public key
+
+rpm --verbose --checksig my_package.rpm
+~~~
+
+#### `<debsigs-sign>`: Debian package {#debsigs-sign}
+
+{% include editions.md feature="file_based_signing.deb" %}
+
+{%- include_relative render-ac-directive-table.inc directive="debsigs-sign" -%}
+
+Create embedded signatures for Debian packages (`.deb` files). Package signatures are based on GPG and require [signing policies](/projects#signing-policies) with a [GPG key](/managing-certificates#certificate-types) certificate. SignPath signs packages using the [`debsigs`] specification.
+
+**Supported options:**
+
+| Option                 | Optional | Description
+|------------------------|----------|----------------
+| `signature-type`       | No       | The [signature-type][debsigs-sigtype], e.g. `origin`, `maint`, or `archive`. Debian packages can contain multiple signatures _of different type_. Note that verification requires at least an `origin` signature.
+
+##### Example
+
+~~~ xml
+<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
+  <deb-file>
+    <debsigs-sign signature-type="origin" />
+  </deb-file>
+</artifact-configuration>
+~~~
+
+##### Verification {#debsigs-verification}
+
+Package signatures are verified implicitly during [`dpkg --install`][dpkg] operations unless the `--no-debsig` parameter is specified.
+
+{:.panel.note}
+> **Package signature verification is not the default**
+>
+> Many popular Linux distributions including Ubuntu and Debian set `no-debsig` by default in `/etc/dpkg/dpkg.cfg`. The reason is that rather than individual Debian package files, these distros verify the whole package _repository_ via [`Release.gpg`].
+
+The `dpkg` command internally uses [`debsig-verify`]. You can also use this tool directly to verify a `.deb` file after importing the GPG key and setting up the policies (`.pol`) XML file (see [man page][`debsig-verify`] for details).
+
+[`debsigs`]: https://manpages.debian.org/stable/debsigs/debsigs.1p.en.html
+[debsigs-sigtype]: https://manpages.debian.org/stable/debsigs/debsigs.1p.en.html#SIGNATURE_TYPES
+[dpkg]: https://manpages.debian.org/stable/dpkg/dpkg.1.en.html
+[`Release.gpg`]: https://wiki.debian.org/SecureApt#How_apt_uses_Release.gpg
+[`debsig-verify`]: https://manpages.debian.org/stable/debsig-verify/debsig-verify.1.en.html
+
+#### `<xml-sign>`: XML Digital Signature {#xml-sign}
 
 {% include editions.md feature="file_based_signing.xml" %}
 
@@ -209,7 +314,7 @@ The result is a `Signature` element added to the root element (after all existin
 | X.509 Certificate | _See `key-info-x509-data` option_                                             | `/*/Signature/KeyInfo/X509Data`
 {:.break-code}
 
-**Supported options:**  
+**Supported options:**
 
 | Option                       | Optional | Description
 |------------------------------|----------|------------------------------------------------------------------------------
@@ -219,18 +324,148 @@ See also:
 
 * Use [metadata restrictions](#metadata-restrictions) for `<xml-file>` to restrict root element and namespace.
 
-### `<create-cms-signature>`: Cryptographic Message Syntax (CMS) {#create-cms-signature}
+### Enveloped signing methods {#enveloped-signing-methods}
+
+These signing methods create new files that contain both the original file and the signature. Enveloped signatures are available for all file types using the `<file>` element. Since the signed file is _added_, this `<file>` element must be contained in a `<zip-file>` element.
+
+While the original file is still available, it often needs to be extracted from the enveloped file in order to be used, ideally after sucessful signature verification. SignPath will preserve the original files in Signing Requests.
+
+#### Supported enveloped formats
+
+* [`<dsse-sign>`: DSSE (Dead Simple Signing Envelope)](#dsse-sign)
+* [`<smime-sign>`: S/MIME signing](#smime-sign)
+
+The general syntax for enveloped signing methods is: `<`_format_`-sign output-file-name="..." />`
+
+#### `<dsse-sign>`: DSSE (Dead Simple Signing Envelope) {#dsse-sign}
+
+{% include editions.md feature="file_based_signing.dsse" %}
+
+{%- include_relative render-ac-directive-table.inc directive="dsse-sign" -%}
+
+Create a DSSE signature file that contains the signature and the enveloped original file in JSON format.
+
+{:.panel.info}
+> **DSSE (Dead Simple Signing Envelope)**
+>
+> [DSSE] is a signing specification created by the [Secure Systems Lab] at NYU School of Engineering. It has not been formally standardized but is widely used in the context of code signing. 
+> Note that DSSE contains no metadata about the singing format, so all signing parameters must be agreed out-of-band.
+
+DSSE is an [enveloped](#enveloped-signing-methods) signing method and must be used in `<zip-file>` elements.
+
+The `dsse-sign` directive supports the following parameters:
+
+| Parameter          | Default value             | Available values             | Description
+|--------------------|---------------------------|------------------------------|-------------------------------------------------
+| `output-file-name` | (mandatory)               |                              | Name of the output file containing the signature. Use `${file.name}` to reference the source file name.
+| `payload-type`     | (mandatory)               |                              | A [MIME type or URI](https://github.com/secure-systems-lab/dsse/blob/master/protocol.md) which describes the payload type.
+| `hash-algorithm`   | `sha256`                  | `sha256`, `sha384`, `sha512` | Hash algorithm used to create the signature.
+| `rsa-padding`      | (mandatory for RSA keys)  | `pkcs1`, `pss`               | Padding algorithm (ignored for non-RSA keys).
+
+##### DSSE example
+
+This example signs SLSA Verification Summary Attestations using DSSE:
+
+~~~ xml
+<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
+  <zip-file>
+    <file path="slsa-vsa.json">
+      <dsse-sign payload-type="application/vnd.in-toto+json" 
+                 hash-algorithm="sha256" rsa-padding="pkcs1"
+                 output-file-name=" ${file.name}.dsse" />
+    </file>
+  </zip-file>
+</artifact-configuration>
+~~~
+
+The resulting artifact will contain both the original file `slsa-vsa.json` and the enveloped signature`slsa-vsa.dsse`.
+
+
+#### `<smime-sign>`: S/MIME signing {#smime-sign}
+
+{% include editions.md feature="file_based_signing.smime" %}
+
+{%- include_relative render-ac-directive-table.inc directive="smime-sign" -%}
+
+S/MIME signing can be used to sign arbitrary "messages" with an X.509 certificate. Usually the input is in text form (e.g. the output of the `shasum` utility). The resulting file is a text file which contains both, the input (text), and a CMS signature and can be verified e.g. via `openssl` commands (see below).
+
+S/MIME is an [enveloped](#enveloped-signing-methods) signing method and must be used in `<zip-file>` elements.
+
+The `smime-sign` directive supports the following parameters:
+
+| Parameter          | Default value             | Available values             | Description
+|--------------------|---------------------------|------------------------------|-------------------------------------------------
+| `output-file-name` | (mandatory)               |                              | Name of the output file containing the signature. Use `${file.name}` to reference the source file name.
+| `normalization`    | `line-endings`            | `line-endings`, `none`       | Use `line-endings` to normalize line endings to `<CR><LF>` (see [RFC 8551](https://datatracker.ietf.org/doc/html/rfc8551)), else no normalization happens (the input file is treated as binary).
+| `hash-algorithm`   | `sha256`                  | `sha256`, `sha384`, `sha512` | Hash algorithm used to create the signature.
+| `rsa-padding`      | (mandatory for RSA keys)  | `pkcs1`, `pss`               | Padding algorithm (ignored for non-RSA keys).
+
+##### S/MIME signing example
+
+This example signs a hash sum text file as `hashes.txt.msg`:
+
+~~~ xml
+<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
+  <zip-file>
+    <file path="hashes.txt">
+      <smime-sign
+        normalization="line-endings"
+        hash-algorithm="sha256"
+        rsa-padding="pkcs1"
+        output-file-name="${file.name}.msg" />
+    </file>
+  </zip-file>
+</artifact-configuration>
+~~~
+
+##### S/MIME verification
+
+S/MIME signature files can be verified with both, the `openssl cms` or `openssl smime` commands:
+
+~~~ bash
+openssl cms -verify -purpose codesign -in "hashes.txt.msg" -out "hashes.txt"
+
+openssl smime -verify -purpose codesign -in "hashes.txt.msg" -out "hashes.txt"
+~~~
+
+{:.panel.warning}
+> **OpenSSL CMS verification**
+>
+> * Prior to OpenSSL 3.2, the `-purpose` flag does not support `codesign`. Use `any` instead.
+> * When the certificate is not trusted on the target system, specify `-CAfile` with the path of the root certificate. Make sure that the root certificate is distributed in a secure way.
+
+
+
+
+
+### Detached signing methods {#detached-signing-methods}
+
+These signing methods create new files that contain the signature and a cryptographic hash code of the original file. Detached signatures are available for all file types using the `<file>` element. Since the signature file is _added_, this `<file>` element must be contained in a `<zip-file>` element.
+
+For signature verification, both the original file and the detached signature must be present. SignPath will preserve the original files in Signing Requests.
+
+#### Supported detached formats
+
+* [`<create-cms-signature>`: Cryptographic Message Syntax (CMS)](#create-cms-signature)
+* [`<create-gpg-signature>`: Detached GPG signing](#create-gpg-signature)
+* [`<create-raw-signature>`: Detached raw signature files](#create-raw-signature)
+
+The general syntax for detached signing methods is: `<create-`_format_`-signature output-file-name="..." />`
+
+#### `<create-cms-signature>`: Cryptographic Message Syntax (CMS) {#create-cms-signature}
 
 {% include editions.md feature="file_based_signing.cms" %}
 
 {%- include_relative render-ac-directive-table.inc directive="create-cms-signature" -%}
 
-Create [_Cryptographic Message Syntax_ (CMS)][RFC5652] signatures to sign any file with a X.509 certificates. Tools like `openssl cms` can be used to verify these signatures. (Note that CMS is often referred to as PKCS #7, which is technically the name of the standard preceding CMS.)
+Create CMS signatures to sign any file with an X.509 certificate. Tools like `openssl cms` can be used to verify these signatures. 
 
-{:.panel.note}
-> **This directive creates a detached signature file**
-> 
-> This directive adds a file to the output and is therefore only available within a [`<zip-file>`](syntax#zip-file-element) element. 
+{:.panel.info}
+> **Cryptographic Message Syntax (CMS)**
+>
+> CMS is an IETF standard for cryptographically protected messages, as defined in [RFC 5652]. It is often referred to as _PKCS #7_, although this is technically the name of the standard preceding CMS.
+
+CMS is a [detached](#detached-signing-methods) signing method and must be used in `<zip-file>` elements.
 
 The `create-cms-signature` directive supports the following parameters:
 
@@ -241,7 +476,7 @@ The `create-cms-signature` directive supports the following parameters:
 | `hash-algorithm`   | `sha256`                  | `sha256`, `sha384`, `sha512` | Hash algorithm used to create the signature.
 | `rsa-padding`      | (mandatory for RSA keys)  | `pkcs1`, `pss`               | Padding algorithm (ignored for non-RSA keys).
 
-#### CMS example
+##### CMS example
 
 ~~~ xml
 <artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
@@ -256,41 +491,36 @@ The `create-cms-signature` directive supports the following parameters:
 
 The resulting artifact will contain both the original file `myfile.bin` and the detached signature in `myfile.bin.cms.pem`.
 
-#### CMS signature verification
+##### CMS signature verification
 
 Multiple tools support verification of CMS signature. One popular option is `openssl cms`:
 
 ~~~ bash
-openssl cms -verify -purpose codesign -content myfile.bin -inform PEM -in myfile.cms.pem -out /dev/null
+openssl cms -verify -purpose codesign -content myfile.bin -binary -inform PEM -in myfile.bin.cms.pem -out /dev/null
 ~~~
 
 {:.panel.warning}
 > **OpenSSL CMS verification**
 >
 > * Prior to OpenSSL 3.2, the `-purpose` flag does not support `codesign`. Use `any` instead.
-> * When the certificate is not trusted on the target system, specify `-CAFile` with the path of the root certificate. Make sure that the root certificate is distributed in a secure way.
+> * When the certificate is not trusted on the target system, specify `-CAfile` with the path of the root certificate. Make sure that the root certificate is distributed in a secure way.
 
-
-### `<create-gpg-signature>`: Detached GPG signing {#create-gpg-signature}
+#### `<create-gpg-signature>`: Detached GPG signing {#create-gpg-signature}
 
 {% include editions.md feature="file_based_signing.gpg" %}
 
 {%- include_relative render-ac-directive-table.inc directive="create-gpg-signature" -%}
 
-Create detached GPG signatures to sign any file with a GPG key
+Create detached GPG signatures to sign any file with a GPG key.
 
 {:.panel.info}
 > **Naming: GPG and OpenPGP, keys and certificates**
 >
-> Our documentation uses the term GPG for these key and signature types. While OpenPGP would be the technically correct term, is often referred to via its de-facto standard implementation, _GNU Privacy Guard_ (GPG or GnuPG). The first implementation was _Pretty Good Privacy_ (PGP), and the format was ultimately standardized as OpenPGP. 
+> Our documentation uses the term GPG for these key and signature types. While OpenPGP would be the technically correct term, is often referred to via its de-facto standard implementation, _GNU Privacy Guard_ (GPG or GnuPG). The first implementation was _Pretty Good Privacy_ (PGP), and the format was ultimately standardized as OpenPGP by the IETF.
 >
 > The GPG community uses various terms for certificates, including _GPG Key_, _Public Key_, _Transferable Public Key_ and _Certificate_. To avoid confusion with the public key of a asymmetric key pair, and for consistency within our documentation, we use the term _GPG Key_ as a specific type of _Certificate_. See [Managing Certificates](/managing-certificates#certificate-types) for more information.
 
-{:.panel.note}
-> **Detached signature files and GPG key reference**
-> 
-> * This directive adds a file to the output and is therefore only available within a [`<zip-file>`](syntax#zip-file-element) element.
-> * Only available for [signing policies](/projects#signing-policies) with a [GPG key](/managing-certificates#certificate-types) certificate.
+GPG is a [detached](#detached-signing-methods) signing method and must be used in `<zip-file>` elements. It is only available for [signing policies](/projects#signing-policies) with a [GPG key](/managing-certificates#certificate-types) certificate.
 
 The `create-gpg-signature` directive supports the following parameters:
 
@@ -301,7 +531,7 @@ The `create-gpg-signature` directive supports the following parameters:
 | `hash-algorithm`   | `sha256`        | `sha256`, `sha384`, `sha512` | Hash algorithm used to create the signature.
 | `version`          | `4`             | `4`                          | Specifies the [signature version](https://datatracker.ietf.org/doc/html/rfc4880#section-5.2). Currently only `4` is supported, the attribute is intended to allow to fixate the version in case the default version will be changed in the future.
 
-#### Example
+##### Example
 
 ~~~ xml
 <artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
@@ -315,7 +545,7 @@ The `create-gpg-signature` directive supports the following parameters:
 
 The resulting artifact will contain both the original file `myfile.bin` and the detached signature in `myfile.bin.asc`.
 
-#### GPG signature verification
+##### GPG signature verification
 
 Signature verification can be performed with any [OpenPGP-compliant](https://datatracker.ietf.org/doc/html/rfc4880) tool. Example using [GnuPG](https://www.gnupg.org/):
 
@@ -327,7 +557,7 @@ gpg --import my_key.asc
 gpg --verify myfile.bin.asc myfile.bin
 ~~~
 
-### `<create-raw-signature>`: Detached raw signature files {#create-raw-signature}
+#### `<create-raw-signature>`: Detached raw signature files {#create-raw-signature}
 
 {% include editions.md feature="file_based_signing.raw" %}
 
@@ -341,10 +571,7 @@ Use cases for raw signatures include:
 * Creating signature blocks for subsequent use with other tools and formats
 * [Signing _Cosign_ metadata files](/signing-containers/cosign)
 
-{:.panel.note}
-> **This directive creates a detached signature file**
-> 
-> This directive adds a file to the output and is therefore only available within a [`<zip-file>`](syntax#zip-file-element) element. 
+Raw signing is a [detached](#detached-signing-methods) signing method and must be used in `<zip-file>` elements.
 
 The `create-raw-signature` directive supports the following parameters:
 
@@ -356,7 +583,7 @@ The `create-raw-signature` directive supports the following parameters:
 
 (All cryptographic parameters are mandatory because raw signatures contain no metadata for agnostic verification.)
 
-#### Raw signature example
+##### Raw signature example
 
 ~~~ xml
 <artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
@@ -370,7 +597,7 @@ The `create-raw-signature` directive supports the following parameters:
 
 The resulting artifact will contain both the original file `myfile.bin` and the detached signature in `myfile.bin.sig`.
 
-#### Raw signature verification
+##### Raw signature verification
 
 Extract the public key from the certificate, then use any tool that can process raw signature blocks to verify the detached signature. 
 
@@ -386,6 +613,30 @@ openssl dgst -verify pubkey.pem -signature file.sig
 ~~~
 
 If you use this method directly to verify signatures, make sure that the public key is distributed in a secure way and independently from the file to be verified. 
+
+### Other signing methods {#other-signing-methods}
+
+#### Other supported formats
+
+* [`<clickonce-sign>`: Microsoft ClickOnce and VSTO Office add-ins](#clickonce-sign)
+
+#### `<clickonce-sign>`: Microsoft ClickOnce and VSTO Office add-ins {#clickonce-sign}
+
+{%- include_relative render-ac-directive-table.inc directive="clickonce-sign" -%}
+
+ClickOnce signing, also called _manifest signing_, is a method used for ClickOnce applications and Microsoft Office Add-ins created using Visual Studio Tools for Office (VSTO). Using `<clickonce-sign>` is equivalent to using Microsoft's `mage.exe`.
+
+ClickOnce signing applies to directories, not to individual files. Therefore, you need to specify a `<directory>` element for this method. If you want to sign files in the root directory of a composite element, specify `path="."`.
+
+~~~ xml
+<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
+  <zip-file>
+    <directory path=".">
+      <clickonce-sign/>
+    </directory>
+  </zip-file>
+</artifact-configuration>
+~~~
 
 ## Verification methods {#verification}
 
@@ -449,4 +700,6 @@ The restrictions can be applied to file elements, [file set elements](syntax#fil
 
 [^jscript]: Note that [JScript](https://en.wikipedia.org/wiki/JScript) is not the same as JavaScript. While it is possible to use this option to sign JavaScript files, JavaScript engines will not be able to use this signature.
 
-[RFC5652]: https://datatracker.ietf.org/doc/html/rfc5652
+[DSSE]: https://github.com/secure-systems-lab/dsse
+[RFC 5652]: https://datatracker.ietf.org/doc/html/rfc5652
+[Secure Systems Lab]: https://ssl.engineering.nyu.edu/

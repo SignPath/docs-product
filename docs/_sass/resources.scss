@@ -205,7 +205,7 @@ main > section.resources-section {
 				display: inline-block;
 			}
 
-			&.info, &.warning, &.tip {
+			&.info, &.warning, &.tip, &.download {
 				& > p:first-child::before,
 				& > h6:first-child::before {
 					font-family: "Line Awesome Free";
@@ -220,6 +220,15 @@ main > section.resources-section {
 					content: "\f05a";
 				}
 			}
+
+			&.download {
+				background-color: $light-grey-background-color;
+				& > p:first-child::before,
+				& > h6:first-child::before {
+					content: "\f381";
+				}
+			}
+
 			&.tip {
 				background-color: $light-grey-background-color;
 				& > p:first-child::before,

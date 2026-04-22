@@ -15,9 +15,9 @@ description: GitHub
 * Required for [source code and build policies](#define-policies-for-source-code-and-builds): Install the [SignPath GitHub App](https://github.com/apps/signpath) and allow access to the code repositories.
 
 {:.panel.info}
-> **GitHub Enterprise**
+> **GitHub Enterprise Server**
 >
-> SignPath hosts an instance of the GitHub connector which is linked to GitHub.com For integrating self-hosted GitHub Enterprise instances, contact our [support](https://signpath.io/support) team.
+> SignPath hosts an instance of the GitHub connector which is linked to GitHub.com For integrating self-hosted GitHub Enterprise Server instances, contact our [support](https://signpath.io/support) team.
 
 ## Checks performed by SignPath
 
@@ -135,7 +135,7 @@ You can group your policy requirements into multiple conditions, each containing
 | Section                 | Values                         | Description
 |-------------------------|--------------------------------|----------------------------
 | `rules`                 | See below                      | Rules that must be implemented by one ore more active branch rulesets
-| `allow_bypass_actors`   | boolean                        | If `true`, the branche ruleset is allowed to define bypassers 
+| `allow_bypass_actors`   | boolean                        | If `true`, the branch ruleset is allowed to define bypassers 
 | `enforced_from`         | None, timestamp, or `EARLIEST` | By default, the rules are only evaluated at the time of signing. When provided, defines that these rules must have been in place from the specified date (YAML ISO timestamp) or earliest availability of audit log entries (`EARLIEST`). 
 
 {:.panel.info}
@@ -158,7 +158,7 @@ You can group your policy requirements into multiple conditions, each containing
 github-policies:
   runners:
     allowed_groups:
-      - 'GitHub Actions'                         # all jobs need to run on GitHub-hosted runners
+      - 'MySecureRunners'                        # all jobs need to run on runners in the specified group
   build:
     disallow_reruns: true
   branch_rulesets:

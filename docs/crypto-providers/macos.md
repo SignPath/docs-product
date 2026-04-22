@@ -148,5 +148,5 @@ killall ctkd
 > 
 > When using codesign (or any other signing tool) directly, you are responsible for correct time stamping. See [Timestamps](/crypto-providers#timestamps)
 
-[codesign]: https://developer.apple.com/library/archive/Security/Conceptual/CodeSigningGuide/Procedures/Procedures.html
+[codesign]: x-man-page://1/codesign
 

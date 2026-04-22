@@ -68,7 +68,7 @@ For `gnupg-pkcs11-scd`, `stdout` console output must be disabled. Use the log fi
 
 The [`InitializeSignPathCryptoProviderGpgSigning` helper function](/crypto-providers/gpg#configure-gnupg) uses the following logging directories:
 
-* SignPath Cryptoki logs: `/tmp/SignPathLogs/<timestamp>.log`
+* SignPath Cryptoki logs: `/tmp/SignPathLogs/SignPath.CryptoProviders.Cryptoki.txt`
 * `gnupg-pkcs11-scd` logs: `/tmp/SignPathLogs/gnupg-pkcs11-scd.log`
 * GPG logs: `/tmp/SignPathLogs/gpg-agent.log`
 
