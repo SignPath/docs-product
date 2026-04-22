@@ -338,7 +338,7 @@ This will place the signature at the right place within the OCI layout and add r
 
 | Option                 | Optional | Description
 |------------------------|----------|----------------
-| `tag`                  | No       | The image tag, e.g. `latest` or `v3.1.2`.
+| `tag`                  | No       | The image tag, e.g. `latest` or `v3.1.2`. Consider using [user-defined parameters](/artifact-configuration/syntax#parameters).
 
 ##### Example
 
@@ -364,7 +364,7 @@ This will place the signature at the right place within the OCI layout and add r
 
 | Option                 | Optional | Description
 |------------------------|----------|----------------
-| `tag`                  | No       | The image tag, e.g. `latest` or `v3.1.2`.
+| `tag`                  | No       | The image tag, e.g. `latest` or `v3.1.2`. Consider using [user-defined parameters](/artifact-configuration/syntax#parameters).
 
 ##### Example
 
