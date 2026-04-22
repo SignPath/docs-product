@@ -278,6 +278,12 @@ main > section.resources-section {
 				background-color: #F6F6F6;
 			}
 
+			thead th {
+				position: sticky;
+				top: 80px;
+				background-color: #F6F6F6;
+			}
+
 			td, th {
 				border-top: 1px solid $grey-border-color;
 				border-bottom: 1px solid $grey-border-color;
