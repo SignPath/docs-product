@@ -143,7 +143,6 @@ Within `Log.File.Directory`/`SIGNPATH_LOG_FILE_DIRECTORY` the log file is named 
 | `HttpRequestTimeoutInSeconds`        | `SIGNPATH_HTTP_REQUEST_TIMEOUT_IN_SECONDS`         | `30`          | Timeout for HTTP calls in seconds per attempt
 {: .break-column-2}
 
-
 HTTP timeouts and 5xx server errors (e.g. 503 Service Unavailable errors) are treated as failed requests.
 
 The delay between retries increases exponentially. For the default values this sums up to a total delay time of 10 minutes.

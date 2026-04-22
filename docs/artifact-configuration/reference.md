@@ -328,7 +328,7 @@ See also:
 
 #### `<notation-sign>`: Notary (Notation) container signature {#notation-sign}
 
-Sign container images using [Notation (Notary)](/signing-container-images#notation).
+Sign container images using [Notation (Notary)](/signing-containers#notary).
 
 {%- include_relative render-ac-directive-table.inc directive="notation-sign" -%}
 
@@ -338,11 +338,23 @@ This will place the signature at the right place within the OCI layout and add r
 
 | Option                 | Optional | Description
 |------------------------|----------|----------------
-| `tag`                  | No       | The image tag, e.g. `latst` or `v3-latest`.
+| `tag`                  | No       | The image tag, e.g. `latest` or `v3.1.2`.
+
+##### Example
+
+~~~ xml
+<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
+  <oci-image-layout-archive-file>
+    <notation-sign tag="latest" />
+  </oci-image-layout-archive-file>
+</artifact-configuration>
+~~~
+
+_Note: You can create both Notary and [Cosign](#cosign-sign) signatures for the same image._
 
 #### `<cosign-sign>`: Sigstore Cosign container signature {#cosign-sign}
 
-Sign container images using [Sigstore Cosign](/signing-container-images#cosign).
+Sign container images using [Sigstore Cosign](/signing-containers#cosign).
 
 {%- include_relative render-ac-directive-table.inc directive="cosign-sign" -%}
 
@@ -352,7 +364,7 @@ This will place the signature at the right place within the OCI layout and add r
 
 | Option                 | Optional | Description
 |------------------------|----------|----------------
-| `tag`                  | No       | The image tag, e.g. `latst` or `v3-latest`.
+| `tag`                  | No       | The image tag, e.g. `latest` or `v3.1.2`.
 
 ##### Example
 
@@ -364,7 +376,7 @@ This will place the signature at the right place within the OCI layout and add r
 </artifact-configuration>
 ~~~
 
-_Note: You can create both [Notation](#notation-sign) and Cosign signatures for the same image._
+_Note: You can create both [Notary](#notation-sign) and Cosign signatures for the same image._
 
 ### Enveloped signing methods {#enveloped-signing-methods}
 

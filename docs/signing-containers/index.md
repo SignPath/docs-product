@@ -21,17 +21,18 @@ SignPath provides the following advantages:
 
 * Your **signing keys are securely stored** on a Hardware Security Module (HSM)
 * You can use the full power of SignPath **signing policies**, including permission, approval, and origin verification
-* You can use all **CI integration** features of SignPath <!-- TODO: rename to Pipeline Integrity? -->
+* You can use all **Pipeline integrity** features of SignPath, ensuring that the image was built from **approved source code** on a 
+**trusted build system**
 * Configuration and policy management is **aligned with other signing methods**, such as Authenticode or Java signing
 * SignPath maintains a **full audit log** of all signing activities including metadata such as the registry URL and signed image tag
 * You can **sign multiple images in a single signing request**, making audits/reviews of multi-image releases a lot easier
 
-For _Notary (Notation)_ and _Sigstore Cosign_, there are additional specific advantages:
+#### For _Notary (Notation)_ and _Sigstore Cosign_, there are additional specific advantages:
 
 * You can **sign your images before they are pushed**, making sure that only signed images are available in your registry
 * Signing tools can be **centrally managed** and updates/changes in technology have zero effect on your build pipelines
 
-For _Sigstore Cosign_, there are additional specific advantages:
+#### For _Sigstore Cosign_, there are additional specific advantages:
 
 * You can **authenticate automated build systems instead of individual developers** and leverage origin verification for CI systems that do not support Cosign workload identities (currently only Github and Gitlab in their SaaS offerings)
 * You can use your own key material and **keep your signature data private** without having to operate an own Fulcio certificate authority system
@@ -52,7 +53,7 @@ SignPath supports these technologies for signing container images:
 
 The _Code Signing Gateway_ additionally supports
 
-* **[GPG](#gpg)**: Signing containers using GPG keys for RedHat OpenShift
+* **[GPG](#gpg)**: Sign containers using GPG keys for RedHat OpenShift
 
 {:.panel.info}
 > **Docker Content Trust (DCT) is deprecated**
@@ -61,9 +62,9 @@ The _Code Signing Gateway_ additionally supports
 
 ### Recommendation
 
-SignPath recommends using [**Notary (Notation)**](#notary) for Enterprises and [Cosign](#cosign) for open source projects.
+SignPath recommends using **[Notary (Notation)](#notary) for Enterprises** and [Cosign](#cosign) for open source projects.
 
-_For a detailed comparison between the different technologies, see the [appendix](#appendix-comparison)._
+_For a detailed comparison between all the different technologies, see the [appendix](#appendix-comparison)._
 
 ### Notary (Notation) {#notary}
 
@@ -99,13 +100,17 @@ To sign container images with SignPath, the following steps are required:
 
 #### 1. Store the container image in an OCI-compliant layout
 
-We recommend signing the image before it is pushed to a container registry. This requires the image to be stored in a `.tar` archive locally. You can either use `docker buildx build` using a [build driver](https://docs.docker.com/build/builders/) that supports building OCI tarballs, like `docker-container`. Then you can simply specify a tarball as an output destination while building your image:
+We recommend signing the image before it is pushed to a container registry. This requires the image to be stored in a `.tar` archive locally. You can use `docker build` with a [build driver](https://docs.docker.com/build/builders/) that supports building OCI tarballs, like `docker-container`.
 
-    docker buildx build -o type=oci,dest=image.tar ...
+~~~bash
+docker buildx build -o type=oci,dest=image.tar ...
+~~~
 
 Alternatively, you can use the default `docker` driver and save the image to a tarball after building:
 
-    docker save -o image.tar $imageReference
+~~~bash
+docker save -o image.tar $imageReference
+~~~
 
 #### 2. Optional: Strip the content layers
 
@@ -114,8 +119,39 @@ If you do not want to upload the entire container image to SignPath, we provide 
 <!-- TODO: Do we want to include signature verification here? -->
 <!-- TODO: change URL -->
 
-    curl -s https://download.signpath.io/cryptoproviders/sp-oci/latest-main/linux/x64/sp-oci.tar.gz | tar -xzf - sp-oci
-    ./sp-oci strip image.tar --reference $imageReference --directory /tmp/image-binary-layers
+##### On Linux
+
+~~~bash
+curl -s https://download.signpath.io/cryptoproviders/sp-oci/latest-main/linux/x64/sp-oci.tar.gz | tar -xzf - sp-oci
+./sp-oci strip image.tar --reference $imageReference --directory .tmp
+~~~
+
+{:.panel.info}
+> **Verifying the `sp-oci` signature**
+>
+> You can verify the signature of the `sp-oci` executable using our [public GPG key](/assets/other/signpath_release_public_key.asc) by also extracting the detached signature file `sp-oci.asc` from the `.tar.gz`
+> ~~~bash
+> curl -s ... | tar -C /tmp -xzf - sp-oci sp-oci.asc
+> gpg --verify sp-oci.asc sp-oci
+> ~~~
+
+##### On Windows
+
+~~~powershell
+Invoke-WebRequest "https://download.signpath.io/cryptoproviders/sp-oci/latest-main/windows/x64/sp-oci.zip" `
+  -OutFile "${env:TEMP}\sp-oci.zip"
+Expand-Archive -DestinationPath "$(Get-Location)\sp-oci" "${env:TEMP}\sp-oci.zip"
+
+.\sp-oci\sp-oci.exe strip image.tar --reference $imageReference --directory .tmp
+~~~
+
+{:.panel.info}
+> **Verifying the `sp-oci.exe` signature**
+>
+> You can verify the signature of the `sp-oci.exe` executable by calling
+> ~~~ powershell
+> Get-AuthenticodeSignature .\sp-oci\sp-oci.exe
+> ~~~
 
 {:.panel.info}
 > **No security degradation**
@@ -131,7 +167,17 @@ If you do not want to upload the entire container image to SignPath, we provide 
 
 In case you stripped the content layers of the image in step 2, now it is time to repack them:
 
-    ./sp-oci repack image-signed.tar --reference $imageReference --directory /tmp/image-binary-layers
+##### On Linux
+
+~~~bash
+./sp-oci repack image-signed.tar --reference $imageReference --directory .tmp
+~~~
+
+##### On Windows
+
+~~~powershell
+.\sp-oci\sp-oci.exe repack image-signed.tar --reference $imageReference --directory .tmp
+~~~
 
 #### 5. Publish the signed image
 

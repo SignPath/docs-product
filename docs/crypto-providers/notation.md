@@ -8,7 +8,7 @@ description: SignPath Notation Plugin
 
 ## General instructions
 
-[notation] is a command line tool to creating and verifying signatures of artifacts stored in an OCI registry. It is most commonly used for container images. See the [section on signing container images with notation](/documentation/signing-containers/notation) for more details.
+[notation] is a command line tool to creating and verifying signatures of artifacts stored in an OCI registry. It is most commonly used for container images. See the [section on signing container images with notation](/documentation/signing-containers#notation) for more details.
 
 ### Installation
 
@@ -28,9 +28,9 @@ notation plugin install --file /tmp/notation-signpath
 {:.panel.info}
 > **Verifying the `notation-signpath` signature**
 >
-> You can verify the signature of the `notation-signpath` binary using our [public GPG key](/assets/other/signpath_release_public_key.asc) by also extracting the detached signature file `notation-signpath.asc` from the `.tar.gz`
+> You can verify the signature of the `notation-signpath` executable using our [public GPG key](/assets/other/signpath_release_public_key.asc) by also extracting the detached signature file `notation-signpath.asc` from the `.tar.gz`
 > ~~~bash
-> curl -s ... | tar -C /tmp -xzf notation-signpath notation-signpath.asc
+> curl -s ... | tar -C /tmp -xzf - notation-signpath notation-signpath.asc
 > gpg --verify /tmp/notation-signpath.asc /tmp/notation-signpath
 > ~~~
 
@@ -41,7 +41,7 @@ The notation plugin can be installed using the following commands:
 ~~~ powershell
 # download an extract the plugin binary
 Invoke-WebRequest "https://download.signpath.io/cryptoproviders/notation-plugin/6-latest/windows/x64/notation-signpath.zip" `
-  -OutFile "${env:TEMP}/notation-signpath.zip"
+  -OutFile "${env:TEMP}\notation-signpath.zip"
 Expand-Archive -DestinationPath "${env:TEMP}\notation-signpath" "${env:TEMP}\notation-signpath.zip"
 
 # install the plugin
@@ -51,7 +51,7 @@ notation plugin install --file "${env:TEMP}\notation-signpath\notation-signpath.
 {:.panel.info}
 > **Verifying the `notation-signpath.exe` signature**
 >
-> You can verify the signature of the `notation-signpath.exe` binary by calling
+> You can verify the signature of the `notation-signpath.exe` executable by calling
 > ~~~ powershell
 > Get-AuthenticodeSignature "${env:TEMP}\notation-signpath\notation-signpath.exe"
 > ~~~
