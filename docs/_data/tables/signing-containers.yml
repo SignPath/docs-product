@@ -14,6 +14,44 @@ methods-comparison:
       dct: { style: "width:17%" }
       gpg: { style: "width:17%" }
   body:
+    - topic: Recommended for
+      notary: Enterprises
+      cosign_fulcio: Open source projects
+      cosign_keys:
+      dct:
+      gpg: Podman
+    - _header: Overview
+    - topic: Advantages
+      notary: |
+        * Simple setup
+        * Uses existing X.509 PKI infrastructure
+        * Mature trust model
+        * Recommended by Microsoft and Amazon
+      cosign_fulcio: |
+        * Existing infrastructure for open-source projects
+        * Public transparency log (optional)
+        * Podman support (public key only)
+      cosign_keys: |
+        * Public transparency log (optional)
+      dct:
+      gpg: |
+        * Podman support
+    - topic: Disadvantages
+      notary:
+      cosign_fulcio: |
+        * Verification only using repository and/or email addresses
+        * Signing without the public transparency log is discouraged
+      cosign_keys: |
+        * Verification only with public keys or special X.509 certificates
+        * Signing without the public transparency log is discouraged
+      dct: |
+        * Security concern: potential history rewrite
+        * No stable support in AKS
+        * Complex setup
+        * Legacy (no active development)
+      gpg: |
+        * Signature is not transferrable between registries
+        * Signature has to be provided out-of-band
     - _header: 'Feature Support'
     - topic: Transfer signatures between registries
       notary: 'Yes'
@@ -110,54 +148,4 @@ methods-comparison:
         * Key pinning
       gpg: |
         * Key pinning (per repository or registry)
-    - _header: Overview
-    - topic: Advantages
-      notary: |
-        * Simple setup
-        * Uses existing X.509 PKI infrastructure
-        * Mature trust model
-        * Recommended by Microsoft and Amazon
-      cosign_fulcio: |
-        * Existing infrastructure for open-source projects
-        * Public transparency log (optional)
-        * Podman support (public key only)
-      cosign_keys: |
-        * Public transparency log (optional)
-      dct:
-      gpg: |
-        * Podman support
-    - topic: Disadvantages
-      notary:
-      cosign_fulcio: |
-        * Verification only using repository and/or email addresses
-        * Signing without the public transparency log is discouraged
-      cosign_keys: |
-        * Verification only with public keys or special X.509 certificates
-        * Signing without the public transparency log is discouraged
-      dct: |
-        * Security concern: potential history rewrite
-        * No stable support in AKS
-        * Complex setup
-        * Legacy (no active development)
-      gpg: |
-        * Signature is not transferrable between registries
-        * Signature has to be provided out-of-band
-    - topic: Benefits with SignPath
-      notary: |
-        * Solves key security issue
-      cosign_fulcio: None
-      cosign_keys: |
-        * Solves key security issue
-        * Authenticates trusted build system instead of individual contributors for systems that are not natively supported
-      dct: |
-        * Solves key security issue
-        * Solves history rewrite issue
-      gpg: |
-        * Solves key security issue
-        * Solves GPG key handling
-    - topic: Recommended for
-      notary: Enterprises
-      cosign_fulcio: Open source projects
-      cosign_keys:
-      dct:
-      gpg: Podman
+    
