@@ -50,6 +50,8 @@ Since the file's format does not change, the unsigned files are not needed anymo
 * [`<rpm-sign>`: RPM Package Manager](#rpm-sign)
 * [`<debsigs-sign>`: Debian packages](#debsigs-sign)
 * [`<xml-sign>`: XML Digital Signature](#xml-sign)
+* [`<notation-sign>`](#notation-sign),
+* [`<cosign-sign>`](#cosign-sign)
 
 The general syntax for embedded signing methods is: `<`_format_`-sign />`
 
@@ -323,6 +325,46 @@ The result is a `Signature` element added to the root element (after all existin
 See also:
 
 * Use [metadata restrictions](#metadata-restrictions) for `<xml-file>` to restrict root element and namespace.
+
+#### `<notation-sign>`: Notary (Notation) container signature {#notation-sign}
+
+Sign container images using [Notation (Notary)](/signing-container-images#notation).
+
+{%- include_relative render-ac-directive-table.inc directive="notation-sign" -%}
+
+This will place the signature at the right place within the OCI layout and add relevant references.
+
+**Supported options:**
+
+| Option                 | Optional | Description
+|------------------------|----------|----------------
+| `tag`                  | No       | The image tag, e.g. `latst` or `v3-latest`.
+
+#### `<cosign-sign>`: Sigstore Cosign container signature {#cosign-sign}
+
+Sign container images using [Sigstore Cosign](/signing-container-images#cosign).
+
+{%- include_relative render-ac-directive-table.inc directive="cosign-sign" -%}
+
+This will place the signature at the right place within the OCI layout and add relevant references.
+
+**Supported options:**
+
+| Option                 | Optional | Description
+|------------------------|----------|----------------
+| `tag`                  | No       | The image tag, e.g. `latst` or `v3-latest`.
+
+##### Example
+
+~~~ xml
+<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
+  <oci-image-layout-archive-file>
+    <cosign-sign tag="latest" />
+  </oci-image-layout-archive-file>
+</artifact-configuration>
+~~~
+
+_Note: You can create both [Notation](#notation-sign) and Cosign signatures for the same image._
 
 ### Enveloped signing methods {#enveloped-signing-methods}
 

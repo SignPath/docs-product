@@ -15,18 +15,6 @@
 
 - text: Signing Container Images
   path: signing-containers
-  items:
-    - text: Notary (Notation)
-      path: notary
-
-    - text: Sigstore Cosign
-      path: cosign
-
-    - text: Docker Content Trust (DCT)
-      path: docker-content-trust
-
-    - text: GPG
-      path: gpg
 
 - separator: true
 
