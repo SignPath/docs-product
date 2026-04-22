@@ -17,7 +17,9 @@ description: GitHub
 > **ZIP archives**
 >
 > By default, the `upload-artifact` action creates a ZIP archive, which requires the root element of your [Artifact Configurations](/artifact-configuration) to be of type `<zip-file>`.
-> If you want to specify your artifact type directly, specify `archive: false` in the `upload-artifact` action. See [Usage](#Usage).
+> If you want to specify your artifact type directly, specify `archive: false` in the `upload-artifact` action. See [Usage](#usage).
+>
+> <i class='la la-exclamation-triangle'></i> Note that there is an open bug in GitHub's `upload-artifact` action where the `name` parameter is ignored and the action fails if another artifact with the same filename has already been uploaded. See issues [#769](https://github.com/actions/upload-artifact/issues/769) and [#785](https://github.com/actions/upload-artifact/issues/785).
 
 {:.panel.info}
 > **GitHub Enterprise Server**
@@ -46,8 +48,7 @@ steps:
   uses: actions/upload-artifact@v7
   with: 
     path: path/to/your/artifact
-    archive: false # optional, if not set, SignPath expects a ZIP archive
-
+    
 - id: optional_step_id
   uses: signpath/github-action-submit-signing-request@v2
   with:
@@ -58,7 +59,6 @@ steps:
     github-artifact-id: '${{ steps.upload-unsigned-artifact.outputs.artifact-id }}'
     wait-for-completion: true
     output-artifact-directory: '/path/to/signed/artifact/directory'
-    skip-decompress: true # optional, if not set, the action expects a ZIP archive
     parameters: |
       version: ${{ toJSON(some.userinput) }}
       myparam: "another param"
