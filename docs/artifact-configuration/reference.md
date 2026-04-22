@@ -714,7 +714,7 @@ The parameters for all these directives, except `<include-in-provenance>`, which
 | `<create-provenance-file>`           | `output-file-name` | Name of the output file to hold the provenance information.
 | `<create-verification-summary-file>` | `output-file-name` | Name of the output file to hold the verification summary information.
 | `<create-attestation-signature>`     | `type`             | The signature type. Currently supported are [`cms`](#create-cms-signature) and [`dsse`](#dsse-sign).
-|                                      | `output-file-name` | Name of the output file to hold the attestation signature.
+| `<create-attestation-signature>`     | `output-file-name` | Name of the output file to hold the attestation signature.
 
 #### Example
 
@@ -736,9 +736,8 @@ The parameters for all these directives, except `<include-in-provenance>`, which
 
 #### Verification of SLSA verification summaries (VSA) {#slsa-vsa-verification}
 
-Requirements:
+To verify a SLSA verification summary attestation (VSA), you need:
 
-* The software artifact to verify
 * The verification summary attestation file (e.g. `slsa-vsa.dsse.json` in the example above)
 * The attestation signer certificate. For SLSA attestations created by SignPath, you can download [SignPath_SLSA.pem] for fully supported systems and [SignPath_SLSA-Beta.pem], which is a self-signed certificate, for all systems with preview support (See the [definition](/origin-verification/slsa-attestations) for a list of all supported systems).
 * The publisher certificate
@@ -752,8 +751,8 @@ Requirements:
 >
 > The values are defined as follows:
 > * `verified`: `true` if the publisher certificate was issued by a trusted certificate authority (CA)
-> * `certificate-fingerprint`: The SHA-1 fingerprint of the publisher certificate.
-> * `subject`: The subject of the publisher certificate.
+> * `certificate-fingerprint`: The SHA-1 fingerprint of the X.509 publisher certificate.
+> * `subject`: The subject of the X.509 publisher certificate.
 
 To verify the verification summary attestation, the official [slsa-verifier](https://github.com/slsa-framework/slsa-verifier) tool can be used:
 
@@ -764,7 +763,7 @@ The following steps are required to verify a SLSA provenance attestation generat
 ## on Windows
 certutil -verify SignPath_SLSA.pem
 ## on Linux
-openssl verify -CApath /etc/ssl/certs -untrusted SignPath_SLSA.pem SignPath_SLSA.pem
+openssl verify -untrusted SignPath_SLSA.pem SignPath_SLSA.pem
 
 # 2. Extract the public key of the Attestation Signer certificate
 openssl x509 -pubkey -noout -in SignPath_SLSA.pem > SignPath_SLSA.pubkey.pem

@@ -12,6 +12,7 @@ This page contains the definitions for SignPath build types and builders for SLS
 
 SignPath creates SLSA attestation in three distinct steps:
 
+<!-- TODO: product names should be explained somewhere -->
 1. SignPath Pipeline Integrity gathers and verifies relevant information from a supported _origin_ CI/CD system 
 2. SignPath DeepSign creates SLSA provenance build based on that information (along with other code signing operations)
 3. SignPath Attest signs the provenance 
