@@ -124,7 +124,7 @@ If you do not want to upload the entire container image to SignPath, we provide 
 
 #### 3. Sign the tarball with SignPath
 
-* Create an artifact configuration for container signing with [Notation](/artifact-configuration/reference#notation-sign) or [Cosign](/artifact-configuration/reference#cosign) respectively.
+* Create an artifact configuration for signing containers with [Notation](/artifact-configuration/reference#notation-sign) or [Cosign](/artifact-configuration/reference#cosign) respectively.
 * Submit the tarball for signing using any of the native [build system integrations](/trusted-build-systems), the [PowerShell module](/powershell) or the [REST API](/build-system-integration).
 
 #### 4. If stripped, repack the content layers again

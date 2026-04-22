@@ -12,13 +12,49 @@ description: SignPath Notation Plugin
 
 ### Installation
 
-The notation plugin can be installed using the following command:
+#### Linux
+
+The notation plugin can be installed using the following commands:
 
 ~~~bash
-notation plugin install --url https://download.signpath.io/cryptoproviders/notation/1.0/linux/x64/notation-signpath.tar.gz --sha256sum <TODO>
-# or
-notation plugin install --file /path/to/downloaded/notation-signpath
+# download and extract the plugin binary
+curl -s https://download.signpath.io/cryptoproviders/notation-plugin/6-latest/linux/x64/notation-signpath.tar.gz \
+  | tar -C /tmp -xzf - notation-signpath
+
+# install the plugin
+notation plugin install --file /tmp/notation-signpath
 ~~~
+
+{:.panel.info}
+> **Verifying the `notation-signpath` signature**
+>
+> You can verify the signature of the `notation-signpath` binary using our [public GPG key](/assets/other/signpath_release_public_key.asc) by also extracting the detached signature file `notation-signpath.asc` from the `.tar.gz`
+> ~~~bash
+> curl -s ... | tar -C /tmp -xzf notation-signpath notation-signpath.asc
+> gpg --verify /tmp/notation-signpath.asc /tmp/notation-signpath
+> ~~~
+
+#### Windows
+
+The notation plugin can be installed using the following commands:
+
+~~~ powershell
+# download an extract the plugin binary
+Invoke-WebRequest "https://download.signpath.io/cryptoproviders/notation-plugin/6-latest/windows/x64/notation-signpath.zip" `
+  -OutFile "${env:TEMP}/notation-signpath.zip"
+Expand-Archive -DestinationPath "${env:TEMP}\notation-signpath" "${env:TEMP}\notation-signpath.zip"
+
+# install the plugin
+notation plugin install --file "${env:TEMP}\notation-signpath\notation-signpath.exe"
+~~~
+
+{:.panel.info}
+> **Verifying the `notation-signpath.exe` signature**
+>
+> You can verify the signature of the `notation-signpat.exe` binary by calling
+> ~~~ powershell
+> Get-AuthenticodeSignature "${env:TEMP}\notation-signpath\notation-signpath.exe"
+> ~~~
 
 ### Configuration
 

@@ -1,4 +1,0 @@
----
-layout: null
----
-{% include_relative changelog_feed.md category="notation_plugin" %}

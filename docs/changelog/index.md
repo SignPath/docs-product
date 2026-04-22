@@ -119,7 +119,7 @@ redirect_from:
 					{%- endif -%}
 					{%- if include_cryptoproviders_download_panel -%}
 						{% if componentid == 'crypto_providers' %}
-						  {% assign crypto_provider_components = "cryptoki,windows_ksp" %}
+						  {% assign crypto_provider_components = "cryptoki,windows_ksp,notation_plugin" %}
 						{% else %}
 						  {% assign crypto_provider_components = "macos_cryptotokenkit" %}
 						{% endif %}
