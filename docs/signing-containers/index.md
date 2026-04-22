@@ -116,7 +116,6 @@ docker save -o image.tar $imageReference
 
 If you do not want to upload the entire container image to SignPath, we provide a utility tool to strip the content layers before signing and repack them afterwards. In this case, only the metadata is sent to SignPath. 
 
-<!-- TODO: Do we want to include signature verification here? -->
 <!-- TODO: change URL -->
 
 ##### On Linux
