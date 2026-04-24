@@ -46,6 +46,10 @@ include:
       parameters:
         - myparam: myvalue
 
+stages:
+  - build
+  - sign
+
 build_job:
   stage: build
   script:
