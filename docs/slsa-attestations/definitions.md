@@ -1,38 +1,12 @@
 ---
-header: SLSA Build Levels
+header: Definitions
 layout: resources
 toc: true
 show_toc: 3
 description: Describes SignPath SLSA build levels
 ---
 
-## SLSA attestations by SignPath
-
 This page contains the definitions for SignPath build types and builders for SLSA provenance files.
-
-SignPath creates SLSA attestation in three distinct steps:
-
-<!-- TODO: product names should be explained somewhere -->
-1. SignPath Pipeline Integrity gathers and verifies relevant information from a supported _origin_ CI/CD system 
-2. SignPath DeepSign creates SLSA provenance build based on that information (along with other code signing operations)
-3. SignPath Attest signs the provenance 
-
-{:.panel.info} 
-> **Attestation trust explained**
->
-> In order to be able to trust an attestation issued by SignPath, clients need to:
-> 
-> * Verify the signature on the attestation: it must be signed by an official SignPath certificate
-> * Trust SignPath to evaluate the attested properties 
->   * SignPath evaluates and continuously monitors the services and APIs it uses from supported CI/CD systems. We do extensive research based on official vendor documentation and perform our own tests to ensure that attested properties reflect the actual configuration and build execution. 
-> * Trust all hosted CI/CD system supported by SignPath or verify that the _origin_ system is one that you trust.
->   * SignPath cannot guarantee that the CI/CD system is actually operated in a safe way and safe from manipulation.
-> 
-> Clients do _not_ need to trust the publisher for these security properties, as they are evaluated on the _control plane_ without relying on the provider's configuration. However, SignPath can only make technical evaluations and enforce technical policies. The quality of the source code (including build scripts) and code reviews is still up to the publisher.
-> 
-> SignPath cannot attest builds from customer-operated CI/CD systems. However, SignPath provides features for customers to self-attest builds from centrally operated CI/CD systems for individual teams.
-
-For details how to create SLSA attestations with SignPath, see the respective [artifact configuration directives](/artifact-configuration/reference#create-provenance-file).
 
 ## Build type and builder identifier
 
@@ -178,3 +152,7 @@ Guarantee: If the provenance is signed by SignPath, the build was executed on a 
 | GitHub Actions | The build was executed on a GitHub-hosted runner which does not provide the ability to remotely connect, unless explicitly specified in the build definition (see [the official documentation](https://docs.github.com/en/actions/how-tos/manage-runners/github-hosted-runners/connect-to-a-private-network)) 
 
 <!--| GitLab CI/CD   | The build was executed on a GitLab-hosted runner wich does not allow remote connections (see [the official documentation](https://docs.gitlab.com/ci/runners/hosted_runners/))-->
+
+## The `resource-uri` field
+
+A Verification Summary Attestation (VSA) document defines a `resource-uri` field, with the intention to communicate an URI where the software artifact can be retrieved. This information is rarely known ahead of time for all artifacts that are published outside an e.g. app store or package manager repository. SignPath instead provides, in accordance with the SLSA specifications, information identifying the software publisher.
