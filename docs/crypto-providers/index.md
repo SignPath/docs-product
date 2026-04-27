@@ -74,10 +74,11 @@ Choose the correct package and install it on all build agents:
 * [SignPath Windows KSP](/crypto-providers/windows) for _SignTool.exe_ and most native Windows tools
 * [SignPath Cryptoki library](/crypto-providers/cryptoki) for _OpenSSL_, _jarsigner_, and many other Open Source tools
 * [GPG-based tools](/crypto-providers/gpg), such as _gpg_, _rpm_, or _dkpg-sig_ use the [SignPath Cryptoki library](/crypto-providers/cryptoki) but require additional configuration steps
+* [SignPath Notation Plugin](/crypto-providers/notation) for Notary container signatures
 * [SignPath CryptoTokenKit](/crypto-providers/macos) for macOS _codesign_
 
 <!-- should really include notation_plugin here also and merge other PR -->
-{% include download-cryptoproviders-panel.md major="6" components="cryptoki,windows_ksp" %}
+{% include download-cryptoproviders-panel.md major="6" components="cryptoki,windows_ksp,notation_plugin" %}
 
 {% include download-cryptoproviders-panel.md major="2" components="macos_cryptotokenkit" title_details="MacOS CryptoTokenKit" %}
 
@@ -133,7 +134,6 @@ The following values
 Supported log levels: `none`, `fatal`, `error`, `warning`, `info`, `debug`, `verbose`.
 
 Within `Log.File.Directory`/`SIGNPATH_LOG_FILE_DIRECTORY` the log file is named `SignPath.CryptoProviders.<Interface>.txt` (e.g. `SignPath.CryptoProviders.KSP.txt`). In case the log file would exceed 10 MB, the log file gets rotated (up to five "old" log file copies).
-
 
 #### Timeout settings
 

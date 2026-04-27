@@ -1,3 +1,20 @@
+- date: '2026-04-27'
+  updates:
+    application:
+      version: 1.210.0
+      new_features:
+        - text: |-
+            Added support for [Notary](/artifact-configuration/reference#notation-sign) and [Cosign](/artifact-configuration/reference#cosign-sign) container signatures.
+          issues: [SIGN-7799, SIGN-7653, SIGN-7652, SIGN-7655, SIGN-7798, SIGN-7654, SIGN-8303, SIGN-8319, SIGN-8292, SIGN-8365, SIGN-8361]
+    self_hosted_installations:
+      version: 1.210.0
+      improvements:
+        - text: |-
+            Improved reliability when database outages happen during the upgrade migration process.
+          issues: [SIGN-8493]
+        - text: |-
+            Improved performance for signing request list UI and REST API calls.
+          issues: [SIGN-8495]
 - date: '2026-04-22'
   updates:
     github_actions_action:
@@ -154,6 +171,7 @@
       new_features:
         - text: The Crypto Providers are now available via stable links on our download share. See the [download section](/crypto-providers#download) for details.
           issues: [SIGN-8265]
+        - text: Initial Release of the [SignPath Notation plugin](/crypto-providers/notation).
     teamcity_plugin:
       version: 0.5.0
       improvements:

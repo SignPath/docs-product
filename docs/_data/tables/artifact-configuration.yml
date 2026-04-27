@@ -105,6 +105,13 @@ signing-file-elements:
       directive: "[`<xml-sign>`](#xml-sign)"
       extensions: ".xml"
       description: "Use this directive to sign XML files using [XMLDSIG](https://www.w3.org/TR/xmldsig-core1/) (available for Advanced Code Signing). File size limit: 2 MB."
+    - element: "`<oci-image-layout-archive-file>`"
+      isComposite: "No"
+      directive: |
+        [`<notation-sign>`](#notation-sign),
+        [`<cosign-sign>`](#cosign-sign)
+      extensions: '.tar'
+      description: "Sign [container images](/signing-containers) uploaded in an OCI layout file."
     - element: "[`<directory>`](syntax#directory-element)"
       isComposite: "Yes"
       directive: "[`<clickonce-sign>`](#clickonce-sign)"
@@ -142,7 +149,9 @@ signing-method-categories:
         [`<jar-sign>`](#jar-sign),
         [`<apk-sign>`](#apk-sign),
         [`<office-macro-sign>`](#office-macro-sign),
-        [`<xml-sign>`](#xml-sign)
+        [`<xml-sign>`](#xml-sign),
+        [`<notation-sign>`](#notation-sign),
+        [`<cosign-sign>`](#cosign-sign)
     - category: "[Enveloped](#enveloped-signing-methods)"
       description: Adds a new file that contains the unsigned file _and_ the signature.
       original: Preserved
