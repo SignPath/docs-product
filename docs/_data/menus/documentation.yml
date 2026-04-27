@@ -57,6 +57,12 @@
 - text: Origin Verification
   path: origin-verification
 
+- text: SLSA Attestations
+  path: slsa-attestations
+  items:
+    - text: Definitions
+      path: definitions
+
 - separator: true
 
 - text: PowerShell cmdlets

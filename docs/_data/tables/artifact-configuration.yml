@@ -2,7 +2,7 @@ signing-file-elements:
   headers:
     element: Element
     isComposite: "[Container format](#containers)"
-    directive: Signing directives
+    directive: Directives
     extensions: Extensions
     description: Description
     _attributes:
@@ -87,9 +87,11 @@ signing-file-elements:
       description: "Debian package files (available for Advanced Code Signing)"
     - element: "[`<zip-file>`](syntax#zip-file-element)"
       isComposite: "Yes"
-      directive: "[`<jar-sign>`](#jar-sign)"
+      directive: |
+        [`<jar-sign>`](#jar-sign)
+        [`<create-provenance-file>`](#create-provenance-file)
       extensions: ".zip"
-      description: "Use ZIP archives to sign multiple files at once. (ZIP archives can also be signed and verified using the [JAR format](#jar-sign).)"
+      description: "Use ZIP archives to sign multiple files at once or to add additional files, like [SLSA provenance attestations](#create-provenance-file) (ZIP archives can also be signed and verified using the [JAR format](#jar-sign).)"
     - element: "`<office-oxml-file>`"
       isComposite: "No"
       directive: "[`<office-macro-sign>`](#office-macro-sign)"
@@ -129,6 +131,12 @@ signing-file-elements:
         Create enveloped signatures ([DSSE](#dsse-sign) or [S/MIME](#smime-sign))
         and detached signatures ([CMS/PKCS #7](#create-cms-signature), [GPG/OpenPGP](#create-gpg-signature), [raw](#create-raw-signature))
          for arbitrary files (available for Advanced Code Signing).
+    - element: "*"
+      isComposite: "No"
+      directive: "[`<include-in-provenance>`](#create-provenance-file)"
+      extensions: "*"
+      description: |
+        A reference to any file can be included in a provenance created by the [`<create-provenance-file>`](#create-provenance-file) directive.
 
 signing-method-categories:
   headers:
