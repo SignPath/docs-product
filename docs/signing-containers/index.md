@@ -20,7 +20,7 @@ There are multiple technologies available for signing container images and they 
 SignPath provides the following advantages:
 
 * Your **signing keys are securely stored** on a Hardware Security Module (HSM)
-* You can use the full power of SignPath **signing policies**, including permission, approval, and origin verification
+* You can use the full power of SignPath **signing policies**, including permissions, approval, and origin verification
 * You can use all **Pipeline integrity** features of SignPath, ensuring that the image was built from **approved source code** on a 
 **trusted build system**
 * Configuration and policy management is **aligned with other signing methods**, such as Authenticode or Java signing
@@ -60,9 +60,9 @@ The _Code Signing Gateway_ additionally supports
 >
 > SignPath also supports the deprecated [Docker Content Trust (DCT)](/signing-containers/docker-content-trust) signing method.
 
-### Recommendation
+### Which technology to use
 
-SignPath recommends using **[Notary (Notation)](#notary) for Enterprises** and [Cosign](#cosign) for open source projects.
+In practice, **[Notary (Notation)](#notary) is recommended for Enterprises** and [Cosign](#cosign) for open source projects.
 
 _For a detailed comparison between all the different technologies, see the [appendix](#appendix-comparison)._
 
