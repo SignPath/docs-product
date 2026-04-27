@@ -11,8 +11,15 @@ description: GitHub
 * Use the predefined Trusted Build System _GitHub.com_ (see [configuration](/trusted-build-systems#configuration))
   *  add it to the Organization
   *  link it to each SignPath Project for GitHub
-* Specify `<zip-file>` as root element of your [Artifact Configurations](/artifact-configuration) (GitHub packages all artifacts as ZIP archives)
 * Required for [source code and build policies](#define-policies-for-source-code-and-builds): Install the [SignPath GitHub App](https://github.com/apps/signpath) and allow access to the code repositories.
+
+{:.panel.info}
+> **ZIP archives**
+>
+> By default, the `upload-artifact` action creates a ZIP archive, which requires the root element of your [Artifact Configurations](/artifact-configuration) to be of type `<zip-file>`.
+> If you want to specify your artifact type directly, specify `archive: false` in the `upload-artifact` action. See [Usage](#usage).
+>
+> <i class='la la-exclamation-triangle'></i> Note that there is an open bug in GitHub's `upload-artifact` action where the `name` parameter is ignored and the action fails if another artifact with the same filename has already been uploaded. See issues [#769](https://github.com/actions/upload-artifact/issues/769) and [#785](https://github.com/actions/upload-artifact/issues/785).
 
 {:.panel.info}
 > **GitHub Enterprise Server**
@@ -38,10 +45,10 @@ steps:
   # required for the artifact to be available on the GitHub server
 - name: upload-unsigned-artifact
   id: upload-unsigned-artifact
-  uses: actions/upload-artifact@v4
+  uses: actions/upload-artifact@v7
   with: 
     path: path/to/your/artifact
-
+    
 - id: optional_step_id
   uses: signpath/github-action-submit-signing-request@v2
   with:
@@ -77,6 +84,7 @@ steps:
 | `service-unavailable-timeout-in-seconds`      | `600`                                          | Total time in seconds that the action will wait for a single service call to succeed (across several retries).
 | `download-signed-artifact-timeout-in-seconds` | `300`                                          | HTTP timeout when downloading the signed artifact.
 | `parameters`                                  |                                                | Multiline-string of values that map to [user-defined parameters] in the Artifact Configuration. Use one line per parameter with the format `<name>: "<value>"` where `<value>` needs to be a valid JSON string.
+| `skip-decompress`                             | `false`                                        | Set to `true` if the `archive` parameter in the `upload-artifact` action is set to `true` (i.e. the artifact is not stored as a ZIP archive)
 {:.break-code}
 {% endraw %}
 
