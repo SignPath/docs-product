@@ -121,7 +121,7 @@ If you do not want to upload the entire container image to SignPath, we provide 
 ##### On Linux
 
 ~~~bash
-curl -s https://download.signpath.io/cryptoproviders/sp-oci/latest-main/linux/x64/sp-oci.tar.gz | tar -xzf - sp-oci
+curl -s https://download.signpath.io/releases/sp-oci/1-latest/linux/x64/sp-oci.tar.gz | tar -xzf - sp-oci
 ./sp-oci strip image.tar --reference $imageReference --directory .tmp
 ~~~
 
@@ -137,7 +137,7 @@ curl -s https://download.signpath.io/cryptoproviders/sp-oci/latest-main/linux/x6
 ##### On Windows
 
 ~~~powershell
-Invoke-WebRequest "https://download.signpath.io/cryptoproviders/sp-oci/latest-main/windows/x64/sp-oci.zip" `
+Invoke-WebRequest "https://download.signpath.io/releases/sp-oci/1-latest/windows/x64/sp-oci.zip" `
   -OutFile "${env:TEMP}\sp-oci.zip"
 Expand-Archive -DestinationPath "$(Get-Location)\sp-oci" "${env:TEMP}\sp-oci.zip"
 
