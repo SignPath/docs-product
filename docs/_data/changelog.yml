@@ -6,6 +6,8 @@
         - text: |-
             Added support for [Notary](/artifact-configuration/reference#notation-sign) and [Cosign](/artifact-configuration/reference#cosign-sign) container signatures.
           issues: [SIGN-7799, SIGN-7653, SIGN-7652, SIGN-7655, SIGN-7798, SIGN-7654, SIGN-8303, SIGN-8319, SIGN-8292, SIGN-8365, SIGN-8361]
+        - text: |-
+            Added support for [SLSA Attestations and SLSA Verification Summary Attestations (VSA)](/slsa-attestations).
     self_hosted_installations:
       version: 1.210.0
       improvements:
