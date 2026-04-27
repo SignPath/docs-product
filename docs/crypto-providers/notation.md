@@ -75,7 +75,7 @@ See [SignPath Crypto Providers](/crypto-providers/#crypto-provider-configuration
 ~~~bash
 export IMAGE_DIGEST=`docker inspect --format='{{index .RepoDigests 0}}' "$FQN:$TAG"`
 
-export SIGNPATH_API_KEY=...your-api-key...
+export SIGNPATH_API_TOKEN=...your-api-key...
 notation sign \
   --signature-format cose \
   --id "$SIGNPATH_PROJECT_SLUG/$SIGNPATH_SIGNING_POLICY_SLUG" \
