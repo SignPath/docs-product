@@ -105,13 +105,13 @@ We recommend signing the image before it is pushed to a container registry. This
 ~~~bash
 docker buildx build -o type=oci,dest=image.tar ...
 ~~~
-
+<!--
 Alternatively, you can use the default `docker` driver and save the image to a tarball after building:
 
 ~~~bash
 docker save -o image.tar $imageReference
 ~~~
-
+-->
 #### 2. Optional: Strip the content layers
 
 If you do not want to upload the entire container image to SignPath, we provide a utility tool to strip the content layers before signing and repack them afterwards. In this case, only the metadata is sent to SignPath. 
