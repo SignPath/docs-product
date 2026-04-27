@@ -159,6 +159,7 @@
       new_features:
         - text: The Crypto Providers are now available via stable links on our download share. See the [download section](/crypto-providers#download) for details.
           issues: [SIGN-8265]
+        - text: Initial Release of the [SignPath Notation plugin](/crypto-providers/notation).
     teamcity_plugin:
       version: 0.5.0
       improvements:

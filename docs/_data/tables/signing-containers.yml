@@ -1,37 +1,151 @@
-methods-differences:
+methods-comparison:
   headers:
     topic:
-    cosign: Sigstore Cosign
+    notary: Notary (Notation)
+    cosign_fulcio: Cosign (with Fulcio)
+    cosign_keys: Cosign (Public/Private Keys)
     dct: Docker Content Trust (DCT)
+    gpg: GPG
     _attributes:
-      topic: {style: "width: 16%"}
-      cosign: {style: "width: 42%"}
-      dct: {style: "width: 42%"}
+      topic: { style: "width:15%" }
+      notary: { style: "width:17%" }
+      cosign_fulcio: { style: "width:17%" }
+      cosign_keys: { style: "width:17%" }
+      dct: { style: "width:17%" }
+      gpg: { style: "width:17%" }
   body:
-    - topic:  OCI Registry Requirements 
-      cosign: Works with any OCI registry.
-      dct: Requires [Notary](https://github.com/notaryproject/notary) server and signer (provided by _some_ OCI registries including Docker Hub and Azure Container Registry).
-    - topic: Validation Support
-      cosign: |
-        * Sigstore [Kubernetes Policy Controller](https://docs.sigstore.dev/policy-controller/overview/)
-        * [Connaisseur Cosign validator](https://sse-secure-systems.github.io/connaisseur/v3.3.2/validators/sigstore_cosign/) (third-party OSS)
-      dct: | 
-        * [Docker CLI](https://docs.docker.com/engine/security/trust/)
-        * [Mirantis Kubernetes Engine (MKE)](https://docs.mirantis.com/containers/v3.0/dockeree-products/msr/msr-user/manage-images/sign-images/trust-with-a-remote-mke.html)
-        * [Connaisseur DCT validator](https://sse-secure-systems.github.io/connaisseur/v3.3.2/validators/notaryv1/) (third-party OSS)
-        * [trusted-compose](https://github.com/sse-secure-systems/trusted-compose) for Docker Compose (third party OSS)
-    - topic: Ecosystem
-      cosign: |
-        Integrated with other Sigstore components including 
-        * [Fulcio](https://docs.sigstore.dev/certificate_authority/overview/), an OpenID-based certificate authority
-        * [Rekor](https://docs.sigstore.dev/logging/overview/), a transparency log
+    - topic: Recommended for
+      notary: Enterprises
+      cosign_fulcio: Open source projects
+      cosign_keys:
+      dct:
+      gpg: Podman
+    - _header: Overview
+    - topic: Advantages
+      notary: |
+        * Simple setup
+        * Uses existing X.509 PKI infrastructure
+        * Mature trust model
+        * Recommended by Microsoft and Amazon
+      cosign_fulcio: |
+        * Existing infrastructure for open-source projects
+        * Public transparency log (optional)
+        * Podman support (public key only)
+      cosign_keys: |
+        * Public transparency log (optional)
+      dct:
+      gpg: |
+        * Podman support
+    - topic: Disadvantages
+      notary:
+      cosign_fulcio: |
+        * Verification only using repository and/or email addresses
+        * Signing without the public transparency log is discouraged
+      cosign_keys: |
+        * Verification only with public keys or special X.509 certificates
+        * Signing without the public transparency log is discouraged
       dct: |
-        Based on 
-        * [The Update Framework (TUF)](https://theupdateframework.io/), an opinionated framework for code signing
-        * [Notary](https://github.com/notaryproject/notary), an online implementation of TUF
-    - topic: Industry Support
-      cosign: |
-        * Excellent adoption by OSS projects
+        * Security concern: potential history rewrite
+        * No stable support in AKS
+        * Complex setup
+        * Legacy (no active development)
+      gpg: |
+        * Signature is not transferrable between registries
+        * Signature has to be provided out-of-band
+    - _header: 'Feature Support'
+    - topic: Transfer signatures between registries
+      notary: 'Yes'
+      cosign_fulcio: 'Yes'
+      cosign_keys: 'Yes'
+      dct: 'No'
+      gpg: 'No'
+    - topic: Non-container artifacts
+      notary: 'Yes'
+      cosign_fulcio: 'Yes'
+      cosign_keys: 'Yes'
+      dct: 'No'
+      gpg: 'No'
+    - topic: Timestamping
+      notary: Yes (RFC 3161)
+      cosign_fulcio: Yes (through Rekor transparency log)
+      cosign_keys: Yes (through Rekor transparency log)
+      dct: Yes (through Notary "freshness")
+      gpg: 'No'
+    - topic: Invalidating signatures
+      notary: Yes (X.509 certificate revocation)
+      cosign_fulcio: Yes (Rekor log update)
+      cosign_keys: Yes (Rekor log update)
+      dct: Yes (via TUF)
+      gpg: 'No'
+    - topic: In-House X.509 PKI
+      notary: 'Yes'
+      cosign_fulcio: No (only with dedicated Fulcio server)
+      cosign_keys: 'No'
+      dct: 'No'
+      gpg: 'No'
+    - topic: Air-gapped systems
+      notary: 'Yes'
+      cosign_fulcio: 'No'
+      cosign_keys: 'Yes'
+      dct: 'No'
+      gpg: 'Yes'
+    - _header: Security attributes
+    - topic: Trust model
+      notary: PKI, X.509
+      cosign_fulcio: Sigstore (Fulcio, Rekor)
+      cosign_keys: Public/Private Keys
+      dct: Notary v1, TUF
+      gpg: GPG Public Keys
+    - topic: Root of trust
+      notary: Root Certificate (X.509)
+      cosign_fulcio: OpenID Connect Issuer via Fulcio
+      cosign_keys: Public Key
+      dct: Trust on first use
+      gpg: GPG Keyring
+    - topic: Root key security
+      notary: Secure with SignPath
+      cosign_fulcio: Sigstore.dev (public Fulcio instance) keeps keys secure via TUF
+      cosign_keys: n/a
+      dct: Only file-based root key support
+      gpg: Via GPG ecosystem
+    - topic: Signing key security
+      notary: Secure with SignPath
+      cosign_fulcio: None (short-lived client side keys)
+      cosign_keys: Secure with SignPath
+      dct: Secure with SignPath
+      gpg: Secure with SignPath
+    - _header: Validation support
+    - topic: Kubernetes admission controllers
+      notary: Ratify for K8s (recommended by AWS and Azure)
+      cosign_fulcio: Sigstore, Ratify, Connaisseur (public key only)
+      cosign_keys: Sigstore, Ratify, Connaisseur
+      dct: Connaisseur
+      gpg: Only podman
+    - topic: Required infrastructure
+      notary: |
+        * OCI-compliant container registry
+      cosign_fulcio: |
+        * Fulcio CA
+        * Rekor transparency log (optional)
+        * OCI-compliant registry
+      cosign_keys: |
+        * OCI-compliant Container registry
       dct: |
-        * Intially proposed by Docker (but never quite picked up)
-        * [Notation](https://github.com/notaryproject/specifications) (a.k.a. Notary 2) is supposed to eventually succeed DCT
+        * Docker registry
+        * Notary server
+      gpg: Podman runtime (no aditionl requirements)
+    - topic: Verification policy settings
+      notary: |
+        * Trusted root certificates
+        * Trusted timestamping certificates
+        * X.509 certificate fields
+      cosign_fulcio: |
+        * OpenID Connect issuer
+        * Subject
+      cosign_keys: |
+        * Key pinning
+      dct: |
+        * Key pinning
+      gpg: |
+        * Key pinning (per repository or registry)
+    

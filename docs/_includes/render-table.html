@@ -25,17 +25,22 @@
                 {%- endunless -%}
             {%- endif -%}
             {%- if displayRow == true -%}
-                <tr>
-                    {%- for cell in include.table.headers -%}
-                        {%- assign columnId = cell[0] -%}
-                        {%- unless columnId == "_attributes" or table-omit-columns contains columnId -%}
-                            <td markdown="1" {% for attribute in row._attributes[columnId] %} {{ attribute[0] }}="{{ attribute[1] }}" {% endfor %} >
-
+                {%- if row._header -%}
+                    <tr>
+                        <th colspan='100' class='section-header'>{{ row._header }}</th>
+                    </tr>
+                {%- else -%}
+                    <tr>
+                        {%- for cell in include.table.headers -%}
+                            {%- assign columnId = cell[0] -%}
+                            {%- unless columnId == "_attributes" or table-omit-columns contains columnId -%}
+                                <td markdown="1" {% for attribute in row._attributes[columnId] %} {{ attribute[0] }}="{{ attribute[1] }}" {% endfor %} >
 {{ row[columnId] }}
 </td>
-                        {%- endunless -%}
-                    {%- endfor -%}
-                </tr>
+                            {%- endunless -%}
+                        {%- endfor -%}
+                    </tr>
+                {%- endif -%}
             {%- endif -%}
         {%- endfor -%}
     </tbody>

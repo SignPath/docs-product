@@ -15,12 +15,6 @@
 
 - text: Signing Container Images
   path: signing-containers
-  items:
-    - text: Sigstore Cosign
-      path: cosign
-
-    - text: Docker Content Trust (DCT)
-      path: docker-content-trust
 
 - separator: true
 
@@ -91,6 +85,9 @@
 
     - text: macOS CryptoTokenKit
       path: macos
+
+    - text: Notation
+      path: notation
 
     - text: REST API
       path: rest-api
