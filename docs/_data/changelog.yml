@@ -1,3 +1,12 @@
+- date: '2026-04-28'
+  updates:
+    jenkins_plugin:
+      version: 4.0.0
+      breaking_changes:
+        - text: Removed the deprecated `apiUrl` parameter.
+          issues: [SIGN-8475]
+        - text: The signed artifact is no longer automatically archived to the Jenkins server.
+          issues: [SIGN-8475]
 - date: '2026-04-27'
   updates:
     application:
