@@ -31,7 +31,7 @@ Verification of reproducability depends on the CI system used. Typical verificat
 * **No manual overrides** of critical build settings in CI system's build job
 * **Prevent caching** from previous (possibly unverified) builds
 
-In order to use origin verification, a [Trusted Build System](trusted-build-systems) must be configured and linked to the project.
+In order to use origin verification, a [Trusted Build System](/trusted-build-systems) must be configured and linked to the project.
 
 {:.panel.tip}
 > **Use origin verification restrictions**

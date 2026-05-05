@@ -68,7 +68,7 @@ See [SignPath Crypto Providers](/crypto-providers/#crypto-provider-configuration
 
 ### Usage
 
-* The available [configuration values](/documentation/crypto-providers#crypto-provider-configuration) can also be passed in via the command line arguments `--plugin-config "Key=<Value>"`. 
+* The available [configuration values](/crypto-providers#crypto-provider-configuration) can also be passed in via the command line arguments `--plugin-config "Key=<Value>"`. 
 * The notation _key id_ is comprised of the _project slug_ and _signing policy slug_, separated by a forward slash, e.g. `"MyProject/release-signing"`
 
 {% raw %}

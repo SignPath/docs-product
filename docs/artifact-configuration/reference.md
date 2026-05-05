@@ -623,7 +623,7 @@ Use cases for raw signatures include:
 
 * Signing for lightweight verification, e.g. on embedded systems 
 * Creating signature blocks for subsequent use with other tools and formats
-* [Signing _Cosign_ metadata files](/signing-containers/cosign)
+* [Signing _Cosign_ metadata files](/signing-containers#cosign)
 
 Raw signing is a [detached](#detached-signing-methods) signing method and must be used in `<zip-file>` elements.
 
@@ -751,7 +751,7 @@ The restrictions can be applied to file elements, [file set elements](syntax#fil
 
 ## SLSA attestations {#create-provenance-file}
 
-SignPath can create SLSA attestations for any of the supported build systems. See the [definition](/origin-verification/slsa-attestations) for more details.
+SignPath can create SLSA attestations for any of the supported build systems. See the [definition](/slsa-attestations) for more details.
 
 Creating a SLSA attestation requires multiple directives:
 

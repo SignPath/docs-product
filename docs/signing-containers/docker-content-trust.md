@@ -9,7 +9,7 @@ description: Documentation for signing Docker images with SignPath using Docker 
 {:.panel.warning}
 > **Docker Content Trust (DCT) is deprecated**
 >
-> Docker Content Trust (DCT) is deprecated. Please consider using [Notary (Notation)](/signing-containers/notation) (recommended for Enterprises) or [Cosign](/signing-containers/cosign) (recommended for OSS projects).
+> Docker Content Trust (DCT) is deprecated. Please consider using [Notary (Notation)](/signing-containers#notation) (recommended for Enterprises) or [Cosign](/signing-containers#cosign) (recommended for OSS projects).
 
 ## Overview
 
