@@ -793,7 +793,7 @@ The parameters for all these directives, except `<include-in-provenance>`, which
 To verify a SLSA verification summary attestation (VSA), you need:
 
 * The verification summary attestation file (e.g. `slsa-vsa.dsse.json` in the example above)
-* The attestation signer certificate. For SLSA attestations created by SignPath, you can download [SignPath_SLSA.pem] for fully supported systems and [SignPath_SLSA-Beta.pem], which is a self-signed certificate, for all systems with preview support (See the [definition](/origin-verification/slsa-attestations) for a list of all supported systems).
+* The attestation signer certificate. For SLSA attestations created by SignPath, you can download [SignPath_SLSA.pem] for fully supported systems and [SignPath_SLSA-Beta.pem], which is a self-signed certificate, for all systems with preview support (See the [definition](/slsa-attestations) for a list of all supported systems).
 * The publisher certificate
 
 {:.panel.info}
