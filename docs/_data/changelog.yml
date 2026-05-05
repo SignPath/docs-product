@@ -3,9 +3,9 @@
     jenkins_plugin:
       version: 4.0.0
       breaking_changes:
-        - text: Removed the deprecated `apiUrl` parameter.
+        - text: Removed the `apiUrl` parameter that was deprecated in version 3.0.1 (2025-02-12).
           issues: [SIGN-8475]
-        - text: The signed artifact is no longer automatically archived to the Jenkins server.
+        - text: The signed artifact is no longer automatically archived to the Jenkins server. Use the Jenkins `archiveArtifact` step if your build pipeline requires it.
           issues: [SIGN-8475]
 - date: '2026-04-27'
   updates:
@@ -79,7 +79,7 @@
           issues: [SIGN-8114]
       new_features:
         - text: |-
-            The `archiveArtifact` step is not required any more for signing. Instead of the actual artifact, a digest file is now automatically published to the Jenkins server.
+            The `submitSigningRequest` step no longer requires the unsigned artifact to be archived using the `archiveArtifact` step. 
           issues: [SIGN-8283]
         - text: |-
             Added the `inputArtifactRetrievalUrl` and `inputArtifactRetrievalHttpHeaders` parameters to allow retrieving an unsigned artifact from a HTTPS URL.
@@ -948,7 +948,7 @@
       version: 3.0.1
       breaking_changes:
         - text: |
-            The SignPath _Api URL_ must now be configured globally in the Jenkins system settings. The parameter in the Pipeline step has been marked as deprecated. (It is ignored if it matches the global setting.)
+            The SignPath _Api URL_ must now be configured globally in the Jenkins system settings. The `apiUrl` parameter in the Pipeline step has been marked as deprecated. (It is ignored if it matches the global setting.)
      
             _This fix removes a risk of introducing insecure configurations through individual Jenkins projects. All potentially affected customers have previously been informed._
           issues: [SIGN-7342, SIGN-7466, SIGN-7489, SIGN-7522]

@@ -47,8 +47,6 @@ Include the `submitSigningRequest` and optionally, the `getSignedArtifact` steps
 | `serviceUnavailableTimeoutInSeconds`       | `600`                                     | Total time in seconds that the step will wait for a single service call to succeed (across several retries).
 | `uploadAndDownloadRequestTimeoutInSeconds` | `300`                                     | HTTP timeout used for upload and download HTTP requests. Defaults to 300.
 | `waitForCompletionTimeoutInSeconds`        | `600`                                     | Maximum time in seconds that the step will wait for the signing request to complete.
-| `apiUrl`                                   |                                           | Deprecated. Is ignored if it matches the global setting. SignPath API endpoint to use.
-
 
 #### Parameters for the `submitSigningRequest` step
 
