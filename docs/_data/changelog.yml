@@ -25,6 +25,9 @@
           issues: [SIGN-8512]
     self_hosted_installations:
       version: 1.211.0
+      breaking_changes:
+        - text: |-
+            Internal SignService API breaking change: follow the _SignService breaking changes_ steps in the installation guide, section "Version compatibility".
       improvements:
         - text: |-
             Improved resilience on temporary SQL connection outages.
