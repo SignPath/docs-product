@@ -181,6 +181,13 @@ Note that not all OPC-based formats use OPC signatures:
 
 {%- include_relative render-ac-directive-table.inc directive="jar-sign" -%}
 
+**Supported options:**
+
+| Option                    | Default value  | Available values             | Description
+|---------------------------|----------------|------------------------------|---------------------------------------------------
+| `manifest-hash-algorithm` | `sha256`       | `sha256`, `sha384`, `sha512` | Hash algorithm within the manifest file (`META-INF/MANIFEST.MF`) and the `META-INF/*.SF` file in the JAR.
+| `hash-algorithm`          | `sha256`       | `sha256`, `sha384`, `sha512` | Hash algorithm used for the input to create the actual signature (`META-INF/*.RSA/EC` file) in the JAR.
+
 ##### Verification {#jar-sign-verification}
 
 * **Java** always verifies signatures for client components. For server components, you will need to create a policy. Please consult the documentation of your application server or [Oracle's documentation](https://docs.oracle.com/javase/tutorial/security/toolsign/receiver.html).

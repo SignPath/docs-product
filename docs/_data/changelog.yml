@@ -1,3 +1,34 @@
+- date: '2026-05-07'
+  updates:
+    application:
+      version: 1.211.0
+      new_features:
+        - text: |-
+            [`<jar-sign>`](/artifact-configuration/reference#jar-sign) now supports using ECDSA certificates.
+          issues: [SIGN-8347]
+        - text: |-
+            New `hash-algorithm` and `manifest-hash-algorithm` options for [`<jar-sign>`](/artifact-configuration/reference#jar-sign).
+          issues: [SIGN-8347]
+      improvements:
+        - text: |-
+            When saving artifact configurations, they don't anymore have to start with an XML declaration (`<?xml ...`).
+          issues: [SIGN-8409]
+      bug_fixes:
+        - text: |-
+            Fixed: error handling for signing with certificates which aren't valid _yet_, or have been expired recently (previously aborted with a generic "processing error" message).
+          issues: [SIGN-7586]
+        - text: |-
+            Fixed: signing PowerShell files with UTF-16 _big endian_ are now correctly error-handled (previously aborted with a generic "processing error" message).
+          issues: [SIGN-8392]
+        - text: |-
+            Fixed: some signing policy and artifact configuration drop-down list entries were missing in the new signing request list UI.
+          issues: [SIGN-8512]
+    self_hosted_installations:
+      version: 1.211.0
+      improvements:
+        - text: |-
+            Improved resilience on temporary SQL connection outages.
+          issues: [SIGN-8533]
 - date: '2026-04-28'
   updates:
     jenkins_plugin:
