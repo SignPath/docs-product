@@ -4,22 +4,22 @@
       version: 1.211.0
       new_features:
         - text: |-
-            [`<jar-sign>`](/artifact-configuration/reference#jar-sign) now supports using ECDSA certificates.
+            [`<jar-sign>`](/artifact-configuration/reference#jar-sign) now supports ECDSA certificates.
           issues: [SIGN-8347]
         - text: |-
             New `hash-algorithm` and `manifest-hash-algorithm` options for [`<jar-sign>`](/artifact-configuration/reference#jar-sign).
           issues: [SIGN-8347]
       improvements:
         - text: |-
-            When saving artifact configurations, they don't anymore have to start with an XML declaration (`<?xml ...`).
+            When saving artifact configurations, they don't have to start with an XML declaration anymore (`<?xml ...`).
           issues: [SIGN-8409]
-      bug_fixes:
         - text: |-
-            Fixed: error handling for signing with certificates which aren't valid _yet_, or have been expired recently (previously aborted with a generic "processing error" message).
+            Attempting to sign using certificates which aren't valid _yet_, or have been expired recently now aborts with a specific error message.
           issues: [SIGN-7586]
         - text: |-
-            Fixed: signing PowerShell files with UTF-16 _big endian_ are now correctly error-handled (previously aborted with a generic "processing error" message).
+            Attempting to sign PowerShell files with UTF-16 _big endian_ now results in a specific error message (not supported by Authenticode).
           issues: [SIGN-8392]
+      bug_fixes:
         - text: |-
             Fixed: some signing policy and artifact configuration drop-down list entries were missing in the new signing request list UI.
           issues: [SIGN-8512]
