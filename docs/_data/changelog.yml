@@ -27,7 +27,8 @@
       version: 1.211.0
       breaking_changes:
         - text: |-
-            Internal SignService API breaking change: follow the _SignService breaking changes_ steps in the installation guide, section "Version compatibility".
+            SignService API breaking change: follow the _SignService breaking changes_ steps in the installation guide, section "Version compatibility".
+          issues: [SIGN-8325]
       improvements:
         - text: |-
             Improved resilience on temporary SQL connection outages.
