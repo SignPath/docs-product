@@ -185,8 +185,10 @@ Note that not all OPC-based formats use OPC signatures:
 
 | Option                    | Default value  | Available values             | Description
 |---------------------------|----------------|------------------------------|---------------------------------------------------
-| `manifest-hash-algorithm` | `sha256`       | `sha256`, `sha384`, `sha512` | Hash algorithm within the manifest file (`META-INF/MANIFEST.MF`) and the `META-INF/*.SF` file in the JAR.
-| `hash-algorithm`          | `sha256`       | `sha256`, `sha384`, `sha512` | Hash algorithm used for the input to create the actual signature (`META-INF/*.RSA/EC` file) in the JAR.
+| `manifest-hash-algorithm` | `sha256`       | `sha256`, `sha384`, `sha512` | Hash algorithm to use when digesting the entries of a JAR file for the manifest file (`META-INF/MANIFEST.MF`) and the `META-INF/*.SF` file. Corresponds to the [`jarsigner -digestalg`][jarsigner-options] parameter.
+| `hash-algorithm`          | `sha256`       | `sha256`, `sha384`, `sha512` | Hash algorithm to use for the actual signature. Corresponds to the hash algorithm specified with the [`jarsigner -digestalg`][jarsigner-options] parameter (the _signature algorithm_ is determined by the certificate's key).
+
+[jarsigner-options]: https://docs.oracle.com/en/java/javase/26/docs/specs/man/jarsigner.html#options-for-jarsigner
 
 ##### Verification {#jar-sign-verification}
 
