@@ -1,3 +1,38 @@
+- date: '2026-05-07'
+  updates:
+    application:
+      version: 1.211.0
+      new_features:
+        - text: |-
+            [`<jar-sign>`](/artifact-configuration/reference#jar-sign) now supports ECDSA certificates.
+          issues: [SIGN-8347]
+        - text: |-
+            New `hash-algorithm` and `manifest-hash-algorithm` options for [`<jar-sign>`](/artifact-configuration/reference#jar-sign).
+          issues: [SIGN-8347]
+      improvements:
+        - text: |-
+            When saving artifact configurations, they don't have to start with an XML declaration anymore (`<?xml ...`).
+          issues: [SIGN-8409]
+        - text: |-
+            Attempting to sign using certificates which aren't valid _yet_, or have been expired recently now aborts with a specific error message.
+          issues: [SIGN-7586]
+        - text: |-
+            Attempting to sign PowerShell files with UTF-16 _big endian_ now results in a specific error message (not supported by Authenticode).
+          issues: [SIGN-8392]
+      bug_fixes:
+        - text: |-
+            Fixed: some signing policy and artifact configuration drop-down list entries were missing in the new signing request list UI.
+          issues: [SIGN-8512]
+    self_hosted_installations:
+      version: 1.211.0
+      breaking_changes:
+        - text: |-
+            SignService breaking change: an internal API change requires a manual update. Follow the steps in the section _Update SignService with breaking changes_ of the installation guide.
+          issues: [SIGN-8325]
+      improvements:
+        - text: |-
+            Improved resilience on temporary SQL connection outages.
+          issues: [SIGN-8533]
 - date: '2026-04-28'
   updates:
     jenkins_plugin:
@@ -1363,8 +1398,8 @@
       version: 1.169.0
       breaking_changes:
         - text: |-
-            Internal SignService API breaking change: when upgrading from a version below 1.165, follow the _SignService breaking changes_ steps in the installation guide, section "Version compatibility".
-
+            SignService breaking change: an internal API change requires a manual update when upgrading from a version below 1.165. Follow the steps in the section _Update SignService with breaking changes_ of the installation guide.
+            
             Details: All file-based signing operations have been removed from the SignService API. Since version 1.165, all file-based signing operations have been executed by `signing-processor-service`.
           issues: [SIGN-6589]
 - date: '2024-07-23'
