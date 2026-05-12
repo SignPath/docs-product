@@ -11,7 +11,6 @@ description: Azure DevOps
 * In SignPath: [Use the predefined Trusted Build System](/trusted-build-systems#configuration) _Azure DevOps (dev.azure.com)_.
 * Create an artifact configuration with the following format:
     ```xml
-    <?xml version="1.0" encoding="utf-8" ?>
     <artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
       <zip-file>
         <directory path="*">

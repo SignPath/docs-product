@@ -14,7 +14,6 @@ Artifact configurations are XML files with the schema `http://signpath.io/artifa
 They contain exactly one file element representing the artifact. 
 
 ~~~ xml
-<?xml version="1.0" encoding="utf-8" ?>
 <artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
   <root-file-element>
     ...
@@ -28,7 +27,6 @@ They contain exactly one file element representing the artifact.
 > If autocomplete does not work in your schema-aware editor, try adding the `xsi:schemaLocation` attribute to the root element.
 >
 > ~~~xml
-> <?xml version="1.0" encoding="utf-8"?>
 > <artifact-configuration
 >   xmlns="http://signpath.io/artifact-configuration/v1"
 >   xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
@@ -39,7 +37,7 @@ They contain exactly one file element representing the artifact.
 
 ## Basic artifact structure {#structure}
 
-**Note: The following example fragments show only the root file element.** XML prologue and `<artifact configuration>` element are omitted for clarity.
+**Note: The following example fragments show only the root file element.** The `<artifact configuration>` element is omitted for clarity.
 
 Several [element types](reference#file-elements) are available of various supported file types.
 

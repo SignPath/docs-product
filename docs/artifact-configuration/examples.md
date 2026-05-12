@@ -9,18 +9,6 @@ datasource: tables/artifact-configuration
 
 ## Syntax
 
-{:.panel.info}
-> **Examples are shortened**
->
-> For the sake of clarity, all examples omit the XML prolog. A complete artifact configuration looks like this:
-> 
-> ~~~ xml
-> <?xml version="1.0" encoding="utf-8" ?>
-> <artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
->   <!-- ... -->
-> </artifact-configuration>
-> ~~~
-
 ## Basic examples
 
 ### Predefined configuration for single Portable Executable file
