@@ -209,8 +209,8 @@ Each set element contains:
 
 A set's `<for-each>` element can include the same child elements as the corresponding simple file or directory element:
 
-* `<pe-file>` supports `<authenticode-signing/>`
-* therefore `<pe-file-set>` supports `<authenticode-signing/>` within the `<for-each>` element
+* `<pe-file>` supports `<authenticode-sign/>`
+* therefore `<pe-file-set>` supports `<authenticode-sign/>` within the `<for-each>` element
 
 Sets are especially useful if your artifacts contain repeating nested structures.
 
