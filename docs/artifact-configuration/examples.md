@@ -7,8 +7,6 @@ description: Artifact Configuration Examples
 datasource: tables/artifact-configuration
 ---
 
-## Syntax
-
 ## Basic examples
 
 ### Predefined configuration for single Portable Executable file
