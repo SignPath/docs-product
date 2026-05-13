@@ -87,7 +87,6 @@ steps:
 | `outputArtifactDirectory`                     |                               | Path to where the signed artifact will be extracted. If not specified, the task will not download the signed artifact from SignPath.
 | `waitForCompletionTimeoutInSeconds`           | `600`                         | Maximum time in seconds that the action will wait for the signing request to complete.
 | `serviceUnavailableTimeoutInSeconds`          | `600`                         | Total time in seconds that the action will wait for a single service call to succeed (across several retries).
-
 | `downloadSignedArtifactTimeoutInSeconds`      | `300`                         | HTTP timeout when downloading the signed artifact. Defaults to 5 minutes.
 | `parameters`                                  |                               | Multiline-string of values that map to [user-defined parameters](/artifact-configuration/syntax#parameters) in the Artifact Configuration. Use one line per parameter with the format `<name>: "<value>"` where `<value>` needs to be a valid JSON string.
 

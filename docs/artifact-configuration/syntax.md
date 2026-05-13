@@ -121,7 +121,7 @@ For root elements, the `path` attribute is optional and cannot contain directori
 </pe-file>
 ~~~
 
-... or be specific and provide [user defined parameters](#parameters):
+... or be specific and provide [user-defined parameters](#parameters):
 
 ~~~ xml
 <pe-file path="myapp-v${version}.exe">
