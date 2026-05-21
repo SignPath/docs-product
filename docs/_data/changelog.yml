@@ -4,7 +4,7 @@
       version: 1.212.1
       new_features:
         - text: |-
-            New [`<jsf-sign>`](/artifact-configuration/reference#jsf-sign) directive to sign JSON files using JSF (JSON Signature Format).
+            New [`<jsf-sign>`](/artifact-configuration/reference#jsf-sign) directive to sign JSON files (e.g. CycloneDX 1.x SBOMs) using JSF (JSON Signature Format).
           issues: [SIGN-8481, SIGN-8483]
       bug_fixes:
         - text: |-

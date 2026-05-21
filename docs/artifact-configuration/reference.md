@@ -342,7 +342,7 @@ See also:
 
 {%- include_relative render-ac-directive-table.inc directive="jsf-sign" -%}
 
-Sign JSON files with the [JSF (JSON Signature Format)](https://cyberphone.github.io/doc/security/jsf.html).
+Sign JSON files (e.g. CycloneDX v1.x SBOMs) with the [JSF (JSON Signature Format)](https://cyberphone.github.io/doc/security/jsf.html).
 
 This will create an _embedded signature_ for the entire document. The result is a `signature` property added on root level. Note that on root level an JSON object is expected, JSON arrays are not supported.
 

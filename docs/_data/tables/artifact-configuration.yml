@@ -111,7 +111,7 @@ signing-file-elements:
       isComposite: "No"
       directive: "[`<jsf-sign>`](#jsf-sign)"
       extensions: ".json"
-      description: "Use this directive to sign JSON files using JSF (JSON Signature Format)."
+      description: "Use this directive to sign JSON files (e.g. CycloneDX 1.x SBOMs) using JSF (JSON Signature Format)."
     - element: "`<oci-image-layout-archive-file>`"
       isComposite: "No"
       directive: |
