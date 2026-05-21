@@ -14,14 +14,6 @@ description: GitHub
 * Required for [source code and build policies](#define-policies-for-source-code-and-builds): Install the [SignPath GitHub App](https://github.com/apps/signpath) and allow access to the code repositories.
 
 {:.panel.info}
-> **ZIP archives**
->
-> By default, the `upload-artifact` action creates a ZIP archive, which requires the root element of your [Artifact Configurations](/artifact-configuration) to be of type `<zip-file>`.
-> If you want to specify your artifact type directly, specify `archive: false` in the `upload-artifact` action. See [Usage](#usage).
->
-> <i class='la la-exclamation-triangle'></i> Note that there is an open bug in GitHub's `upload-artifact` action where the `name` parameter is ignored and the action fails if another artifact with the same filename has already been uploaded. See issues [#769](https://github.com/actions/upload-artifact/issues/769) and [#785](https://github.com/actions/upload-artifact/issues/785).
-
-{:.panel.info}
 > **GitHub Enterprise Server**
 >
 > SignPath hosts an instance of the GitHub connector which is linked to GitHub.com For integrating self-hosted GitHub Enterprise Server instances, contact our [support](https://signpath.io/support) team.
@@ -64,6 +56,30 @@ steps:
       myparam: "another param"
 ```
 {% endraw %}
+
+{:.panel.info}
+> **ZIP archives**
+>
+> By default, the `upload-artifact` action creates a ZIP archive, which requires the root element of your [Artifact Configurations](/artifact-configuration) to be of type `<zip-file>`.
+> If you want to specify your artifact type directly, specify `archive: false` in the `upload-artifact` action. See [Usage](#usage).
+>
+> <i class='la la-exclamation-triangle'></i> Note that there is an open bug in GitHub's `upload-artifact` action where the `name` parameter is ignored and the action fails if another artifact with the same filename has already been uploaded. See issues [#769](https://github.com/actions/upload-artifact/issues/769) and [#785](https://github.com/actions/upload-artifact/issues/785).
+
+{:.panel.info}
+> **Workflow permissions**
+>
+> If _all_ of the following conditions apply, the required permissions have to be enabled in the workflow definition:
+> 
+>  * the the GitHub repository is private
+>  * the workflow permissions are set to the default "Read repository contents and packages permissions"
+>  * The SignPath GitHub App is _not_ installed
+>
+> You can use the following snippet:
+> ```
+>   permissions:
+>      actions: read
+>      contents: read
+> ```
 
 ### Action input parameters
 
