@@ -10,6 +10,9 @@
         - text: |-
             Fixed in REST API: requests with a non-JSON `Accept` header now return the correct HTTP error response (for example, 400 Bad Request) instead of triggering a subsequent status 500 error.
           issues: [SIGN-8228]
+        - text: |-
+            Fixed in REST API: routes called with an empty GUID ID now return 400 Bad Request instead of an incorrect error response.
+          issues: [SIGN-8519]
     self_hosted_installations:
       version: 1.212.1
       improvements:
