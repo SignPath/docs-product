@@ -50,7 +50,8 @@ Since the file's format does not change, the unsigned files are not needed anymo
 * [`<rpm-sign>`: RPM Package Manager](#rpm-sign)
 * [`<debsigs-sign>`: Debian packages](#debsigs-sign)
 * [`<xml-sign>`: XML Digital Signature](#xml-sign)
-* [`<notation-sign>`](#notation-sign),
+* [`<jsf-sign>`: JSON Signature Format](#jsf-sign)
+* [`<notation-sign>`](#notation-sign)
 * [`<cosign-sign>`](#cosign-sign)
 
 The general syntax for embedded signing methods is: `<`_format_`-sign />`
@@ -334,6 +335,23 @@ The result is a `Signature` element added to the root element (after all existin
 See also:
 
 * Use [metadata restrictions](#metadata-restrictions) for `<xml-file>` to restrict root element and namespace.
+
+#### `<jsf-sign>`: JSON Signature Format {#jsf-sign}
+
+{% include editions.md feature="file_based_signing.jsf" %}
+
+{%- include_relative render-ac-directive-table.inc directive="jsf-sign" -%}
+
+Sign JSON files with the [JSF (JSON Signature Format)](https://cyberphone.github.io/doc/security/jsf.html).
+
+This will create an _embedded signature_ for the entire document. The result is a `signature` property added on root level. Note that on root level an JSON object is expected, JSON arrays are not supported.
+
+**Supported options:**
+
+| Parameter          | Default value             | Available values             | Description
+|--------------------|---------------------------|------------------------------|-------------------------------------------------
+| `hash-algorithm`   | `sha256`                  | `sha256`, `sha384`, `sha512` | Hash algorithm used to create the signature.
+| `rsa-padding`      | (mandatory for RSA keys)  | `pkcs1`, `pss`               | Padding algorithm (ignored for non-RSA keys).
 
 #### `<notation-sign>`: Notary (Notation) container signature {#notation-sign}
 

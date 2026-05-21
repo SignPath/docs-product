@@ -28,6 +28,7 @@
     deb: false
     office_macros: false
     xml: false
+    jsf: false
     docker: false
     sbom: false
     dsse: false
@@ -101,6 +102,7 @@
     deb: false
     office_macros: false
     xml: false
+    jsf: false
     docker: false
     sbom: false
     dsse: false
@@ -169,6 +171,7 @@
     deb: true
     office_macros: true
     xml: true
+    jsf: true
     docker: true
     sbom: true
     dsse: true
@@ -294,6 +297,7 @@
     deb: false
     office_macros: false
     xml: false
+    jsf: true
     docker: true
     sbom: false
     dsse: false
