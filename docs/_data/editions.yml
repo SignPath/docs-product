@@ -248,7 +248,7 @@
     origin_verification-hint: Not supported by crypto providers 
     origin_policies: true
     build_validation: true
-    extended_policies: true
+    extended_policies: false
   user_management:
     sso: true
     scim: true

@@ -1,0 +1,108 @@
+
+{% if include.schema == nil or include.schema.rules == nil %}
+    <div><strong style="background-color: red; color: white;">Error: schema argument missing or invalid </strong></div>
+{% endif %}
+
+<table>
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Parameters</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%- for rule in include.schema.rules -%}
+        <tr>
+            <td>{%- if rule.parameters -%}<a href='#{{rule.type}}'>{%- endif -%}<code>{{ rule.type }}</code>{%- if rule.parameters -%}</a>{%- endif -%}</td>
+            <td>{%- if rule.parameters -%}Yes{%- endif -%}</td>
+            <td>{{ rule.description }}</td>
+        </tr>
+        {%- endfor -%}
+    </tbody>
+</table>
+
+{%- for rule in include.schema.rules -%}
+{%- if rule.parameters -%}
+<h5 id="{{ rule.type }}"><code>{{ rule.type }}</code></h5>
+<p>{{ rule.description }}</p>
+{%- assign has_properties = false -%}
+{%- for param in rule.parameters -%}
+    {%- if param[1].properties -%}
+        {%- assign has_properties = true -%}
+    {%- endif -%}
+{%- endfor -%}
+The following parameters are supported:
+<table>
+    <thead>
+        <tr>
+            <td>Parameter</td>
+            <td>Description</td>
+            {%- if has_properties -%}
+            <td>Properties</td>
+            {%- endif -%}
+        </tr>
+    </thead>
+    <tbody>
+        {%- for param in rule.parameters -%}
+            <tr>
+                <td><code>{{ param[0]}}</code><br><span>({{ param[1].type }}{%- if param[1].required -%}; required{%- endif -%})</span></td>
+                <td>{{ param[1].description}} </td>
+                {%- if has_properties -%}
+                <td>
+                    {%- if param[1].properties -%}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Property</th>
+                                <th>Values</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%- for prop in param[1].properties -%}
+                            <tr>
+                                <td><code>{{ prop[0] }}</code>{%- if prop[1].required -%}<br><span>(required)</span>{%- endif -%}</td>
+                                <td>
+                                {%- if prop[1].type == 'enum' -%}
+                                one of
+                                <ul>
+                                    {%- for enum in prop[1].enum -%}
+                                        <li><code>{{ enum }}</code></li>
+                                    {%- endfor -%}
+                                </ul>
+                                {%- else -%}
+                                {{ prop[1].type }}
+                                {%- endif -%}
+                                </td>
+                                <td markdown="1">{{ prop[1].description }}
+</td>
+                            </tr>
+                            {%- endfor -%}
+                        </tbody>
+                    </table>
+                    {%- else -%}
+                    &ndash;
+                    {%- endif -%}
+                </td>
+                {%- endif -%}
+            </tr>
+        {%- endfor -%}
+    </tbody>
+</table>
+<i>Example:</i>
+<div markdown="1">
+```yaml
+  github-scm-policies:
+    ruleset_constraints:
+      rules:
+      - type: {{ rule.type }}{% if rule.parameters %}
+        parameters: {% for param in rule.parameters %}
+          {{ param[0] }}: {% case param[1].type %}{% when "boolean" %}true{% when "integer" %}1{% when "string array" %}
+            - value{% when "object array" %}
+            - {% for prop in param[1].properties %}{{ prop[0] }}: {% case prop[1].type %}{% when "enum" %}{{ prop[1].enum | last }}{% when "string" %}value{% endcase %}
+              {% endfor %}{% endcase %}{% endfor %}{% endif %}
+```
+</div>
+{%- endif -%}
+{%- endfor -%}

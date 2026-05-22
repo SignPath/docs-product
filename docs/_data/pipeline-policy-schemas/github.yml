@@ -1,0 +1,128 @@
+rules:
+  - type: creation
+    description: "Only allow users with bypass permission to create matching refs."
+  - type: update
+    description: "Only allow users with bypass permission to update matching refs."
+  - type: deletion
+    description: "Only allow users with bypass permissions to delete matching refs."
+  - type: required_linear_history
+    description: "Prevent merge commits from being pushed to matching refs."
+  - type: pull_request
+    description: "Require all commits be made to a non-target branch and submitted via a pull request before they can be merged."
+    parameters:
+      dismiss_stale_reviews_on_push:
+        description: "New, reviewable commits pushed will dismiss previous pull request review approvals."
+        method: equals
+        type: boolean
+        required: true
+      require_code_owner_review:
+        description: "Require an approving review in pull requests that modify files that have a designated code owner."
+        method: equals
+        type: boolean
+        required: true
+      require_last_push_approval:
+        description: "Whether the most recent reviewable push must be approved by someone other than the person who pushed it."
+        method: equals
+        type: boolean
+        required: true
+      required_approving_review_count:
+        description: "The number of approving reviews that are required before a pull request can be merged."
+        method: min
+        type: integer
+        required: true
+      required_review_thread_resolution:
+        description: "All conversations on code must be resolved before a pull request can be merged."
+        method: equals
+        type: boolean
+        required: true
+  - type: non_fast_forward
+    description: "Prevent users with push access from force pushing to refs."
+  - type: code_scanning
+    description: "Choose which tools must provide code scanning results before the reference is updated. When configured, code scanning must be enabled and have results for both the commit and the reference being updated."
+    parameters:
+      code_scanning_tools:
+        description: "Tools that must provide code scanning results for this rule to pass."
+        method: all_of
+        type: object array
+        required: true
+        properties:
+          alerts_threshold:
+            description: >
+                The severity level at which code scanning results that raise alerts block a reference update. For more information on alert severity levels, see "[About code scanning alerts](https://docs.github.com/code-security/code-scanning/managing-code-scanning-alerts/about-code-scanning-alerts#about-alert-severity-and-security-severity-levels)."
+            method: min
+            type: enum
+            required: true
+            policy_type: array
+            enum:
+              - none
+              - errors
+              - errors_and_warnings
+              - all
+          security_alerts_threshold:
+            description: >
+                The severity level at which code scanning results that raise security alerts block a reference update. For more information on security severity levels, see "[About code scanning alerts](https://docs.github.com/code-security/code-scanning/managing-code-scanning-alerts/about-code-scanning-alerts#about-alert-severity-and-security-severity-levels)."
+            method: min
+            type: enum
+            required: true
+            policy_type: array
+            enum:
+              - none
+              - critical
+              - high_or_higher
+              - medium_or_higher
+              - all
+          tool:
+            description: "The name of a code scanning tool"
+            method: one_of
+            type: string
+            required: true
+            policy_type: array
+
+# new rules added in v2 - no tests yet
+  - type: required_signatures
+    description: "Require commits to be signed with a GPG key that is verified by GitHub."
+  - type: file_path_restriction
+    description: "Prevent commits that include changes in specified file and folder paths from being pushed to the commit graph. This includes absolute paths that contain file names."
+    parameters:
+      restricted_file_paths:
+        description: "The file paths that are restricted from being pushed to the commit graph."
+        method: all_of
+        type: string array
+        required: true
+  - type: file_extension_restriction
+    description: "Prevent commits that include files with specified file extensions from being pushed to the commit graph."
+    parameters:
+      restricted_file_extensions:
+        description: "The file extensions that are restricted from being pushed to the commit graph."
+        method: all_of
+        type: string array
+        required: true
+  - type: max_file_path_length
+    description: "Prevent commits that include file paths that exceed the specified character limit from being pushed to the commit graph."
+    parameters:
+      max_file_path_length:
+        description: "The maximum amount of characters allowed in file paths."
+        method: max
+        type: integer
+        required: true
+  - type: max_file_size
+    description: "Prevent commits with individual files that exceed the specified limit from being pushed to the commit graph."
+    parameters:
+      max_file_size:
+        description: "The maximum file size allowed in megabytes. This limit does not apply to Git Large File Storage (Git LFS)."
+        method: max
+        type: integer
+        required: true
+  - type: copilot_code_review
+    description: "Request Copilot code review for new pull requests automatically if the author has access to Copilot code review and their premium requests quota has not reached the limit."
+    parameters:
+      review_draft_pull_requests:
+        description: "Copilot automatically reviews draft pull requests before they are marked as ready for review."
+        method: equals
+        type: boolean
+        required: false
+      review_on_push:
+        description: "Copilot automatically reviews each new push to the pull request."
+        method: equals
+        type: boolean
+        required: false
