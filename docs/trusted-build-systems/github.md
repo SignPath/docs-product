@@ -43,13 +43,13 @@ We provide a [`submit-signing-request` action](https://github.com/SignPath/githu
 ```yaml
 steps:
   # required for the artifact to be available on the GitHub server
-- name: upload-unsigned-artifact
+- name: upload unsigned artifact
   id: upload-unsigned-artifact
   uses: actions/upload-artifact@v7
   with: 
     path: path/to/your/artifact
     
-- id: optional_step_id
+- name: submit signing request
   uses: signpath/github-action-submit-signing-request@v2
   with:
     api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'

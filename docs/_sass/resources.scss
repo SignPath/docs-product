@@ -225,7 +225,7 @@ main > section.resources-section {
 					font-weight: 800;
 				}
 			}
-
+			
 			&.info {
 				background-color: $light-grey-background-color;
 				& > p:first-child::before,
@@ -272,7 +272,6 @@ main > section.resources-section {
 				background-color: $grey-border-color;
 				margin: 0px;
 				padding: 5px 10px;
-				font-weight: bold;
 				font-size: 1em;
 				margin-left: -20px;
 				margin-right: -20px;

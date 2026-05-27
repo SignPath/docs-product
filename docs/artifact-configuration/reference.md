@@ -37,7 +37,7 @@ Signing directives are available for several code signing methods. There are thr
 
 These signing methods add signatures to existing files. Several platforms including Windows, Apple, and Java provide a variety of file formats that support embedded signatures. 
 
-Since the file's format does not change, the unsigned files are not needed anymore. SignPath will only return the signed files in Signing Requests.
+Since the file's format does not change, the unsigned files are not needed anymore. SignPath only returns the signed files in Signing Requests.
 
 #### Supported embedded formats
 
@@ -193,7 +193,7 @@ Note that not all OPC-based formats use OPC signatures:
 
 ##### Verification {#jar-sign-verification}
 
-* **Java** always verifies signatures for client components. For server components, you will need to create a policy. Please consult the documentation of your application server or [Oracle's documentation](https://docs.oracle.com/javase/tutorial/security/toolsign/receiver.html).
+* **Java** always verifies signatures for client components. For server components, you need to create a policy. Please consult the documentation of your application server or [Oracle's documentation](https://docs.oracle.com/javase/tutorial/security/toolsign/receiver.html).
 * **Android** always verifies App signatures, but current Android versions require signing schemes v2 or v3.
 * If you sign **ZIP files**, the receiver needs to manually check the signature before unpacking the file.
 
@@ -307,11 +307,19 @@ The `dpkg` command internally uses [`debsig-verify`]. You can also use this tool
 
 {% include editions.md feature="file_based_signing.xml" %}
 
+{:.panel.tip}
+> XMLDSIG can be used to sign CycloneDX XML SBOMs.
+
 {%- include_relative render-ac-directive-table.inc directive="xml-sign" -%}
 
 Sign XML files with [XMLDSIG](https://www.w3.org/TR/xmldsig-core1/). 
 
-This will create an _enveloped signature_ for the entire document. 
+This creates an _XMLDSIG enveloped signature_ for the entire document: a `<ds:Signature>` element is added to the existing root element. 
+
+{:.panel.info}
+> **Terminology**
+>
+> XMLDSIG terminology names this method [_enveloped signature_](https://www.w3.org/TR/xmldsig-core1/#def-SignatureEnveloped) although it does not create an envelope. Since it preserves the existing XML document and structure, it can be treated as an _embedded signature_ for most purpuses. However, the new element might break the root element's schema if signing is not expected by the target schema. 
 
 The result is a `Signature` element added to the root element (after all existing children) with the following properties:
 
@@ -340,11 +348,14 @@ See also:
 
 {% include editions.md feature="file_based_signing.jsf" %}
 
+{:.panel.tip}
+> JSF can be used to sign CycloneDX v1.x JSON SBOMs.
+
 {%- include_relative render-ac-directive-table.inc directive="jsf-sign" -%}
 
-Sign JSON files (e.g. CycloneDX v1.x SBOMs) with the [JSF (JSON Signature Format)](https://cyberphone.github.io/doc/security/jsf.html).
+Sign JSON files with [JSON Signature Format (JSF))](https://cyberphone.github.io/doc/security/jsf.html). 
 
-This will create an _embedded signature_ for the entire document. The result is a `signature` property added on root level. Note that on root level an JSON object is expected, JSON arrays are not supported.
+This creates signature of the whole document: a `signature` property is added at the root level. Note that a JSON object is expected, JSON arrays are not supported at the root level.
 
 **Supported options:**
 
@@ -359,7 +370,7 @@ Sign container images using [Notation (Notary)](/signing-containers#notary).
 
 {%- include_relative render-ac-directive-table.inc directive="notation-sign" -%}
 
-This will place the signature at the right place within the OCI layout and add relevant references.
+This places the signature at the right place within the OCI layout and add relevant references.
 
 **Supported options:**
 
@@ -385,7 +396,7 @@ Sign container images using [Sigstore Cosign](/signing-containers#cosign).
 
 {%- include_relative render-ac-directive-table.inc directive="cosign-sign" -%}
 
-This will place the signature at the right place within the OCI layout and add relevant references.
+This places the signature at the right place within the OCI layout and add relevant references.
 
 **Supported options:**
 
@@ -409,7 +420,7 @@ _Note: You can create both [Notary](#notation-sign) and Cosign signatures for th
 
 These signing methods create new files that contain both the original file and the signature. Enveloped signatures are available for all file types using the `<file>` element. Since the signed file is _added_, this `<file>` element must be contained in a `<zip-file>` element.
 
-While the original file is still available, it often needs to be extracted from the enveloped file in order to be used, ideally after sucessful signature verification. SignPath will preserve the original files in Signing Requests.
+While the original file is still available, it often needs to be extracted from the enveloped file in order to be used, ideally after sucessful signature verification. SignPath preserves the original files in Signing Requests.
 
 #### Supported enveloped formats
 
@@ -459,8 +470,7 @@ This example signs SLSA Verification Summary Attestations using DSSE:
 </artifact-configuration>
 ~~~
 
-The resulting artifact will contain both the original file `slsa-vsa.json` and the enveloped signature`slsa-vsa.dsse`.
-
+The resulting artifact contains both the original file `slsa-vsa.json` and the enveloped signature`slsa-vsa.dsse`.
 
 #### `<smime-sign>`: S/MIME signing {#smime-sign}
 
@@ -523,7 +533,7 @@ openssl smime -verify -purpose codesign -in "hashes.txt.msg" -out "hashes.txt"
 
 These signing methods create new files that contain the signature and a cryptographic hash code of the original file. Detached signatures are available for all file types using the `<file>` element. Since the signature file is _added_, this `<file>` element must be contained in a `<zip-file>` element.
 
-For signature verification, both the original file and the detached signature must be present. SignPath will preserve the original files in Signing Requests.
+For signature verification, both the original file and the detached signature must be present. SignPath preserves the original files in Signing Requests.
 
 #### Supported detached formats
 
@@ -570,7 +580,7 @@ The `create-cms-signature` directive supports the following parameters:
 </artifact-configuration>
 ~~~
 
-The resulting artifact will contain both the original file `myfile.bin` and the detached signature in `myfile.bin.cms.pem`.
+The resulting artifact contains both the original file `myfile.bin` and the detached signature in `myfile.bin.cms.pem`.
 
 ##### CMS signature verification
 
@@ -610,7 +620,7 @@ The `create-gpg-signature` directive supports the following parameters:
 | `output-file-name` | (mandatory)     |                              | Name of the output file containing the signature. Use `${file.name}` to reference the source file name.
 | `output-encoding`  | `ascii-armored` | `ascii-armored`, `binary`    | The encoding of the output file containing the signature. Either [ASCII armored, i.e. text-only](https://datatracker.ietf.org/doc/html/rfc4880#section-6.2) (default) or the binary OpenPGP packet format.
 | `hash-algorithm`   | `sha256`        | `sha256`, `sha384`, `sha512` | Hash algorithm used to create the signature.
-| `version`          | `4`             | `4`                          | Specifies the [signature version](https://datatracker.ietf.org/doc/html/rfc4880#section-5.2). Currently only `4` is supported, the attribute is intended to allow to fixate the version in case the default version will be changed in the future.
+| `version`          | `4`             | `4`                          | Specifies the [signature version](https://datatracker.ietf.org/doc/html/rfc4880#section-5.2). Currently only `4` is supported, the attribute is intended to allow pinning the version in case the default version changeds in the future.
 
 ##### Example
 
@@ -624,7 +634,7 @@ The `create-gpg-signature` directive supports the following parameters:
 </artifact-configuration>
 ~~~
 
-The resulting artifact will contain both the original file `myfile.bin` and the detached signature in `myfile.bin.asc`.
+The resulting artifact contains both the original file `myfile.bin` and the detached signature in `myfile.bin.asc`.
 
 ##### GPG signature verification
 
@@ -676,7 +686,7 @@ The `create-raw-signature` directive supports the following parameters:
 </artifact-configuration>
 ~~~
 
-The resulting artifact will contain both the original file `myfile.bin` and the detached signature in `myfile.bin.sig`.
+The resulting artifact contains both the original file `myfile.bin` and the detached signature in `myfile.bin.sig`.
 
 ##### Raw signature verification
 

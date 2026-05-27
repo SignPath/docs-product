@@ -4,7 +4,7 @@
       version: 1.212.1
       new_features:
         - text: |-
-            New [`<jsf-sign>`](/artifact-configuration/reference#jsf-sign) directive to sign JSON files (e.g. CycloneDX 1.x SBOMs) using JSF (JSON Signature Format).
+            New [`<jsf-sign>`](/artifact-configuration/reference#jsf-sign) directive to sign JSON files using JSON Signature Format (JSF).
           issues: [SIGN-8481, SIGN-8483]
       bug_fixes:
         - text: |-
@@ -17,7 +17,7 @@
       version: 1.212.1
       improvements:
         - text: |-
-            Now, similar to `signpath-application` chart Pods, also `signpath-signservice-<type>` Helm chart Pods are automatically restarted on Helm chart upgrades. In both charts this can be opted-out via `chartSettings.disableDeploymentRestartOnHelmUpgrade`.
+            `signpath-signservice-<type>` Helm chart Pods are automatically restarted on Helm chart upgrades (as previously implemented for `signpath-application` chart Pods.) This can be opted out via `chartSettings.disableDeploymentRestartOnHelmUpgrade` for both charts.
           issues: [SIGN-6933]
 - date: '2026-05-07'
   updates:
