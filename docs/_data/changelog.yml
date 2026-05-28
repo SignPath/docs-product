@@ -1,3 +1,24 @@
+- date: '2026-05-26'
+  updates:
+    application:
+      version: 1.212.1
+      new_features:
+        - text: |-
+            New [`<jsf-sign>`](/artifact-configuration/reference#jsf-sign) directive to sign JSON files using JSON Signature Format (JSF).
+          issues: [SIGN-8481, SIGN-8483]
+      bug_fixes:
+        - text: |-
+            Fixed in REST API: requests with a non-JSON `Accept` header now return the correct HTTP error response (for example, 400 Bad Request) instead of triggering a subsequent status 500 error.
+          issues: [SIGN-8228]
+        - text: |-
+            Fixed in REST API: routes called with an empty GUID ID now return 400 Bad Request instead of status 500 errors.
+          issues: [SIGN-8519]
+    self_hosted_installations:
+      version: 1.212.1
+      improvements:
+        - text: |-
+            `signpath-signservice-<type>` Helm chart Pods are automatically restarted on Helm chart upgrades (as previously implemented for `signpath-application` chart Pods.) This can be opted out via `chartSettings.disableDeploymentRestartOnHelmUpgrade` for both charts.
+          issues: [SIGN-6933]
 - date: '2026-05-07'
   updates:
     application:

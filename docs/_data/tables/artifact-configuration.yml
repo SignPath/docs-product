@@ -106,7 +106,12 @@ signing-file-elements:
       isComposite: "No"
       directive: "[`<xml-sign>`](#xml-sign)"
       extensions: ".xml"
-      description: "Use this directive to sign XML files using [XMLDSIG](https://www.w3.org/TR/xmldsig-core1/) (available for Advanced Code Signing). File size limit: 2 MB."
+      description: "Sign XML files using [XMLDSIG](https://www.w3.org/TR/xmldsig-core1/) (available for Advanced Code Signing). File size limit: 2 MB."
+    - element: "`<json-file>`"
+      isComposite: "No"
+      directive: "[`<jsf-sign>`](#jsf-sign)"
+      extensions: ".json"
+      description: "Sign JSON files using [JSON Signature Format (JSF)](https://cyberphone.github.io/doc/security/jsf.html?)."
     - element: "`<oci-image-layout-archive-file>`"
       isComposite: "No"
       directive: |
@@ -158,6 +163,7 @@ signing-method-categories:
         [`<apk-sign>`](#apk-sign),
         [`<office-macro-sign>`](#office-macro-sign),
         [`<xml-sign>`](#xml-sign),
+        [`<jsf-sign>`](#jsf-sign),
         [`<notation-sign>`](#notation-sign),
         [`<cosign-sign>`](#cosign-sign)
     - category: "[Enveloped](#enveloped-signing-methods)"
