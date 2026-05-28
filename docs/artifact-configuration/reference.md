@@ -353,7 +353,7 @@ See also:
 
 {%- include_relative render-ac-directive-table.inc directive="jsf-sign" -%}
 
-Sign JSON files with [JSON Signature Format (JSF))](https://cyberphone.github.io/doc/security/jsf.html). 
+Sign JSON files with [JSON Signature Format (JSF)](https://cyberphone.github.io/doc/security/jsf.html). 
 
 This creates signature of the whole document: a `signature` property is added at the root level. Note that a JSON object is expected, JSON arrays are not supported at the root level.
 
@@ -620,7 +620,7 @@ The `create-gpg-signature` directive supports the following parameters:
 | `output-file-name` | (mandatory)     |                              | Name of the output file containing the signature. Use `${file.name}` to reference the source file name.
 | `output-encoding`  | `ascii-armored` | `ascii-armored`, `binary`    | The encoding of the output file containing the signature. Either [ASCII armored, i.e. text-only](https://datatracker.ietf.org/doc/html/rfc4880#section-6.2) (default) or the binary OpenPGP packet format.
 | `hash-algorithm`   | `sha256`        | `sha256`, `sha384`, `sha512` | Hash algorithm used to create the signature.
-| `version`          | `4`             | `4`                          | Specifies the [signature version](https://datatracker.ietf.org/doc/html/rfc4880#section-5.2). Currently only `4` is supported, the attribute is intended to allow pinning the version in case the default version changeds in the future.
+| `version`          | `4`             | `4`                          | Specifies the [signature version](https://datatracker.ietf.org/doc/html/rfc4880#section-5.2). Currently only `4` is supported, the attribute is intended to allow pinning the version in case the default version changes in the future.
 
 ##### Example
 
