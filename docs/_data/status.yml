@@ -6,6 +6,15 @@ current:
     # link:
 planned:
 incidents:
+  - date: 'Jun. 9, 2026'
+    range: 'Jun. 9, 2026, 08:30 - 08:36 UTC'
+    type: warning
+    title: 'HSM signing interruptions'
+    description: |
+      Temporary HSM signing outage due to a misconfiguration after deployment.
+      * Delayed signing request processing.
+      * Possible client-side timeouts concerning hash signing.
+      * DPoD Cloud HSM and software certificates were not affected.
   - date: 'Apr. 04, 2026'
     range: 'Apr. 04, 2026, 23:00 - Apr. 05, 2026, 3:00 UTC'
     type: warning
