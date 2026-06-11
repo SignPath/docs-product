@@ -1,3 +1,15 @@
+- date: '2026-06-16'
+  updates:
+    application:
+      version: 1.214.0
+      new_features:
+        - text: |-
+            REST API: new route for importing X.509 certificates with an existing key pair on an HSM: `POST /v1/{organizationId}/Certificates/ImportX509CertificateWithExistingKeyPair`.
+          issues: [SIGN-8616]
+      bug_fixes:
+        - text: |-
+            Fixed: incorrect line numbers reported in artifact configuration XML error messages.
+          issues: [SIGN-8629]
 - date: '2026-06-09'
   updates:
     self_hosted_installations:
