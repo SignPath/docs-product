@@ -5,8 +5,9 @@
       new_features:
         - text: |-
             REST API: new route `POST /v1/{organizationId}/Certificates/ImportX509CertificateWithExistingKeyPair`.
-            * Can be used to import an X.509 certificate with an _existing_ key pair on an HSM.
-            * Note that this requires an opt-in in the SignPath system configuration for the respective HSM key store.
+            * Imports an X.509 certificate using an existing key pair from the specified key store.
+            * Contact our support team (SaaS) or your administrator (on premises) to enable the feature and request the ID of each key store.
+            * Not available for shared key stores (SaaS). 
           issues: [SIGN-8616]
       bug_fixes:
         - text: |-
