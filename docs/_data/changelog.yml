@@ -4,7 +4,7 @@
       version: 1.214.0
       new_features:
         - text: |-
-            REST API: new route for importing X.509 certificates with an existing key pair on an HSM: `POST /v1/{organizationId}/Certificates/ImportX509CertificateWithExistingKeyPair`.
+            REST API: new route for importing an X.509 certificate with an existing key pair on an HSM: `POST /v1/{organizationId}/Certificates/ImportX509CertificateWithExistingKeyPair`.
           issues: [SIGN-8616]
       bug_fixes:
         - text: |-
