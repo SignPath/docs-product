@@ -47,7 +47,7 @@ The following parameters are supported:
         {%- for param in rule.parameters -%}
             <tr>
                 <td><code>{{ param[0]}}</code><br><span>({{ param[1].type }}{%- if param[1].required -%}; required{%- endif -%})</span></td>
-                <td>{{ param[1].description}} </td>
+                <td>{{ param[1].description}}{% if param[1].method == "min" %} <br><i>Note: The value defines a required minimum. Higher values are accepted.</i>{% endif %}{% if param[1].method == "max" %} <br><i>Note: The value defines a required maximum. Lower values are accepted.</i>{% endif %}</td>
                 {%- if has_properties -%}
                 <td>
                     {%- if param[1].properties -%}
@@ -66,16 +66,17 @@ The following parameters are supported:
                                 <td>
                                 {%- if prop[1].type == 'enum' -%}
                                 one of
-                                <ul>
+                                {%- if prop[1].method == "min" or prop[1].method == "max" -%}<ol>{%- else -%}<ul>{%- endif -%}
                                     {%- for enum in prop[1].enum -%}
                                         <li><code>{{ enum }}</code></li>
                                     {%- endfor -%}
-                                </ul>
+                                {%- if prop[1].method == "min" or prop[1].method == "max" -%}</ol>{%- else -%}</ul>{%- endif -%}
                                 {%- else -%}
                                 {{ prop[1].type }}
                                 {%- endif -%}
                                 </td>
                                 <td markdown="1">{{ prop[1].description }}
+{% if prop[1].method == "min" %} _Note: The value defines a required minimum. Higher values are accepted._{% endif %}{% if prop[1].method == "max" %} _Note: The value defines a required maximum. Lower values are accepted._{% endif %}
 </td>
                             </tr>
                             {%- endfor -%}
@@ -95,13 +96,13 @@ The following parameters are supported:
 ```yaml
   github-scm-policies:
     ruleset_constraints:
-      rules:
-      - type: {{ rule.type }}{% if rule.parameters %}
-        parameters: {% for param in rule.parameters %}
-          {{ param[0] }}: {% case param[1].type %}{% when "boolean" %}true{% when "integer" %}1{% when "string array" %}
-            - value{% when "object array" %}
-            - {% for prop in param[1].properties %}{{ prop[0] }}: {% case prop[1].type %}{% when "enum" %}{{ prop[1].enum | last }}{% when "string" %}value{% endcase %}
-              {% endfor %}{% endcase %}{% endfor %}{% endif %}
+      - rules:
+        - type: {{ rule.type }}{% if rule.parameters %}
+          parameters: {% for param in rule.parameters %}
+            {{ param[0] }}: {% if param[1].sample %}{{ param[1].sample }}{% else %}{% case param[1].type %}{% when "boolean" %}true{% when "integer" %}1{% when "string array" %}
+              - value{% when "object array" %}
+              - {% for prop in param[1].properties %}{{ prop[0] }}: {% if prop[1].sample %}{{ prop[1].sample }}{% else %}{% case prop[1].type %}{% when "enum" %}{{ prop[1].enum | last }}{% when "string" %}value{% endcase %}{% endif %}
+              {% endfor %}{% endcase %}{% endif %}{% endfor %}{% endif %}
 ```
 </div>
 {%- endif -%}

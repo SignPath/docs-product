@@ -14,27 +14,27 @@ rules:
         description: "New, reviewable commits pushed will dismiss previous pull request review approvals."
         method: equals
         type: boolean
-        required: true
+        required: false
       require_code_owner_review:
         description: "Require an approving review in pull requests that modify files that have a designated code owner."
         method: equals
         type: boolean
-        required: true
+        required: false
       require_last_push_approval:
         description: "Whether the most recent reviewable push must be approved by someone other than the person who pushed it."
         method: equals
         type: boolean
-        required: true
+        required: false
       required_approving_review_count:
         description: "The number of approving reviews that are required before a pull request can be merged."
         method: min
         type: integer
-        required: true
+        required: false
       required_review_thread_resolution:
         description: "All conversations on code must be resolved before a pull request can be merged."
         method: equals
         type: boolean
-        required: true
+        required: false
   - type: non_fast_forward
     description: "Prevent users with push access from force pushing to refs."
   - type: code_scanning
@@ -77,6 +77,7 @@ rules:
             type: string
             required: true
             policy_type: array
+            sample: CodeQL
 
 # new rules added in v2 - no tests yet
   - type: required_signatures
@@ -89,6 +90,7 @@ rules:
         method: all_of
         type: string array
         required: true
+        sample: "\n              - 'src/config/local.env'"
   - type: file_extension_restriction
     description: "Prevent commits that include files with specified file extensions from being pushed to the commit graph."
     parameters:
@@ -97,6 +99,7 @@ rules:
         method: all_of
         type: string array
         required: true
+        sample: "\n              - '.sql'"
   - type: max_file_path_length
     description: "Prevent commits that include file paths that exceed the specified character limit from being pushed to the commit graph."
     parameters:
@@ -105,6 +108,7 @@ rules:
         method: max
         type: integer
         required: true
+        sample: '1024 # characters'
   - type: max_file_size
     description: "Prevent commits with individual files that exceed the specified limit from being pushed to the commit graph."
     parameters:
@@ -113,6 +117,7 @@ rules:
         method: max
         type: integer
         required: true
+        sample: '10 # mb'
   - type: copilot_code_review
     description: "Request Copilot code review for new pull requests automatically if the author has access to Copilot code review and their premium requests quota has not reached the limit."
     parameters:

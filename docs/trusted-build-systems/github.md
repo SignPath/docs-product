@@ -2,7 +2,7 @@
 header: GitHub
 layout: resources
 toc: true
-show_toc: 2
+show_toc: 3
 description: GitHub
 ---
 
@@ -127,12 +127,12 @@ Steps to create a policy file:
 * name it `.signpath/policies/<project-slug>/<signing-policy-slug>.yml` 
 * restrict write permissions to the policy files using GitHub's [code owners] feature
 
-There are separate policy sections for GitHub's CI sytem, [GitHub Actions](#github-actions-policies) and [GitHub's source code management system](#github-scm-policies).
+There are separate policy sections for GitHub's CI sytem, [GitHub Actions](#github-build-policies) and [GitHub's source code management system](#github-scm-policies).
 
 ### Example
 
 ```yaml
-github-actions-policies:
+github-build-policies:
   disallow_reruns: false
   runners:
     require_github_hosted: true
@@ -144,15 +144,15 @@ github-scm-policies:
   - enforced_from: 2025-01-01
     allow_bypass_actors: true
     rules:
-    - type: non_fast_forward
-    - type: pull_request
-      parameters:
-        required_approving_review_count: 2
-        require_last_push_approval: true
+      - type: non_fast_forward
+      - type: pull_request
+        parameters:
+          required_approving_review_count: 2
+          require_last_push_approval: true
 ```
 
 
-### `github-actions-policies`
+### `github-build-policies`
 
 Allows to restrict the GitHub Actions build with the following policies:
 
@@ -172,6 +172,55 @@ Allows to restrict the GitHub Actions build with the following policies:
 
 Allows to define `ruleset_constraints` for [GitHub branch rulesets]. All specified constraints must be covered by one or multiple active branch rulesets defined in GitHub. Multiple `ruleset_constraints` with different parameters can be defined.
 
+{:.panel.info}
+> **How ruleset constraints map to GitHub ruleset rules**
+> 
+> GitHub allows you to define **_branch rulesets_**, both for repositories and at an organization level. Each branch ruleset defines a set of _rules_ and, optionally, a set of _bypass actors._
+>
+> SignPath allows you to define **_ruleset contraints_**. Every _rule_ in a _ruleset constraint_ defined in SignPath's policies must be fulfilled by at least one _rule_ in a _branch ruleset_ on GitHub. You can define whether _bypass actors_ are allowed and whether the constraint has to be continually fulfilled (see below).
+>
+> **_Example:_**
+>
+> For example, the following GitHub branch rulesets would fulfill all of the defined ruleset constraints:
+> 
+> 1. The `non_fast_forward` constraint is covered by Ruleset 1
+> 2. The `deletion` constraint is covered by Ruleset 1. It would allow bypass actors, but disallowing them is stricter and therefore valid.
+> 3. The `creation` constraint is covered by Ruleset 2.
+> 
+> <table style="width:100%">
+>   <thead>
+>     <tr>
+>       <th markdown="1">SignPath constraints</th>
+>       <th>GitHub branch rulesets</th>
+>     </tr>
+>   </thead>
+>   <tbody>
+>     <tr>
+>       <td markdown="1" style="width:50%">
+> ```yaml
+> github-scm-policies:
+>    ruleset_constraints:
+>      - allow_bypass_actors: false
+>        rules:
+>          - type: non_fast_forward
+>      - allow_bypass_actors: true
+>        rules:
+>          - type: deletion
+>          - type: creation
+> ```
+></td>
+>       <td markdown="1">
+> Ruleset 1 (does not allow bypass actors)
+> * non_fast_forward
+> * deletion
+>
+> Ruleset 2 (allows bypass actors)
+> * creation
+></td>
+>     </tr>
+>   </tbody>
+> </table>
+
 #### General parameters for `ruleset_constraints`
 
 | Parameter               | Values                         | Description
@@ -187,18 +236,14 @@ Allows to define `ruleset_constraints` for [GitHub branch rulesets]. All specifi
 > * **Audit log events** for _GitHub Enterprise_ subscriptions. Audit log events are only available for the last 180 days, any prior policy violations will not be detected.
 > * The **last modified date** of the branch rulesets for all other subscriptions. At least one branch ruleset that has not been modified since the specified timestap must implement the rule.
 
-TODO: better explain relation between GitHub branch rulesets and ruleset constraints
-
 #### Supported rules
 
 The following rules are supported:
 
 {%- include render-github-policies.html schema=site.data.pipeline-policy-schemas.github -%}
 
-TODO: What does the `policy_type: array` mean (e.g. for code scanning tool)
-TODO: Provide sample values for integers and strings? (e.g. not `value`)
-TODO: Why are all the pull request parameters required?
-TODO: Explain min/max
+TODO: What does the `policy_type: array` mean (e.g. for code scanning tool) --> Taha also doesn't know - discuss with Stefan
+TODO: Sync Schema back to Pipeline Connector
 
 [code owners]: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
 [GitHub branch rulesets]: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets
