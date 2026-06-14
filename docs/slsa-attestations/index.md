@@ -12,7 +12,7 @@ The [SLSA framework](https://slsa.dev) was originally introduced by Google in 20
 
 ### Key concepts
 
-- A **Provenance** is a machine- and human-readable file describing *where*, *when*, and *how* a software artifact was produced - typically including the source code repository and revision, the build definition, and information about the build system.
+- A **Provenance** is a machine- and human-readable file describing _where_, _when_, and _how_ a software artifact was produced - typically including the source code repository and revision, the build definition, and information about the build system.
 - An **Attestation** is a digitally signed provenance.
 - A **Verification Summary Attestation (VSA)** confirms that an artifact was built compliant with the attested SLSA build level. It omits technical details about the build process and can therefore be more easily shared and validated.
 

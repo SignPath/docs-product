@@ -189,7 +189,7 @@ _OpenSSL_ provides a variety of commands that can be used for signing. In this s
 {:.panel.tip}
 > **Tip**
 >
-> For *Linux*, configuration, signing invocation and verification examples are provided in the [Linux samples] within `Scenarios/OpenSSL/OpenSSL.sh`. Sample invocation:
+> For _Linux_, configuration, signing invocation and verification examples are provided in the [Linux samples] within `Scenarios/OpenSSL/OpenSSL.sh`. Sample invocation:
 > 
 > ```bash
 > ./RunScenario.sh -Scenario OpenSSL -OrganizationId "$OrganizationId" -ApiToken "$ApiToken" -ProjectSlug "hash-signing" -SigningPolicySlug "test-signing" -OpenSslDgst
@@ -388,7 +388,7 @@ slot=1
 {:.panel.tip}
 > **Tip**
 >
-> For *Linux*, configuration and invocation examples are provided in the [Linux samples] within `Scenarios/Jar/JarSigner.sh`. Sample invocation:
+> For _Linux_, configuration and invocation examples are provided in the [Linux samples] within `Scenarios/Jar/JarSigner.sh`. Sample invocation:
 > 
 > ```bash
 > ./RunScenario.sh -Scenario JarSigner  -OrganizationId "$OrganizationId" -ApiToken "$ApiToken" -ProjectSlug "hash-signing" -SigningPolicySlug "test-signing"

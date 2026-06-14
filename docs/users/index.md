@@ -12,7 +12,7 @@ SignPath supports the following type of users:
 
 * [Interactive users](#interactive) can log into the web application to perform various activities depending on their [role](#roles)
 * [CI users](#ci) are used to integrate with CI systems and other applications through SignPath's REST APIs
-* The [*support user*](#support) account is used to grant (and revoke) access for SignPath support staff
+* The [_support user_](#support) account is used to grant (and revoke) access for SignPath support staff
 
 ## Interactive users {#interactive}
 
@@ -104,12 +104,12 @@ By default, the SignPath support team does not have access to your data.
 
 If you require assistance from our support team, please 
 
-* go to your *organization* page (click the organization name in the upper right corner)
-* select *Authorize support user* in the *More* menu on your organization page
+* go to your _organization_ page (click the organization name in the upper right corner)
+* select _Authorize support user_ in the _More_ menu on your organization page
 
 The support user account has administrative privileges. If you disable it after your issue is resolved, please remember to enable it for your next support request.
 
-Please always mention your *Organization ID* in support requests.
+Please always mention your _Organization ID_ in support requests.
 
 ## User roles {#roles}
 
@@ -146,32 +146,32 @@ Please always mention your *Organization ID* in support requests.
 
 In addition to these global user roles, the following permissions are assigned per project or signing policy:
 
-* Projects: [*Readers* and *Configurators* permissions](/projects#project-settings)
-* Signing policies: [*Submitters* and *Approvers* permissions](/projects#signing-policies)
+* Projects: [_Readers_ and _Configurators_ permissions](/projects#project-settings)
+* Signing policies: [_Submitters_ and _Approvers_ permissions](/projects#signing-policies)
 
 Read permissions:
 
 * All users can view configuration information and metadata
 * Access to artifacts is restricted to users with read permissions for the signing request
 * Users have read permissions for a Signing Request if they have
-  * an appropriate global role: *Global Administrator*, *Project Administrator*, *Global Reader*, *Support User*
-  * a role for the Project: *Reader*, *Configurator*
-  * a role for the Signing Policy: *Submitter*, *Approver*
+  * an appropriate global role: _Global Administrator_, _Project Administrator_, _Global Reader_, _Support User_
+  * a role for the Project: _Reader_, _Configurator_
+  * a role for the Signing Policy: _Submitter_, _Approver_
 
 ## Notifications {#notifications}
 
 SignPath will inform you and your team about signing requests. Every user can select the notification level for each signing policy separately. The following options are available:
 
-* *All*: You receive all notifications for the signing request
-* *Default:* See below
-* *None*: You don't receive any notifications
+* _All_: You receive all notifications for the signing request
+* _Default:_ See below
+* _None_: You don't receive any notifications
 
 ### Default notifications
 
 By default, only users who participate in the signing request as either a submitter or an approver will receive notifications.
 
-* *Approvers* are informed when a signing request needs to be approved, when the number of required approvals has been reached or when the signing request has been denied. The person who performed the final approval is also notified when the signing request has completed or failed or when it is retried.
-* *Submitters* receive notifications for all status changes of the signing request.
+* _Approvers_ are informed when a signing request needs to be approved, when the number of required approvals has been reached or when the signing request has been denied. The person who performed the final approval is also notified when the signing request has completed or failed or when it is retried.
+* _Submitters_ receive notifications for all status changes of the signing request.
 
 ## Audit logs {#audit}
 

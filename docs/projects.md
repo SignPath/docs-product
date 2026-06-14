@@ -25,7 +25,7 @@ Projects consist of these configuration sections:
 |----------------------------|---------------------------------------------------------------------------------------------------------------------------|-----
 | **Name**                   | Display name
 | **Slug**                   | Project name/identfier used for URLs, APIs etc.
-| **Status**                 | *Valid*, *inactive*, or *invalid*
+| **Status**                 | _Valid_, _inactive_, or _invalid_
 | **Readers**                | Users or groups who can read all information of this project, including signing request artifacts of all signing policies | {{ site.data.editions | where: "user_management.admin_delegation", "true" | map: "name" | join: ", " }}
 | **Configurators**          | Users or groups who can modify artifact configurations and Webhooks                                                       | {{ site.data.editions | where: "user_management.admin_delegation", "true" | map: "name" | join: ", " }}
 | **Repository URL**         | URL of the source code repository, for information and/or [origin verification](#signing-policy-origin-verification) 
@@ -45,7 +45,7 @@ Both types of policies may alternatively use certificates that are issued by an 
 {:.panel.tip}
 > **Why sign test builds?**
 >
-> It's important that test builds are signed, so they will behave like release builds *on test systems*. Several platform mechanisms may be used or inadvertently encountered that behave differently for signed and unsigned software.
+> It's important that test builds are signed, so they will behave like release builds _on test systems_. Several platform mechanisms may be used or inadvertently encountered that behave differently for signed and unsigned software.
 >
 > Test-signing can also provide protection for test systems, if these systems are configured in a way that prevents installation or execution of unsigned software, or produces warnings for users.
 
@@ -63,7 +63,7 @@ Select **Use approval process** if you want to require manual approval for each 
 | Property               | Value                                                                                                                                     | Editions
 |------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
 | **Approvers**          | Select the users that are allowed to approve signing requests. They will receive e-mail notifications for each request. 
-| **Required approvals** | Set how many approvals are required. Note that a single *deny* will abort the request. (Also known as *quorum* or *k-out-of-n approval*.) | {{ site.data.editions | where: "policy_enforcement.quorum_approval", "true" | map: "name" | join: ", " }} 
+| **Required approvals** | Set how many approvals are required. Note that a single _deny_ will abort the request. (Also known as _quorum_ or _k-out-of-n approval_.) | {{ site.data.editions | where: "policy_enforcement.quorum_approval", "true" | map: "name" | join: ", " }} 
 
 ### Trusted build system verification {#signing-policy-trusted-build-system}
 
@@ -127,7 +127,7 @@ An artifact configuration may contain instructions to sign multiple files in a s
 
 ### Signing nested artifacts (deep signing)
 
-It is often necessary to sign files *and* files within those files. In this case you want to specify an artifact configuration for deep signing. SignPath will extract the files and sign them from the inside out, then re-package everything and sign the containing file.
+It is often necessary to sign files _and_ files within those files. In this case you want to specify an artifact configuration for deep signing. SignPath will extract the files and sign them from the inside out, then re-package everything and sign the containing file.
 
 **Examples:** 
 
