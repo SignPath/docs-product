@@ -51,8 +51,8 @@ Both types of policies may alternatively use certificates that are issued by an 
 
 ### General Properties
 
-| Property        | Value |
-|-----------------|-------|
+| Property        | Value 
+|-----------------|-----------------------------
 | **Certificate** | Select the certificate that will be used to sign the artifact |
 | **Submitters**  | Select the users that are allowed to submit an artifact (may be regular or [CI users](/users#ci-users)) |
 
@@ -61,7 +61,7 @@ Both types of policies may alternatively use certificates that are issued by an 
 Select **Use approval process** if you want to require manual approval for each signing request. This is recommended for release-signing.
 
 | Property               | Value                                                                                                                                     | Editions
-|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|------------
 | **Approvers**          | Select the users that are allowed to approve signing requests. They will receive e-mail notifications for each request. 
 | **Required approvals** | Set how many approvals are required. Note that a single _deny_ will abort the request. (Also known as _quorum_ or _k-out-of-n approval_.) | {{ site.data.editions | where: "policy_enforcement.quorum_approval", "true" | map: "name" | join: ", " }} 
 
@@ -82,7 +82,7 @@ Select **Verify origin** if you want to accept only signing requests with positi
 [Trusted build system verification](#signing-policy-trusted-build-system) must be enabled for origin verfication.
 
 | Property                   | Value 
-|----------------------------|-------
+|----------------------------|----------------------
 | **Project repository URL** | Must be configured in the project settings (applies to all signing policies)
 | **Allowed branch names**   | For release-signing, it is recommended to restrict the signing policy to release branches, such as `main` or `release/*`. This helps to enforce a code review policy for release builds and prevents accidental or intentional release-signing of internal and test builds.
 

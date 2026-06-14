@@ -116,8 +116,8 @@ Guarantee: If the provenance is signed by SignPath, the build was executed on a 
 {:.quote}
 > It MUST NOT be possible for two builds that overlap in time to influence one another, such as by altering the memory of a different build process running on the same machine.
 
-| Build System   | Guarantee                      |
-| --             | ------------------------------ |
+| Build System   | Guarantee
+|----------------|------------------------------
 | Azure DevOps   | The build was executed on a runner from the Microsoft-hosted pools, which offer isolation (see [the official documentation](https://learn.microsoft.com/en-us/azure/devops/pipelines/security/misc))
 | GitHub Actions | The build was executed on a GitHub-hosted runner, each job is run in a fresh instance of the runner image (see [the official documentation](https://docs.github.com/en/actions/how-tos/manage-runners/github-hosted-runners/use-github-hosted-runners))
 
@@ -126,8 +126,8 @@ Guarantee: If the provenance is signed by SignPath, the build was executed on a 
 {:.quote}
 > It MUST NOT be possible for one build to persist or influence the build environment of a subsequent build. In other words, an ephemeral build environment MUST be provisioned for each build.
 
-| Build System   | Guarantee                      |
-| --             | ------------------------------ |
+| Build System   | Guarantee
+|----------------|------------------------------
 | Azure DevOps   | The build was executed on a runner from the Microsoft-hosted pools, which provide a clean virtual machine for each build run (see [the official documentation](https://learn.microsoft.com/en-us/azure/devops/pipelines/security/misc))
 | GitHub Actions | The build was executed on a GitHub-hosted runner, each job is run in a fresh instance of the runner image (see [the official documentation](https://docs.github.com/en/actions/how-tos/manage-runners/github-hosted-runners/use-github-hosted-runners))
 
@@ -136,8 +136,8 @@ Guarantee: If the provenance is signed by SignPath, the build was executed on a 
 {:.quote}
 > It MUST NOT be possible for one build to inject false entries into a build cache used by another build, also known as “cache poisoning”. In other words, the output of the build MUST be identical whether or not the cache is used.
 
-| Build System   | Guarantee                      |
-| --             | ------------------------------ |
+| Build System   | Guarantee
+|----------------|------------------------------
 | Azure DevOps   | Cache usage has to be explicitly defined in the pipeline definition and cannot be shared across pipelines or branches (see [the official documentation](https://learn.microsoft.com/en-us/azure/devops/pipelines/release/caching?view=azure-devops&tabs=bundler#cache-isolation-and-security))
 | GitHub Actions | Cache usage has to be explicitly defined in the workflow definition (see [the official definition](https://docs.github.com/en/actions/reference/workflows-and-actions/dependency-caching))
 
@@ -146,8 +146,8 @@ Guarantee: If the provenance is signed by SignPath, the build was executed on a 
 {:.quote}
 > The build platform MUST NOT open services that allow for remote influence unless all such interactions are captured as externalParameters in the provenance
 
-| Build System   | Guarantee                      |
-| --             | ------------------------------ |
+| Build System   | Guarantee
+|----------------|------------------------------
 | Azure DevOps   | The build was executed on a runner from the Microsoft-hosted pools, which do not provide the ability to remotely connect (see [the official documentation](https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/hosted)).
 | GitHub Actions | The build was executed on a GitHub-hosted runner which does not provide the ability to remotely connect, unless explicitly specified in the build definition (see [the official documentation](https://docs.github.com/en/actions/how-tos/manage-runners/github-hosted-runners/connect-to-a-private-network)) 
 
