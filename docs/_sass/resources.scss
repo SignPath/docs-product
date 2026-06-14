@@ -166,8 +166,11 @@ main > section.resources-section {
 					font-style: italic;
 				}
 
-				p {
+				p,
+				table h1, table h2, table h3, table h4, table h5, table h6 { // align headers in tables with normal text
 					margin-top: 5px;
+					font-size: 1em;
+					font-family: inherit;
 				}
 
 				img {
@@ -330,7 +333,8 @@ main > section.resources-section {
 			}
 		}
 
-		table.row-headers {
+		table.row-headers,
+		table.column-headers {
 			border-left: 1px solid $grey-border-color;
 			border-right: 1px solid $grey-border-color;
 
@@ -532,4 +536,9 @@ div.language-powershell {
 	:not(pre) > code {
 			word-break: break-all;
 	}
+}
+
+// make sure that anchor links to table rows are not hidden behind the header
+tbody [id] {
+  scroll-margin-top: var(--anchor-offset, 12rem);
 }

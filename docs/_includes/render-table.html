@@ -1,6 +1,21 @@
-
 {% if include.table == nil or include.table.body == nil %}
     <div><strong style="background-color: red; color: white;">Error: table argument missing or no body in render-table </strong></div>
+{% endif %}
+
+{% comment %} omit optional columns if no row has a value after applying filter {% endcomment %}
+{% if table-optional-column != nil %}
+    {% assign has_value = false %}
+    {% for row in include.table.body %}
+        {% if row[table-filter-column] contains table-filter-value %}
+            {% if row[table-optional-column] %}
+                {% assign has_value = true %}
+                {% break %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    {% if has_value == false %}
+        {% assign table-omit-columns = table-omit-columns | append: table-optional-column %}
+    {% endif %}
 {% endif %}
 
 <table>

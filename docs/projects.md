@@ -119,6 +119,8 @@ Use this option to sign releases that have been falsely identified as malware. F
 
 Artifact configurations describe your artifact and provide code signing instructions. The simplest form is a single file with a corresponding signing method (e.g. an EXE file signed with Authenticode), but artifacts can be arbitrarily complex and contain additional constraints.
 
+See [Artifact Configuration](/artifact-configuration) for more details.
+
 ### Signing multiple files in one step
 
 An artifact configuration may contain instructions to sign multiple files in a single step. Just put them in a single ZIP archive and specify how each file should be signed.
@@ -136,7 +138,7 @@ It is often necessary to sign files *and* files within those files. In this case
 
 ### Defining artifact configurations
 
-You can create an artifact configuration by selecting one of the **predefined templates** or by **uploading a sample artifact** which will be analyzed by SignPath. You can also **create a custom artifact configuration** from scratch using XML.
+You can create an artifact configuration by selecting one of the **predefined templates** or by **uploading a sample artifact** which will be analyzed by SignPath. You can also **create a custom artifact configuration** from scratch using XML. Just pick the respective option from the drop-down list.
 
 For details on how to create, generate or edit an artifact configuration, see [artifact configuration](/artifact-configuration).
 

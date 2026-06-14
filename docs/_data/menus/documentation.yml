@@ -27,6 +27,9 @@
     - text: Reference
       path: reference
 
+    - text: Attestations
+      path: attestations
+
     - text: Examples
       path: examples
 

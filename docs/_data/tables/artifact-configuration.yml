@@ -1,10 +1,11 @@
 signing-file-elements:
   headers:
     element: Element
-    isComposite: "[Container format](#containers)"
-    directive: Directives
+    isComposite: "[Composite format](#containers)"
+    directive: Signing directives
     extensions: Extensions
     description: Description
+    notes: Notes
     _attributes:
       element: {style: "width: 9em;"}
       directive: {style: "width: 10em;"}
@@ -23,7 +24,10 @@ signing-file-elements:
       isComposite: "No"
       directive: "[`<authenticode-sign>`](#authenticode-sign)"
       extensions: ".wsf, ,vbs, .js"
-      description: "Windows scripts for Windows Scripting Host, typically VBScript and JScript[^jscript]. (Not available for Code Signing Starter.)"
+      description: "Scripts for Windows Scripting Host, typically [VBScript](https://en.wikipedia.org/wiki/VBScript) and [JScript](https://en.wikipedia.org/wiki/JScript)"
+      notes: |
+        Not available for Code Signing Starter. 
+        Note that JavaScript engines will not recognize JScript signatures.
     - element: "`<msi-file>`"
       isComposite: "Yes"
       directive: "[`<authenticode-sign>`](#authenticode-sign)"
@@ -43,11 +47,8 @@ signing-file-elements:
       isComposite: "Yes"
       directive: "[`<authenticode-sign>`](#authenticode-sign)"
       extensions: ".appx, .appxbundle"
-      description: |
-        App packages for Microsoft Store/Universal Windows Platform
-
-        {:.p.info}
-        The Common Name of the code signing certificate must match the `PublisherDisplayName` in the `AppxManifest.xml` file.
+      description: "App packages for Microsoft Store/Universal Windows Platform"
+      notes: "The Common Name of the code signing certificate must match the `PublisherDisplayName` in the `AppxManifest.xml` file."
     - element: "`<msix-file>`"
       isComposite: "Yes"
       directive: "[`<authenticode-sign>`](#authenticode-sign)"
@@ -57,9 +58,10 @@ signing-file-elements:
       isComposite: "Yes"
       directive: "[`<opc-sign>`](#opc-sign)"
       extensions: ".vsix, .xps, hlkx, ..."
-      description: >-
-        Open Packaging Conventions (OPC) files including Visual Studio Extensions (VSIX) and Hardware Lab Kit driver signing packages. 
-        (Driver signing not available for Code Signing Starter.) File size limit: 40 MB.
+      description: "Open Packaging Conventions (OPC) files including Visual Studio Extensions (VSIX) and Hardware Lab Kit driver signing packages"
+      notes: |
+        Driver signing not available for Code Signing Starter. 
+        File size limit: 40 MB.
     - element: "`<nupkg-file>`"
       isComposite: "Yes"
       directive: "[`<nuget-sign>`](#nuget-sign)"
@@ -69,44 +71,47 @@ signing-file-elements:
       isComposite: "Yes"
       directive: "[`<jar-sign>`](#jar-sign)"
       extensions: ".jar, .war, .ear, .aab"
-      description: "Java packages/archives (not available for Code Signing Starter)"
+      description: "Java packages/archives"
     - element: "`<apk-file>`"
       isComposite: "Yes"
       directive: "[`<apk-sign>`](#apk-sign)"
       extensions: ".apk"
-      description: "Android app packages (available for Advanced Code Signing)"
+      description: "Android app packages"
     - element: "`<rpm-file>`"
       isComposite: "Yes"
       directive: "[`<rpm-sign>`](#rpm-sign)"
       extensions: ".rpm"
-      description: "RPM Package Manager files (available for Advanced Code Signing)"
+      description: "RPM Package Manager files"
     - element: "`<deb-file>`"
       isComposite: "Yes"
       directive: "[`<debsigs-sign>`](#debsigs-sign)"
       extensions: ".deb"
-      description: "Debian package files (available for Advanced Code Signing)"
+      description: "Debian package files"
     - element: "[`<zip-file>`](syntax#zip-file-element)"
       isComposite: "Yes"
-      directive: |
-        [`<jar-sign>`](#jar-sign)
-        [`<create-provenance-file>`](#create-provenance-file)
+      directive: "[`<jar-sign>`](#jar-sign)"
       extensions: ".zip"
-      description: "Use ZIP archives to sign multiple files at once or to add additional files, like [SLSA provenance attestations](#create-provenance-file) (ZIP archives can also be signed and verified using the [JAR format](#jar-sign).)"
+      description: |
+        Use ZIP archives to sign multiple files at once or to add additional files: 
+        [enveloped](#enveloped-signing-methods) and [detached](#detached-signing-methods) signatures,
+        and [attestations](attestations).
+        (ZIP archives can also be signed like [JAR files](#jar-sign).)
     - element: "`<office-oxml-file>`"
       isComposite: "No"
       directive: "[`<office-macro-sign>`](#office-macro-sign)"
       extensions: ".xlsm, .xltm, .docm, .dotm, .pptm, .potm, .vsdm, vstm, ... "
-      description: "Sign VBA macros in Microsoft Office Open XML files and templates: Excel, Word, PowerPoint and Visio (available for Advanced Code Signing)"
+      description: "Sign VBA macros in Microsoft Office Open XML files and templates: Excel, Word, PowerPoint and Visio"
     - element: "`<office-binary-file>`"
       isComposite: "No"
       directive: "[`<office-macro-sign>`](#office-macro-sign)"
       extensions: ".xls, .xlt, .doc, .dot, .pot, .ppa, .pps, .ppt, .mpp, .mpt, .pub, .vsd, .vst, ... "
-      description: "Sign VBA macros in binary Microsoft Office files and templates: Project, Publisher, and legacy Excel, Word, PowerPoint and Visio (available for Advanced Code Signing)"
+      description: "Sign VBA macros in binary Microsoft Office files and templates: Project, Publisher, and legacy Excel, Word, PowerPoint and Visio"
     - element: "`<xml-file>`"
       isComposite: "No"
       directive: "[`<xml-sign>`](#xml-sign)"
       extensions: ".xml"
-      description: "Sign XML files using [XMLDSIG](https://www.w3.org/TR/xmldsig-core1/) (available for Advanced Code Signing). File size limit: 2 MB."
+      description: "Sign XML files using [XMLDSIG](https://www.w3.org/TR/xmldsig-core1/)"
+      notes: "File size limit: 2 MB."
     - element: "`<json-file>`"
       isComposite: "No"
       directive: "[`<jsf-sign>`](#jsf-sign)"
@@ -122,7 +127,7 @@ signing-file-elements:
     - element: "[`<directory>`](syntax#directory-element)"
       isComposite: "Yes"
       directive: "[`<clickonce-sign>`](#clickonce-sign)"
-      description: "Directories within container files. This directive is primarily used to structure further elements within containers, e.g. ZIP, MSI, or other directories. It can also be used to sign ClickOnce files and VSTO add-ins."
+      description: "Specify directories within composite files, e.g. ZIP, MSI, or other directories. Can also be used to sign ClickOnce files and VSTO add-ins."
     - element: "`<file>`"
       isComposite: "No"
       directive: |
@@ -133,55 +138,107 @@ signing-file-elements:
         [`<create-raw-signature>`](#create-raw-signature)
       extensions: "*"
       description: |
-        Create enveloped signatures ([DSSE](#dsse-sign) or [S/MIME](#smime-sign))
-        and detached signatures ([CMS/PKCS #7](#create-cms-signature), [GPG/OpenPGP](#create-gpg-signature), [raw](#create-raw-signature))
-         for arbitrary files (available for Advanced Code Signing).
-    - element: "*"
-      isComposite: "No"
-      directive: "[`<include-in-provenance>`](#create-provenance-file)"
-      extensions: "*"
-      description: |
-        A reference to any file can be included in a provenance created by the [`<create-provenance-file>`](#create-provenance-file) directive.
+        Create generic signatures for arbitrary files: 
+        [DSSE](#dsse-sign), [S/MIME](#smime-sign), [CMS/PKCS #7](#create-cms-signature), [GPG/OpenPGP](#create-gpg-signature), [raw signatures](#create-raw-signature)
 
 signing-method-categories:
   headers:
     category: Category
     description: How it works
-    original: Original file
-    available: Available methods
+    file: Signed file
+    notes: Notes
+    syntax: General syntax pattern
     _attributes:
       directive: {style: "font-weight: bold;"}
   body:
-    - category: "[Embedded](#embedded-signing-methods)"
+    - category: "##### Embedded {#embedded-signing-methods}"
       description: Adds a signature to an existing file.
-      original: Replaced by signed file
-      available: |
-        [`<authenticode-sign>`](#authenticode-sign),
-        [`<opc-sign>`](#opc-sign),
-        [`<nuget-sign>`](#nuget-sign),
-        [`<jar-sign>`](#jar-sign),
-        [`<apk-sign>`](#apk-sign),
-        [`<office-macro-sign>`](#office-macro-sign),
-        [`<xml-sign>`](#xml-sign),
-        [`<jsf-sign>`](#jsf-sign),
-        [`<notation-sign>`](#notation-sign),
-        [`<cosign-sign>`](#cosign-sign)
-    - category: "[Enveloped](#enveloped-signing-methods)"
+      file: Replaces original file
+      notes: |
+        A signature is added, and the file's format does not change. The signed file replaces the unsigned file for all practical purposes.
+
+        Several platforms including Windows, Apple, and Java provide a variety of file formats that support embedded signatures. 
+      syntax: |
+        `<`_format_`-sign />`
+    - category: "##### Enveloped {#enveloped-signing-methods}"
       description: Adds a new file that contains the unsigned file _and_ the signature.
-      original: Preserved
-      available: |
-        [`<dsse-sign>`](#dsse-sign),
-        [`<smime-sign>`](#smime-sign)
-    - category: "[Detached](#detached-signing-methods)"
+      file: Added
+      notes: |
+        The signed file consists of the signature and the original file, often encoded. The original file usually needs to be extracted from the enveloped file in order to be used. Depending on the format and tool, extraction and verifcation are ideally a single step.
+
+        Enveloped signatures are available for all file types using the `<file>` element. 
+      syntax: |
+        `<`_format_`-sign output-file-name="..." />`
+    - category: "##### Detached {#detached-signing-methods}"
       description: Adds a new file that contains only the signature.
-      original: Preserved
-      available: |
-        [`<create-cms-signature>`](#create-cms-signature),
-        [`<create-gpg-signature>`](#create-gpg-signature),
-        [`<create-raw-signature>`](#create-raw-signature)
-    - category: "[Other](#other-signing-methods)"
-      available: |
-        [`<clickonce-sign>`](#clickonce-sign)
+      file: Added
+      notes: |
+        The signature file contains the signature and a cryptographic hash code of the original file. Verify the signature before accessing the signed file.
+        
+        Detached signatures are available for all file types using the `<file>` element.         
+      syntax: |
+        `<create-`_format_`-signature output-file-name="..." />`
+      
+signing-directives:
+  headers:
+    directive: Signing directive
+    name: Signing method name
+    category: Signing method category
+  body:
+    - directive: "[`<authenticode-sign>`](#authenticode-sign)"
+      name: Authenticode (Windows)
+      category: "[Embedded](#embedded-signing-methods)"
+    - directive: "[`<nuget-sign>`](#nuget-sign)"
+      name: NuGet packages
+      category: "[Embedded](#embedded-signing-methods)"
+    - directive: "[`<office-macro-sign>`](#office-macro-sign)"
+      name: Microsoft Office VBA macros
+      category: "[Embedded](#embedded-signing-methods)"
+    - directive: "[`<opc-sign>`](#opc-sign)"
+      name: Open Packaging Convention
+      category: "[Embedded](#embedded-signing-methods)"
+    - directive: "[`<jar-sign>`](#jar-sign)"
+      name: Java Archives
+      category: "[Embedded](#embedded-signing-methods)"
+    - directive: "[`<apk-sign>`](#apk-sign)"
+      name: Android app packages
+      category: "[Embedded](#embedded-signing-methods)"
+    - directive: "[`<rpm-sign>`](#rpm-sign)"
+      name: RPM Package Manager
+      category: "[Embedded](#embedded-signing-methods)"
+    - directive: "[`<debsigs-sign>`](#debsigs-sign)"
+      name: Debian packages
+      category: "[Embedded](#embedded-signing-methods)"
+    - directive: "[`<xml-sign>`](#xml-sign)"
+      name: XML Digital Signature
+      category: "[Embedded](#embedded-signing-methods)"
+    - directive: "[`<jsf-sign>`](#jsf-sign)"
+      name: JSON Signature Format
+      category: "[Embedded](#embedded-signing-methods)"
+    - directive: "[`<notation-sign>`](#notation-sign)"
+      name: Notary (Notation) container signature 
+      category: "[Embedded](#embedded-signing-methods)"
+    - directive: "[`<cosign-sign>`](#cosign-sign)"
+      name: Sigstore Cosign container signature
+      category: "[Embedded](#embedded-signing-methods)"
+    - directive: "[`<dsse-sign>`](#dsse-sign)"
+      name: DSSE envelope signature 
+      category: "[Enveloped](#enveloped-signing-methods)"
+    - directive: "[`<smime-sign>`](#smime-sign)"
+      name: "S/MIME signature"
+      category: "[Enveloped](#enveloped-signing-methods)"
+    - directive: "[`<create-cms-signature>`](#create-cms-signature)"
+      name: Cryptographic Message Syntax (CMS)
+      category: "[Detached](#detached-signing-methods)"
+    - directive: "[`<create-gpg-signature>`](#create-gpg-signature)"
+      name: GPG/OpenPGP signature
+      category: "[Detached](#detached-signing-methods)"
+    - directive: "[`<create-raw-signature>`](#create-raw-signature)"
+      name: Raw signature 
+      category: "[Detached](#detached-signing-methods)"
+    - directive: "[`<clickonce-sign>`](#clickonce-sign)"
+      name: ClickOnce application and add-in signature
+      category: Other
 
 authenticode-attributes:
   headers:
@@ -219,16 +276,24 @@ directory-example:
     - fragment: |
         ~~~ xml
         <zip-file> 
-          <pe-file path="bin/program.exe">
+
+          <pe-file path="myapp/module/bin/program.exe">
             <authenticode-sign/>
           </pe-file>
+          <pe-file path="myapp/module/bin/library.dll">
+            <authenticode-sign/>
+          </pe-file>
+
         </zip-file>
         ~~~
       equivalent: |
         ~~~ xml
         <zip-file>
-          <directory path="bin">
+          <directory path="myapp/module/bin">
             <pe-file path="program.exe">
+              <authenticode-sign/>
+            </pe-file>
+            <pe-file path="library.dll">
               <authenticode-sign/>
             </pe-file>
           </directory>
@@ -270,22 +335,28 @@ similar-directories-example:
         ~~~ xml
         <artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
           <msi-file>
+
+            <pe-file path="MyApp.exe">
+              <authenticode-sign/> 
+            </pe-file>
+
             <directory-set>
-              <include path="component1" />
-              <include path="component2" />
-              <include path="component3" />
+              <include path="en" />
+              <include path="en-US" />
+              <include path="de-DE" />
               <for-each>
                 <pe-file-set>
-                  <include path="main.exe" />
-                  <include path="resources/*.resource.dll" 
-                          min-matches="0" max-matches="unbounded" />
+                  <include path="MyApp.*.resources.dll"
+                           min-matches="0" max-matches="unbounded" />
                   <for-each>
                     <authenticode-sign/>
                   </for-each>
                 </pe-file-set>
               </for-each>
             </directory-set>
+
             <authenticode-sign/>
+
           </msi-file>
         </artifact-configuration>
         ~~~
@@ -298,17 +369,16 @@ similar-directories-example-match:
   body:
     - text: |
         ~~~
-        • myapp.msi 
-          • component1/
-            • main.exe
-            • resources/de.resource.dll
-            • resources/en.resource.dll
-            • resources/fr.resource.dll
-          • component2/
-            • main.exe
-          • component3/
-            • main.exe
-            • resources/en.resource.dll
+        • MyApp.msi 
+          • MyApp.exe
+            • en/
+              • MyApp.Module1.resources.dll
+              • MyApp.Module2.resources.dll
+            • en-US/
+              • MyApp.Module2.resources.dll
+            • de-DE/
+              • MyApp.Module1.resources.dll
+              • MyApp.Module2.resources.dll
         ~~~
 
         (All `msi`, `exe` and `dll` files are signed with Authenticode.)

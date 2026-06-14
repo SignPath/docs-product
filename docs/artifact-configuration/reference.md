@@ -7,14 +7,28 @@ description: Artifact Configuration Reference
 datasource: tables/artifact-configuration
 ---
 
-## File and directory elements {#file-elements}
+## Elements and directives
 
+### File formats and supported code signing directives {#file-elements}
+
+{% assign table-omit-columns = "notes" | split: ',' %}
 {%- include render-table.html table=site.data.tables.artifact-configuration.signing-file-elements -%}
 {:.nowrap-code-column-3}
+{% assign table-omit-columns = nil %}
+
+### Signature verification 
+
+Supported signature verification methods: 
+
+* [`authenticode-verify`](#authenticode-verify): Verify authenticode signatures
+
+### Attestations
+
+See [Attestations](attestations) for how to create attestation using artifact configurations.
 
 ### Composite formats {#containers}
 
-Composite element types such as directories, archives, installers and package formats allow nested file elements. See [Syntax](syntax#structure) for more information.
+Composite element types such as `<directory>`, `<zip-file>`, installers, and package formats allow deep signing of nested file elements. See [Syntax](syntax#structure) for more information.
 
 ## Signing methods {#signing-methods}
 
@@ -22,39 +36,44 @@ Composite element types such as directories, archives, installers and package fo
 
 <!-- markdownlint-disable MD026 no trailing punctuation -->
 
-Use signing directives in:
+Signing directives are typically used in file elements or [file sets](syntax#file-and-directory-sets), e.g. 
+* a `<pe-file>` containing an `<authenticode-sign` directive
+* a `<pe-file>` set containing a `<for-each>` block with an `<authenticode-sign` directive
 
-* file elements (e.g. `<authenticode-sign` in `<pe-file>`)
-* directory elements (`<clickonce-sign>` in `<directory`)
-* [file and directory sets](syntax#file-and-directory-sets) (in the `<for-each>` element)
-
-Signing directives are available for several code signing methods. There are three major categories of signing methods:
+There are three major categories of signing methods:
 
 {%- include render-table.html table=site.data.tables.artifact-configuration.signing-method-categories -%}
-{:.nowrap-code-column-4}
 
-### Embedded signing methods {#embedded-signing-methods}
+#### Embedded signatures
 
-These signing methods add signatures to existing files. Several platforms including Windows, Apple, and Java provide a variety of file formats that support embedded signatures. 
+Just specify the signing directive to sign the file.
 
-Since the file's format does not change, the unsigned files are not needed anymore. SignPath only returns the signed files in Signing Requests.
+##### Example
 
-#### Supported embedded formats
+~~~ xml
+<pe-file path="myapp.exe">
+  <authenticode-sign />
+</pe-file>
+~~~
 
-* [`<authenticode-sign>`: Authenticode (Windows)](#authenticode-sign)
-* [`<nuget-sign>`: NuGet packages](#nuget-sign)
-* [`<office-macro-sign>`: Microsoft Office VBA macros](#office-macro-sign)
-* [`<opc-sign>`: Open Packaging Convention](#opc-sign)
-* [`<jar-sign>`: Java Archives](#jar-sign)
-* [`<apk-sign>`: Android app packages](#apk-sign)
-* [`<rpm-sign>`: RPM Package Manager](#rpm-sign)
-* [`<debsigs-sign>`: Debian packages](#debsigs-sign)
-* [`<xml-sign>`: XML Digital Signature](#xml-sign)
-* [`<jsf-sign>`: JSON Signature Format](#jsf-sign)
-* [`<notation-sign>`](#notation-sign)
-* [`<cosign-sign>`](#cosign-sign)
+#### Enveloped and detached signatures
 
-The general syntax for embedded signing methods is: `<`_format_`-sign />`
+* Since the signed file is _added_, the `<file>` element must be contained in a `<zip-file>` element.
+* Use the variable `${file.name}` to reference the original file's name for `output-file-name`.
+
+##### Example
+
+~~~ xml
+<zip-file>
+  <file path="myfile.bin">
+    <create-gpg-signature output-file-name="${file.name}.asc" />
+  </file>
+</zip-file>
+~~~
+
+### Signing directives 
+
+{%- include render-table.html table=site.data.tables.artifact-configuration.signing-directives -%}
 
 #### `<authenticode-sign>`: Authenticode (Windows) {#authenticode-sign}
 
@@ -170,7 +189,7 @@ Note that not all OPC-based formats use OPC signatures:
 * NuGet packages: ignored, use `<nuget-sign>` instead
 
 {:.panel.info}
-> **Certificate chain support**
+> **No certificate chain support**
 >
 > Only publisher certificates are embedded in OPC signatures.
 
@@ -194,10 +213,9 @@ Note that not all OPC-based formats use OPC signatures:
 ##### Verification {#jar-sign-verification}
 
 * **Java** always verifies signatures for client components. For server components, you need to create a policy. Please consult the documentation of your application server or [Oracle's documentation](https://docs.oracle.com/javase/tutorial/security/toolsign/receiver.html).
-* **Android** always verifies App signatures, but current Android versions require signing schemes v2 or v3.
-* If you sign **ZIP files**, the receiver needs to manually check the signature before unpacking the file.
+* For signed **ZIP files**, the receiver needs to check the signature explicitly before unpacking the file.
 
-For manual verification, use the following command (requires [JDK](https://openjdk.java.net/install/)):
+For verification, use the following command (requires [JDK](https://openjdk.java.net/install/)):
 
 ~~~ cmd
 jarsigner -verify -strict <file>.zip
@@ -205,6 +223,10 @@ jarsigner -verify -strict <file>.zip
 
 Add the `-verbose` option to see the certificate.
 
+{:.panel.info}
+> ** No longer supported for Android packages
+>
+> Current Android versions require signing schemes v2 or v3. Use [`<apk-sign>'](#apk-sign) instead of `<jar-sign>`.
 
 #### `<apk-sign>`: Android app packages {#apk-sign}
 
@@ -262,7 +284,7 @@ rpm --import my_key.asc # Import, i.e. trust, the GPG public key
 rpm --verbose --checksig my_package.rpm
 ~~~
 
-#### `<debsigs-sign>`: Debian package {#debsigs-sign}
+#### `<debsigs-sign>`: Debian packages {#debsigs-sign}
 
 {% include editions.md feature="file_based_signing.deb" %}
 
@@ -319,7 +341,7 @@ This creates an _XMLDSIG enveloped signature_ for the entire document: a `<ds:Si
 {:.panel.info}
 > **Terminology**
 >
-> XMLDSIG terminology names this method [_enveloped signature_](https://www.w3.org/TR/xmldsig-core1/#def-SignatureEnveloped) although it does not create an envelope. Since it preserves the existing XML document and structure, it can be treated as an _embedded signature_ for most purpuses. However, the new element might break the root element's schema if signing is not expected by the target schema. 
+> XMLDSIG terminology names this method [_enveloped signature_](https://www.w3.org/TR/xmldsig-core1/#def-SignatureEnveloped) although it does not create an envelope. Since it preserves the existing XML document and structure, it can be treated as an [_embedded signature_](#embedded-signing-methods) for most purpuses. However, the new element might break the root element's schema if signing is not expected by the target schema. 
 
 The result is a `Signature` element added to the root element (after all existing children) with the following properties:
 
@@ -328,7 +350,7 @@ The result is a `Signature` element added to the root element (after all existin
 | Canonicalization  | Exclusive XML Canonicalization: `http://www.w3.org/2001/10/xml-exc-c14n#`     | `/*/Signature/SignedInfo/CanonicalizationMethod/@Algorithm`
 | Signature Method  | RSA SHA-256: `http://www.w3.org/2001/04/xmldsig-more#rsa-sha256`              | `/*/Signature/SignedInfo/SignatureMethod/@Algorithm`
 | ReferenceUri      | Whole document: `""`                                                          | `/*/Signature/SignedInfo/Reference/@URI`
-| Transformation    | Enveloped signature: `http://www.w3.org/2000/09/xmldsig#enveloped-signature"` | `/*/Signature/SignedInfo/Reference/Transforms/Transform/@Algorithm`
+| Transformation    | Enveloped signature: `http://www.w3.org/2000/09/xmldsig#enveloped-signature`  | `/*/Signature/SignedInfo/Reference/Transforms/Transform/@Algorithm`
 | Transformation    | Exclusive XML Canonicalization: `http://www.w3.org/2001/10/xml-exc-c14n#`     | `/*/Signature/SignedInfo/Reference/Transforms/Transform/@Algorithm`
 | Digest method     | SHA-256: `http://www.w3.org/2001/04/xmlenc#sha256`                            | `/*/Signature/SignedInfo/Reference/DigestMethod/@Algorithm`
 | X.509 Certificate | _See `key-info-x509-data` option_                                             | `/*/Signature/KeyInfo/X509Data`
@@ -415,19 +437,6 @@ This places the signature at the right place within the OCI layout and add relev
 ~~~
 
 _Note: You can create both [Notary](#notation-sign) and Cosign signatures for the same image._
-
-### Enveloped signing methods {#enveloped-signing-methods}
-
-These signing methods create new files that contain both the original file and the signature. Enveloped signatures are available for all file types using the `<file>` element. Since the signed file is _added_, this `<file>` element must be contained in a `<zip-file>` element.
-
-While the original file is still available, it often needs to be extracted from the enveloped file in order to be used, ideally after sucessful signature verification. SignPath preserves the original files in Signing Requests.
-
-#### Supported enveloped formats
-
-* [`<dsse-sign>`: DSSE (Dead Simple Signing Envelope)](#dsse-sign)
-* [`<smime-sign>`: S/MIME signing](#smime-sign)
-
-The general syntax for enveloped signing methods is: `<`_format_`-sign output-file-name="..." />`
 
 #### `<dsse-sign>`: DSSE (Dead Simple Signing Envelope) {#dsse-sign}
 
@@ -524,24 +533,6 @@ openssl smime -verify -purpose codesign -in "hashes.txt.msg" -out "hashes.txt"
 >
 > * Prior to OpenSSL 3.2, the `-purpose` flag does not support `codesign`. Use `any` instead.
 > * When the certificate is not trusted on the target system, specify `-CAfile` with the path of the root certificate. Make sure that the root certificate is distributed in a secure way.
-
-
-
-
-
-### Detached signing methods {#detached-signing-methods}
-
-These signing methods create new files that contain the signature and a cryptographic hash code of the original file. Detached signatures are available for all file types using the `<file>` element. Since the signature file is _added_, this `<file>` element must be contained in a `<zip-file>` element.
-
-For signature verification, both the original file and the detached signature must be present. SignPath preserves the original files in Signing Requests.
-
-#### Supported detached formats
-
-* [`<create-cms-signature>`: Cryptographic Message Syntax (CMS)](#create-cms-signature)
-* [`<create-gpg-signature>`: Detached GPG signing](#create-gpg-signature)
-* [`<create-raw-signature>`: Detached raw signature files](#create-raw-signature)
-
-The general syntax for detached signing methods is: `<create-`_format_`-signature output-file-name="..." />`
 
 #### `<create-cms-signature>`: Cryptographic Message Syntax (CMS) {#create-cms-signature}
 
@@ -705,12 +696,6 @@ openssl dgst -verify pubkey.pem -signature file.sig
 
 If you use this method directly to verify signatures, make sure that the public key is distributed in a secure way and independently from the file to be verified. 
 
-### Other signing methods {#other-signing-methods}
-
-#### Other supported formats
-
-* [`<clickonce-sign>`: Microsoft ClickOnce and VSTO Office add-ins](#clickonce-sign)
-
 #### `<clickonce-sign>`: Microsoft ClickOnce and VSTO Office add-ins {#clickonce-sign}
 
 {%- include_relative render-ac-directive-table.inc directive="clickonce-sign" -%}
@@ -733,7 +718,7 @@ ClickOnce signing applies to directories, not to individual files. Therefore, yo
 
 Verification directives are used to ensure that files in a signing request are already properly signed by their respective publisher.
 
-Use this to
+Use them to
 
 * avoid installing unsigned files with your (signed) installers or packages
 * sign each file in it's respective build pipeline rather than signing everything in the final (downstream) pipeline
@@ -741,7 +726,11 @@ Use this to
 
 When used to verify a file before signing it, the _verify_ directive must precede any _sign_ directives.
 
-### `<authenticode-verify>`
+### `<authenticode-verify>` {#authenticode-verify}
+
+{% comment %} available for all formats that support authenticode-sign {% endcomment %}
+{%- assign table-omit-columns = "notes" | split: ',' %}
+{%- include_relative render-ac-directive-table.inc directive="authenticode-sign" -%} 
 
 Verifies that a file has a valid Authenticode signature.
 
@@ -751,12 +740,7 @@ This method verifies signatures according to Windows rules:
 * Valid timestamp (or unexpired publisher certificate)
 * Certificate chain ends in Windows trusted root certificate 
 
-May be combined with [`<authenticode-sign>`](#authenticode-sign). 
-
-{:.panel.todo}
-> **TODO: add**
->
-> Use `append="true"` to add the new signature instead of replacing the existing one (supported formats only).
+May be combined with [`<authenticode-sign>`](#authenticode-sign) to replace the signature. For supported formats, you may add an additional signature using  the [`append` attribute](#authenticode-sign-attributes).
 
 #### Example
 
@@ -768,6 +752,7 @@ May be combined with [`<authenticode-sign>`](#authenticode-sign).
       <include path="System.*.dll" max-matches="unbounded" />
       <for-each>
         <authenticode-verify/>
+        <authenticode-sign append="true"/>
       </for-each>
     </pe-file-set>
   </msi-file>
@@ -786,95 +771,6 @@ The restrictions can be applied to file elements, [file set elements](syntax#fil
 | `<msi-file>` | MSI properties: `subject`, `author`                                                                                     | [MSI file restrictions](examples#msi-and-pe-restriction)
 | `<xml-file>` | Root element name and namespace: `root-element-name`, `root-element-namespace`                                          | [SBOM restrictions](examples#sbom-restriction)
 
-## SLSA attestations {#create-provenance-file}
-
-SignPath can create SLSA attestations for any of the supported build systems. See the [definition](/slsa-attestations) for more details.
-
-Creating a SLSA attestation requires multiple directives:
-
-* `<include-in-provenance>` to include a reference to a file in the generated provenance.
-* `<create-provenance-file>` inside a root level `<zip-file>` to create a SLSA provenance.
-* `<create-verification-summary-file>` to create a SLSA verification summary.
-* `<create-attestation-signature>` to sign the provenance and turn them into a SLSA attestation or SLSA verification summary attestation (VSA).
-
-The parameters for all these directives, except `<include-in-provenance>`, which does not have any, are listed below.
-
-
-| Directive                            | Parameter          | Description
-|-----------                           |-----------         |-------------------------------------------------
-| `<create-provenance-file>`           | `output-file-name` | Name of the output file to hold the provenance information.
-| `<create-verification-summary-file>` | `output-file-name` | Name of the output file to hold the verification summary information.
-| `<create-attestation-signature>`     | `type`             | The signature type. Currently supported are [`cms`](#create-cms-signature) and [`dsse`](#dsse-sign).
-| `<create-attestation-signature>`     | `output-file-name` | Name of the output file to hold the attestation signature.
-
-#### Example
-
-~~~ xml
-<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
-  <zip-file>
-    <pe-file path="myApp.exe">
-      <include-in-provenance />
-    </pe-file>
-    <create-provenance-file output-file-name="slsa-attestation.in-toto.jsonl">
-      <create-attestation-signature type="cms" output-file-name="${file.name}.cms.pem" />
-      <create-verification-summary-file output-file-name="slsa-vsa.json">
-         <create-attestation-signature type="dsse" output-file-name="slsa-vsa.dsse.json" />
-       </create-verification-summary-file>
-    </create-provenance-file>
-  </zip-file>
-</artifact-configuration>
-~~~
-
-#### Verification of SLSA verification summaries (VSA) {#slsa-vsa-verification}
-
-To verify a SLSA verification summary attestation (VSA), you need:
-
-* The verification summary attestation file (e.g. `slsa-vsa.dsse.json` in the example above)
-* The attestation signer certificate. For SLSA attestations created by SignPath, you can download [SignPath_SLSA.pem] for fully supported systems and [SignPath_SLSA-Beta.pem], which is a self-signed certificate, for all systems with preview support (See the [definition](/slsa-attestations) for a list of all supported systems).
-* The publisher certificate
-
-{:.panel.info}
-> **`resource-uri`**
->
-> SLSA specifies a `resource-uri` field with the intention of allowing a consumer to ensure that the software artifact was obtained from a trusted source. SignPath populates this field with information from the publisher certificate, in the form of
->
-> `urn:x-software-publisher:verified=<true|false>;certificate-fingerprint=<publisher-cert-fingerprint>;subject=<publisher-cert-subject>`
->
-> The values are defined as follows:
-> * `verified`: `true` if the publisher certificate was issued by a trusted certificate authority (CA)
-> * `certificate-fingerprint`: The SHA-1 fingerprint of the X.509 publisher certificate.
-> * `subject`: The subject of the X.509 publisher certificate.
-
-To verify the verification summary attestation, the official [slsa-verifier](https://github.com/slsa-framework/slsa-verifier) tool can be used:
-
-The following steps are required to verify a SLSA provenance attestation generated by SignPath:
-
-~~~bash
-# 1. Verify the Attestation Signer certificate
-## on Windows
-certutil -verify SignPath_SLSA.pem
-## on Linux
-openssl verify -untrusted SignPath_SLSA.pem SignPath_SLSA.pem
-
-# 2. Extract the public key of the Attestation Signer certificate
-openssl x509 -pubkey -noout -in SignPath_SLSA.pem > SignPath_SLSA.pubkey.pem
-
-# 3. Verify the SLSA verification summary attestation
-slsa-verifier verify-vsa \
-  --subject-digest "sha256:$artifactHash" \
-  --attestation-path /path/to/slsa-vsa.dsse.json \
-  --verifier-id https://signpath.io \
-  --public-key-path SignPath_SLSA.pubkey.pem \
-  --resource-uri "urn:x-software-publisher:verified=true;certificate-fingerprint=$publisherFingerprint;subject=$publisherSubject" \
-  --verified-level SLSA_BUILD_LEVEL_3
-~~~
-
-**Footnotes:**
-
-[^jscript]: Note that [JScript](https://en.wikipedia.org/wiki/JScript) is not the same as JavaScript. While it is possible to use this option to sign JavaScript files, JavaScript engines will not be able to use this signature.
-
 [DSSE]: https://github.com/secure-systems-lab/dsse
 [RFC 5652]: https://datatracker.ietf.org/doc/html/rfc5652
 [Secure Systems Lab]: https://ssl.engineering.nyu.edu/
-[SignPath_SLSA.pem]: /assets/other/SignPath_SLSA.pem
-[SignPath_SLSA-Beta.pem]: /assets/other/SignPath_SLSA-Beta.pem

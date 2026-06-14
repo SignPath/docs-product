@@ -72,6 +72,7 @@ Sometimes you need to sign both a composite file and its contents. For instance,
 
 ## Further reading
 
-* [Syntax and Structure](syntax): introduction and information about user-defined parameters
-* [Reference](reference): details about supported file types and signing methods
-* [Examples](examples): examples for various elements and how they can be combined
+* [Syntax and Structure](syntax): Introduction and general syntax
+* [Reference](reference): Supported file types and signing methods
+* [Attestations](attestations): Creating and signing buiild attestations
+* [Examples](examples): Examples for various elements and combinations
