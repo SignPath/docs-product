@@ -383,3 +383,27 @@ similar-directories-example-match:
 
         (All `msi`, `exe` and `dll` files are signed with Authenticode.)
       image: "![graphical resolved artifacts](/assets/img/resources/artifact-configuration/artifact-configuration_similar-resolved.png)"
+
+attestation-directives:
+  headers:
+    directive: Directive
+    parameter: Parameter
+    description: Description
+  body:
+    - directive: "`<create-provenance-file>`"
+      parameter: "`output-file-name`"
+      description: File name for the provenance statement.
+    - directive: "`<create-verification-summary-file>`"
+      parameter: "`output-file-name`"
+      description: File name for the verification summary statement.
+    - directive: "`<create-attestation-signature>`"
+      parameter: "`type`"
+      description: |
+        Signature type. Currently supported: [`cms`](reference/#create-cms-signature) and [`dsse`](reference/#dsse-sign).
+      _attributes:
+        directive: {rowspan: 2}
+    - directive: "$skip"
+      parameter: "`output-file-name`"
+      description: File name for the attestation signature.
+    - directive: "`<include-in-provenance>`"
+      parameter: "*none*"
