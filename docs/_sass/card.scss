@@ -7,10 +7,10 @@ ul.card-container {
 	justify-content: center;
 
 	& > li {
-		border: 1px solid $grey-border-color;
+		border: 1px solid var(--grey-border-color);
 		border-radius: $border-radius;
 		max-width: 340px;
-		background: $white-background-color;
+		background: var(--white-background-color);
 		box-shadow: $shadow;
 		padding: 0px;
 		margin-left: 20px;
@@ -23,7 +23,7 @@ ul.card-container {
 
 		& div.header {
 			display: block;
-			color: $white-font-color;
+			color: var(--white-font-color);
 			background-size: cover;
 			padding: 60px 20px;
 			border-top-left-radius: inherit;

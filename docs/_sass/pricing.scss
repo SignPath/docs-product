@@ -25,7 +25,7 @@ section.pricing {
 	& > div > div.header > div.calculator {
 		max-width: 600px;
 		padding: 20px;
-		background-color: $white-background-color;
+		background-color: var(--white-background-color);
 		border-radius: 6px;
 		box-shadow: $shadow;
 
@@ -51,7 +51,7 @@ section.pricing {
 				left: 20px;
 				right: 20px;
 				height: 1px;
-				background-color: $light-grey-border-color;
+				background-color: var(--light-grey-border-color);
 			}
 		}
 
@@ -86,7 +86,7 @@ section.pricing {
 		}
 
 		i.la-plus-circle, i.la-minus-circle {
-			color: $secondary-color;
+			color: var(--secondary-color);
 			font-size: 1.6em;
 			margin: 0px 0.2em;
 			line-height: 1rem;
@@ -97,8 +97,8 @@ section.pricing {
 	& > div > div.header > div.ev-included {
 		border-radius: 6px;
 		box-shadow: $shadow;
-		background-color: $primary-color;
-		color: $white-font-color;
+		background-color: var(--primary-color);
+		color: var(--white-font-color);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -150,7 +150,7 @@ section.pricing {
 				margin: 0em 1em;
 				padding-top: 12px;
 				text-align: center;
-				border-bottom: 1px solid $light-grey-border-color;
+				border-bottom: 1px solid var(--light-grey-border-color);
 			}
 
 			& > h3 {
@@ -180,18 +180,18 @@ section.pricing {
 		div.content.match-failed {
 			display: none;
 
-			color: $light-grey-font-color; 
+			color: var(--light-grey-font-color); 
 
 			span.sub {
-				color: $light-grey-font-color; 
+				color: var(--light-grey-font-color); 
 			}
 
 			& > *:first-child { 
-				background-color: $light-medium-grey-background-color; 
+				background-color: var(--light-medium-grey-background-color); 
 
 				h2,h3 {
-					color: $light-grey-font-color;
-					border-bottom-color: $light-grey-font-color; 
+					color: var(--light-grey-font-color);
+					border-bottom-color: var(--light-grey-font-color); 
 				}
 			}
 
@@ -212,7 +212,7 @@ div.editions-dialog {
 		position: relative; 
 		left: -50%;
 		padding: 20px;
-		background-color: $white-background-color;
+		background-color: var(--white-background-color);
 		box-shadow: $shadow;
 		border-radius: 6px;
 		text-align: center;
@@ -258,7 +258,7 @@ div.toggle {
 				}
 
 				& ~ div:before {
-					color: $grey-font-color;
+					color: var(--grey-font-color);
 				}
 
 				& ~ div:after {
@@ -288,7 +288,7 @@ div.toggle {
 			}
 
 			&:after {
-				color: $grey-font-color;
+				color: var(--grey-font-color);
 				position: absolute;
 				text-align: left;
 				left: 35px;
@@ -307,7 +307,7 @@ div.toggle {
 			left: calc(50% - 25px);
 			right: 0;
 			bottom: 0;
-			background-color: $secondary-color;
+			background-color: var(--secondary-color);
 			transition: .4s;
 			border-radius: 1.4em;
 			width: 50px;
@@ -320,7 +320,7 @@ div.toggle {
 				width: calc(1.4em - 4px);
 				left: 2px;
 				bottom: 2px;
-				background-color: $white-background-color;
+				background-color: var(--white-background-color);
 				transition: .4s;
 				border-radius: 50%;
 			}

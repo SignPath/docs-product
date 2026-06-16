@@ -34,8 +34,8 @@ section.devops-section {
 
             & > li {
                 
-                background-color: $light-grey-background-color;
-                border-right: 1px solid $white-background-color;
+                background-color: var(--light-grey-background-color);
+                border-right: 1px solid var(--white-background-color);
                 border-top-left-radius: $border-radius;
                 border-top-right-radius: $border-radius;
                 box-shadow: $shadow-top;
@@ -46,7 +46,7 @@ section.devops-section {
 
                 a:active, a:hover, a:visited, a {
                     padding: 1em 1em;
-                    color: $black-font-color;
+                    color: var(--black-font-color);
                     display: inline-block;
                     cursor: pointer;
                 }
@@ -57,16 +57,16 @@ section.devops-section {
                 }
 
                 &.active {
-                    background-color: $dark-grey-background-color;
+                    background-color: var(--dark-grey-background-color);
                     a:active, a:hover, a:visited, a {
-                        color: $white-font-color;
+                        color: var(--white-font-color);
                     }
                     a:focus {
                         text-decoration: none;
                     }
 
                     svg {
-                        fill: $white-font-color;
+                        fill: var(--white-font-color);
                     }
                 }
 
@@ -78,7 +78,7 @@ section.devops-section {
         }
 
         & > div.panel {
-            background: $dark-grey-background-color;
+            background: var(--dark-grey-background-color);
             box-shadow: $shadow-top;
             border-radius: $border-radius;
             overflow: hidden;
@@ -95,7 +95,7 @@ section.devops-section {
     }
 
     code {
-        color: $white-font-color;
+        color: var(--white-font-color);
         overflow: auto;
         word-wrap: normal;
         word-break: break-all;
@@ -124,8 +124,8 @@ section.devops-section {
                 width: 1.5em;
                 left: -1em;
                 text-align: right;
-                color: $light-grey-font-color;
-                background-color: $medium-grey-background-color;
+                color: var(--light-grey-font-color);
+                background-color: var(--medium-grey-background-color);
                 height: 100%;
             }
 
@@ -146,19 +146,19 @@ section.devops-section {
         }
 
         span.command {
-            color: $light-blue-font-color;
+            color: var(--light-blue-font-color);
         }
 
         span.parameter {
-            color: $grey-font-color;
+            color: var(--grey-font-color);
         }
 
         span.string {
-            color: $white-font-color;
+            color: var(--white-font-color);
         }
 
         span.variable {
-            color: $orange-font-color;
+            color: var(--orange-font-color);
         }
     }
 }

@@ -4,7 +4,7 @@ header { /** main header **/
 	left: 0px;
 	width: 100%;
 	height: $header-height;
-	color: $white-font-color;
+	color: var(--white-font-color);
 	background-color: rgba(0,0,0,0.0);
 	transition: background-color 0.3s linear;
 	z-index: 2;
@@ -94,24 +94,24 @@ header nav > ul { /** main navigation **/
 			top: 1em;
 			padding: 0px;
 			padding-top: 16px;
-			color: #000;
+			color: var(--black-font-color);
 
 			& > li {
-				background-color: $white-background-color;
-				border-left: 1px solid $grey-border-color;
-				border-right: 1px solid $grey-border-color;
+				background-color: var(--white-background-color);
+				border-left: 1px solid var(--grey-border-color);
+				border-right: 1px solid var(--grey-border-color);
 				white-space: nowrap;
 
 				&:first-child {
-					border-top: 1px solid $grey-border-color;
+					border-top: 1px solid var(--grey-border-color);
 				}
 
 				&:last-child {
-					border-bottom: 1px solid $grey-border-color;
+					border-bottom: 1px solid var(--grey-border-color);
 				}
 
 				&:hover {
-					background-color: $grey-border-color;
+					background-color: var(--grey-border-color);
 				}
 
 				& > a {
@@ -122,7 +122,7 @@ header nav > ul { /** main navigation **/
 				&.separator {
 					height: 10px;
 					&:hover {
-						background-color: $white-background-color;
+						background-color: var(--white-background-color);
 					}
 				}
 			}
@@ -146,7 +146,7 @@ header nav > a#main-menu-toggle {
 	padding: 8px;
 
 	& > div {
-		background: $white-background-color;
+		background: var(--white-background-color);
 		height: 4px;	
 	}
 }
@@ -174,11 +174,11 @@ header nav > a#main-menu-toggle {
  		svg {
  			width: 16px;
  			height: 16px;
- 			fill: $grey-font-color;
+ 			fill: var(--grey-font-color);
 
  			path {
  				stroke-width: 2;
- 				stroke: $grey-font-color;
+ 				stroke: var(--grey-font-color);
  			}
  		}
 
@@ -199,9 +199,9 @@ header nav > a#main-menu-toggle {
 
  	& > div {
 		div {
-			background-color: $white-background-color;
-			border-left: 1px solid $grey-border-color;
-			border-right: 1px solid $grey-border-color;
+			background-color: var(--white-background-color);
+			border-left: 1px solid var(--grey-border-color);
+			border-right: 1px solid var(--grey-border-color);
 	
 			input {
 		 		border: 1px solid transparent;
@@ -259,7 +259,7 @@ header nav > a#main-menu-toggle {
 		width: 100%;
 		
 		align-items: stretch;
-		background-color: $black-background-color;
+		background-color: var(--black-background-color);
 
 		&.open {
 			display: flex;
@@ -288,7 +288,7 @@ header nav > a#main-menu-toggle {
 				padding-top: 0px;
 
 				& > li {
-					background-color: $black-background-color;
+					background-color: var(--black-background-color);
 					border-right: 0px solid transparent;
 					border-left: 0px solid transparent;
 
@@ -313,7 +313,7 @@ header nav > a#main-menu-toggle {
 	}
 
 	header nav > ul li > a {
-		border-top: 1px solid $dark-grey-border-color;
+		border-top: 1px solid var(--dark-grey-border-color);
 		display: block;
 		padding: 10px 20px;
 	}

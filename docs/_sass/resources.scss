@@ -28,7 +28,7 @@ main > section.resources-section {
 			top: 100px;
 			min-width: $nav-width;
 			max-width: $nav-width;
-			background-color: $light-grey-background-color;
+			background-color: var(--light-grey-background-color);
 			border-radius: 6px;
 			font-size: 0.9em;
 			
@@ -50,7 +50,7 @@ main > section.resources-section {
 
 				&.separator {
 					padding: 0px;
-					border-top: 1px solid $grey-border-color;
+					border-top: 1px solid var(--grey-border-color);
 					margin: 5px 0px;
 					overflow: hidden;
 				}
@@ -77,7 +77,7 @@ main > section.resources-section {
 			& > ul.article-toc {
 				font-size: 0.9em;				
 				margin-bottom: 30px;
-				border-left: 2px solid $light-grey-border-color;
+				border-left: 2px solid var(--light-grey-border-color);
 				list-style-type: none;
 				top: 100px;
 				position: sticky;
@@ -92,7 +92,7 @@ main > section.resources-section {
 					padding-left: 20px;
 					padding-bottom: 5px;
 					padding-top: 5px;
-					background-color: $light-grey-border-color;
+					background-color: var(--light-grey-border-color);
 				}
 
 				ul {
@@ -140,7 +140,7 @@ main > section.resources-section {
 					margin-bottom: 0px;
 					font-size: 1.5em;
 					padding-bottom: 5px;
-					border-bottom: 1px solid $grey-border-color;
+					border-bottom: 1px solid var(--grey-border-color);
 				}
 
 				& > h3 {
@@ -196,8 +196,8 @@ main > section.resources-section {
 		}
 
 		blockquote.quote {
-				background: $light-grey-background-color;
-				border-left: 10px solid $blockquote-line-color;
+				background: var(--light-grey-background-color);
+				border-left: 10px solid var(--blockquote-line-color);
 				margin: 1.5em 10px;
 				padding: 0.5em 10px;
 				quotes: "\201C""\201D""\2018""\2019";
@@ -210,7 +210,7 @@ main > section.resources-section {
 
 		/** HIGHLIGHTS **/
 		blockquote.panel {
-			border: 1px solid $grey-border-color;
+			border: 1px solid var(--grey-border-color);
 			border-radius: 6px;
 			padding: 0px 20px;
 			margin: 10px 0px;
@@ -230,7 +230,7 @@ main > section.resources-section {
 			}
 			
 			&.info {
-				background-color: $light-grey-background-color;
+				background-color: var(--light-grey-background-color);
 				& > p:first-child::before,
 				& > h6:first-child::before {
 					content: "\f05a";
@@ -238,7 +238,7 @@ main > section.resources-section {
 			}
 
 			&.download {
-				background-color: $light-grey-background-color;
+				background-color: var(--light-grey-background-color);
 				& > p:first-child::before,
 				& > h6:first-child::before {
 					content: "\f381";
@@ -246,7 +246,7 @@ main > section.resources-section {
 			}
 
 			&.tip {
-				background-color: $light-grey-background-color;
+				background-color: var(--light-grey-background-color);
 				& > p:first-child::before,
 				& > h6:first-child::before {
 					content: "\f0eb";
@@ -254,7 +254,7 @@ main > section.resources-section {
 			}
 			
 			&.warning {
-				background-color: $light-orange-background-color;
+				background-color: var(--light-orange-background-color);
 				& > p:first-child::before,
 				& > h6:first-child::before {
 					content: "\f071";				
@@ -262,7 +262,7 @@ main > section.resources-section {
 			}
 
 			&.product {
-				background-color: $light-blue-background-color;
+				background-color: var(--light-blue-background-color);
 				& > p:first-child::before,
 				& > h6:first-child::before {
 					content: "\e814";
@@ -272,7 +272,7 @@ main > section.resources-section {
 
 			& > p:first-child,
 			& > h6:first-child {
-				background-color: $grey-border-color;
+				background-color: var(--grey-border-color);
 				margin: 0px;
 				padding: 5px 10px;
 				font-size: 1em;
@@ -290,18 +290,18 @@ main > section.resources-section {
 			margin-bottom: 1.5em;
 
 			thead {
-				background-color: #F6F6F6;
+				background-color: var(--light-grey-background-color);
 			}
 
 			thead th {
 				position: sticky;
 				top: 80px;
-				background-color: #F6F6F6;
+				background-color: var(--light-grey-background-color);
 			}
 
 			td, th {
-				border-top: 1px solid $grey-border-color;
-				border-bottom: 1px solid $grey-border-color;
+				border-top: 1px solid var(--grey-border-color);
+				border-bottom: 1px solid var(--grey-border-color);
 				padding: 5px 10px;
 				vertical-align: top;
 			}
@@ -335,14 +335,14 @@ main > section.resources-section {
 
 		table.row-headers,
 		table.column-headers {
-			border-left: 1px solid $grey-border-color;
-			border-right: 1px solid $grey-border-color;
+			border-left: 1px solid var(--grey-border-color);
+			border-right: 1px solid var(--grey-border-color);
 
 			tr:not(last-child) {
 				th:first-child, td:first-child {
-					background-color: #F6F6F6;
+					background-color: var(--light-grey-background-color);
 					font-weight: bold;
-					border-right: 1px solid $grey-border-color;
+					border-right: 1px solid var(--grey-border-color);
 					font-size: 1em;
 				}
 			}
@@ -406,15 +406,15 @@ main > section.resources-section {
 
 			tr {
 				margin-bottom: 1em;
-				border: 1px solid $grey-border-color;
-				background-color: $light-grey-background-color;
+				border: 1px solid var(--grey-border-color);
+				background-color: var(--light-grey-background-color);
 
 				td {
 					position: relative;
 					margin-left: 140px;
 					border: 0px solid transparent;
 					padding-left: 0px;
-					border-bottom: 1px solid $grey-border-color;
+					border-bottom: 1px solid var(--grey-border-color);
 					min-height: calc(1.4em + 10px); /* to deal with empty cells */
 
 
@@ -426,7 +426,7 @@ main > section.resources-section {
 						left: -140px;
 						top: 0px;
 						bottom: -1px;
-						border-bottom: 1px solid $grey-border-color;
+						border-bottom: 1px solid var(--grey-border-color);
 						padding-left: 10px;
 						padding-bottom: 5px;
 						$td-height: 1.0em;
@@ -541,4 +541,12 @@ div.language-powershell {
 // make sure that anchor links to table rows are not hidden behind the header
 tbody [id] {
   scroll-margin-top: var(--anchor-offset, 12rem);
+}
+
+@media (prefers-color-scheme: dark) {
+	main > section.resources-section > div > nav a,
+	ul.article-toc a,
+	ul.article-toc::before {
+		color: #d4d8e0;
+	}
 }

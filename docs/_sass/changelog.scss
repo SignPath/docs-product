@@ -12,7 +12,7 @@ section.changelog {
 	}
 
 	div.changelog-select-ctn {
-		background-color: $light-grey-background-color;
+		background-color: var(--light-grey-background-color);
 		border-radius: 6px;
 		padding: 10px 10px;
 		margin-bottom: 1.5em;
@@ -53,12 +53,12 @@ section.changelog {
 			margin-top: 0px;
 			font-size: 1.5em;
 			margin-top: 20px;
-			border-top: 1px solid $grey-border-color;
+			border-top: 1px solid var(--grey-border-color);
 		
 			& > span {
 				float: right;
 				font-size: 0.8em;
-				color: $dark-grey-font-color;
+				color: var(--dark-grey-font-color);
 			}
 		}
 
@@ -89,7 +89,7 @@ section.changelog {
 
 		span.enterprise-only {
 			font-style: italic;
-			color: $dark-grey-font-color;
+			color: var(--dark-grey-font-color);
 		}
 
 		p.no-updates {
