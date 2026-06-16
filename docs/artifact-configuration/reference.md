@@ -16,6 +16,8 @@ datasource: tables/artifact-configuration
 {:.nowrap-code-column-3}
 {% assign table-omit-columns = nil %}
 
+[MSIX persistent identity]: https://learn.microsoft.com/en-us/windows/msix/package/persistent-identity
+
 ### Signature verification 
 
 Supported signature verification methods: 
