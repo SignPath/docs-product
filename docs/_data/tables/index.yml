@@ -1,0 +1,26 @@
+getting-started:
+  headers:
+    step: Intitial steps
+    documentation: Documentation
+    advanced-topics: Advanced topics
+  body:
+    - step: "1\\. Create or import certificates"
+      documentation: "[Managing Certificates](/managing-certificates)"
+    - step: "2\\. Invite your team"
+      documentation: "[Managing Users](/users)"
+      advanced-topics: |
+        * [Directory Synchronization](/users/directory-synchronization): Synchronize users and groups from Entra ID
+    - step: "3\\. Configure your projects"
+      documentation: "[Setting up Projects](/projects)"
+      advanced-topics: |
+        * [Artifact Configuration](/artifact-configuration): Customize for your release artifacts
+        * [Signing Container Images](/signing-containers)
+    - step: "4\\. Sign your code artifacts"
+      documentation: "[Signing Code](/signing-code)"  
+      advanced-topics: |
+    - step: "5\\. Automate code signing"
+      documentation: "[Build System Integration](/build-system-integration)"
+      advanced-topics: |
+        * [Origin Verification](/origin-verification): Define signing policies based on source code and build origin
+        * [Trusted Build Systems](trusted-build-systems): Create pipeline policies that enforce secure SDLC practices for supported CI/CD and SCM systems
+        * [SLSA Attestations](/slsa-attestations): Get build attestations from SignPath or create your own

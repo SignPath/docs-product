@@ -1,3 +1,8 @@
+- text: Getting Started
+  path: 
+
+- separator: true
+
 - text: Managing Certificates
   path: managing-certificates
 
