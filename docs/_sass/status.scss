@@ -8,9 +8,9 @@ section.status-section > div {
 		box-sizing: border-box;
 		font-size: 1.4em;
 
-		&.good     { background-color: $success-background-color; }
-		&.warning  { background-color: $warning-background-color; }
-		&.critical { background-color: $error-background-color; }
+		&.good     { background-color: var(--success-background-color); }
+		&.warning  { background-color: var(--warning-background-color); }
+		&.critical { background-color: var(--error-background-color); }
 
 		i {
 			margin-right: 0.5em;
@@ -27,13 +27,13 @@ section.status-section > div {
 		}
 
 		& > li {
-			border-left: 4px solid $grey-border-color;
+			border-left: 4px solid var(--grey-border-color);
 			display: block;
 			padding-left: 2em;
 			margin-bottom: 2em;
 
-			&.warning  { border-left-color: $warning-background-color; }
-			&.critical { border-left-color: $error-background-color; }
+			&.warning  { border-left-color: var(--warning-background-color); }
+			&.critical { border-left-color: var(--error-background-color); }
 			
 			h3 {
 				margin: 0px;
@@ -41,7 +41,7 @@ section.status-section > div {
 
 			label {
 				font-size: 0.8em;
-				color: $dark-grey-font-color;
+				color: var(--dark-grey-font-color);
 			}
 
 			h4 {

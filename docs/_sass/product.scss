@@ -19,7 +19,7 @@ main > section.feature {
 	flex-direction: row;
 
 	&.grey {
-		background-color: $light-grey-background-color;
+		background-color: var(--light-grey-background-color);
 	}
 
 	& > div.description {

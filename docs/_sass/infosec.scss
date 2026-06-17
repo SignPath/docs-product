@@ -32,15 +32,15 @@ svg.incident-management {
 	}
 	
 	path.ring.outer {
-		fill: $pricing4-background-color;
+		fill: var(--pricing4-background-color);
 	}
 
 	path.ring.middle {
-		fill: $pricing3-background-color;
+		fill: var(--pricing3-background-color);
 	}
 
 	path.ring.inner {
-		fill: $pricing2-background-color;
+		fill: var(--pricing2-background-color);
 	}
 
 	path.lock {
@@ -48,7 +48,7 @@ svg.incident-management {
 		stroke: #ffffff;
 
 		&.hole {
-			fill: $pricing2-background-color;
+			fill: var(--pricing2-background-color);
 		}
 	}
 }

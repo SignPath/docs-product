@@ -9,7 +9,7 @@ div.column-layout {
 		border-radius: 6px;
 
 		ul {
-			background-color: $white-background-color;
+			background-color: var(--white-background-color);
 			list-style-type: none;
 			margin: 0px;
 			padding: 0px;
@@ -37,7 +37,7 @@ div.column-layout {
 					left: 20px;
 					right: 20px;
 					height: 1px;
-					background-color: $light-grey-border-color;
+					background-color: var(--light-grey-border-color);
 				}
 
 				&:last-child:after {
@@ -45,15 +45,15 @@ div.column-layout {
 				}
 
 				&.head {
-					background-color: $medium-grey-background-color;
-					color: $white-font-color;
+					background-color: var(--medium-grey-background-color);
+					color: var(--white-font-color);
 
 					&:after {
 						display: none;
 					}
 
 					a {
-						color: $light-blue-font-color;
+						color: var(--light-blue-font-color);
 					}
 					a:hover {
 						text-decoration: underline;
@@ -62,21 +62,21 @@ div.column-layout {
 
 				span.sub {
 					font-size: 0.8em;
-					color: $dark-grey-font-color;
+					color: var(--dark-grey-font-color);
 				}
 
 				i.la-check {
-					color: $green-line-color;
+					color: var(--green-line-color);
 					font-size: 1.4em;
 					line-height: 1rem;
 				}
 
 				i.la-times {
-					color: $red-line-color;
+					color: var(--red-line-color);
 				}
 
 				i.la-info-circle {
-					color: $blue-line-color;
+					color: var(--blue-line-color);
 				}
 			}
 		}
@@ -132,7 +132,7 @@ div.column-layout {
 
 		h2, h3 {
 			text-transform: uppercase;
-			color: $white-font-color;
+			color: var(--white-font-color);
 			display: block;
 			margin: 0px;
 			border-top-left-radius: inherit;
@@ -157,11 +157,11 @@ div.column-layout {
 			z-index: 1;
 		}
 
-		&:nth-child(2) > *:first-child { background-color: $pricing4-background-color; }
-		&:nth-child(3) > *:first-child { background-color: $pricing3-background-color; }
-		&:nth-child(4) > *:first-child { background-color: $pricing2-background-color; }
-		&:nth-child(5) > *:first-child { background-color: $pricing1-background-color; }
-		&:nth-child(6) > *:first-child { background-color: $dark-grey-background-color; }
+		&:nth-child(2) > *:first-child { background-color: var(--pricing4-background-color); }
+		&:nth-child(3) > *:first-child { background-color: var(--pricing3-background-color); }
+		&:nth-child(4) > *:first-child { background-color: var(--pricing2-background-color); }
+		&:nth-child(5) > *:first-child { background-color: var(--pricing1-background-color); }
+		&:nth-child(6) > *:first-child { background-color: var(--dark-grey-background-color); }
 	
 		ul > li {
 			text-align: center;
@@ -176,28 +176,28 @@ div.column-layout {
 		}
 
 		a.btn {
-			color: $white-font-color;
+			color: var(--white-font-color);
 			display: block;
 			padding: 6px 12px;
 			text-align: center;
 			font-size: 1.2em;
-			background-color: $primary-color;
+			background-color: var(--primary-color);
 			box-shadow: $shadow;
 			border-bottom-right-radius: inherit;
 			border-bottom-left-radius: inherit;
 
 			&:hover {
-				background-color: $primary-darker-color;
+				background-color: var(--primary-darker-color);
 			}
 
 			&:nth-of-type(2) {
 				margin-top: 10px;
-				background-color: $secondary-color;
+				background-color: var(--secondary-color);
 				border-top-left-radius: inherit;
 				border-top-right-radius: inherit;
 
 				&:hover {
-					background-color: $dark-blue-background-color;
+					background-color: var(--dark-blue-background-color);
 				}
 			}
 		}
@@ -248,7 +248,7 @@ li.f.sub span {
 				}
 
 				&.sub-head {
-					background-color: $light-grey-background-color;
+					background-color: var(--light-grey-background-color);
 				}
 
 				&.first-after-header {
