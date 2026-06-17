@@ -382,7 +382,13 @@ main > section.resources-section {
 			position: relative;
 			top: 0px;
 		}
+	}
+}
 
+// Table reformatting kicks in at the viewport width where content drops below ~635px.
+// That's the same effective body width as already effective for 1200px width with minimum with navbar and TOC visible.
+@media only screen and (max-width: 635px) {
+	main > section.resources-section > div {
 		table, tr, tbody, td {
 			display: block;
 		}
@@ -432,11 +438,14 @@ main > section.resources-section {
 						$td-height: 1.0em;
 						padding-top: calc(5px + #{($line-height - $td-height)/2});
 						line-height: $td-height;
+
+						// basic markdown tables with alignment like |---:| will also align expanded tables in phone mode, which looks broken especially for headers.
+						text-align: left !important;
 					}
 
 					&:last-child {
 						border-bottom: 0px solid transparent;
-						
+
 						&:before {
 							border-bottom: 0px solid transparent;
 						}
@@ -446,7 +455,7 @@ main > section.resources-section {
 		}
 	}
 }
-
+	
 table#signing-file-elements tr td code {
 	word-break: normal;
 }
