@@ -50,6 +50,8 @@
 	--red-line-color: #dc3545;
 	--blue-line-color: #006a8a;
 	--blockquote-line-color: #003357;
+
+	--psh-override-color: #d01040;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -78,6 +80,8 @@
 
 		// other
 		--blockquote-line-color: #1a5080;
+		
+		--psh-override-color: #f47067;
 	}
 }
 

@@ -482,8 +482,8 @@ div.language-powershell {
 		background-color: inherit;
 	}
 	& span.nf, span.nx, span.kt {
-		color: #990000;
-		font-weight: bold;
+		color: var(--psh-override-color);
+		//font-weight: bold;
 	}
 }
 
