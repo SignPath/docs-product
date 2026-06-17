@@ -49,7 +49,9 @@
                         {%- for cell in include.table.headers -%}
                             {%- assign columnId = cell[0] -%}
                             {%- unless columnId == "_attributes" or table-omit-columns contains columnId or row[columnId] == "$skip" -%}
-                                <td markdown="1" {% for attribute in row._attributes[columnId] %} {{ attribute[0] }}="{{ attribute[1] }}" {% endfor %} >
+                                <td markdown="1" data-label="{{
+                                    include.table.headers[columnId]
+                                }}" {% for attribute in row._attributes[columnId] %} {{ attribute[0] }}="{{ attribute[1] }}" {% endfor %} >
 {{ row[columnId] }}
 </td>
                             {%- endunless -%}
