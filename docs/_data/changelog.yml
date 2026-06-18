@@ -1,3 +1,26 @@
+- date: '2026-06-18'
+  updates:
+    application:
+      version: 1.214.0
+      new_features:
+        - text: |-
+            REST API: new route `POST /v1/{organizationId}/Certificates/ImportX509CertificateWithExistingKeyPair`.
+            * Imports an X.509 certificate using an existing key pair from the specified key store.
+            * Contact our support team (SaaS) or your administrator (on premises) to enable the feature and request the ID of each key store.
+            * Not available for shared key stores (SaaS). 
+          issues: [SIGN-8616]
+      bug_fixes:
+        - text: |-
+            Fixed: incorrect line numbers reported in artifact configuration XML error messages.
+          issues: [SIGN-8629]
+- date: '2026-06-09'
+  updates:
+    self_hosted_installations:
+      version: 1.213.0
+      breaking_changes:
+        - text: |-
+            The Luna SignService variant has been ported to Linux. Ensure that your cluster has sufficient resources to host its replicas.
+          issues: [SIGN-8421]
 - date: '2026-05-26'
   updates:
     application:
