@@ -49,14 +49,14 @@ signing-file-elements:
       extensions: ".appx, .appxbundle"
       description: "App packages for Microsoft Store/Universal Windows Platform"
       notes: |
-        The `<Identity Publisher='...' />` attribute in the `AppxManifest.xml` file must match the Common Name of the code signing certificate. Consider [MSIX persistent identity] when updating a published package.
+        The `<Identity Publisher='...' />` attribute in the `AppxManifest.xml` file must match the subject of the code signing certificate. Consider [MSIX persistent identity] when updating a published package.
     - element: "`<msix-file>`"
       isComposite: "Yes"
       directive: "[`<authenticode-sign>`](#authenticode-sign)"
       extensions: ".msix, .msixbundle"
       description: "MSIX installer app packages for Microsoft Windows"
       notes: |
-        The `<Identity Publisher='...' />` attribute in the `AppxManifest.xml` file must match the Common Name of the code signing certificate. Consider [MSIX persistent identity] when updating a published package.
+        The `<Identity Publisher='...' />` attribute in the `AppxManifest.xml` file must match the subject of the code signing certificate. Consider [MSIX persistent identity] when updating a published package.
     - element: "`<opc-file>`"
       isComposite: "Yes"
       directive: "[`<opc-sign>`](#opc-sign)"
