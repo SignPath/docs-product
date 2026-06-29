@@ -4,10 +4,10 @@
       version: 1.215.0
       new_features:
         - text: |-
-            TODO @paul: User interface refresh:
-            * "My requests page"
-            * dark mode
-            * side bar
+            A brand new look for SignPath:
+            * Modern design with a new sidebar menu
+            * Dark and light mode (according to system settings)
+            * Optimized layout and navigation
           issues: [SIGN-7891, SIGN-8618, SIGN-8655]
     self_hosted_installations:
       version: 1.215.0
