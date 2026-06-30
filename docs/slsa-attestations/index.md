@@ -8,7 +8,9 @@ description: SLSA Attestations in SignPath
 
 ## Overview
 
-The [SLSA framework](https://slsa.dev) was originally introduced by Google in 2021 and is now maintained under the Open Source Security Foundation (OpenSSF). It defines a set of incremental security properties for build systems - a maturity model with levels that describe increasing degrees of assurance.
+The [SLSA framework](https://slsa.dev) defines a set of incremental security properties for build systems - a maturity model with levels that describe increasing degrees of assurance.
+
+It was originally introduced by Google in 2021 and is now maintained by the Open Source Security Foundation (OpenSSF).
 
 ### Key concepts
 
