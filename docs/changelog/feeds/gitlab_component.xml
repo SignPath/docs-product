@@ -1,0 +1,4 @@
+---
+layout: null
+---
+{% include_relative changelog_feed.md category="gitlab_component" %}

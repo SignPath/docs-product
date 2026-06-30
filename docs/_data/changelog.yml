@@ -18,6 +18,16 @@
         - text: |-
             Added new mandatory `appSettings.shared.contactOptions.supportEmailAddress` configuration in `signpath-application` chart. Rendered as support contact in error messages.
           issues: [SIGN-8584]
+    gitlab_connector:
+      version: 1.0.0
+      new_features:
+        - text: Initial release
+          issues: []
+    gitlab_component:
+      version: 1.0.0
+      new_features:
+        - text: Initial release
+          issues: []
 - date: '2026-06-18'
   updates:
     application:

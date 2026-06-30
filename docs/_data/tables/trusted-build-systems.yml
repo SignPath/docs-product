@@ -118,5 +118,3 @@ github-extended-policies-branch-ruleset-rules:
         * `tool`: The name of the code scanning tool, e.g. `CodeQL`
         * `min_alerts_threshold`: one of `none`, `errors` or `warnings`
         * `min_security_alerts_threshold`: one of `none`, `critical`, `high`, `medium` or `all`
-
-

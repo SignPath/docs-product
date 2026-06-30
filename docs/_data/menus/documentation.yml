@@ -50,6 +50,9 @@
     - text: GitHub
       path: github
 
+    - text: GitLab
+      path: gitlab
+
     - text: Azure DevOps
       path: azure-devops
 
