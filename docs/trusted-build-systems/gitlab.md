@@ -31,13 +31,9 @@ We provide a `submit-signing-request` component that can be integrated into a Gi
 
 ```yaml
 include:
-  - component: gitlab.com/signpath-test-root/components/submit-signing-request@0.1.0
+  - component: gitlab.com/signpath/components/submit-signing-request@1.0.0
     inputs:
-      stage: sign
-      job_name: sign_my_component_a
-      api_token_var_name: SIGNPATH_MY_COMPONENT_A_API_TOKEN
-      gitlab_access_token_var_name: SIGNPATH_GITLAB_ACCESS_TOKEN
-      organization_id: f437cdbb-2ec0-4958-9a85-c2c0cd5dfa1a
+      organization_id: $[[ SIGNPATH_ORGANIZATION_ID ]] # CI/CD variable
       project_slug: MyComponentA
       signing_policy_slug: release-signing
       gitlab_artifact_job_name: build_job
@@ -56,7 +52,7 @@ build_job:
     - echo "Building some software..."
   artifacts:
     paths:
-    - output/my-signed-executable
+    - output/my-executable
 ```
 
 See the [parameter list](#supported-parameters) for a complete list of all supported inputs. 
@@ -66,9 +62,10 @@ See the [parameter list](#supported-parameters) for a complete list of all suppo
 >
 > If you want to sign multiple files in a single signing request, you have to create and publish a dedicated ZIP archive in your build step and modify your artifact configuration on SignPath accordingly.
 
-### Setups that don't include _Docker Executors_
-
-For all organizations that don't support _Docker Executors_, we provide a CLI tool can be directly invoked. Please contact our [support team](https://signpath.io/support) for details.
+{:.panel.info}
+> **Setups that don't include _Docker Executors_**
+>
+> For all organizations that don't support _Docker Executors_, we provide a CLI tool can be directly invoked. Please contact our [support team](https://signpath.io/support) for details.
 
 ## Supported parameters
 
@@ -102,5 +99,5 @@ The component invocation will publish a dotenv report and make the following env
 * `${PREFIX}_SIGNPATH_SIGNING_REQUEST_WEB_URL`: The url of the signing request in SignPath.
 * `${PREFIX}_SIGNPATH_SIGNED_ARTIFACT_DOWNLOAD_URL`: The url where the signed artifact can be downloaded.
 
-`${PREFIX}` defaults to the capitalized name of the signing job in GitLab (`SIGN` by default).
+`${PREFIX}` defaults to the capitalized name of the signing job in GitLab (`SUBMIT_SIGNING_REQUEST` by default).
 
