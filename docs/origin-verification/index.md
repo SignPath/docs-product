@@ -31,7 +31,7 @@ Verification of reproducability depends on the CI system used. Typical verificat
 * **No manual overrides** of critical build settings in CI system's build job
 * **Prevent caching** from previous (possibly unverified) builds
 
-In order to use origin verification, a [Trusted Build System](trusted-build-systems) must be configured and linked to the project.
+In order to use origin verification, a [Trusted Build System](/trusted-build-systems) must be configured and linked to the project.
 
 {:.panel.tip}
 > **Use origin verification restrictions**
@@ -40,7 +40,7 @@ In order to use origin verification, a [Trusted Build System](trusted-build-syst
 >
 > * Select **Verify origin** to make sure that only verified builds can be signed
 > * Define source code review policies for branches that are supposed to be used for production releases. Use the **Allowed branch names** setting to make sure that a signing policy can only be used for specified branches. Typical settings include `main` or `release/*`.
-> * If you need to be able to sign other builds under special circumstances, consider adding another signing policy with strong approval requirements (e.g. 2 out of *n*).
+> * If you need to be able to sign other builds under special circumstances, consider adding another signing policy with strong approval requirements (e.g. 2 out of _n_).
 
 {:.panel.warning}
 > **Source code reviews must include build scripts**

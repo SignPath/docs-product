@@ -1,46 +1,43 @@
 ---
-header: Windows CSP and KSP
+header: Windows KSP
 layout: resources
 toc: true
 show_toc: 3
-description: SignPath Windows CSP and KSP Crypto Providers
+description: SignPath Windows KSP Crypto Provider
 ---
 
 ## Overview
 
-Signing tools secifically designed for Windows typically use CNG KSP or CAPI CSP providers. Install and use the SignPath KSP and CSP providers to use this tools with SignPath.
+Signing tools secifically designed for Windows typically use CNG KSP providers. Install and use the SignPath KSP provider to use these tools with SignPath.
 
 ## Setup
 
 ### Installation
 
-To install the Windows CNG KSP and CAPI CSP providers,
+To install the Windows CNG KSP provider,
 
-1. Run the MSI installer file from the `Windows` subdirectory of the Crypto Providers ZIP archive. (See below for unattended options.)
+1. Run the MSI installer file. (See below for unattended options.)
 2. Continue with the [general Crypto Provider configuration](/crypto-providers#crypto-provider-configuration).
 
 {:.panel.info}
 > **Verification**
 >
-> To verify the successful registration of the CSP and KSP, you can use the following command:
+> To verify the successful registration of the KSP, you can use the following command:
 >
 > ~~~powershell
 > certutil -csplist
 > ~~~
 > 
-> It should contain two entries:
+> It should contain one entry:
 > 
->    * `Provider Name: SignPathCSP`
 >    * `Provider Name: SignPathKSP`
-
-CSPs [are deprecated by Microsoft](https://learn.microsoft.com/en-us/windows/win32/seccrypto/cryptographic-service-providers), so most up-to-date tools only require a KSP. You can deselect the "Windows CAPI CSP" in the "custom setup" installer step.
 
 ### Unattended installation
 
 To install the MSI in an automated fashion, run the following command (in an elevated command prompt).
 
 ~~~powershell
-msiexec /i SignPathCryptoProviders-$Version.msi /qn /L* install.log
+msiexec /i SignPath.Windows.KSP.msi /qn /L* install.log
 ~~~
 
 See [`msiexec` documentation](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec).
@@ -50,7 +47,7 @@ See [`msiexec` documentation](https://learn.microsoft.com/en-us/windows-server/a
 If you want `msiexec` to terminate only after the installation has completed, run the following command in a PowerShell session:
 
 ~~~powershell
-msiexec /i SignPathCryptoProviders-$Version.msi /qn /L* install.log | Out-Host; if ($LASTEXITCODE -ne 0) { throw "msiexec exited with $LASTEXITCODE" }
+msiexec /i SignPath.Windows.KSP.msi /qn /L* install.log | Out-Host; if ($LASTEXITCODE -ne 0) { throw "msiexec exited with $LASTEXITCODE" }
 ~~~
 
 #### Selecting components
@@ -58,15 +55,13 @@ msiexec /i SignPathCryptoProviders-$Version.msi /qn /L* install.log | Out-Host; 
 To install only parts, use the `ADDLOCAL` msiexec parameter with the following options (delimited by commas):
 
    * `KSP` for the Windows CNG KSP installation and registration
-   * `CSP` for the Windows CAPI CNG installation and registration
-   * `Cryptoki` for the Cryptoki library installation
    * `SignPathConfigAndEnv` for the default `CryptoProvidersConfig.json` configuration file in `%ProgramFiles%\SignPath\CryptoProviders`
      and the system-wide `SIGNPATH_CONFIG_FILE` environment variable
 
 Example: install KSP and configuration file variable
 
 ~~~powershell
-msiexec /i SignPathCryptoProviders-$Version.msi /qn /L* install.log ADDLOCAL=KSP,SignPathConfigAndEnv | Out-Host; if ($LASTEXITCODE -ne 0) { throw "msiexec exited with $LASTEXITCODE" }
+msiexec /i SignPath.Windows.KSP.msi /qn /L* install.log ADDLOCAL=KSP,SignPathConfigAndEnv | Out-Host; if ($LASTEXITCODE -ne 0) { throw "msiexec exited with $LASTEXITCODE" }
 ~~~
 
 ### Update to a new version
@@ -82,7 +77,7 @@ Uninstall via Windows' "Apps & features" / "Installed apps" dialog.
 To uninstall in an automated fashion, run the following command (in an elevated PowerShell session).
 
 ~~~powershell
-msiexec /x SignPathCryptoProviders-$Version.msi /qn /L* uninstall.log | Out-Host
+msiexec /x SignPath.Windows.KSP.msi /qn /L* uninstall.log | Out-Host
 ~~~
 
 ### Configuration
@@ -104,7 +99,7 @@ _SignTool.exe_ requires the following parameters:
 
 | Parameter    | Value                             | Description
 |--------------|-----------------------------------|----------------
-| `/csp`       | `SignPathKSP` or `SignPathCSP`    | SignPath KSP (preferred) or CSP
+| `/csp`       | `SignPathKSP`                     | SignPath KSP
 | `/kc`        | `$ProjectSlug/$SigningPolicySlug` | Key container name: _Project_ and _Signing Policy_ slug, separated by a forward slash
 | `/fd`        | `SHA256`, `SHA384` or `SHA512`    | Digest (hashing) algorithm
 | `/f`         | Path to the certificate file      | Download the respective certificate file from SignPath
@@ -133,25 +128,24 @@ In addition to the general [Crypto Provider configuration](/crypto-providers#cry
 
 | Parameter             | Value                                | Description
 |-----------------------|--------------------------------------|---------------------------------------
-| Crypto Provider       | `SignPathKSP` or `SignPathCSP`       | SignPath KSP (preferred) or CSP
+| Crypto Provider       | `SignPathKSP`                        | SignPath KSP
 | Key container name    | `$ProjectSlug/$SigningPolicySlug`    | SignPath _Project_ and _Signing Policy_ slugs, separated by a forward slash 
 | Certificate file      | Path to the x.509 certificate file   | Download the respective certificate file from SignPath
 
 {:.panel.info}
 > **Use _Project_ and _Signing Policy_ slugs to speficy a key**
 >
-> Identify a specific _Signing Policy_ by specifying _Project_ and _Signing Policy_ slugs. The SignPath KSP/CSP will select that policy's certificate.
+> Identify a specific _Signing Policy_ by specifying _Project_ and _Signing Policy_ slugs. The SignPath KSP will select that policy's certificate.
 
 ### Error handling
 
 The following table shows the KSP `HRESULT` result codes for different error situations when calling the SignPath REST API.
 
-| Situation                                                                                                | error code (KSP result code or CSP `GetLastError()` code)
+| Situation                                                                                                | error code (KSP result code)
 |----------------------------------------------------------------------------------------------------------|----------------------------------------------------------
 | Transient errors like HTTP timeouts or 503 (Service Unavailable) which still occur after the last retry  | `NTE_DEVICE_NOT_READY` ("The device that is required by this cryptographic provider is not ready for use.") for errors without an HTTP status code. Otherwise, HTTP status code as an HRESULT in the `FACILITY_ITF`, e.g. `0x800401F7` for HTTP 503
 | Non-transient service errors (e.g. 500 Internal Server Error)                                            | HTTP status code as an HRESULT in the `FACILITY_ITF`, e.g. `0x800401F4` for HTTP 500
 | User errors detected by service (4xx returned)                                                           | HTTP status code as an HRESULT in the `FACILITY_ITF`, e.g. `0x80040190` for HTTP 400
 | Other unspecified errors (fall back)                                                                     | `NTE_FAIL` ("An internal error occurred.")
 
-The CSP error code has to be retrieved via [`GetLastError()`](https://learn.microsoft.com/en-us/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
 

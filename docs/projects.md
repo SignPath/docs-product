@@ -25,7 +25,7 @@ Projects consist of these configuration sections:
 |----------------------------|---------------------------------------------------------------------------------------------------------------------------|-----
 | **Name**                   | Display name
 | **Slug**                   | Project name/identfier used for URLs, APIs etc.
-| **Status**                 | *Valid*, *inactive*, or *invalid*
+| **Status**                 | _Valid_, _inactive_, or _invalid_
 | **Readers**                | Users or groups who can read all information of this project, including signing request artifacts of all signing policies | {{ site.data.editions | where: "user_management.admin_delegation", "true" | map: "name" | join: ", " }}
 | **Configurators**          | Users or groups who can modify artifact configurations and Webhooks                                                       | {{ site.data.editions | where: "user_management.admin_delegation", "true" | map: "name" | join: ", " }}
 | **Repository URL**         | URL of the source code repository, for information and/or [origin verification](#signing-policy-origin-verification) 
@@ -45,14 +45,14 @@ Both types of policies may alternatively use certificates that are issued by an 
 {:.panel.tip}
 > **Why sign test builds?**
 >
-> It's important that test builds are signed, so they will behave like release builds *on test systems*. Several platform mechanisms may be used or inadvertently encountered that behave differently for signed and unsigned software.
+> It's important that test builds are signed, so they will behave like release builds _on test systems_. Several platform mechanisms may be used or inadvertently encountered that behave differently for signed and unsigned software.
 >
 > Test-signing can also provide protection for test systems, if these systems are configured in a way that prevents installation or execution of unsigned software, or produces warnings for users.
 
 ### General Properties
 
-| Property        | Value |
-|-----------------|-------|
+| Property        | Value 
+|-----------------|-----------------------------
 | **Certificate** | Select the certificate that will be used to sign the artifact |
 | **Submitters**  | Select the users that are allowed to submit an artifact (may be regular or [CI users](/users#ci-users)) |
 
@@ -61,9 +61,9 @@ Both types of policies may alternatively use certificates that are issued by an 
 Select **Use approval process** if you want to require manual approval for each signing request. This is recommended for release-signing.
 
 | Property               | Value                                                                                                                                     | Editions
-|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|------------
 | **Approvers**          | Select the users that are allowed to approve signing requests. They will receive e-mail notifications for each request. 
-| **Required approvals** | Set how many approvals are required. Note that a single *deny* will abort the request. (Also known as *quorum* or *k-out-of-n approval*.) | {{ site.data.editions | where: "policy_enforcement.quorum_approval", "true" | map: "name" | join: ", " }} 
+| **Required approvals** | Set how many approvals are required. Note that a single _deny_ will abort the request. (Also known as _quorum_ or _k-out-of-n approval_.) | {{ site.data.editions | where: "policy_enforcement.quorum_approval", "true" | map: "name" | join: ", " }} 
 
 ### Trusted build system verification {#signing-policy-trusted-build-system}
 
@@ -82,7 +82,7 @@ Select **Verify origin** if you want to accept only signing requests with positi
 [Trusted build system verification](#signing-policy-trusted-build-system) must be enabled for origin verfication.
 
 | Property                   | Value 
-|----------------------------|-------
+|----------------------------|----------------------
 | **Project repository URL** | Must be configured in the project settings (applies to all signing policies)
 | **Allowed branch names**   | For release-signing, it is recommended to restrict the signing policy to release branches, such as `main` or `release/*`. This helps to enforce a code review policy for release builds and prevents accidental or intentional release-signing of internal and test builds.
 
@@ -117,16 +117,17 @@ Use this option to sign releases that have been falsely identified as malware. F
 
 ## Artifact configurations {#artifact-configurations}
 
-At the core of each SignPath project is an artifact configuration. It describes the file type of your artifact and a corresponding code signing method (e.g. an EXE file signed 
-with Authenticode).
+Artifact configurations describe your artifact and provide code signing instructions. The simplest form is a single file with a corresponding signing method (e.g. an EXE file signed with Authenticode), but artifacts can be arbitrarily complex and contain additional constraints.
+
+See [Artifact Configuration](/artifact-configuration) for more details.
 
 ### Signing multiple files in one step
 
 An artifact configuration may contain instructions to sign multiple files in a single step. Just put them in a single ZIP archive and specify how each file should be signed.
 
-### Signing nested artifacts (deep-signing)
+### Signing nested artifacts (deep signing)
 
-It is commonly necessary to sign files *and* files within those files. In this case you want to specify an artifact configuration for deep-signing. SignPath will extract the files and sign them from the inside out, then re-package everything and sign the containing file.
+It is often necessary to sign files _and_ files within those files. In this case you want to specify an artifact configuration for deep signing. SignPath will extract the files and sign them from the inside out, then re-package everything and sign the containing file.
 
 **Examples:** 
 
@@ -134,6 +135,12 @@ It is commonly necessary to sign files *and* files within those files. In this c
 * An **MSI installer** containing an **Office add-in**, which in turn contains **DLL files**
   * the MSI file and the DLLs should be signed using Authenticode
   * the Office add-in has a ClickOnce manifest that requires manifest signing
+
+### Defining artifact configurations
+
+You can create an artifact configuration by selecting one of the **predefined templates** or by **uploading a sample artifact** which will be analyzed by SignPath. You can also **create a custom artifact configuration** from scratch using XML. Just pick the respective option from the drop-down list.
+
+For details on how to create, generate or edit an artifact configuration, see [artifact configuration](/artifact-configuration).
 
 ### Keeping versions of artifact configurations
 
@@ -150,14 +157,6 @@ If you want to use versioned artifact configurations with CI
 
 * be sure to check the artifact configuration slug into your source code repository, so you can always access the correct version
 * when calling SignPath from a build script or CI configuration, specify the artifact configuration slug instead of using the default
-
-### Defining artifact configurations
-
-You can create an artifact configuration by selecting one of the **predefined templates** or by **uploading a sample artifact** which will be analyzed by SignPath. 
-
-In the latter case, you need to manually review the resulting artifact configuration and exclude all 3rd party libraries that you don't want to be signed with your certificate.
-
-For details on how to create, generate or edit an artifact configuration, see [artifact configuration](/artifact-configuration).
 
 ## Trusted build systems {#trusted-build-systems}
 

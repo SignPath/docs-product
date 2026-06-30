@@ -7,37 +7,15 @@ description: Artifact Configuration Examples
 datasource: tables/artifact-configuration
 ---
 
-## Syntax
+## Templates 
 
-{:.panel.info}
-> **Examples are shortened**
->
-> For the sake of clarity, all examples omit the XML prolog. A complete artifact configuration looks like this:
-> 
-> ~~~ xml
-> <?xml version="1.0" encoding="utf-8" ?>
-> <artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
->   <!-- ... -->
-> </artifact-configuration>
-> ~~~
+For simple artifact configurations, try using one or more predefined templates. You can always select _customize_ to copy fragments of the resulting artifact configuration and assemble these fragements into a new conifguration. Or upload an existing artifact to generate a basic artifat configuration. Mix and match these approaches as works best for your situation.
 
-## Basic examples
-
-### Predefined configuration for single Portable Executable file
-
-This configuration works for all PE files.
-
-~~~ xml
-<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
-  <pe-file>
-    <authenticode-sign/>
-  </pe-file>
-</artifact-configuration>
-~~~
+See [Setting up Projects](/projects#artifact-configurations) for more details.
 
 ## Signing multiple files
 
-### Signing multiple artifacts in a ZIP container
+### Signing multiple artifacts in a ZIP archive
 
 You can sign multiple unrelated artifacts by packing them into a single ZIP file.
 
@@ -54,9 +32,9 @@ You can sign multiple unrelated artifacts by packing them into a single ZIP file
 </artifact-configuration>
 ~~~
 
-### Deep-signing an MSI installer {#msi-sample}
+### Deep-signing an MSI installer with nested executables {#msi-sample}
 
-This will sign the PE files `libs/common.dll` and `main.exe`, then re-package their MSI container and sign it too. It also restricts the name of the MSI container file.
+This will sign the PE files `libs/common.dll` and `main.exe`, then re-package their MSI file and sign it too. It also restricts the name of the MSI file.
 
 ~~~ xml
 <artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">

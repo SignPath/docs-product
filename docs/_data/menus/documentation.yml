@@ -1,8 +1,16 @@
+- text: Getting Started
+  path: 
+
+- separator: true
+
 - text: Managing Certificates
   path: managing-certificates
 
 - text: Managing Users
   path: users
+  items:
+    - text: Directory synchronization
+      path: directory-synchronization
 
 - text: Setting up Projects
   path: projects
@@ -12,12 +20,6 @@
 
 - text: Signing Container Images
   path: signing-containers
-  items:
-    - text: Sigstore Cosign
-      path: cosign
-
-    - text: Docker Content Trust (DCT)
-      path: docker-content-trust
 
 - separator: true
 
@@ -29,6 +31,9 @@
 
     - text: Reference
       path: reference
+
+    - text: Attestations
+      path: attestations
 
     - text: Examples
       path: examples
@@ -63,6 +68,12 @@
 - text: Origin Verification
   path: origin-verification
 
+- text: SLSA Attestations
+  path: slsa-attestations
+  items:
+    - text: Definitions
+      path: definitions
+
 - separator: true
 
 - text: PowerShell cmdlets
@@ -80,7 +91,7 @@
 - text: Crypto Providers
   path: crypto-providers
   items:
-    - text: Windows CSP and KSP
+    - text: Windows KSP
       path: windows
 
     - text: Cryptoki/PKCS#11
@@ -91,6 +102,9 @@
 
     - text: macOS CryptoTokenKit
       path: macos
+
+    - text: Notation
+      path: notation
 
     - text: REST API
       path: rest-api

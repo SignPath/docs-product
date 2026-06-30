@@ -33,19 +33,19 @@ Test-signing is used to avoid the security implications of release-signing with 
 
 ### Projects
 
-*Code Signing Starter* and *Code Signing Basic* are priced based on the number of projects you can create in SignPath. Choose the number of projects you need when you buy your subscription, or upgrade later. If you need more than *max. projects*, you need to upgrade to another the subscription type.
+_Code Signing Starter_ and _Code Signing Basic_ are priced based on the number of projects you can create in SignPath. Choose the number of projects you need when you buy your subscription, or upgrade later. If you need more than _max. projects_, you need to upgrade to another the subscription type.
 
-We recommend to use one SignPath *project* for each actual software project. 
+We recommend to use one SignPath _project_ for each actual software project. 
 
-If your project produces several artifacts, you have these options to handle them with a single *SignPath* project:
+If your project produces several artifacts, you have these options to handle them with a single _SignPath_ project:
 
-* Use deep signing: Sign an installer *and* the files it contains
+* Use deep signing: Sign an installer _and_ the files it contains
 * Package your artifacts into a ZIP archive: Sign all artifacts that result from a single build job in one step
-* Use multiple artifact configurations within one project (not available for *Code Signing Starter*)
+* Use multiple artifact configurations within one project (not available for _Code Signing Starter_)
 
 ### Users
 
-*Code Signing Starter* and *Code Signing Basic* are priced based on the number of active user accounts. Choose the number of users you need when you buy your subscription, or upgrade later. If you need more than *max. users*, you need to upgrade to another subscription type.
+_Code Signing Starter_ and _Code Signing Basic_ are priced based on the number of active user accounts. Choose the number of users you need when you buy your subscription, or upgrade later. If you need more than _max. users_, you need to upgrade to another subscription type.
 
 User accounts are required for all interactions with the SignPath user interface, including
 
@@ -59,7 +59,7 @@ This quota does not limit the number of CI user accounts or build agents you can
 
 ### Signing requests
 
-*Code Signing Starter* and *Code Signing Basic* have an upper limit for the number of signing requests.
+_Code Signing Starter_ and _Code Signing Basic_ have an upper limit for the number of signing requests.
 
 Included signing requests per year and project:
 
@@ -68,7 +68,7 @@ Included signing requests per year and project:
 | release-signing | Extended Validation (EV) release certificate  |      20 |    50 |
 | test-signing    | Self-signed test certificate                  |     100 |   250 |
 
-**Example:** a *Code Signing Basic* subscription with 3 *projects* allows you to complete 
+**Example:** a _Code Signing Basic_ subscription with 3 _projects_ allows you to complete 
 
 * 150 release-signing requests per year (50 &times; 3) 
 * 750 test-signing requests per year (250 &times; 3)
@@ -90,7 +90,7 @@ Each signed file inside a signing request counts towards the individual signatur
 
 * **Example:** an MSI file containing 1 EXE and 2 DLL files would result in 4 individual signatures. 
 
-You may sign **up to 100 files per *available* signing request** (i.e. the sum of release- and test-signing requests). 
+You may sign **up to 100 files per _available_ signing request** (i.e. the sum of release- and test-signing requests). 
 
 * **Example:** 900 signing requests are available in the previous example (150 + 750). That would result in 900 &times; 100 = 90,000 individual signatures per year.
 
@@ -98,9 +98,9 @@ You can adjust the [artifact configuration](/artifact-configuration) to specify 
 
 ### CI pipelines
 
-*Code Signing Starter*: one CI pipeline at a time. 
+_Code Signing Starter_: one CI pipeline at a time. 
 
-*Code Signing Basic*: one CI pipeline per available project at a time.
+_Code Signing Basic_: one CI pipeline per available project at a time.
 
 Additional signing requests submitted from CI pipelines may be rejected and have to be repeated later.
 
@@ -178,7 +178,7 @@ Artifact configurations define what artifacts to sign and how. They can either s
 
 ### Deep signing
 
-Sign installers, packages etc. *and* their content in a single step. See [signing nested artifacts](/projects#signing-nested-artifacts-deep-signing)
+Sign installers, packages etc. _and_ their content in a single step. See [signing nested artifacts](/projects#signing-nested-artifacts-deep-signing)
 
 ### Multiple versions
 
@@ -234,21 +234,21 @@ See [approval process](/documentation/projects#approval-process) for more inform
 -->
 ### Signing policies per project
 
-For *Code Signing Starter* and *Code Signing Basic*, you get two signing policies per project:
+For _Code Signing Starter_ and _Code Signing Basic_, you get two signing policies per project:
 
 * a test-signing policy for testing the signing configuration and signing test builds
 * a release-signing policy for signing builds that will be delivered to end users
 
-*Advanced Code Signing* and *Code Signing Gateway* allow to define any number of signing policies per project. You can use this to create policies with different levels of manual and automatic verification. 
+_Advanced Code Signing_ and _Code Signing Gateway_ allow to define any number of signing policies per project. You can use this to create policies with different levels of manual and automatic verification. 
 
 Example:
 
-<!-- * *pre-release* signing with [origin verification](#origin-verification), using a certificate that is recognized by QA devices -->
+<!-- * _pre-release_ signing with [origin verification](#origin-verification), using a certificate that is recognized by QA devices -->
 
-* *test* signing without verification, using a test certificate
-* *release* signing with origin verification and a constraint on *release branches* only
-* *exception release* signing with origin verification, no branch constraints, but manual approval instead
-* *emergency signing* without origin verification, but manual approval with 3 required approvals
+* _test_ signing without verification, using a test certificate
+* _release_ signing with origin verification and a constraint on _release branches_ only
+* _exception release_ signing with origin verification, no branch constraints, but manual approval instead
+* _emergency signing_ without origin verification, but manual approval with 3 required approvals
 
 See [code signing certificates](#code-signing-certificates).
 
@@ -292,7 +292,7 @@ Origin verification traces a software build back to the original source code, ma
 
 For full security, make sure
 
-* that the source code repository is the *single source of truth* for software builds, including build scripts and CI configurations
+* that the source code repository is the _single source of truth_ for software builds, including build scripts and CI configurations
 * that all upstream components are signed by their publishers, and signatures are verified
 * that your repository and CI infrastructure is secure
 
@@ -300,7 +300,7 @@ See [origin verfication](/documentation/origin-verification) for more informatio
 
 #### Origin-based policies
 
-Specify the *source code repository* for a SignPath project, and (optionally) the *branch* name(s) for a signing policy. This ensures that only software from legitimate builds of these repositories can be signed using this policy.
+Specify the _source code repository_ for a SignPath project, and (optionally) the _branch_ name(s) for a signing policy. This ensures that only software from legitimate builds of these repositories can be signed using this policy.
 
 #### Manual origin verification
 

@@ -63,5 +63,3 @@ Possible policies include:
 * Prevent network access: guarantee that artifacts cannot be arbitrarily received from internet sources
 * Restrict user access: don't let development teams connect to the build agent, with or without administrative permissions (if you need build nodes with wider permission sets, consider separating the process of compilation and packaging from other steps such as running tests)
 * Require current security policies: avoid misuse of recently restored or otherwise not up-to-date build agents
-
-See the [Double Authentication Proxy](/trusted-build-systems/double-authentication-proxy) for a simple way to achieve this using machine certificate enrollment. 

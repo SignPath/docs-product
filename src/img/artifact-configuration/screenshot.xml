@@ -1,0 +1,65 @@
+<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
+  <msi-file path="Writeopia.msi">
+    <directory path="Writeopia">        
+      <pe-file path="Writeopia.exe" product-name="Writeopia">
+        <authenticode-sign/> 
+      </pe-file>
+      <directory path="app">
+        <jar-file path="writeopia-*.jar" max-matches="unbounded">
+          <jar-sign/>
+        </jar-file>
+	  <jar-file path="jna-jpms-*.jar">
+		<pe-file path="com/sun/jna/win32-*/jnidispatch.dll"
+				 min-matches="3" max-matches="3">
+			<authenticode-sign/>
+		</pe-file>
+	  </jar-file>		  
+      </directory>
+      <directory path="runtime/bin">
+        <pe-file path="api-ms-win-*.dll" max-matches="unbounded" 
+                 company-name="Microsoft Corporation" 
+                 product-name="Microsoft® Windows® Operating System" >
+          <authenticode-verify/>
+        </pe-file>
+        
+        <pe-file-set company-name="Microsoft Corporation"
+                     product-name="Microsoft® Visual Studio®">
+          <include path="msvcp140.dll" />
+          <include path="ucrtbase.dll" 
+                   product-name="Microsoft® Windows® Operating System" />
+          <include path="vcruntime140.dll" />
+          <include path="vcruntime140_1.dll" />
+          <for-each>
+            <authenticode-verify/>
+          </for-each>
+        </pe-file-set>
+          
+        <pe-file-set company-name="Eclipse Adoptium" product-name="OpenJDK Platform 21.0.9">
+          <include path="awt.dll" />
+          <include path="fontmanager.dll" />
+          <include path="freetype.dll" />
+          <include path="java.dll" />
+          <include path="javajpeg.dll" />
+          <include path="jawt.dll" />
+          <include path="jimage.dll" />
+          <include path="jli.dll" />
+          <include path="jsound.dll" />
+          <include path="lcms.dll" />
+          <include path="mlib_image.dll" />
+          <include path="net.dll" />
+          <include path="nio.dll" />
+          <include path="prefs.dll" />
+          <include path="splashscreen.dll" />
+          <include path="syslookup.dll" />
+          <include path="verify.dll" />
+          <include path="zip.dll" />
+          <include path="server\jvm.dll" />
+          <for-each>
+            <authenticode-verify/>
+          </for-each>
+        </pe-file-set>
+      </directory>
+    </directory>
+    <authenticode-sign />
+  </msi-file>
+</artifact-configuration>

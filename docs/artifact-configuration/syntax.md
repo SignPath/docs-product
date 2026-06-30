@@ -9,12 +9,11 @@ datasource: tables/artifact-configuration
 
 ## Artifact configuration syntax {#syntax}
 
-Artifact configurations are XML files with the schema `http://signpath.io/artifact-configuration/v1"`. You can download the schema file when you edit an artifact configuration in SignPath.
+Artifact configurations are XML files with the schema `http://signpath.io/artifact-configuration/v1`. You can download the schema file when you edit an artifact configuration in SignPath.
 
-They contain exactly one file element representing the artifact. 
+The root element contains exactly one file element representing the root artifact. Use [ZIP archives](#zip-file-element) to sign multiple files.
 
 ~~~ xml
-<?xml version="1.0" encoding="utf-8" ?>
 <artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
   <root-file-element>
     ...
@@ -28,7 +27,6 @@ They contain exactly one file element representing the artifact.
 > If autocomplete does not work in your schema-aware editor, try adding the `xsi:schemaLocation` attribute to the root element.
 >
 > ~~~xml
-> <?xml version="1.0" encoding="utf-8"?>
 > <artifact-configuration
 >   xmlns="http://signpath.io/artifact-configuration/v1"
 >   xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
@@ -39,7 +37,7 @@ They contain exactly one file element representing the artifact.
 
 ## Basic artifact structure {#structure}
 
-**Note: The following example fragments show only the root file element.** XML prologue and `<artifact configuration>` element are omitted for clarity.
+**Note: The following example fragments show only the root file element.** The `<artifact configuration>` element is omitted for clarity.
 
 Several [element types](reference#file-elements) are available of various supported file types.
 
@@ -51,7 +49,7 @@ Depending on their type, file elements can contain signing directives.
 </pe-file>
 ~~~
 
-Container elements (e.g. archives, directories, packages and installers) can contain nested files, identified by a required `path` attribute. 
+Composite elements (e.g. archives, directories, packages and installers) can contain nested files, identified by a required `path` attribute. 
 
 Use [`<zip-file>`](#zip-file-element) as root element to sign multiple artifacts in one signing request.
 
@@ -123,7 +121,7 @@ For root elements, the `path` attribute is optional and cannot contain directori
 </pe-file>
 ~~~
 
-... or be specific and provide [user defined parameters](#parameters):
+... or be specific and provide [user-defined parameters](#parameters):
 
 ~~~ xml
 <pe-file path="myapp-v${version}.exe">
@@ -135,11 +133,13 @@ For root elements, the `path` attribute is optional and cannot contain directori
 
 ### `<directory>` element {#directory-element}
 
-All supported container formats have an internal directory structure. You can see this structure if you extract a container to a local disk.
+All supported composite formats have an internal directory structure. You can see this structure if you extract a composite file to a local disk.
 
 You can either specify these directories in the `path` attribute of each file element or nest these file elements within `<directory>` elements.
 
 {%- include render-table.html table=site.data.tables.artifact-configuration.directory-example -%}
+
+See [file and directory sets](#file-and-directory-sets) for how to group similar files.
 
 ### `<zip-file>` element {#zip-file-element}
 
@@ -200,17 +200,17 @@ If wildcards are used, optional `max-matches` and `min-matches` parameters can b
 
 ## File and directory sets {#file-and-directory-sets}
 
-If multiple files or directories should be handled in the same way, you can enumerate them using one of the following file or directory set elements: `<directory-set>`, `<pe-file-set>`, `<powershell-file-set>`, `<windows-script-file-set>`, `<msi-file-set>`, `<cab-file-set>`, `<catalog-file-set>`, `<appx-file-set>`, `<msix-file-set>`, `<opc-file-set>`, `<nupkg-file-set>`, `<jar-file-set>`, `<zip-file-set>`, `<office-oxml-file-set>`, `<office-binary-file-set>`, `<xml-file-set>`, `<file-set>`
+If multiple files or directories should be handled in the same way, you can enumerate them using a file or directory set elements. All directory and file elements have corresponding `-set` elements, e.g. `<directory-set>`, `<file-set>`, `<zip-file-set>`, `<pe-file-set>`, etc.
 
-Each set element contains:
+Each _set_ element contains:
 
 * an `<include>` element for each file (or pattern) to be processed
-* a `<for-each>` element that will be applied to all included elements of the set
+* one `<for-each>` element that will be applied to all included elements of the set
 
 A set's `<for-each>` element can include the same child elements as the corresponding simple file or directory element:
 
-* `<pe-file>` supports `<authenticode-signing/>`
-* therefore `<pe-file-set>` supports `<authenticode-signing/>` within the `<for-each>` element
+* `<pe-file>` supports `<authenticode-sign/>`
+* therefore `<pe-file-set>` supports `<authenticode-sign/>` within the `<for-each>` element
 
 Sets are especially useful if your artifacts contain repeating nested structures.
 

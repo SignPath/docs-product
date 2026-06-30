@@ -34,16 +34,6 @@ See the [official plugin page](https://plugins.jenkins.io/signpath/) on how the 
 
 ## Usage
 
-In your `Jenkinsfile`, make sure the artifacts to be signed are pushed to the master node by adding a stage e.g.
-
-```scala
-    stage('Archive') {
-      steps {
-        archiveArtifacts artifacts: "build-output/**", fingerprint: true
-      }
-    }
-```
-
 ### Provided steps
 
 Include the `submitSigningRequest` and optionally, the `getSignedArtifact` steps in your build pipeline.
@@ -57,8 +47,6 @@ Include the `submitSigningRequest` and optionally, the `getSignedArtifact` steps
 | `serviceUnavailableTimeoutInSeconds`       | `600`                                     | Total time in seconds that the step will wait for a single service call to succeed (across several retries).
 | `uploadAndDownloadRequestTimeoutInSeconds` | `300`                                     | HTTP timeout used for upload and download HTTP requests. Defaults to 300.
 | `waitForCompletionTimeoutInSeconds`        | `600`                                     | Maximum time in seconds that the step will wait for the signing request to complete.
-| `apiUrl`                                   |                                           | Deprecated. Is ignored if it matches the global setting. SignPath API endpoint to use.
-
 
 #### Parameters for the `submitSigningRequest` step
 
@@ -71,7 +59,9 @@ Include the `submitSigningRequest` and optionally, the `getSignedArtifact` steps
 | `inputArtifactPath`          | (mandatory)                               | Relative path of the artifact to be signed
 | `outputArtifactPath`         |                                           | Relative path where the signed artifact is stored after signing
 | `waitForCompletion`          | (mandatory)                               | Set to `true` for synchronous and `false` for asynchronous signing requests
-| `parameters`                 |                                           | [User-defined parameters](/artifact-configuration/syntax#parameters) as `Map<String, String>` key/value pairs 
+| `parameters`                 |                                           | [User-defined parameters](/artifact-configuration/syntax#parameters) as `Map<String, String>` key/value pairs
+| `inputArtifactRetrievalUrl`  |                                           | Can be used to retrieve the unsigned artifact from a HTTPS URL instead of uploading it from the agent. _Note: To ensure that the artifact is part of the build process, the `inputArtifactPath` must also be specified and reference the same file (same SHA256 hash). The HTTPS URL needs to be reachable from the SignPath installation._
+| `inputArtifactRetrievalHttpHeaders` |                                    | HTTP headers used for retrieving the artifact, as `Map<String, String>` key/value pairs.
 
 #### Parameters for the `getSignedArtifact` step
 
@@ -86,51 +76,72 @@ Include the `submitSigningRequest` and optionally, the `getSignedArtifact` steps
 #### Example: Submit a synchronous signing request
 
 ```scala
-    stage('Sign with SignPath') {
-      steps {
-        submitSigningRequest(
-          projectSlug: "${PROJECT_SLUG}",
-          signingPolicySlug: "${SIGNING_POLICY_SLUG}",
-          artifactConfigurationSlug: "${ARTIFACT_CONFIGURATION_SLUG}",
-          inputArtifactPath: "build-output/my-artifact.exe",
-          outputArtifactPath: "build-output/my-artifact.signed.exe",
-          waitForCompletion: true
-        )
-      }
-    }
+stage('Sign with SignPath') {
+  steps {
+    submitSigningRequest(
+      projectSlug: "${PROJECT_SLUG}",
+      signingPolicySlug: "${SIGNING_POLICY_SLUG}",
+      artifactConfigurationSlug: "${ARTIFACT_CONFIGURATION_SLUG}",
+      inputArtifactPath: "build-output/my-artifact.exe",
+      outputArtifactPath: "build-output/my-artifact.signed.exe",
+      waitForCompletion: true
+    )
+  }
+}
 ```
 
 #### Example: Submit an asynchronous signing request with parameters
 
 ```scala
-    stage('Sign with SignPath') {
-      steps {
-        script {
-          signingRequestId = submitSigningRequest(
-            projectSlug: "${PROJECT_SLUG}",
-            signingPolicySlug: "${SIGNING_POLICY_SLUG}",
-            artifactConfigurationSlug: "${ARTIFACT_CONFIGURATION_SLUG}",
-            inputArtifactPath: "build-output/my-artifact.exe",
-            outputArtifactPath: "build-output/my-artifact.signed.exe",
-            waitForCompletion: false,
-            parameters: [
-              "version": "1.0",
-              "my-param": "another param"
-            ]
-          )
-        }
-      }
+stage('Sign with SignPath') {
+  steps {
+    script {
+      signingRequestId = submitSigningRequest(
+        projectSlug: "${PROJECT_SLUG}",
+        signingPolicySlug: "${SIGNING_POLICY_SLUG}",
+        artifactConfigurationSlug: "${ARTIFACT_CONFIGURATION_SLUG}",
+        inputArtifactPath: "build-output/my-artifact.exe",
+        outputArtifactPath: "build-output/my-artifact.signed.exe",
+        waitForCompletion: false,
+        parameters: [
+          "version": "1.0",
+          "my-param": "another param"
+        ]
+      )
     }
-    stage('Download Signed Artifact') {
-      input {
-        id "WaitForSigningRequestCompleted"
-        message "Has the signing request completed?"
-      }
-      steps{
-        getSignedArtifact( 
-          signingRequestId: "${signingRequestId}",
-          outputArtifactPath: "build-output/my-artifact.exe"
-        )
-      }
-    }
+  }
+}
+stage('Download Signed Artifact') {
+  input {
+    id "WaitForSigningRequestCompleted"
+    message "Has the signing request completed?"
+  }
+  steps{
+    getSignedArtifact( 
+      signingRequestId: "${signingRequestId}",
+      outputArtifactPath: "build-output/my-artifact.exe"
+    )
+  }
+}
+```
+
+#### Example: Submit a signing request, but download the unsigned artifact from a HTTPS URL
+
+```scala
+stage('Sign with SignPath') {
+  steps {
+    submitSigningRequest(
+      projectSlug: "${PROJECT_SLUG}",
+      signingPolicySlug: "${SIGNING_POLICY_SLUG}",
+      artifactConfigurationSlug: "${ARTIFACT_CONFIGURATION_SLUG}",
+      inputArtifactPath: "build-output/my-artifact.exe",
+      outputArtifactPath: "build-output/my-artifact.signed.exe",
+      waitForCompletion: true,
+      inputArtifactRetrievalUrl: "https://my.download.share.com/my-artifact.exe",
+      inputArtifactRetrievalHttpHeaders: [
+        "Authorization": "Bearer mysupersecretauth"
+      ]
+    )
+  }
+}
 ```

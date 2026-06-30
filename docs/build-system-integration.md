@@ -48,9 +48,9 @@ You need to provide these values for every single API request.
 
 ### Submit a signing request
 
-| Synopsis                    |      |
-|-----------------------------|------|
-| URL                         | `/SigningRequests`
+| Synopsis                    |
+|-----------------------------|----------------
+| URL                         | `/SigningRequests/SubmitWithArtifact`
 | Method                      | `POST`
 | Encoding                    | `multipart/form-data`
 
@@ -71,7 +71,7 @@ curl -H "Authorization: Bearer $API_TOKEN" \
      -F "artifactConfigurationSlug=v2.4" \
      -F "artifact=@$PATH_TO_ARTIFACT" \
      -F "description=$DESCRIPTION" \
-     https://app.signpath.io/API/v1/$ORGANIZATION_ID/SigningRequests
+     https://app.signpath.io/API/v1/$ORGANIZATION_ID/SigningRequests/SubmitWithArtifact
 ~~~
 
 **Success result:** HTTP status code `201`. A HTTP `Location` response-header field is returned with the URL of the created entity.
@@ -86,8 +86,8 @@ Example: `-F "parameters.productVersion=1.2.0"`
 
 ### Get signing request data
 
-| Synopsis   |      |
-|------------|------|
+| Synopsis   | 
+|------------|------
 | URL        | `/SigningRequests/$(SigningRequestId)` <br> (`Location` response-header from the call that submitted the signing request)
 | Method     | GET
 | Parameters | none
@@ -148,8 +148,8 @@ curl -H "Authorization: Bearer $API_TOKEN" \
 
 Once the signing request is successfully completed, the status response contains a `signedArtifactLink` field with a link to the signed artifact file. It can easily be retrieved by issuing the following command:
 
-| Synopsis   |      |
-|------------|------|
+| Synopsis   |
+|------------|------
 | URL        | `/SigningRequests/$(SigningRequestId)/SignedArtifact` <br> (`signedArtifactLink` field from `GET SigningRequests/`id)
 | Method     | GET  |
 | Parameters | none
@@ -168,8 +168,8 @@ curl -H "Authorization: Bearer $API_TOKEN" \
 
 See [Resubmit an existing signing request](/signing-code#resubmit) for more information.
 
-| Synopsis                    |      |
-|-----------------------------|------|
+| Synopsis                    |
+|-----------------------------|--------------------------------
 | URL                         | `/SigningRequests/Resubmit`
 | Method                      | `POST`
 | Encoding                    | `multipart/form-data`

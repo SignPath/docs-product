@@ -6,6 +6,11 @@ show_toc: 3
 description: Documentation for signing Docker images with SignPath using Docker Content Trust (Notary v1)
 ---
 
+{:.panel.warning}
+> **Docker Content Trust (DCT) is deprecated**
+>
+> Docker Content Trust (DCT) is deprecated. Please consider using [Notary (Notation)](/signing-containers#notation) (recommended for Enterprises) or [Cosign](/signing-containers#cosign) (recommended for OSS projects).
+
 ## Overview
 
 Docker Content Trust (DCT) is based on Notary v1, which uses a system of keys:
@@ -78,7 +83,7 @@ The following table lists
 > 
 > Notary has a well-defined [threat model](https://github.com/notaryproject/notary/blob/master/docs/service_architecture.md#threat-model) which states the following about compromised delegation keys:
 > 
-> > An attacker can add malicious content, remove legitimate content from a collection, and mix up the targets in a collection, but only within the particular delegation roles that the key can sign for. **Depending on the restrictions on that role, they may be restricted** in what type of content they can modify. *[Our emphasis]*
+> > An attacker can add malicious content, remove legitimate content from a collection, and mix up the targets in a collection, but only within the particular delegation roles that the key can sign for. **Depending on the restrictions on that role, they may be restricted** in what type of content they can modify. _[Our emphasis]_
 >
 > **This is the most important part of the threat model,** since it involves the least protected keys. However, DCT uses Notary in a way that provides no such restriction. While DCT does provide the usual per-delegation signature manifests, its primary source of trust is **a shared signature manifest** called `releases.json` that includes all signatures from all delegates. 
 > 

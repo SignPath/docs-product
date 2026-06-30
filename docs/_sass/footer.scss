@@ -1,6 +1,6 @@
 footer {
-	background-color: $black-background-color;
-	color: $white-font-color;
+	background-color: var(--black-background-color);
+	color: var(--white-font-color);
 
 	& > div {
 		max-width: $content-width;
@@ -22,7 +22,7 @@ footer {
 
 				text {
 					font-family: inherit;
-					fill: $white-font-color;
+					fill: var(--white-font-color);
 				}
 			}
 

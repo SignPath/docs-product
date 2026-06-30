@@ -15,7 +15,7 @@ section.blog-section {
 		ul {
 
 			div.header {
-				background-color: $dark-blue-background-color;
+				background-color: var(--dark-blue-background-color);
 			}
 
 			div.info {
@@ -23,7 +23,7 @@ section.blog-section {
 				justify-content: space-between;
 
 				& > span {
-					color: $dark-grey-font-color;
+					color: var(--dark-grey-font-color);
 					display: inline-block;
 					font-size: .8em;
 				}
@@ -52,8 +52,8 @@ section.post-section {
 	& > div > article {
 		
 			blockquote {
-				background: $light-grey-background-color;
-				border-left: 10px solid $blockquote-line-color;
+				background: var(--light-grey-background-color);
+				border-left: 10px solid var(--blockquote-line-color);
 				margin: 1.5em 10px;
 				padding: 0.5em 10px;
 				quotes: "\201C""\201D""\2018""\2019";

@@ -34,7 +34,7 @@ h1 {
 }
 
 :target, *:has(> sup:target) {
-	color: $blue-font-color;
+	color: var(--blue-font-color);
 }
 
 [id] {
@@ -44,7 +44,8 @@ h1 {
 body {
 	font-weight: 400;
 	line-height: $line-height;
-	color: $black-font-color;
+	color: var(--black-font-color);
+	background-color: var(--white-background-color);
 	margin: 0px;
 	& > *:not(h1,h2,h3,h4,h5,h6) {
 		font-size: 16px;
@@ -53,10 +54,14 @@ body {
 
 a {
 	text-decoration: none;
-	color: $blue-link-color;
+	color: var(--blue-link-color);
 
 	& > code {
 		color: inherit;
+	}
+
+	&:hover {
+		text-decoration: underline;
 	}
 }
 
@@ -67,6 +72,9 @@ header > div, main > section > div
 
 h1, h2, h3, h4, h5 {
 	font-weight: 400;
+	code {
+		font-style: normal;
+	}
 }
 
 p.center {
@@ -96,31 +104,31 @@ a.btn, button.btn {
 }
 
 a.btn-flat, button.btn-flat {
-	border: 1px solid $white-border-color;
+	border: 1px solid var(--white-border-color);
 
 	&:hover {
-		color: $black-font-color;
-		background-color: $white-background-color;
+		color: var(--black-font-color);
+		background-color: var(--white-background-color);
 	}
 }
 
 a.btn-primary, button.btn-primary {
-	background-color: $primary-color;
-	color: $white-font-color;
+	background-color: var(--primary-color);
+	color: var(--white-font-color);
 	border-radius: 10px;
 
 	&:hover {
-		background-color: $primary-darker-color;
+		background-color: var(--primary-darker-color);
 	}
 }
 
 a.btn-secondary, button.btn-secondary {
-	background-color: $secondary-color;
-	color: $white-font-color;
+	background-color: var(--secondary-color);
+	color: var(--white-font-color);
 	border-radius: 10px;
 
 	&:hover {
-		background-color: $primary-color;
+		background-color: var(--primary-color);
 	}
 }
 
@@ -173,23 +181,23 @@ section.bg-image {
 }
 
 section.bg-blue {
-	background-image: $blue-gradient;
+	background-image: var(--blue-gradient);
 }
 
 section.bg-black {
-	background-color: $dark-grey-background-color;
+	background-color: var(--dark-grey-background-color);
 }
 
 section.bg-grey {
-	background-color: $light-grey-background-color;
+	background-color: var(--light-grey-background-color);
 }
 
 section.bg-dark-grey {
-	background-color: $dark-grey-background-color;
+	background-color: var(--dark-grey-background-color);
 }
 
 section.font-white {
-	color: $white-font-color;
+	color: var(--white-font-color);
 }
 
 section.top-section > div {
@@ -319,7 +327,7 @@ i.la {
 	}
 
 	&.blue {
-		color: $blue-font-color;
+		color: var(--blue-font-color);
 	}
 }
 
@@ -344,12 +352,12 @@ form {
 		& > input, textarea, select {
 			font-size: 16px;
 			padding: 0.4em;
-			border: 1px solid $grey-border-color;
+			border: 1px solid var(--grey-border-color);
 			border-radius: $border-radius;
 			position: relative;
 
 			&:focus {
-				border-color: $primary-color;
+				border-color: var(--primary-color);
 				outline-width: 0;
 			}
 
@@ -391,8 +399,8 @@ div#cookie-info {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background-color: $dark-grey-background-color;
-	color: $white-font-color;
+	background-color: var(--dark-grey-background-color);
+	color: var(--white-font-color);
 	padding: 20px 40px;
 	box-shadow: $shadow-top;
 	display: none;
@@ -421,7 +429,7 @@ div#cookie-info {
 		.btn-grey {
 			margin: 0 0.5rem;
 			position: relative;
-			background-color: $medium-grey-background-color;
+			background-color: var(--medium-grey-background-color);
 		}
 	}
 
@@ -436,7 +444,8 @@ div#cookie-info {
 
 span.badge,
 p.badge {
-	background-color: $primary-color;
+	background-color: var(--primary-color);
+	color: #000;
 	border-radius: $border-radius;
 
 	padding: 0.2em 0.8em;
@@ -453,7 +462,7 @@ p.badge::before  {
 
 span.subscription-type,
 table td[data-label="Editions"]  {
-		color: $primary-color;
+		color: var(--primary-color);
 	font-weight: bold;
 }
 

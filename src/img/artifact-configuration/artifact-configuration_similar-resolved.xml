@@ -1,0 +1,33 @@
+<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
+  <msi-file>
+
+    <pe-file path="MyApp.exe">
+      <authenticode-sign/> 
+    </pe-file>
+
+    <directory path="en" >
+      <pe-file path="MyApp.Module1.resources.dll" >
+        <authenticode-sign/>
+      </pe-file>
+      <pe-file path="MyApp.Module2.resources.dll" >
+        <authenticode-sign/>
+      </pe-file>
+    </directory>
+    <directory path="en-US" >
+      <pe-file path="MyApp.Module2.resources.dll" >
+        <authenticode-sign/>
+      </pe-file>
+    </directory>
+    <directory path="de" >
+      <pe-file path="MyApp.Module1.resources.dll" >
+        <authenticode-sign/>
+      </pe-file>
+      <pe-file path="MyApp.Module2.resources.dll" >
+        <authenticode-sign/>
+      </pe-file>
+    </directory>
+
+    <authenticode-sign/>
+
+  </msi-file>
+</artifact-configuration>

@@ -10,10 +10,10 @@
     font-size: 48px;
   }
   &.blue {
-    color: $blue-font-color;
+    color: var(--blue-font-color);
   }
   &.darkBlue{
-    color: $blue-link-color
+    color: var(--blue-link-color)
   }
   
   &.small{

@@ -1,62 +1,99 @@
 // COLORS
 
-// special
-$primary-color: #faac14;
-$primary-darker-color: #c6860f;
-$secondary-color: #08126B;
+:root {
+	color-scheme: light dark;
 
-// font-colors
-$dark-grey-font-color: #455a64;
-$grey-font-color: #ccc;
-$light-grey-font-color: #ddd;
-$light-blue-font-color: #DDB8F8;
-$white-font-color: #fff;
-$black-font-color: #000;
-$blue-link-color: #042DC7;
-$blue-font-color: #9929EA;
-$orange-font-color: #faac14;
+	// special
+	--primary-color: #faac14;
+	--primary-darker-color: #c6860f;
+	--secondary-color: #08126B;
 
-// background-colors
-$light-grey-background-color: #ECECEC;
-$light-medium-grey-background-color: #99a5ab;
-$medium-grey-background-color: #455a64;
-$dark-grey-background-color: #262627;
-$white-background-color: #fff;
-$black-background-color: #000;
-$light-blue-background-color: #DDB8F8;
-$light-orange-background-color: #fde1aa;
-$dark-blue-background-color: #011946;
+	// font-colors
+	--dark-grey-font-color: #455a64;
+	--grey-font-color: #ccc;
+	--light-grey-font-color: #ddd;
+	--light-blue-font-color: #DDB8F8;
+	--white-font-color: #fff;
+	--black-font-color: #000;
+	--blue-link-color: #0065B3;
+	--blue-font-color: #9929EA;
+	--orange-font-color: #faac14;
 
-$success-background-color: #689f38;
-$error-background-color: #d32f2f;
-$warning-background-color: #faac14;
+	// background-colors
+	--light-grey-background-color: #ECECEC;
+	--light-medium-grey-background-color: #99a5ab;
+	--medium-grey-background-color: #455a64;
+	--dark-grey-background-color: #262627;
+	--white-background-color: #fff;
+	--white-foreground-color: #fff;
+	--black-background-color: #000;
+	--light-blue-background-color: #DDB8F8;
+	--light-orange-background-color: #fde1aa;
+	--dark-blue-background-color: #011946;
 
-// border-colors
-$grey-border-color: #ddd;
-$light-grey-border-color: #eceff1;
-$dark-grey-border-color: #555;
-$white-border-color: #fff;
+	--success-background-color: #689f38;
+	--error-background-color: #d32f2f;
+	--warning-background-color: #faac14;
 
-// other colors
-$pricing1-background-color: #011946;
-$pricing2-background-color: #341E7D;
-$pricing3-background-color: #6624B3;
-$pricing4-background-color: #9929EA;
-$blue-gradient: linear-gradient(80deg, #9929EA 0%, #08126B 50%, #011946 80%);
-$green-line-color: #28a745;
-$red-line-color: #dc3545;
-$blue-line-color: #006a8a;
-$blockquote-line-color: #003357;
+	// border-colors
+	--grey-border-color: #ddd;
+	--light-grey-border-color: #eceff1;
+	--dark-grey-border-color: #555;
+	--white-border-color: #fff;
+
+	// other colors
+	--pricing1-background-color: #011946;
+	--pricing2-background-color: #341E7D;
+	--pricing3-background-color: #6624B3;
+	--pricing4-background-color: #9929EA;
+	--blue-gradient: linear-gradient(80deg, #9929EA 0%, #08126B 50%, #011946 80%);
+	--green-line-color: #28a745;
+	--red-line-color: #dc3545;
+	--blue-line-color: #006a8a;
+	--blockquote-line-color: #003357;
+
+	--psh-override-color: #d01040;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		// font-colors
+		--dark-grey-font-color: #9ab0bc;
+		--grey-font-color: #888;
+		--light-grey-font-color: #555;
+		--black-font-color: #e8e8f0;
+		--blue-link-color: #5aabff;
+		--blue-font-color: #cc77ff;
+
+		// background-colors
+		--light-grey-background-color: #282828;
+		--light-medium-grey-background-color: #383838;
+		--medium-grey-background-color: #505050;
+		--dark-grey-background-color: #111111;
+		--white-background-color: #1c1c1c;
+		--light-blue-background-color: #5a3880;
+		--light-orange-background-color: #cb660d;;
+
+		// border-colors
+		--grey-border-color: #444;
+		--light-grey-border-color: #333;
+		--dark-grey-border-color: #777;
+
+		// other
+		--blockquote-line-color: #1a5080;
+
+		--psh-override-color: #f47067;
+	}
+}
 
 
-// OTHER
+// OTHER (layout/sizing — not affected by dark mode)
 
 $line-height: 1.65;
 $content-width: 1170px;
 $header-height: 80px;
 $nav-width: 220px;
 $toc-width: 300px;
-
 $shadow: 0 2px 4px rgba(0,0,0,0.1);
 $shadow-top: 0 -2px 4px rgba(0,0,0,0.1);
 $shadow-sides: 2px 0px 4px rgba(0,0,0,0.1);

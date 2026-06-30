@@ -11,13 +11,12 @@ description: GitHub
 * Use the predefined Trusted Build System _GitHub.com_ (see [configuration](/trusted-build-systems#configuration))
   *  add it to the Organization
   *  link it to each SignPath Project for GitHub
-* Specify `<zip-file>` as root element of your [Artifact Configurations](/artifact-configuration) (GitHub packages all artifacts as ZIP archives)
 * Required for [source code and build policies](#define-policies-for-source-code-and-builds): Install the [SignPath GitHub App](https://github.com/apps/signpath) and allow access to the code repositories.
 
 {:.panel.info}
-> **GitHub Enterprise**
+> **GitHub Enterprise Server**
 >
-> SignPath hosts an instance of the GitHub connector which is linked to GitHub.com For integrating self-hosted GitHub Enterprise instances, contact our [support](https://signpath.io/support) team.
+> SignPath hosts an instance of the GitHub connector which is linked to GitHub.com For integrating self-hosted GitHub Enterprise Server instances, contact our [support](https://signpath.io/support) team.
 
 ## Checks performed by SignPath
 
@@ -36,13 +35,13 @@ We provide a [`submit-signing-request` action](https://github.com/SignPath/githu
 ```yaml
 steps:
   # required for the artifact to be available on the GitHub server
-- name: upload-unsigned-artifact
+- name: upload unsigned artifact
   id: upload-unsigned-artifact
-  uses: actions/upload-artifact@v4
+  uses: actions/upload-artifact@v7
   with: 
     path: path/to/your/artifact
-
-- id: optional_step_id
+    
+- name: submit signing request
   uses: signpath/github-action-submit-signing-request@v2
   with:
     api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
@@ -57,6 +56,30 @@ steps:
       myparam: "another param"
 ```
 {% endraw %}
+
+{:.panel.info}
+> **ZIP archives**
+>
+> By default, the `upload-artifact` action creates a ZIP archive, which requires the root element of your [Artifact Configurations](/artifact-configuration) to be of type `<zip-file>`.
+> If you want to specify your artifact type directly, specify `archive: false` in the `upload-artifact` action. See [Usage](#usage).
+>
+> <i class='la la-exclamation-triangle'></i> Note that there is an open bug in GitHub's `upload-artifact` action where the `name` parameter is ignored and the action fails if another artifact with the same filename has already been uploaded. See issues [#769](https://github.com/actions/upload-artifact/issues/769) and [#785](https://github.com/actions/upload-artifact/issues/785).
+
+{:.panel.info}
+> **Workflow permissions**
+>
+> If _all_ of the following conditions apply, the required permissions have to be enabled in the workflow definition:
+> 
+>  * the the GitHub repository is private
+>  * the workflow permissions are set to the default "Read repository contents and packages permissions"
+>  * The SignPath GitHub App is _not_ installed
+>
+> You can use the following snippet:
+> ```
+>   permissions:
+>      actions: read
+>      contents: read
+> ```
 
 ### Action input parameters
 
@@ -77,6 +100,7 @@ steps:
 | `service-unavailable-timeout-in-seconds`      | `600`                                          | Total time in seconds that the action will wait for a single service call to succeed (across several retries).
 | `download-signed-artifact-timeout-in-seconds` | `300`                                          | HTTP timeout when downloading the signed artifact.
 | `parameters`                                  |                                                | Multiline-string of values that map to [user-defined parameters] in the Artifact Configuration. Use one line per parameter with the format `<name>: "<value>"` where `<value>` needs to be a valid JSON string.
+| `skip-decompress`                             | `false`                                        | Set to `true` if the `archive` parameter in the `upload-artifact` action is set to `true` (i.e. the artifact is not stored as a ZIP archive)
 {:.break-code}
 {% endraw %}
 
@@ -135,7 +159,7 @@ You can group your policy requirements into multiple conditions, each containing
 | Section                 | Values                         | Description
 |-------------------------|--------------------------------|----------------------------
 | `rules`                 | See below                      | Rules that must be implemented by one ore more active branch rulesets
-| `allow_bypass_actors`   | boolean                        | If `true`, the branche ruleset is allowed to define bypassers 
+| `allow_bypass_actors`   | boolean                        | If `true`, the branch ruleset is allowed to define bypassers 
 | `enforced_from`         | None, timestamp, or `EARLIEST` | By default, the rules are only evaluated at the time of signing. When provided, defines that these rules must have been in place from the specified date (YAML ISO timestamp) or earliest availability of audit log entries (`EARLIEST`). 
 
 {:.panel.info}
@@ -158,7 +182,7 @@ You can group your policy requirements into multiple conditions, each containing
 github-policies:
   runners:
     allowed_groups:
-      - 'GitHub Actions'                         # all jobs need to run on GitHub-hosted runners
+      - 'MySecureRunners'                        # all jobs need to run on runners in the specified group
   build:
     disallow_reruns: true
   branch_rulesets:
