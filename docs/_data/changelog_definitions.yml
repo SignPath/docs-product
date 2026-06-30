@@ -23,6 +23,12 @@ components:
   - id: github_actions_action
     label: 'GitHub Action'
     categories: [github, plugins]
+  - id: gitlab_connector
+    label: 'GitLab Connector'
+    categories: [gitlab, connectors]
+  - id: gitlab_component
+    label: 'GitLab Component'
+    categories: [gitlab, plugins]
   - id: jenkins_plugin
     label: 'Jenkins Plugin'
     categories: [jenkins, plugins]
