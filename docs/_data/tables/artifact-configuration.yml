@@ -1,7 +1,7 @@
 signing-file-elements:
   headers:
     element: Element
-    isComposite: "[Composite format](#containers)"
+    isComposite: "[Composite format](#composite-file-formats)"
     directive: Signing directives
     extensions: Extensions
     description: Description
@@ -138,10 +138,12 @@ signing-file-elements:
         [`<smime-sign>`](#smime-sign),
         [`<create-cms-signature>`](#create-cms-signature),
         [`<create-gpg-signature>`](#create-gpg-signature),
-        [`<create-raw-signature>`](#create-raw-signature)
+        [`<create-raw-signature>`](#create-raw-signature),
+        [`<custom-sign>`](#custom-signing),
+        [`<create-custom-signature>`](#custom-signing),
       extensions: "*"
       description: |
-        Create generic signatures for arbitrary files: 
+        Create generic signatures and [custom signatures](#custom-signing) for arbitrary files: 
         [DSSE](#dsse-sign), [S/MIME](#smime-sign), [CMS/PKCS #7](#create-cms-signature), [GPG/OpenPGP](#create-gpg-signature), [raw signatures](#create-raw-signature)
 
 signing-method-categories:
@@ -242,6 +244,12 @@ signing-directives:
     - directive: "[`<clickonce-sign>`](#clickonce-sign)"
       name: ClickOnce application and add-in signature
       category: Other
+    - directive: "[`<custom-sign>`](#custom-signing)"
+      name: Embedded custom signature
+      category: "[Embedded](#embedded-signing-methods)"
+    - directive: "[`<create-custom-signature>`](#custom-signing)"
+      name: Detached custom signature
+      category: "[Detached](#detached-signing-methods)"
 
 authenticode-attributes:
   headers:

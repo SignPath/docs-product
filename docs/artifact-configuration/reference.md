@@ -28,9 +28,12 @@ Supported signature verification methods:
 
 See [Attestations](attestations) for how to create attestation using artifact configurations.
 
-### Composite formats {#containers}
+### Composite file formats {#composite-file-formats}
 
-Composite element types such as `<directory>`, `<zip-file>`, installers, and package formats allow deep signing of nested file elements. See [Syntax](syntax#structure) for more information.
+Composite formats support signing multiple files at once.
+
+* `<directory>` and `<zip-file>`: Sign nested files, see [nested signing](syntax#nested-signing).
+* Installers and package formats: Sign composite file and nested files, see [deep signing](syntax#deep-signing).
 
 ## Signing methods {#signing-methods}
 
@@ -706,11 +709,36 @@ ClickOnce signing, also called _manifest signing_, is a method used for ClickOnc
 
 ClickOnce signing applies to directories, not to individual files. Therefore, you need to specify a `<directory>` element for this method. If you want to sign files in the root directory of a composite element, specify `path="."`.
 
+##### Example
+
 ~~~ xml
 <artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
   <zip-file>
     <directory path=".">
       <clickonce-sign/>
+    </directory>
+  </zip-file>
+</artifact-configuration>
+~~~
+
+#### `<custom-sign>` and `<create-custom-signature>`: Custom signing methods {#custom-signing}
+
+* Use [embedded](#embedded-signing-methods) custom signing methods: `<custom-sign method="..." />`
+* Use [detached](#detached-signing-methods) custom signing methods: `<create-custom-signature method="..." output-file-name="..." />`
+
+Contact [SignPath Support](/support) for adding and registering custom signing methods.
+
+Provide the registered method name and any parameters defined by that method.
+
+##### Example
+
+Create a `.sig` signature file for each `.txt` file using the custom signing method `demo-pkcs11tool` with a custom parameter `signature-hash-algorithm`.
+
+~~~ xml
+<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
+  <zip-file>
+    <file path="*.txt" max-matches="unbounded">
+      <create-custom-signature method="demo-pkcs11tool" output-file-name="${file.name}.sig" signature-hash-algorithm="sha256">
     </directory>
   </zip-file>
 </artifact-configuration>

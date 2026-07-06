@@ -49,7 +49,9 @@ Depending on their type, file elements can contain signing directives.
 </pe-file>
 ~~~
 
-Composite elements (e.g. archives, directories, packages and installers) can contain nested files, identified by a required `path` attribute. 
+### Nested signing {#nested-signing}
+
+Archives and directories can contain nested files, identified by a required `path` attribute. 
 
 Use [`<zip-file>`](#zip-file-element) as root element to sign multiple artifacts in one signing request.
 
@@ -88,7 +90,11 @@ To sign several files, you may use [wildcards](#wildcards) ...
 </zip-file>
 ~~~
 
-Some formats support nested signing. The following example signs both the file `myapp.exe` within the MSI file, and the MSI file itself:
+### Deep signing {#deep-signing}
+
+For composite file formats like packages and installers, SignPath supports signing these files _and_ their contents in a single step.
+
+The following example signs both the file `myapp.exe` within the MSI file, and the MSI file itself:
 
 ~~~ xml
 <msi-file>
@@ -99,7 +105,7 @@ Some formats support nested signing. The following example signs both the file `
 </msi-file>
 ~~~
 
-For nested signing, consider [verifying signatures](reference#verification) of files that are already supposed to be signed:
+For nested signing, consider [verifying signatures](reference#verification) of files that are already supposed to be signed, such as redistributed files:
 
 ~~~ xml
 <msi-file>
@@ -112,6 +118,8 @@ For nested signing, consider [verifying signatures](reference#verification) of f
   <authenticode-sign/>
 </msi-file>
 ~~~
+
+### Wildcards and user-defined parameters
 
 For root elements, the `path` attribute is optional and cannot contain directories. You may use [wildcards](#wildcards) to specify the name ...
 
