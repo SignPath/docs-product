@@ -29,7 +29,7 @@ The following options are available:
 
 [![PowerShell Gallery](https://img.shields.io/powershellgallery/v/SignPath.svg?style=flat-square&label=PowerShell%20Gallery)](https://www.powershellgallery.com/packages/SignPath/)
 
-See the [SignPath PowerShell reference](powershell).
+Use our PowerShell modules for command-line access on Windows, Linux, and MacOS. See the [SignPath PowerShell reference](powershell).
 
 ## HTTP REST API {#rest-api}
 
@@ -45,6 +45,12 @@ SignPath uses bearer authentication.
 | Authorization HTTP header | `Authorization: Bearer $(token)`
 
 You need to provide these values for every single API request.
+
+### API reference documentation
+
+The full OpenAPI documentation is available at [app.signpath.io/api/swagger](https://app.signpath.io/api/swagger/index.html). 
+
+Read on for detailed information about the APIs for submitting and retrieving signing requests.
 
 ### Submit a signing request
 
