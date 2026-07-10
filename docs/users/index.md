@@ -151,14 +151,14 @@ In addition to these global user roles, the following permissions are assigned p
 
 Read permissions:
 
-* Users have read permissions for project if they have
+* Users have read permissions for a project if they have
   * an appropriate global role: _Global Administrator_, _Project Administrator_, _Global Reader_, _Support User_
-  * a role for the Project: _Reader_, _Configurator_
-  * a role for the Signing Policy: _Submitter_, _Approver_
+  * a role for that project: _Reader_, _Configurator_
+  * a role for one of the project's signing policies: _Submitter_, _Approver_
 * Users have read permissions for a signing request if
-  * they have read permissions for that project (see above)
+  * they have read permissions for the signing request's project (see above)
   * if they are the actual submitter of that signing request
-* Other configuration data is visible for all users
+* Other configuration data is visible to all users
 
 ## Notifications {#notifications}
 
