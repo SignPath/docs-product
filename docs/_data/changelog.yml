@@ -20,7 +20,7 @@
             Improved reliability for Luna/DPoD HSM signing calls (better handling of specific transient Luna errors).
           issues: [SIGN-8588]
         - text: |-
-            All Helm charts are now compatible with Helm 4. Note that while the charts remain compatible with Helm 3, we recommend to upgrade your Helm installation to version 4.
+            All Helm charts are now compatible with Helm 4. Note that while the charts are currently compatible with Helm 3, we recommend to upgrade your Helm installation to version 4.
           issues: [SIGN-8625]
 - date: '2026-06-30'
   updates:
