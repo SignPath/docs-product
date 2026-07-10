@@ -220,6 +220,9 @@
       version: 1.207.3
       improvements:
         - text: |-
+            Users with the "Regular User" role no longer have access to _all_ projects/signing requests. They can only access those in which they participate. See [permissions documentation](/users#permissions) for details.
+          issues: [SIGN-8273, SIGN-8399]
+        - text: |-
             REST API: new route for cancelling signing requests: `POST /v1/{organizationId}/SigningRequests/{id}/Cancel`
           issues: [SIGN-1758]
     self_hosted_installations:
