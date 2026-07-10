@@ -85,7 +85,7 @@
           issues: [SIGN-8347]
       improvements:
         - text: |-
-            _Regular Users_  need permission to view projects and signing requests: Introduced in [version 1.207.3](#2026-03-12), now rolled out to existing customers over the next five weeks. See [permissions documentation](/users#permissions) for details.
+            _Regular Users_ need permission to view projects and signing requests: Introduced in [version 1.207.3](#2026-03-12), now rolled out to existing customers over the next five weeks. See [permissions documentation](/users#permissions) for details.
         - text: |-
             When saving artifact configurations, they don't have to start with an XML declaration anymore (`<?xml ...`).
           issues: [SIGN-8409]
@@ -222,7 +222,7 @@
       version: 1.207.3
       new_features:
         - text: |-
-            _Regular Users_  need permission to view projects and signing requests: Active for new organizations. See [permissions documentation](/users#permissions) for details.
+            _Regular Users_ need permission to view projects and signing requests: Active for new organizations. See [permissions documentation](/users#permissions) for details.
           issues: [SIGN-8273, SIGN-8399]
       improvements:
         - text: |-
