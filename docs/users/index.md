@@ -157,7 +157,7 @@ Read permissions:
   * a role for the Signing Policy: _Submitter_, _Approver_
 * Users have read permissions for a signing request if
   * they have read permissions for that project (see above)
-  * if they are the actual submitter of that singing request
+  * if they are the actual submitter of that signing request
 * Other configuration data is visible for all users
 
 ## Notifications {#notifications}
