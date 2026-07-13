@@ -2550,7 +2550,7 @@
     application:
       version: 1.130.0
       breaking_changes:
-        - text: The Audit Log REST API (preview) `/v1-pre/{organizationId}/AuditLog/Events` doesn't include signing request events anymore, instead they can be retrieved via the the new `/v1-pre/{organizationId}/AuditLog/SigningRequestEvents` route.
+        - text: The Audit Log REST API (preview) `/v1-pre/{organizationId}/AuditLog/Events` doesn't include signing request events anymore, instead they can be retrieved via the new `/v1-pre/{organizationId}/AuditLog/SigningRequestEvents` route.
           issues: [SIGN-5380]
       new_features:
         - text: Added support for additional, organization-specific key stores.
