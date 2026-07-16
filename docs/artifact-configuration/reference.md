@@ -726,7 +726,7 @@ ClickOnce signing applies to directories, not to individual files. Therefore, yo
 * Use [embedded](#embedded-signing-methods) custom signing methods: `<custom-sign method="..." />`
 * Use [detached](#detached-signing-methods) custom signing methods: `<create-custom-signature method="..." output-file-name="..." />`
 
-Contact [SignPath Support](/support) for adding and registering custom signing methods.
+Contact [SignPath Support](https://signpath.io/support) for adding and registering custom signing methods.
 
 Provide the registered method name and any parameters defined by that method.
 

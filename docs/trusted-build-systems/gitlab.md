@@ -8,7 +8,7 @@ description: GitLab
 
 ## Prerequisites
 
-* Use the predefined Trusted Build System _GitLab.com_ (see [configuration](/documentation/trusted-build-systems#configuration))
+* Use the predefined Trusted Build System _GitLab.com_ (see [configuration](/trusted-build-systems#configuration))
   *  add it to the Organization
   *  link it to each SignPath Project for GitLab
 
@@ -22,7 +22,7 @@ description: GitLab
 The GitLab connector performs the following checks:
 
 * The artifact was built by a GitLab Pipeline, not by some other entity in possession of the API token
-* [Origin metadata](/documentation/origin-verification) is provided by GitLab, not the build script, and can therefore not be forged
+* [Origin metadata](/origin-verification) is provided by GitLab, not the build script, and can therefore not be forged
 * The artifact is stored as a GitLab pipeline artifact before it is submitted for signing
 
 ## Usage
