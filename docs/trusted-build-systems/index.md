@@ -30,11 +30,12 @@ The following build systems are currently supported by SignPath:
 
 * [Jenkins](/trusted-build-systems/jenkins)
 * [GitHub](/trusted-build-systems/github)
+* [GitLab](/trusted-build-systems/gitlab)
 * [Azure DevOps](/trusted-build-systems/azure-devops)
 * [TeamCity](/trusted-build-systems/teamcity)
 * [AppVeyor](/trusted-build-systems/appveyor)
 
-You can also authenticate generic build agents as a trusted build system using TLS/SSL client certificates (mTLS): [Double Authentication Proxy](/trusted-build-systems/double-authentication-proxy).
+Deprecated: [Double Authentication Proxy](/trusted-build-systems/double-authentication-proxy) (mTLS authentication for generic build agents)
 
 ## Configuration
 
