@@ -1,17 +1,4 @@
 export function changelog() {
-	// show more functionality
-	var link = document.getElementById('show-older-releases-link');
-	if (link) {
-		link.addEventListener('click', function(e) {
-			var div = document.getElementById('older-releases');
-			div.style.display = 'block';
-			var p = document.getElementById('show-older-releases');
-			p.style.display = 'none';
-			e.preventDefault();
-			e.stopPropagation();
-		});
-	}
-
 	// filter functionality
 	var select_component = document.getElementById('changelog-component-select');
 	if (select_component) {

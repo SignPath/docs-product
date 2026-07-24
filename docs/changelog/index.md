@@ -43,15 +43,6 @@ redirect_from:
 	{% assign timestamp = entry.date | date: '%s' | to_i %}
 	{% assign timestamp_num = timestamp | minus: 1 %}
 
-	{% comment %} put old changelogs into an own div wrapper {% endcomment %}
-	{% if timestamp_num < one_year_ago %}
-		{% if opened_old_container == false %}
-			{% assign opened_old_container = true %}
-			<p id='show-older-releases'><a id='show-older-releases-link' href='#'>Show older releases</a></p>
-			<div id='older-releases'> 	
-		{% endif %}
-	{% endif %}
-
 	{% comment %} calculate css class list for the entry {% endcomment %}
 	{% assign class_list = 'release' %}
 	{% for update in entry.updates %}
@@ -132,9 +123,5 @@ redirect_from:
 		{% endif %}
 	</article>
 {% endfor %}
-
-{% if opened_old_container == true %}
-</div> <!-- older-releases -->
-{% endif %}
 
 </section>
