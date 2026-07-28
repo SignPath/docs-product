@@ -1,3 +1,27 @@
+- date: '2026-07-14'
+  updates:
+    application:
+      version: 1.216.0
+      improvements:
+        - text: |-
+            UX improvement: you can now use Ctrl+Enter to submit/confirm create and edit views.
+          issues: [SIGN-8713]
+        - text: |-
+            Improved performance of the signing request audit log REST API.
+          issues: [SIGN-8659]
+      bug_fixes:
+        - text: |-
+            Fixed: for some organizations an expiration date has been mistakenly displayed on the organization info view.
+          issues: [SIGN-8599]
+    self_hosted_installations:
+      version: 1.216.0
+      improvements:
+        - text: |-
+            Improved reliability for Luna/DPoD HSM signing calls (better handling of specific transient Luna errors).
+          issues: [SIGN-8588]
+        - text: |-
+            All Helm charts are now compatible with Helm 4. Note that while the charts are currently compatible with Helm 3, we recommend to upgrade your Helm installation to version 4.
+          issues: [SIGN-8625]
 - date: '2026-06-30'
   updates:
     application:

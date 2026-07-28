@@ -455,7 +455,7 @@ Create a DSSE signature file that contains the signature and the enveloped origi
 > **DSSE (Dead Simple Signing Envelope)**
 >
 > [DSSE] is a signing specification created by the [Secure Systems Lab] at NYU School of Engineering. It has not been formally standardized but is widely used in the context of code signing. 
-> Note that DSSE contains no metadata about the singing format, so all signing parameters must be agreed out-of-band.
+> Note that DSSE contains no metadata about the signing format, so all signing parameters must be agreed out-of-band.
 
 DSSE is an [enveloped](#enveloped-signing-methods) signing method and must be used in `<zip-file>` elements.
 
