@@ -730,15 +730,27 @@ Contact [SignPath Support](https://signpath.io/support) for adding and registeri
 
 Provide the registered method name and any parameters defined by that method.
 
-##### Example
+##### `<custom-sign` example (embedded)
 
-Create a `.sig` signature file for each `.txt` file using the custom signing method `demo-pkcs11tool` with a custom parameter `signature-hash-algorithm`.
+Sign the input file using the custom signing method `demo-pkcs11tool` with a custom parameter `signature-hash-algorithm`.
+
+~~~ xml
+<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
+  <file>
+  	<custom-sign method="demo-pkcs11tool" signature-hash-algorithm="sha256"/>
+  </file>
+</artifact-configuration>
+~~~
+
+##### `<create-custom-signature` example (detached)
+
+Create a `.sig` signature file for each `.txt` file using the custom signing method `demo-pkcs11tool`.
 
 ~~~ xml
 <artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
   <zip-file>
     <file path="*.txt" max-matches="unbounded">
-      <create-custom-signature method="demo-pkcs11tool" output-file-name="${file.name}.sig" signature-hash-algorithm="sha256">
+      <create-custom-signature method="demo-pkcs11tool" output-file-name="${file.name}.sig">
     </directory>
   </zip-file>
 </artifact-configuration>
