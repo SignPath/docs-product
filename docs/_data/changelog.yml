@@ -1,3 +1,20 @@
+- date: '2026-08-03'
+  updates:
+    application:
+      version: 1.217.2
+      bug_fixes:
+        - text: |-
+            Fixed: several small UI issues, including color and contrast adaptations, list width improvement, and icon alignment.
+          issues: [SIGN-8672, SIGN-8722, SIGN-8720]
+    self_hosted_installations:
+      version: 1.217.2
+      breaking_changes:
+        - text: |-
+            `signpath-application` chart: in the default of `appSettings.shared.forwardedHeadersOptions.forwardedHeaders` we removed the `XForwardedHost` value because many reverse proxies don't send that header. In case it's sent by your reverse proxy, manually add it to the configuration.
+          issues: [SIGN-8750]
+        - text: |-
+            The Software SignService variant as well as most of the `signpath-application` chart containers have been ported to Linux. Ensure that your cluster has sufficient resources to host its replicas.
+          issues: [SIGN-8701, SIGN-8695]
 - date: '2026-07-14'
   updates:
     application:
