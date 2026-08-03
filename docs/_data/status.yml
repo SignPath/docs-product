@@ -1,14 +1,19 @@
 # possible types are good, warning, critical
 current:
-    type: warning #values: good | warning | error
-    title: 'Signing operations with certain certificates do not work'  # 'All systems are operational' # always restore this message when going back to 'good'
+    type: good #values: good | warning | error
+    title: 'All systems are operational' # always restore this message when going back to 'good'
     description: |
-      Signing does currently not work with certificates that 
-        * haven't been used after April 2026 and 
-        * the keys of which are stored on the Software SignService.
     # link:
 planned:
 incidents:
+  - date: 'Aug. 3, 2026'
+    range: 'Aug 3, 2026, 08:47 - 14:40 UTC'
+    type: warning
+    title: 'Software key store signing interruptions for certain certificates'
+    description:
+      Signing did not work after a deployment with certificates that 
+        * haven't been used after April 2026 and 
+        * the keys of which are stored on the Software SignService.      
   - date: 'Jun. 9, 2026'
     range: 'Jun. 9, 2026, 08:30 - 08:36 UTC'
     type: warning
