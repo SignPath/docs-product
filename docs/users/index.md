@@ -84,6 +84,12 @@ CI users can only authenticate with an API token.
 >
 > We recommend that you store API tokens used for CI integration in your CI system's build settings as secret values.
 
+{:.panel.warning}
+> **CI Users roles**
+>
+> Like interactive users, CI users are assigned [roles](#roles). When assigning higher-priviledge roles to CI users, the _API token_ can be used to perform actions according to the assigned role.
+>
+
 {:.panel.tip}
 > **Account unification**
 > 
