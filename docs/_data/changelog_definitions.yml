@@ -47,6 +47,9 @@ components:
   - id: scim_connector
     label: 'SCIM Connector'
     categories: [connectors]
+  - id: pipeline_connector
+    label: 'Pipeline Connector'
+    categories: [connectors]
 
 categories:
   - id: application
