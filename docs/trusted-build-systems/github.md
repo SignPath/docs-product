@@ -100,7 +100,7 @@ steps:
 | `service-unavailable-timeout-in-seconds`      | `600`                                          | Total time in seconds that the action will wait for a single service call to succeed (across several retries).
 | `download-signed-artifact-timeout-in-seconds` | `300`                                          | HTTP timeout when downloading the signed artifact.
 | `parameters`                                  |                                                | Multiline-string of values that map to [user-defined parameters] in the Artifact Configuration. Use one line per parameter with the format `<name>: "<value>"` where `<value>` needs to be a valid JSON string.
-| `skip-decompress`                             | `false`                                        | Set to `true` if the `archive` parameter in the `upload-artifact` action is set to `true` (i.e. the artifact is not stored as a ZIP archive)
+| `skip-decompress`                             | `false`                                        | Set to `true` if the `archive` parameter in the `upload-artifact` action is set to `false` (i.e. the artifact is not stored as a ZIP archive)
 {:.break-code}
 {% endraw %}
 
