@@ -1,3 +1,17 @@
+- date: '2026-08-11'
+  updates:
+    application:
+      version: 1.218.0
+      improvements:
+        - text: |-
+            Improved performance for several REST APIs including `GET /v1/{organizationId}/CIUsers/Me`.
+          issues: [SIGN-8782]
+    self_hosted_installations:
+      version: 1.218.0
+      breaking_changes:
+        - text: |-
+            `signpath-application` chart: `administrationutility` Pod and database migration Jobs have been ported to Linux. `signingprocessorservice` is now the only remaining Windows Pod in `signpath-application`.
+          issues: [SIGN-8703]
 - date: '2026-08-06'
   updates:
     pipeline_connector:
