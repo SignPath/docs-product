@@ -9,7 +9,7 @@ hashSigningData-format:
         The Base64 encoded hash value to sign.
     - property: "`signatureAlgorithm`"
       value: |
-        `Rsa`, `Ecdesa`, or `Mldsa`
+        `Rsa`, `Ecdsa`, or `Mldsa`
     - property: "`rsaOptions.hashAlgorithmName` _or_ `rsaOptions.hashAlgorithmOid`"
       value: |
         The hash algorithm (identifier) used to create `hash`. You can either use the name (`hashAlgorithmName`) or the OID `hashAlgorithmOid`:
