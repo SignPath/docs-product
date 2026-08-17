@@ -133,6 +133,7 @@ There are separate policy sections for GitHub's CI sytem, [GitHub Actions](#gith
 
 ```yaml
 github-build-policies:
+  version: '1.0'
   disallow_reruns: false
   runners:
     require_github_hosted: true
@@ -140,6 +141,7 @@ github-build-policies:
       - Hardened Runners
 
 github-scm-policies:
+  version: '1.0'
   ruleset_constraints:
   - enforced_from: 2025-01-01
     allow_bypass_actors: true
@@ -227,6 +229,9 @@ Allows to define `ruleset_constraints` for [GitHub branch rulesets]. All specifi
 |-------------------------|--------------------------------|----------------------------
 | `allow_bypass_actors`   | boolean                        | If `true`, the branch ruleset is allowed to define bypassers 
 | `enforced_from`         | None, timestamp, or `EARLIEST` | By default, the constraints are only evaluated at the time of signing. When `enforced_from` is set, the constraints must have been continously fulfilled from the specified date (YAML ISO timestamp) or earliest availability of audit log entries (`EARLIEST`). 
+
+<!-- TODO: None not yet supported (see SIGN-8819) -->
+<!-- TODO: Add GitHub Export -->
 
 {:.panel.info}
 > **About `enforced_from` evaluation**
