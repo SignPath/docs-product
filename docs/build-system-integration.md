@@ -27,7 +27,7 @@ The following options are available:
 
 ## PowerShell
 
-[![PowerShell Gallery](https://img.shields.io/powershellgallery/v/SignPath.svg?style=flat-square&label=PowerShell%20Gallery)](https://www.powershellgallery.com/packages/SignPath/)
+[![PowerShell Gallery][powershellGalleryImage]][powershellGalleryLink]
 
 Use our PowerShell modules for command-line access on Windows, Linux, and MacOS. See the [SignPath PowerShell reference](powershell).
 
@@ -50,11 +50,21 @@ You need to provide these values for every single API request.
 
 ### API reference documentation
 
-The full OpenAPI documentation is available at [app.signpath.io/api/swagger](https://app.signpath.io/api/swagger/index.html). 
+The full OpenAPI documentation is available at [app.signpath.io/api/swagger][swagger]. 
 
 Read on for detailed information about the APIs for submitting and retrieving signing requests.
 
-### Submit a signing request
+### Submitting signing requests
+
+| Endpoint                                   | Description                                                            | When to use
+|--------------------------------------------|------------------------------------------------------------------------|------------------
+| [SubmitWithArtifact](#SubmitWithArtifact)  | Submit a signing request with an artifact                              | Simple calling convention
+| [SubmitWithArtifactRetrievalLink][swagger] | Submit a signing request with an artifact retrieval link               | Preferred for huge files
+| [SubmitWithoutArtifact][swagger]           | Submit an empty signing request, upload artifact in a separate request | Separate caller requirements for security (tokens) and resource usage
+
+When the signing request is finished, download the signed artifact using the [`SignedArtifact`endpoint](#SignedArtifact). You can poll the processing status using the [`Status` endpoint](#Status). 
+
+#### `SubmitWithArtifact`: Submit a signing request with an artifact {#SubmitWithArtifact}
 
 | Synopsis                    |
 |-----------------------------|----------------
@@ -92,7 +102,35 @@ Values for [user-defined parameters](/artifact-configuration/syntax#parameters) 
 
 Example: `-F "parameters.productVersion=1.2.0"`
 
-### Get signing request data
+### Get signing request status {#Status}
+
+| Synopsis   | 
+|------------|------
+| URL        | `/SigningRequests/$(SigningRequestId)/Status` 
+| Method     | GET
+| Parameters | none
+
+Response: 
+
+| JSON Property      | Description
+|--------------------|------------------
+| `signingRequestId` | Signing request ID
+| `status`           | `InProgress`, `WaitingForApproval`, `Completed`, `Failed`, `Denied`, `Canceled`
+| `workflowStatus`   | `Submitted`, `RetrievingArtifact`, `WaitingForApproval`, `QueuedForMalwareScanning`, `ScanningForMalware`, `QueuedForProcessing`, `Processing`, `Completed`, `ProcessingFailed`, `MalwareScanFailed`, `MalwareDetected`, `ArtifactRetrievalFailed`, `Denied`, `Canceled` 
+| `isFinalStatus`    | `true` for the following `status` values: `Completed`, `Failed`, `Denied`, `Canceled`; `false` for `InProgress`, `WaitingForApproval`
+
+**Example response:**
+
+~~~ json
+{
+  "signingRequestId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "status": "WaitingForArtifactUpload",
+  "workflowStatus": "Submitted",
+  "isFinalStatus": true
+}
+~~~
+
+### Get signing request data {#GetSigningRequest}
 
 | Synopsis   | 
 |------------|------
@@ -148,11 +186,12 @@ curl -H "Authorization: Bearer $API_TOKEN" \
 }
 ~~~
 
-* **Available `status` values:** `InProgress`, `WaitingForApproval`, `Completed`, `Failed`, `Denied`, `Canceled`
-* **Available `workflowStatus` values:** `Submitted`, `RetrievingArtifact`, `WaitingForApproval`, `QueuedForMalwareScanning`, `ScanningForMalware`, `QueuedForProcessing`, `Processing`, `Completed`, `ProcessingFailed`, `MalwareScanFailed`, `MalwareDetected`, `ArtifactRetrievalFailed`, `Denied`, `Canceled` 
-* `origin` is only available for signing requests with origin verification
+Remarks: 
 
-### Download the signed artifact
+* Available `status` and `workflowStatus` status: see [`Status` endpoint](#Status).
+* `origin` is only available for signing requests with origin verification.
+
+### Download the signed artifact {#SignedArtifact}
 
 Once the signing request is successfully completed, the status response contains a `signedArtifactLink` field with a link to the signed artifact file. It can easily be retrieved by issuing the following command:
 
@@ -172,7 +211,7 @@ curl -H "Authorization: Bearer $API_TOKEN" \
 
 **Success result:** HTTP status code `200`. Returns the binary content of the signed artifact.
 
-### Resubmit a signing request
+### Resubmit a signing request {#Resubmit}
 
 See [Resubmit an existing signing request](/signing-code#resubmit) for more information.
 
@@ -250,3 +289,7 @@ A handler for this Webhook can use the Web API for further activities, such as p
 > Webhooks will send the `Authentication` header exactly as specified. Don't forget to add the method, for example:
 >
 > `Bearer JEAG1OrTXZ/t4URp5URt40DLBlA3WtcJmbwfeosyBkTABr6r`
+
+[swagger]: https://app.signpath.io/api/swagger/index.html
+[powershellGalleryImage]: https://img.shields.io/powershellgallery/v/SignPath.svg?style=flat-square&label=PowerShell%20Gallery
+[powershellGalleryLink]: https://www.powershellgallery.com/packages/SignPath/
