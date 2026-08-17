@@ -9,80 +9,87 @@ datasource: tables/crypto-providers
 
 ## Overview
 
-As an alternative to using a Crypto Provider client, signing requests to a ["Hash signing data"](/crypto-providers#signpath-project-configuration) project can also be performed directly via SignPath's REST API.
+Signing requests to [hash signing data](/crypto-providers#signpath-project-configuration) projects can be performed directly via SignPath's REST API.
 
-## Signing Request
+See [HTTP REST API](/build-system-integration#rest-api) for basic API instructions.
 
-See [HTTP REST API](/build-system-integration#rest-api) for basic instructions to submit a signing request.
+## `SignHash` REST endpoint
 
-### Fast signing
+To sign a single hash code, use the `SignHash` endpoint. It accepts the hash data in the JSON body and returns the result immediately.
 
-For hash data we recommend using a _fast signing request_. These requests are performed immediately without queuing, and the API immediately returns the signed artifact.
+| Synopsis                    |
+|-----------------------------|----------------
+| URL                         | `/SigningRequests/SignHash`
+| Method                      | `POST`
+| Encoding                    | `application/json` 
 
-* Provide the additional field `IsFastSigningRequest` with the value `true`
-* The API returns the JSON-formatted result (see [response description](#signing-request-response))
+### Request fields
 
-(By default, the API returns a signing request ID that can be used to [get the result](/build-system-integration#get-signing-request-data).)
+| JSON property               | Description
+|-----------------------------|------------------
+| `projectSlug`               | The project for which you want to create the signing request
+| `signingPolicySlug`         | Signing policy for which you want to create the signing request
+| `artifactConfigurationSlug` | Optional: artifact configuration to use for the signing request (default if not specified)
+| `description`               | Optional: description for your signing request (e.g. version number)
+| `hashSigningData`           | Hash data to sign and metadata (see below)
 
-### Artifact format for signing hash digests {#hash-signing-payload-json}
+**`hashSigningData` properties:**
 
-{%- include render-table.html table=site.data.tables.crypto-providers.rest-artifact-format -%}
+{%- include render-table.html table=site.data.tables.crypto-providers.hashSigningData-format -%}
 
-<!-- this comment is a workaround for a markdown parsing error, next panel class would be ignored -->
+This endpoint creates an artifact with the file name `HashSigningData.json`.
 
-{:.panel.info}
-> **Key length**
-> 
-> SignPath crypto providers use the file name `payload.json` for hash digest artifacts.
+### Response fields
 
-### Response {#signing-request-response}
-
-The response artifact has the same format and values as the request artifact with the additional property 'Signature'.
-
-| JSON property | Description 
-|---------------|--------------
-| `Signature `  | Base64-encoded signature of 'Base64EncodedHash'. Format and length depend on the key of the signing policy's certificate.
+| JSON property                 | Description
+|-------------------------------|------------------
+| `signingRequestid`            | ID of the signing request
+| `webLink`                     | Link to the UI form for the signing request
+| `hashSigningData.hash`        | Input hash
+| `hashSigningResult.signature` | Base64-encoded signature block (format and length according to the key type used for signing)
 
 ### Example 
 
-**Request:**
+#### Request
 
 ~~~ bash
-curl -H "Authorization: Bearer $API_TOKEN" \
-     -F "ProjectSlug=$PROJECT" \
-     -F "SigningPolicySlug=test-signing" \
-     -F "IsFastSigningRequest=true" \
-     -F "Artifact=@$PATH_TO_ARTIFACT" 
-     https://app.signpath.io/API/v1/$ORGANIZATION_ID/SigningRequests/SubmitWithArtifact
+curl -X POST https://app.signpath.io/API/v1/$ORGANIZATION_ID/SigningRequests/SignHash \
+     -H "Authorization: Bearer $API_TOKEN" \
+     -H "Content-Type: application/json" \
+     -H "Accept: application/json" \
+     -d '{
+        "projectSlug": "hash-signing",
+        "signingPolicySlug": "test-signing",
+        "hashSigningData": {
+            "signatureAlgorithm": "Rsa",
+            "rsaOptions": {
+                "hashAlgorithmName": "Sha256", 
+                "paddingMode": "Pkcs1"
+            },
+            "hash": "ZOyIygCyaOW6GjVnihtTFtIS9PNmskdyMlNKiuyjfzw=",
+            "metadata": {
+                "sourceProcess": { "commandLine": "SampleCommand -SampleArgument", "user": "SampleUser" }
+            }
+        }
+     }'
 ~~~
 
-**Request artifact:**
+#### Response
 
 ~~~ json
 {
-    "SignatureAlgorithm": "RsaPkcs1",
-    "RsaHashAlgorithm": "2.16.840.1.101.3.4.2.1",
-    "Base64EncodedHash": "GJShnIW6FTrL90OsTkP8AEyJFgSyb4xp4eg+oq/HxI8=",
-    "Metadata":
-    {
-        "CreatingProcess": { "CommandLine": "SampleCommand -SampleArgument", "User": "SampleUser" }
+    "signingRequestId": "01486688-aa8b-44f3-9d15-071412df043f",
+    "webLink": "https://app.signpath.io/Web/[...]/SigningRequests/01486688-aa8b-44f3-9d15-071412df043f",
+    "hashSigningData": {
+        "hash": "ZOyIygCyaOW6GjVnihtTFtIS9PNmskdyMlNKiuyjfzw="
+    },
+    "hashSigningResult": {
+        "signature": "wGI2oiHHVSVGHR1rtjv83Pir1SEVLmnLNGuJD4..."
     }
 }
 ~~~
 
-**Response:**
-
-~~~ json
-{
-    "SignatureAlgorithm": "RsaPkcs1",
-    "RsaHashAlgorithm": "2.16.840.1.101.3.4.2.1",
-    "Base64EncodedHash": "GJShnIW6FTrL90OsTkP8AEyJFgSyb4xp4eg+oq/HxI8=",
-    "Metadata": { ... },
-    "Signature": "wGI2oiHHVSVGHR1rtjv83Pir1SEVLmnLNGuJD4..."
-}
-~~~
-
-## Retrieve Signing Policy details {#retrieve-signing-policy-details}
+# Retrieve Signing Policy details {#retrieve-signing-policy-details}
 
 Use `GET {{site.sp_api_url}}/v1/$OrganizationId/Cryptoki/MySigningPolicies?``projectSlug=$Project&signingPolicySlug=$SigningPolicy` to get information about the signing policy, including the X.509 certificate and RSA key parameters.
 
