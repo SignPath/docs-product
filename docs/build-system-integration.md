@@ -50,7 +50,7 @@ You need to provide these values for every single API request.
 
 ### API reference documentation
 
-The full OpenAPI documentation is available at [app.signpath.io/api/swagger][swagger]. 
+The full OpenAPI documentation is available at [app.signpath.io/Api/swagger][swagger]. 
 
 Read on for detailed information about the APIs for submitting and retrieving signing requests.
 
@@ -89,7 +89,7 @@ curl -H "Authorization: Bearer $API_TOKEN" \
      -F "artifactConfigurationSlug=v2.4" \
      -F "artifact=@$PATH_TO_ARTIFACT" \
      -F "description=$DESCRIPTION" \
-     https://app.signpath.io/API/v1/$ORGANIZATION_ID/SigningRequests/SubmitWithArtifact
+     https://app.signpath.io/Api/v1/$ORGANIZATION_ID/SigningRequests/SubmitWithArtifact
 ~~~
 
 **Success result:** HTTP status code `201`. A HTTP `Location` response-header field is returned with the URL of the created entity.
@@ -142,7 +142,7 @@ Response:
 
 ~~~ bash
 curl -H "Authorization: Bearer $API_TOKEN" \
-     https://app.signpath.io/API/v1/$ORGANIZATION_ID/SigningRequests/$SIGNING_REQUEST_ID
+     https://app.signpath.io/Api/v1/$ORGANIZATION_ID/SigningRequests/$SIGNING_REQUEST_ID
 ~~~
 
 **Success result:** HTTP status code `200`. Signing request data in JSON format:
@@ -162,12 +162,12 @@ curl -H "Authorization: Bearer $API_TOKEN" \
   "signingPolicyId":"137ada35-fc11-4719-a3a4-269983692197",
   "signingPolicySlug":"test-signing",
   "signingPolicyName":"test-signing",
-  "unsignedArtifactLink":"https://app.signpath.io/API/v1/c2099ac1-b4b5-4b30-934e-3933c2d9922d/SigningRequests/a4559e13-9e95-480a-9567-5b8a3252bb27/UnsignedArtifact",
-  "signedArtifactLink":"https://app.signpath.io1/API/v1/c2099ac1-b4b5-4b30-934e-3933c2d9922d/SigningRequests/a4559e13-9e95-480a-9567-5b8a3252bb27/SignedArtifact",
+  "unsignedArtifactLink":"https://app.signpath.io/Api/v1/c2099ac1-b4b5-4b30-934e-3933c2d9922d/SigningRequests/a4559e13-9e95-480a-9567-5b8a3252bb27/UnsignedArtifact",
+  "signedArtifactLink":"https://app.signpath.io1/Api/v1/c2099ac1-b4b5-4b30-934e-3933c2d9922d/SigningRequests/a4559e13-9e95-480a-9567-5b8a3252bb27/SignedArtifact",
   "origin": {
     "buildData": {
       "buildSettingsFile": {
-        "downloadLink": "https://app.signpath.io/API/v1/c2099ac1-b4b5-4b30-934e-3933c2d9922d/SigningRequests//a4559e13-9e95-480a-9567-5b8a3252bb27/BuildSettingsFile",
+        "downloadLink": "https://app.signpath.io/Api/v1/c2099ac1-b4b5-4b30-934e-3933c2d9922d/SigningRequests//a4559e13-9e95-480a-9567-5b8a3252bb27/BuildSettingsFile",
         "fileName": "AppVeyorSettings.json"
       },
       "url": "https://ci.appveyor.com/project/TestUser/Test-Project/builds/12345678/job/03rba4p8tlr2t4f7"
@@ -206,7 +206,7 @@ Once the signing request is successfully completed, the status response contains
 ~~~ bash
 curl -H "Authorization: Bearer $API_TOKEN" \
      -o $LOCAL_PATH_TO_DOWNLOADED_ARTIFACT \
-     https://app.signpath.io/API/v1/$ORGANIZATION_ID/SigningRequests/$SIGNING_REQUEST_ID/SignedArtifact
+     https://app.signpath.io/Api/v1/$ORGANIZATION_ID/SigningRequests/$SIGNING_REQUEST_ID/SignedArtifact
 ~~~
 
 **Success result:** HTTP status code `200`. Returns the binary content of the signed artifact.
@@ -231,7 +231,7 @@ curl -H "Authorization: Bearer $API_TOKEN" \
      -F "originalSigningRequestId=$ORIGINAL_SIGNING_REQUEST_ID" \
      -F "signingPolicySlug=release-signing" \
      -F "description=$DESCRIPTION" \
-     https://app.signpath.io/API/v1/$ORGANIZATION_ID/SigningRequests/Resubmit
+     https://app.signpath.io/Api/v1/$ORGANIZATION_ID/SigningRequests/Resubmit
 ~~~
 
 **Success result:** HTTP status code `201`. A HTTP `Location` response-header field is returned with the URL of the created entity.
@@ -290,6 +290,6 @@ A handler for this Webhook can use the Web API for further activities, such as p
 >
 > `Bearer JEAG1OrTXZ/t4URp5URt40DLBlA3WtcJmbwfeosyBkTABr6r`
 
-[swagger]: https://app.signpath.io/api/swagger/index.html
+[swagger]: https://app.signpath.io/Api/swagger/index.html
 [powershellGalleryImage]: https://img.shields.io/powershellgallery/v/SignPath.svg?style=flat-square&label=PowerShell%20Gallery
 [powershellGalleryLink]: https://www.powershellgallery.com/packages/SignPath/

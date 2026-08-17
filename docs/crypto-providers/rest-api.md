@@ -53,7 +53,7 @@ This endpoint creates an artifact with the file name `HashSigningData.json`.
 #### Request
 
 ~~~ bash
-curl -X POST https://app.signpath.io/API/v1/$ORGANIZATION_ID/SigningRequests/SignHash \
+curl -X POST https://app.signpath.io/Api/v1/$ORGANIZATION_ID/SigningRequests/SignHash \
      -H "Authorization: Bearer $API_TOKEN" \
      -H "Content-Type: application/json" \
      -H "Accept: application/json" \
