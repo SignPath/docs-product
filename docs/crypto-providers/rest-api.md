@@ -21,7 +21,7 @@ To sign a single hash code, use the `SignHash` endpoint. It accepts the hash dat
 |-----------------------------|----------------
 | URL                         | `/SigningRequests/SignHash`
 | Method                      | `POST`
-| Encoding                    | `application/json-patch+json` 
+| Encoding                    | `application/json` 
 
 ### Request fields
 
@@ -30,14 +30,14 @@ To sign a single hash code, use the `SignHash` endpoint. It accepts the hash dat
 | `projectSlug`               | The project for which you want to create the signing request
 | `signingPolicySlug`         | Signing policy for which you want to create the signing request
 | `artifactConfigurationSlug` | Optional: artifact configuration to use for the signing request (default if not specified)
-| `hashSigningData`           | Hash data to sign and metadata (see below)
 | `description`               | Optional: description for your signing request (e.g. version number)
+| `hashSigningData`           | Hash data to sign and metadata (see below)
 
 **`hashSigningData` properties:**
 
 {%- include render-table.html table=site.data.tables.crypto-providers.hashSigningData-format -%}
 
-This endpoint creates an artifcat with the file name `payload.json`.
+This endpoint creates an artifact with the file name `HashSigningData.json`.
 
 ### Response fields
 
@@ -45,7 +45,7 @@ This endpoint creates an artifcat with the file name `payload.json`.
 |-------------------------------|------------------
 | `signingRequestid`            | ID of the signing request
 | `webLink`                     | Link to the UI form for the signing request
-| `hashSigningData`             | Same as input value
+| `hashSigningData.hash`        | Input hash
 | `hashSigningResult.signature` | Base64-encoded signature block (format and length according to the key type used for signing)
 
 ### Example 
@@ -58,15 +58,15 @@ curl -X POST https://app.signpath.io/API/v1/$ORGANIZATION_ID/SigningRequests/Sig
      -H "Content-Type: application/json" \
      -H "Accept: application/json" \
      -d '{
-        "projectSlug": "MyProject",
-        "signingPolicySlug": "'"$POLICY"'",
+        "projectSlug": "hash-signing",
+        "signingPolicySlug": "test-signing",
         "hashSigningData": {
             "signatureAlgorithm": "Rsa",
             "rsaOptions": {
-                "hashAlgorithmName": "Sha1", 
+                "hashAlgorithmName": "Sha256", 
                 "paddingMode": "Pkcs1"
             },
-            "hash": "GJShnIW6FTrL90OsTkP8AEyJFgSyb4xp4eg+oq/HxI8=",
+            "hash": "ZOyIygCyaOW6GjVnihtTFtIS9PNmskdyMlNKiuyjfzw=",
             "metadata": {
                 "sourceProcess": { "commandLine": "SampleCommand -SampleArgument", "user": "SampleUser" }
             }
@@ -78,10 +78,10 @@ curl -X POST https://app.signpath.io/API/v1/$ORGANIZATION_ID/SigningRequests/Sig
 
 ~~~ json
 {
-    "signingRequestId": "a2a665c4-3cba-4688-959b-2bf11ba74039",
-    "webLink": "https://app.signpath.io/Web/f3b9e93d-1c8e-480f-b22b-c8d22270103c/Projects/a2a665c4-3cba-4688-959b-2bf11ba74039",
+    "signingRequestId": "01486688-aa8b-44f3-9d15-071412df043f",
+    "webLink": "https://app.signpath.io/Web/[...]/SigningRequests/01486688-aa8b-44f3-9d15-071412df043f",
     "hashSigningData": {
-        "hash": "GJShnIW6FTrL90OsTkP8AEyJFgSyb4xp4eg+oq/HxI8=",
+        "hash": "ZOyIygCyaOW6GjVnihtTFtIS9PNmskdyMlNKiuyjfzw="
     },
     "hashSigningResult": {
         "signature": "wGI2oiHHVSVGHR1rtjv83Pir1SEVLmnLNGuJD4..."

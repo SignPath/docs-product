@@ -4,27 +4,23 @@ hashSigningData-format:
     value: Value
     remarks: Remarks
   body:
+    - property: "`hash`"
+      value: |
+        The Base64 encoded hash value to sign.
     - property: "`signatureAlgorithm`"
       value: |
         `Rsa`, `Ecdesa`, or `Mldsa`
-    - property: "`rsaOptions.hashAlgorithmName`"
+    - property: "`rsaOptions.hashAlgorithmName` _or_ `rsaOptions.hashAlgorithmOid`"
       value: |
-        **TODO**
-        * Sha1
-        * ...
-    - property: "`rsaOptions.hashAlgorithmOid`"
-      value: |
-        **TODO: obsolete, redundant, or for extensibility?**
-
-        The OID for the hash algorithm used. Available values: 
-        * MD5: `1.2.840.113549.2.5`
-        * SHA1: `1.3.14.3.2.26`
-        * SHA-256: `2.16.840.1.101.3.4.2.1`
-        * SHA-384: `2.16.840.1.101.3.4.2.2`
-        * SHA-512: `2.16.840.1.101.3.4.2.3`
+        The hash algorithm (identifier) used to create `hash`. You can either use the name (`hashAlgorithmName`) or the OID `hashAlgorithmOid`:
+        * `Sha1`  (Oid `1.3.14.3.2.26`)
+        * `Sha256` (Oid `2.16.840.1.101.3.4.2.1`)
+        * `Sha384` (Oid `2.16.840.1.101.3.4.2.2`)
+        * `Sha512` (Oid `2.16.840.1.101.3.4.2.3`)
+      remarks: Only used for RSA keys.
     - property: "`rsaOptions.paddingMode`"
       value: |
-        * `Pkcs1`: PKCS #1 v1.5 padding mode
+        * `Pkcs1` (default): PKCS #1 v1.5 padding mode
         * `Pss`: PSS padding mode (PKCS #1 v2.1)
       remarks: Only used for RSA keys.
     - property: "`ecdsaOptions.signatureFormat`"
@@ -35,12 +31,7 @@ hashSigningData-format:
     - property: "`mldsaOptions.preHashAlgorithmOid`"
       value: |
          **TODO**
-    - property: "`hash`"
-      value: |
-        The Base64 encoded hash value to sign.
-      remarks: |
-        For RSA, the result of the function specified as `rsaOptions.hashAlgorithmName` or `rsaOptions.hashAlgorithmOid, respectively`.
-        **TODO self-evident? how about the others?**
+      remarks: Only used for ML-DSA keys.
     - property: "`metadata`"
       value: |
         `sourceProcess` object with `commandLine`, `user`, and `operatingSystem {type, version, architecture}` properties (see example below).
