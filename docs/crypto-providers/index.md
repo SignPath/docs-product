@@ -206,7 +206,7 @@ New-ItemProperty -Path "HKCU:\SOFTWARE\SignPath" -Name $ApiTokenRegistryValueNam
 
 Optionally an HTTP web proxy can be used for the outgoing API requests.
 
-On Windows by default the WinINet ("Internet Options") proxy settings are respected.
+On Windows the WinINet ("Internet Options") proxy settings are respected by default.
 
 Alternatively, a proxy server can be specified in the [configuration](#crypto-provider-config-values) (Windows and Linux) using the following value formats:
 

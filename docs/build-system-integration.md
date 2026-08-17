@@ -33,7 +33,9 @@ Use our PowerShell modules for command-line access on Windows, Linux, and MacOS.
 
 ## HTTP REST API {#rest-api}
 
-In case the PowerShell module is not sufficient, you can communicate directly with our API by calling our public HTTP REST endpoints.
+You can use the SignPath REST API to submit Signing Requests and perform many other operations including access to configuration settings and reading audit logs.
+
+All API requests are executed with the permissions of the accessing user account.
 
 ### Base URL and authentication
 
