@@ -163,7 +163,7 @@ curl -H "Authorization: Bearer $API_TOKEN" \
   "signingPolicySlug":"test-signing",
   "signingPolicyName":"test-signing",
   "unsignedArtifactLink":"https://app.signpath.io/Api/v1/c2099ac1-b4b5-4b30-934e-3933c2d9922d/SigningRequests/a4559e13-9e95-480a-9567-5b8a3252bb27/UnsignedArtifact",
-  "signedArtifactLink":"https://app.signpath.io1/Api/v1/c2099ac1-b4b5-4b30-934e-3933c2d9922d/SigningRequests/a4559e13-9e95-480a-9567-5b8a3252bb27/SignedArtifact",
+  "signedArtifactLink":"https://app.signpath.io/Api/v1/c2099ac1-b4b5-4b30-934e-3933c2d9922d/SigningRequests/a4559e13-9e95-480a-9567-5b8a3252bb27/SignedArtifact",
   "origin": {
     "buildData": {
       "buildSettingsFile": {
