@@ -169,7 +169,7 @@ signing-method-categories:
       description: Adds a new file that contains the unsigned file _and_ the signature.
       file: Added
       notes: |
-        The signed file consists of the signature and the original file, often encoded. The original file usually needs to be extracted from the enveloped file in order to be used. Depending on the format and tool, extraction and verifcation are ideally a single step.
+        The signed file consists of the signature and the original file, often encoded. The original file usually needs to be extracted from the enveloped file in order to be used. Depending on the format and tool, extraction and verification are ideally a single step.
 
         Enveloped signatures are available for all file types using the `<file>` element. 
       syntax: |

@@ -16,7 +16,7 @@ Trusted build systems create a trust relationship between SignPath and certain s
 
 The primary function of trusted build systems is to serve as the foundation of origin verifcation. This feature allows build systems to provide reliable origin metadata with your signing requests, so that SignPath can execute advanced policies based on trusted information. 
 
-See [origin verifcation](/origin-verification) for details.
+See [origin verification](/origin-verification) for details.
 
 ### Direct use {#abstract-direct-use}
 
