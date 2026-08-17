@@ -9,7 +9,7 @@ hashSigningData-format:
         The Base64 encoded hash value to sign.
     - property: "`signatureAlgorithm`"
       value: |
-        `Rsa`, `Ecdsa`, or `Mldsa`
+        `Rsa`, `Ecdsa`
     - property: "`rsaOptions.hashAlgorithmName` _or_ `rsaOptions.hashAlgorithmOid`"
       value: |
         The hash algorithm (identifier) used to create `hash`. You can either use the name (`hashAlgorithmName`) or the OID `hashAlgorithmOid`:
@@ -28,10 +28,6 @@ hashSigningData-format:
         * `Ieee` (default): IEEE P1363 fixed-size signature block
         * `Asn1`: RFC 3279 ASN.1 sequence
       remarks: Only used for ECDSA keys.
-    - property: "`mldsaOptions.preHashAlgorithmOid`"
-      value: |
-         **TODO**
-      remarks: Only used for ML-DSA keys.
     - property: "`metadata`"
       value: |
         `sourceProcess` object with `commandLine`, `user`, and `operatingSystem {type, version, architecture}` properties (see example below).
