@@ -70,7 +70,7 @@ steps:
 >
 > If _all_ of the following conditions apply, the required permissions have to be enabled in the workflow definition:
 > 
->  * the the GitHub repository is private
+>  * the GitHub repository is private
 >  * the workflow permissions are set to the default "Read repository contents and packages permissions"
 >  * The SignPath GitHub App is _not_ installed
 >
