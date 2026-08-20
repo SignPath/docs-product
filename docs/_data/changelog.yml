@@ -8,7 +8,7 @@
           issues: [SIGN-8731]
       improvements:
         - text: |-
-            Application Insights now emits `ArchiveProcessing-Extraction` and `ArchiveProcessing-Repack` custom events for better observability deep signing.
+            Application Insights now emits `ArchiveProcessing-Extraction` and `ArchiveProcessing-Repack` custom events for better observability of deep signing.
           issues: [SIGN-8775]
 - date: '2026-08-14'
   updates:
