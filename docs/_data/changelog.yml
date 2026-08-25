@@ -1,7 +1,7 @@
 - date: '2026-08-25'
   updates:
     self_hosted_installations:
-      version: 1.219.0
+      version: 1.219.1
       breaking_changes:
         - text: |-
             Changed recommended Kubernetes version to 1.35.x and `signpathio/kubectl` image tag to 1.35.
