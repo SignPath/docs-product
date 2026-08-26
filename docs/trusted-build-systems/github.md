@@ -115,19 +115,15 @@ The action supports the following output parameters:
 - `signing-request-web-url`: URL of the signing request in SignPath
 - `signed-artifact-download-url`: download URL of the signed artifact
 
-## Policies
+## Pipeline Policies for GitHub
 
 {% include editions.md feature="pipeline_integrity.extended_policies" %}
 
-You can define pipeline policies <!-- TODO: link --> that restrict source code and build settings.
+You can define [pipeline policies](/pipeline-policies) that restrict source code and build settings.
 
-Steps to create a policy file:
+The available policies specific to GitHub are listed in this section.
 
-* create the policy file in the `default` branch of the source code repository
-* name it `.signpath/policies/<project-slug>/<signing-policy-slug>.yml` 
-* restrict write permissions to the policy files using GitHub's [code owners] feature
-
-There are separate policy sections for GitHub's CI sytem, [GitHub Actions](#github-build-policies) and [GitHub's source code management system](#github-scm-policies).
+There are separate policy sections for GitHub's CI sytem, [GitHub Actions](#github-build-policies) (`github-build-policies`) and [GitHub's source code management system](#github-scm-policies) (`github-scm-policies`).
 
 ### Example
 
