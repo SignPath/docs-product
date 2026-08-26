@@ -159,7 +159,7 @@ Allows to restrict the GitHub Actions build with the following policies:
 | `disallow_reruns` | Set to `true` to prevent signing builds from re-runs. By enforcing this policy, old, temporarily failed builds cannot be re-run and signed under the false impression that they include recent changes, such as vulnerability fixes. These builds would still be identified by their branch name, e.g. `main`.
 | `runners`         | Runner-specific settings, see table below.
 
-{:panel.info}
+{:.panel.info}
 > **Limit to 3 re-runs**
 >
 > Due to performance reasons, SignPath currently allows policy evaluation for up to 3 re-runs of a build. Further re-runs with active policies will fail.

@@ -39,4 +39,10 @@ github-scm-policies:
 
 # Reference
 
-Currently, only policies for [GitHub](/trusted-build-systems/github#pipeline-policies-for-github) are supported.
+Pipeline Policies for the following systems are supported. See the respective pages for details:
+
+* Source Code Management (SCM) systems:
+  * [GitHub](/trusted-build-systems/github#github-scm-policies) (`github-scm-policies`)
+* CI/CD systems:
+  * [GitHub Actions](/trusted-build-systems/github#github-build-policies) (`github-build-policies`)
+  * [Azure DevOps](/trusted-build-systems/azure-devops#azure-devops-build-policies) (`azure-devops-build-policies`)
