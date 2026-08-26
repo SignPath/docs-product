@@ -11,7 +11,7 @@ description: GitHub
 * Use the predefined Trusted Build System _GitHub.com_ (see [configuration](/trusted-build-systems#configuration))
   *  add it to the Organization
   *  link it to each SignPath Project for GitHub
-* Required for [source code and build policies](#define-policies-for-source-code-and-builds): Install the [SignPath GitHub App](https://github.com/apps/signpath) and allow access to the code repositories.
+* Required for [audit log evaluation](#audit-log-evaluation): Install the [SignPath GitHub App] and allow access to the code repositories.
 
 {:.panel.info}
 > **GitHub Enterprise Server**
@@ -72,7 +72,7 @@ steps:
 > 
 >  * the the GitHub repository is private
 >  * the workflow permissions are set to the default "Read repository contents and packages permissions"
->  * The SignPath GitHub App is _not_ installed
+>  * The [SignPath GitHub App] is _not_ installed
 >
 > You can use the following snippet:
 > ```
@@ -163,6 +163,11 @@ Allows to restrict the GitHub Actions build with the following policies:
 | `disallow_reruns` | Set to `true` to prevent signing builds from re-runs. By enforcing this policy, old, temporarily failed builds cannot be re-run and signed under the false impression that they include recent changes, such as vulnerability fixes. These builds would still be identified by their branch name, e.g. `main`.
 | `runners`         | Runner-specific settings, see table below.
 
+{:panel.info}
+> **Limit to 3 re-runs**
+>
+> Due to performance reasons, SignPath currently allows policy evaluation for up to 3 re-runs of a build. Further re-runs with active policies will fail.
+
 #### `runners` section
 
 | Policy                   | Description
@@ -228,17 +233,19 @@ Allows to define `ruleset_constraints` for [GitHub branch rulesets]. All specifi
 | Parameter               | Values                         | Description
 |-------------------------|--------------------------------|----------------------------
 | `allow_bypass_actors`   | boolean                        | If `true`, the branch ruleset is allowed to define bypassers 
-| `enforced_from`         | None, timestamp, or `EARLIEST` | By default, the constraints are only evaluated at the time of signing. When `enforced_from` is set, the constraints must have been continously fulfilled from the specified date (YAML ISO timestamp) or earliest availability of audit log entries (`EARLIEST`). 
-
-<!-- TODO: None not yet supported (see SIGN-8819) -->
-<!-- TODO: Add GitHub Export -->
+| `enforced_from`         | `CURRENT_BUILD` (default), timestamp or `EARLIEST` | By default, the constraints are only evaluated at the time of signing (`CURRENT_BUILD`). When another value is set for `enforced_from`, the constraints must have been continously fulfilled from the specified date (YAML ISO timestamp) or earliest availability of audit log entries (`EARLIEST`). 
 
 {:.panel.info}
+> **GitHub export**
+>
+> The SignPath policies are an extension and therefore compatible with the export format in GitHub. You can export a branch ruleset in GitHub, convert it to YAML and then paste the entire `rules` section under `ruleset_constraints` in your SignPath policies.
+
+{:.panel.info#audit-log-evaluation}
 > **About `enforced_from` evaluation**
 > 
 > Depending on your GitHub subscription, the continuous enforcement of policies is either based on:
 >
-> * **Audit log events** for _GitHub Enterprise_ subscriptions. Audit log events are only available for the last 180 days, any prior policy violations will not be detected.
+> * **Audit log events** for _GitHub Enterprise_ subscriptions. Audit log events are only available for the last 180 days, any prior policy violations will not be detected. _Audit Log evaluation requires the [SignPath GitHub App] to be installed._
 > * The **last modified date** of the branch rulesets for all other subscriptions. At least one branch ruleset that has not been modified since the specified timestap must implement the rule.
 
 #### Supported rules
@@ -247,8 +254,6 @@ The following rules are supported:
 
 {%- include render-github-policies.html schema=site.data.pipeline-policy-schemas.github -%}
 
-TODO: What does the `policy_type: array` mean (e.g. for code scanning tool) --> Taha also doesn't know - discuss with Stefan
-TODO: Sync Schema back to Pipeline Connector
-
 [code owners]: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
 [GitHub branch rulesets]: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets
+[SignPath GitHub App]: https://github.com/apps/signpath

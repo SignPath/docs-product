@@ -78,8 +78,7 @@ rules:
             required: true
             policy_type: array
             sample: CodeQL
-
-# new rules added in v2 - no tests yet
+# new rules - no tests yet
   - type: required_signatures
     description: "Require commits to be signed with a GPG key that is verified by GitHub."
   - type: file_path_restriction

@@ -101,7 +101,7 @@ The following parameters are supported:
           parameters: {% for param in rule.parameters %}
             {{ param[0] }}: {% if param[1].sample %}{{ param[1].sample }}{% else %}{% case param[1].type %}{% when "boolean" %}true{% when "integer" %}1{% when "string array" %}
               - value{% when "object array" %}
-              - {% for prop in param[1].properties %}{{ prop[0] }}: {% if prop[1].sample %}{{ prop[1].sample }}{% else %}{% case prop[1].type %}{% when "enum" %}{{ prop[1].enum | last }}{% when "string" %}value{% endcase %}{% endif %}
+              - {% for prop in param[1].properties %}{% if forloop.first %}{{ prop[0] }}: {% else %}{{ prop[0] | prepend: "  " }}: {% endif %}{% if prop[1].sample %}{{ prop[1].sample }}{% else %}{% case prop[1].type %}{% when "enum" %}{{ prop[1].enum | last }}{% when "string" %}value{% endcase %}{% endif %}
               {% endfor %}{% endcase %}{% endif %}{% endfor %}{% endif %}
 ```
 </div>
