@@ -17,11 +17,11 @@
       title: 'Signing requests'
       hint: 'Signing requests (think software packages or releases) per year. Each signing request may contain multiple files.'
       href: '/product/editions-explained#signing-requests'
-    - name: signign_requests_release
+    - name: signing_requests_release
       title: 'release-signing'
       hint: 'Signing requests using your EV certificate'
       class: f sub
-    - name: signign_requests_test
+    - name: signing_requests_test
       title: 'test-signing'
       hint: 'Signing request using a test certificate that must be installed on target machines. Used for testing the signing configuration, signing internal builds, release candidates etc.'
       class: f sub
@@ -177,8 +177,8 @@
       title: 'Build validation'
       hint: 'Automatically checks build configurations for security weaknesses.'
       class: f sub
-    - name: extended_policies
-      title: 'SCM and CI policy control'
+    - name: pipeline_policies
+      title: 'Pipeline Policies'
       hint: 'Define specific SCM and CI/CD policy requirements, e.g. branch protection or build agents'
       class: f sub
 

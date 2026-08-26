@@ -5,7 +5,7 @@ toc: false
 description: Documentation for using Pipeline Policies in SignPath
 ---
 
-<!--{% include editions.md feature="pipeline_integrity.extended_policies" %} -->
+{% include editions.md feature="pipeline_integrity.pipeline_policies" %} 
 
 Pipeline policies allow restricting source code and build settings of your CI/CD pipeline.
 

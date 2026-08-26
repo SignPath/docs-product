@@ -117,7 +117,7 @@ The action supports the following output parameters:
 
 ## Pipeline Policies for GitHub
 
-{% include editions.md feature="pipeline_integrity.extended_policies" %}
+{% include editions.md feature="pipeline_integrity.pipeline_policies" %}
 
 You can define [pipeline policies](/pipeline-policies) that restrict source code and build settings.
 
