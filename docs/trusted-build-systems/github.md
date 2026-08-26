@@ -2,7 +2,7 @@
 header: GitHub
 layout: resources
 toc: true
-show_toc: 2
+show_toc: 3
 description: GitHub
 ---
 
@@ -115,15 +115,11 @@ The action supports the following output parameters:
 - `signing-request-web-url`: URL of the signing request in SignPath
 - `signed-artifact-download-url`: download URL of the signed artifact
 
-## Define policies for source code and builds
+## Policies
 
 {% include editions.md feature="pipeline_integrity.extended_policies" %}
 
-You can define specific source code and build policies for your repository per signing policy:
-
-* `runners`: define which runners may be used by GitHub Actions
-* `build`: define conditions for GitHub Actions workflows and runs
-* `branch_rulesets`: define minimum requirements for branch rulesets including conditions for integrity, reviews, and code scanning
+You can define pipeline policies <!-- TODO: link --> that restrict source code and build settings.
 
 Steps to create a policy file:
 
@@ -131,36 +127,111 @@ Steps to create a policy file:
 * name it `.signpath/policies/<project-slug>/<signing-policy-slug>.yml` 
 * restrict write permissions to the policy files using GitHub's [code owners] feature
 
-### Policy sections
+There are separate policy sections for GitHub's CI sytem, [GitHub Actions](#github-build-policies) and [GitHub's source code management system](#github-scm-policies).
+
+### Example
+
+```yaml
+github-build-policies:
+  version: '1.0'
+  disallow_reruns: false
+  runners:
+    require_github_hosted: true
+    allowed_groups:
+      - Hardened Runners
+
+github-scm-policies:
+  version: '1.0'
+  ruleset_constraints:
+  - enforced_from: 2025-01-01
+    allow_bypass_actors: true
+    rules:
+      - type: non_fast_forward
+      - type: pull_request
+        parameters:
+          required_approving_review_count: 2
+          require_last_push_approval: true
+```
+
+
+### `github-build-policies`
+
+Allows to restrict the GitHub Actions build with the following policies:
+
+| Top-Level Policy  | Description 
+|-------------------|-------------------------
+| `disallow_reruns` | Set to `true` to prevent signing builds from re-runs. By enforcing this policy, old, temporarily failed builds cannot be re-run and signed under the false impression that they include recent changes, such as vulnerability fixes. These builds would still be identified by their branch name, e.g. `main`.
+| `runners`         | Runner-specific settings, see table below.
 
 #### `runners` section
 
-Use the `runners` section to define which runners may be used in the workflow run.
+| Policy                   | Description
+|--------------------------|-------------------
+| `required_github_hosted` | Set to `true` to ensure that all jobs of the workflow are executed on Github-hosted runners.
+| `alllowed_groups`        | Provide a list of GitHub runner group names. Ensures that all jobs of the workflow are executed on runners from one of the listed groups.
 
-{%- include render-table.html table=site.data.tables.trusted-build-systems.github-extended-policies-runners -%}
+### `github-scm-policies`
 
-#### `build` section
+Allows to define `ruleset_constraints` for [GitHub branch rulesets]. All specified constraints must be covered by one or multiple active branch rulesets defined in GitHub. Multiple `ruleset_constraints` with different parameters can be defined.
 
-Use the `build` section to configure rules for the build run.
+{:.panel.info}
+> **How ruleset constraints map to GitHub ruleset rules**
+> 
+> GitHub allows you to define **_branch rulesets_**, both for repositories and at an organization level. Each branch ruleset defines a set of _rules_ and, optionally, a set of _bypass actors._
+>
+> SignPath allows you to define **_ruleset contraints_**. Every _rule_ in a _ruleset constraint_ defined in SignPath's policies must be fulfilled by at least one _rule_ in a _branch ruleset_ on GitHub. You can define whether _bypass actors_ are allowed and whether the constraint has to be continually fulfilled (see below).
+>
+> **_Example:_**
+>
+> For example, the following GitHub branch rulesets would fulfill all of the defined ruleset constraints:
+> 
+> 1. The `non_fast_forward` constraint is covered by Ruleset 1
+> 2. The `deletion` constraint is covered by Ruleset 1. It would allow bypass actors, but disallowing them is stricter and therefore valid.
+> 3. The `creation` constraint is covered by Ruleset 2.
+> 
+> <table style="width:100%">
+>   <thead>
+>     <tr>
+>       <th markdown="1">SignPath constraints</th>
+>       <th>GitHub branch rulesets</th>
+>     </tr>
+>   </thead>
+>   <tbody>
+>     <tr>
+>       <td markdown="1" style="width:50%">
+> ```yaml
+> github-scm-policies:
+>    ruleset_constraints:
+>      - allow_bypass_actors: false
+>        rules:
+>          - type: non_fast_forward
+>      - allow_bypass_actors: true
+>        rules:
+>          - type: deletion
+>          - type: creation
+> ```
+></td>
+>       <td markdown="1">
+> Ruleset 1 (does not allow bypass actors)
+> * non_fast_forward
+> * deletion
+>
+> Ruleset 2 (allows bypass actors)
+> * creation
+></td>
+>     </tr>
+>   </tbody>
+> </table>
 
-{%- include render-table.html table=site.data.tables.trusted-build-systems.github-extended-policies-build -%}
+#### General parameters for `ruleset_constraints`
 
-#### `branch_rulesets` section {#branch_rulesets}
-
-Use the `branch_rulests` section to configure conditions for [GitHub branch rulesets].
-
-* You can configure branch rulesets in GitHub on an organization or repository level. SignPath verifies that there is at least one branch ruleset for each specified condition.
-* Rules define minimum requirements that may be exceeded by the actual branch ruleset.
-
-##### How `branch_rulesets` conditions are evaluated
-
-You can group your policy requirements into multiple conditions, each containing a combination of rules, bypassers, and enforcement date:
-
-| Section                 | Values                         | Description
+| Parameter               | Values                         | Description
 |-------------------------|--------------------------------|----------------------------
-| `rules`                 | See below                      | Rules that must be implemented by one ore more active branch rulesets
 | `allow_bypass_actors`   | boolean                        | If `true`, the branch ruleset is allowed to define bypassers 
-| `enforced_from`         | None, timestamp, or `EARLIEST` | By default, the rules are only evaluated at the time of signing. When provided, defines that these rules must have been in place from the specified date (YAML ISO timestamp) or earliest availability of audit log entries (`EARLIEST`). 
+| `enforced_from`         | None, timestamp, or `EARLIEST` | By default, the constraints are only evaluated at the time of signing. When `enforced_from` is set, the constraints must have been continously fulfilled from the specified date (YAML ISO timestamp) or earliest availability of audit log entries (`EARLIEST`). 
+
+<!-- TODO: None not yet supported (see SIGN-8819) -->
+<!-- TODO: Add GitHub Export -->
 
 {:.panel.info}
 > **About `enforced_from` evaluation**
@@ -170,40 +241,14 @@ You can group your policy requirements into multiple conditions, each containing
 > * **Audit log events** for _GitHub Enterprise_ subscriptions. Audit log events are only available for the last 180 days, any prior policy violations will not be detected.
 > * The **last modified date** of the branch rulesets for all other subscriptions. At least one branch ruleset that has not been modified since the specified timestap must implement the rule.
 
-##### Available `branch_rulesets` rules
+#### Supported rules
 
-{%- include render-table.html table=site.data.tables.trusted-build-systems.github-extended-policies-branch-ruleset-rules -%}
+The following rules are supported:
 
-### Example
+{%- include render-github-policies.html schema=site.data.pipeline-policy-schemas.github -%}
 
-```yaml
-# .signpath/policies/my-project-slug/release-signing.yml
-
-github-policies:
-  runners:
-    allowed_groups:
-      - 'MySecureRunners'                        # all jobs need to run on runners in the specified group
-  build:
-    disallow_reruns: true
-  branch_rulesets:
-    - condition:
-        rules:
-        - block_force_pushes:                    # force pushes are prevented
-        - require_pull_request:                  # code reviews are required
-            min_required_approvals: 1
-            require_code_owner_review: true
-      allow_bypass_actors: false                 # no-one is allowed to bypass this rule
-      enforced_from: EARLIEST                    # rule enforcement history is checked
-    - condition:
-        rules:
-        - require_code_scanning:                 # code scanning must not reveal problems
-            tools:
-              - tool: CodeQL
-                min_alerts_threshold: errors
-                min_security_alerts_threshold: medium
-        allow_bypass_actors: true                # some people may bypass these rules
-        enforced_from: '2025-01-01 00:00'        # had to be reset at some point
-```
+TODO: What does the `policy_type: array` mean (e.g. for code scanning tool) --> Taha also doesn't know - discuss with Stefan
+TODO: Sync Schema back to Pipeline Connector
 
 [code owners]: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
 [GitHub branch rulesets]: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets
