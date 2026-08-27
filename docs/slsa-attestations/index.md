@@ -44,7 +44,7 @@ SignPath creates SLSA attestation in three distinct steps:
 2. SignPath DeepSign creates SLSA provenance build based on that information (along with other code signing operations)
 3. SignPath Attest signs the provenance 
 
-For details see the respective [artifact configuration directives](/artifact-configuration/reference#create-provenance-file).
+For details see the respective [artifact configuration directives](/artifact-configuration/attestations).
 
 {:.panel.info} 
 > **Attestation trust explained**
