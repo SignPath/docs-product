@@ -21,15 +21,15 @@ Projects consist of these configuration sections:
 
 ## Project settings {#project-settings}
 
-| Property                   | Value                                                                                                                     | Editions
-|----------------------------|---------------------------------------------------------------------------------------------------------------------------|-----
-| **Name**                   | Display name
-| **Slug**                   | Project name/identfier used for URLs, APIs etc.
-| **Status**                 | _Valid_, _inactive_, or _invalid_
-| **Readers**                | Users or groups who can read all information of this project, including signing request artifacts of all signing policies | {{ site.data.editions | where: "user_management.admin_delegation", "true" | map: "name" | join: ", " }}
-| **Configurators**          | Users or groups who can modify artifact configurations and Webhooks                                                       | {{ site.data.editions | where: "user_management.admin_delegation", "true" | map: "name" | join: ", " }}
-| **Repository URL**         | URL of the source code repository, for information and/or [origin verification](#signing-policy-origin-verification) 
-| **Description**            | Free text description of the project
+| Property           | Value                                                                                                                     | Editions
+|--------------------|---------------------------------------------------------------------------------------------------------------------------|-----
+| **Name**           | Display name
+| **Slug**           | Name/identfier used for APIs access. Valid characters: ASCII letters, digits, and the characters `.`, `-`, and `_`. Case-insensitive.
+| **Status**         | _Valid_, _inactive_, or _invalid_
+| **Readers**        | Users or groups who can read all information of this project, including signing request artifacts of all signing policies | {{ site.data.editions | where: "user_management.admin_delegation", "true" | map: "name" | join: ", " }}
+| **Configurators**  | Users or groups who can modify artifact configurations and Webhooks                                                       | {{ site.data.editions | where: "user_management.admin_delegation", "true" | map: "name" | join: ", " }}
+| **Repository URL** | URL of the source code repository, for information and/or [origin verification](#signing-policy-origin-verification) 
+| **Description**    | Free text description of the project
 
 ## Signing policies {#signing-policies}
 
