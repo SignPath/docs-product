@@ -9,7 +9,7 @@ description: Jenkins Plugin
 ## Prerequisites
 
 * The Jenkins plugin has been installed on the respective Jenkins instance (Jenkins 2.359 or higher are supported).
-* The plugin has been registered as a _custom_ Trusted Build System within SignPath and linked to the respective project (see the [configuration](/trusted-build-systems#configuration) section).
+* A Pipeline Connector instance ([Contact our support team](https://signpath.io/support) for details) is configured to reach the Jenkins server.
 * The following plugins are installed on the Jenkins server: 
   * [Credentials binding](https://plugins.jenkins.io/credentials-binding/)
   * [Git](https://plugins.jenkins.io/git/)
@@ -17,10 +17,10 @@ description: Jenkins Plugin
 
 ## Performed checks
 
-The plugin ensures that 
+SignPath ensures that
 * A build was actually performed by a specific Jenkins CI instance, not by some other entity in possession of the API token
 * [Origin metadata](/origin-verification) is provided by Jenkins CI, not the build script, and can therefore not be forged
-* The artifact is stored as an immutable Jenkins artifact before it is submitted for signing
+* The artifact originated from the Jenkins build
 
 ## Installation
 
@@ -28,9 +28,8 @@ See the [official plugin page](https://plugins.jenkins.io/signpath/) on how the 
 
 ### Configuration
 
-* The _Trusted Build System Token_ needs to be stored in a _System_ Credential (Under _Manage Jenkins / Manage Credentials_)
+* In the _Code Signing with SignPath_ section of the System settings, set the _Connector URL_ and _Endpoint Slug_ of the installed Pipeline Connector and optionally define a default organization ID.
 * The _Api Token_ of a SignPath user with submitter permissions needs to be available to the build pipelines of the respective projects.
-* The default credential ID for the _Trusted Build System Token_, the default organization ID and the SignPath API endpoint can be configured in the plugin configuration (under _System_ in the _Code Signing with SignPath_ section).
 
 ## Usage
 
