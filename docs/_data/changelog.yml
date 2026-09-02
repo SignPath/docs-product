@@ -1,3 +1,21 @@
+- date: '2026-09-08'
+  updates:
+    pipeline_connector:
+      version: 0.8.0
+      breaking_changes:
+        - text: |-
+            Added support for new [Pipeline Policies](/pipeline-policies). The old build and source code policies under `.signpath/policies/*` are only loaded if explicitly referenced as Pipeline Policies and are modified to match the new policy definition scheme.
+          issues: [SIGN-8632, SIGN-8843, SIGN-8847, SIGN-8846, SIGN-8819]
+      bug_fixes:
+        - text: |-
+            TeamCity: The entire `/refs/heads/*` branch identifier is again used for Git branches instead of the shortened name (e.g. `main`).
+          issues: [SIGN-8826]
+    application:
+      version: 1.220.0
+      new_features:
+        - text: |-
+            [Pipeline Policies](/pipeline-policies) allow central policy controls for restricting source code and build settings of your CI/CD pipeline .
+          issues: []
 - date: '2026-08-11'
   updates:
     application:
