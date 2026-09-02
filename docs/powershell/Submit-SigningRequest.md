@@ -184,7 +184,7 @@ Note: Use either slugs _or_ IDs, don't mix.
 | `-OrganizationId`                         | `String`          | ID of your SignPath organization
 | `-ApiToken`                               | `String`          | API token of an interactive or CI user
 | `-ClientCertificate`                      | `X509Certificate2`| Client certificate used for a secure Web API request. Not directly supported by SignPath, use for proxies. | | {{ site.data.editions | where: "pipeline_integrity.trusted_build_systems", "Optional" | map: "name" | join: ", " }}
-| `-ApiUrl`                                 | `String`          | URL to the SignPath REST API                                  | `https://app.signpath.io/api/`
+| `-ApiUrl`                                 | `String`          | URL to the SignPath REST API                                  | `https://app.signpath.io/Api/`
 | `-Description`                            | `String`          | Optional description of the signing request
 | `-Parameters`                             | `Hashtable`       | Values for [parameters defined in the artifact configuration](/artifact-configuration/syntax#parameters)
 | `-ServiceUnavailableTimeoutInSeconds`     | `Int32`           | Total time in seconds that the cmdlet will wait for a single service call to succeed (across several retries) | 600 seconds

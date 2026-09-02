@@ -61,7 +61,7 @@ This feature is available via the [REST API](/build-system-integration#resubmit-
 ### Permissions and policies
 
 * Permissions and origin verfication are evaluated according to the new signing policy.
-* Origin verifcation is evaluated based on the original signing request's origin data. 
+* Origin verification is evaluated based on the original signing request's origin data. 
 
 This ensures that the integrity of the signing request and artifact are preserved even when fully detached from the actual build process.
 

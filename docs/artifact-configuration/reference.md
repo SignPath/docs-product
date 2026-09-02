@@ -405,12 +405,27 @@ This places the signature at the right place within the OCI layout and add relev
 |------------------------|----------|----------------
 | `tag`                  | No       | The image tag, e.g. `latest` or `v3.1.2`. Consider using [user-defined parameters](/artifact-configuration/syntax#parameters).
 
-##### Example
+##### Examples
+
+Literal tag:
 
 ~~~ xml
 <artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
   <oci-image-layout-archive-file>
     <notation-sign tag="latest" />
+  </oci-image-layout-archive-file>
+</artifact-configuration>
+~~~
+
+Parameterized tag:
+
+~~~ xml
+<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
+  <parameters>
+    <parameter name="tag" default-value="stable" />
+  </parameters>
+  <oci-image-layout-archive-file>
+    <notation-sign tag="${tag}" />
   </oci-image-layout-archive-file>
 </artifact-configuration>
 ~~~
@@ -433,10 +448,25 @@ This places the signature at the right place within the OCI layout and add relev
 
 ##### Example
 
+Literal tag:
+
 ~~~ xml
 <artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
   <oci-image-layout-archive-file>
     <cosign-sign tag="latest" />
+  </oci-image-layout-archive-file>
+</artifact-configuration>
+~~~
+
+Parameterized tag:
+
+~~~ xml
+<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
+  <parameters>
+    <parameter name="tag" default-value="stable" />
+  </parameters>
+  <oci-image-layout-archive-file>
+    <cosign-sign tag="${tag}" />
   </oci-image-layout-archive-file>
 </artifact-configuration>
 ~~~

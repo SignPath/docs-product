@@ -49,7 +49,7 @@ This section provides general information about using the SignPath Cryptoki libr
 {:.panel.warning}
 > **OpenSSL 3.0.0 - 3.0.8 incompatibility**
 >
-> Distributions with an OpenSSL version between 3.0.0 and 3.0.8 (including) don't support the the [OpenSSL](#openssl) and [osslsigncode](#osslsigncode) scenarios.
+> Distributions with an OpenSSL version between 3.0.0 and 3.0.8 (including) don't support the [OpenSSL](#openssl) and [osslsigncode](#osslsigncode) scenarios.
 > The reason is an [OpenSSL bug](https://github.com/openssl/openssl/issues/20161) which has been fixed in OpenSSL 3.0.9.
 > The issue results in _"http_exception occurred (error code= generic:168296454): Error in SSL handshake"_ errors.
 >

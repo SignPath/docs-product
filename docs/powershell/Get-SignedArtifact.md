@@ -34,7 +34,7 @@ This cmdlet throws an exception if the signing request does not successfully com
 | `-OrganizationId`                           | `String`          | ID of your SignPath organization                              |
 | `-ApiToken`                                 | `String`          | API token of an interactive or CI user                        |
 | `-ClientCertificate`                        | `X509Certificate2`| Client certificate used for a secure Web API request. Not directly supported by SignPath, use for proxies. | | {{ site.data.editions | where: "pipeline_integrity.trusted_build_systems", "Optional" | map: "name" | join: ", " }}
-| `-ApiUrl`                                   | `String`          | URL to the SignPath REST API                                  | `https://app.signpath.io/api/`
+| `-ApiUrl`                                   | `String`          | URL to the SignPath REST API                                  | `https://app.signpath.io/Api/`
 | `-SigningRequestId`                         | `String`          | ID of the signing request                                      |
 | `-OutputArtifactPath`                       | `String`          | Specifies the target path for the downloaded signed artifact  | `InputArtifactPath` with an added `.signed` extension 
 | `-Force`                                    | Switch            | Allows the cmdlet to overwrite the file at OutputArtifactPath | `false`
