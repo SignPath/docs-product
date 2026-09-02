@@ -16,6 +16,16 @@
         - text: |-
             [Pipeline Policies](/pipeline-policies) allow central policy controls for restricting source code and build settings of your CI/CD pipeline .
           issues: []
+    jenkins_plugin:
+      version: 5.0.0
+      breaking_changes:
+        - text: |-
+            The Jenkins Plugin now requires a Pipeline Connector instance to run. Contact [our support team](https://signpath.io/support) for details.
+          issues: [SIGN-8637]
+      new_features:
+        - text: |-
+            SCM [Pipeline Policies](/pipeline-policies) are now supported for Jenkins builds.
+          issues: [SIGN-8637]
 - date: '2026-08-25'
   updates:
     self_hosted_installations:
