@@ -94,7 +94,7 @@ _Cosign_ is part of the [Sigstore](https://www.sigstore.dev/) project. It is pri
 
 ## How to sign
 
-### With Advanced Code Signing
+### With Semantic Code Signing
 
 To sign container images with SignPath, the following steps are required:
 

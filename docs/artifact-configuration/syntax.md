@@ -236,10 +236,16 @@ Parameter values can be set when submitting a signing request via the user inter
 
 Parameters are defined in an optional `parameters` block at the beginning of the artifact configuration and can be referenced using the `${parameterName}` syntax in any XML attribute.
 
+| Attribute       | Value
+|-----------------|---------
+| `name`          | Parameter name (required, case-sensitive). Valid characters: ASCII letters, digits, and the characters `.`, `-`, and `_`.
+| `default-value` | Optional default value if parameter is not provided with signing request. No leading or trailing whitespace.
+| `required`      | If `true`, the parameter must be provided and must not be empty (`""`). Default is `false`. 
+
 ~~~xml
 <artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
   <parameters>
-    <parameter name="version" default-value="1.0.0" required="true" />
+    <parameter name="version" default-value="1.0.0" />
   </parameters>
   <pe-file path="my-installer-${version}.exe" product-name="myproduct" product-version="${version}">
 </artifact-configuration>
