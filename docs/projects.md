@@ -25,11 +25,11 @@ Projects consist of these configuration sections:
 |--------------------|---------------------------------------------------------------------------------------------------------------------------|-----
 | **Name**           | Display name
 | **Slug**           | Name/identfier used for APIs access. Valid characters: ASCII letters, digits, and the characters `.`, `-`, and `_`. Case-insensitive.
-| **Status**         | _Valid_, _inactive_, or _invalid_
+| **Description**    | Free text description of the project
 | **Readers**        | Users or groups who can read all information of this project, including signing request artifacts of all signing policies | {{ site.data.editions | where: "user_management.admin_delegation", "true" | map: "name" | join: ", " }}
 | **Configurators**  | Users or groups who can modify artifact configurations and Webhooks                                                       | {{ site.data.editions | where: "user_management.admin_delegation", "true" | map: "name" | join: ", " }}
 | **Repository URL** | URL of the source code repository, for information and/or [origin verification](#signing-policy-origin-verification) 
-| **Description**    | Free text description of the project
+| **Status**         | _Valid_, _inactive_, or _invalid_
 
 ## Signing policies {#signing-policies}
 
@@ -51,10 +51,13 @@ Both types of policies may alternatively use certificates that are issued by an 
 
 ### General Properties
 
-| Property        | Value 
-|-----------------|-----------------------------
-| **Certificate** | Select the certificate that will be used to sign the artifact |
-| **Submitters**  | Select the users that are allowed to submit an artifact (may be regular or [CI users](/users#ci-users)) |
+| Property              | Value 
+|-----------------------|-----------------------------
+| **Name** and **Slug** | Name and slug ([project](#project-settings)-scoped, i.e. you can reuse names for each projects)
+| **Description**       | Free text description of the signing policy
+| **Purpose**           | Declare if a project is intended for test or release siging (prevents using release certificates for test signing policies and vice versa)
+| **Certificate**       | Select the certificate that will be used to sign the artifact
+| **Submitters**        | Select the users that are allowed to submit an artifact (may be regular or [CI users](/users#ci-users))
 
 ### Approval process
 
