@@ -1,5 +1,15 @@
 - date: '2026-09-08'
   updates:
+    self_hosted_installations:
+      version: 1.220.0
+      breaking_changes:
+        - text: |-
+            The Fortanix SignService variant has been ported to Linux and the included Fortanix client software has been updated. Ensure that your cluster has sufficient resources to host its replicas.
+          issues: [SIGN-8730]
+      bug_fixes:
+        - text: |-
+            Fixed: the `administrationutility` Pod no longer writes unexpected log output to its main session.
+          issues: [SIGN-8848]
     pipeline_connector:
       version: 0.8.0
       breaking_changes:
