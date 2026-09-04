@@ -1,3 +1,41 @@
+- date: '2026-09-08'
+  updates:
+    self_hosted_installations:
+      version: 1.220.0
+      breaking_changes:
+        - text: |-
+            The Fortanix SignService variant has been ported to Linux and the included Fortanix client software has been updated. Ensure that your cluster has sufficient resources to host its replicas.
+          issues: [SIGN-8730]
+      bug_fixes:
+        - text: |-
+            Fixed: the `administrationutility` Pod no longer writes unexpected log output to its main session.
+          issues: [SIGN-8848]
+    pipeline_connector:
+      version: 0.8.0
+      breaking_changes:
+        - text: |-
+            Added support for new [Pipeline Policies](/pipeline-policies). The old build and source code policies under `.signpath/policies/*` are only loaded if explicitly referenced as Pipeline Policies and are modified to match the new policy definition scheme.
+          issues: [SIGN-8632, SIGN-8843, SIGN-8847, SIGN-8846, SIGN-8819]
+      bug_fixes:
+        - text: |-
+            TeamCity: The entire `/refs/heads/*` branch identifier is again used for Git branches instead of the shortened name (e.g. `main`).
+          issues: [SIGN-8826]
+    application:
+      version: 1.220.0
+      new_features:
+        - text: |-
+            [Pipeline Policies](/pipeline-policies) allow central policy controls for restricting source code and build settings of your CI/CD pipeline .
+          issues: []
+    jenkins_plugin:
+      version: 5.0.0
+      breaking_changes:
+        - text: |-
+            The Jenkins Plugin now requires a Pipeline Connector instance to run. Contact [our support team](https://signpath.io/support) for details.
+          issues: [SIGN-8637]
+      new_features:
+        - text: |-
+            SCM [Pipeline Policies](/pipeline-policies) are now supported for Jenkins builds.
+          issues: [SIGN-8637]
 - date: '2026-08-25'
   updates:
     self_hosted_installations:
