@@ -20,14 +20,15 @@ Contact our [support](https://signpath.io/support) team for access to these comp
 2. Link the trusted build system with all projects built on TeamCity.
 
 
-## Checks performed by SignPath
+## Checks performed by SignPath {#checks}
 
 The TeamCity connector performs the following checks:
 
-* The build was actually performed by a TeamCity build configuration, not by some other entity in possession of the API token.
-* [Origin metadata](/origin-verification) is provided by the TeamCity server, not the build script, and can therefore not be forged.
-* The artifact is stored on the TeamCity server before it is submitted for signing.
-* The build is not a [personal build](https://www.jetbrains.com/help/teamcity/personal-build.html), potentially containing uncommitted changes.
+* **Control plane verification:** 
+  * The build was actually performed by a TeamCity build configuration, not by some other entity in possession of the API token.
+  *  [Origin metadata](/origin-verification) is provided by the TeamCity server, not the build script, and can therefore not be forged.
+* **Artifact integrity:** The artifact is published as an interim TeamCity artifact before it is submitted for signing. This ensures the actual provenance of the artifact.
+* **No [personal builds](https://www.jetbrains.com/help/teamcity/personal-build.html)**: Prevents siging of builds containing uncommitted changes.
 
 ## Usage
 
@@ -77,7 +78,7 @@ Add a build step of type _SignPath: Submit Signing Request_
 | `projectSlug`                                     | (mandatory)                   | The SignPath project slug.
 | `signingPolicySlug`                               | (mandatory)                   | The SignPath signing policy slug.
 | `artifactConfigurationSlug`                       |                               | The SignPath artifact configuration slug. If not specified, the default is used.
-| `inputArtifactPath`                               | (mandatory)                   | The path to the artifact to be signed. Both absolute paths and relative paths from the working directory are accepted. You can also use the TeamCity syntax `<path> => <published_artifact_name>` to map a file path to the name of a published artifact. 
+| `inputArtifactPath`                               | (mandatory)                   | The path to the artifact to be signed. Both absolute paths and relative paths from the working directory are accepted. The artifact is published as an [interim artifact](#checks). You can also use the TeamCity syntax `<file_path> => <published_artifact_name>` to specify the name of the published artifact. (No directories, wildcards, or target archives supported.)
 | `waitForCompletion`                               | (mandatory)                   | If true, the action will wait for the signing request to complete. Defaults to `true`.
 | `outputArtifactPath`                              |                               | Path to where the signed artifact will be stored. Both absolute paths and relative paths from the working directory are accepted.
 | `parameters`                                      |                               | Multiline-string of values that map to [user-defined parameters](/artifact-configuration/syntax#parameters) in the Artifact Configuration. Use one line per parameter with the format `<name>: <value>`.
