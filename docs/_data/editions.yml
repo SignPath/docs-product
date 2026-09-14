@@ -146,8 +146,8 @@
     gpg_key_management: false
   link_type: 'pricing_page'
 
-- name: Advanced Code Signing
-  title: Advanced Code&nbsp;Signing
+- name: Semantic Code Signing
+  title: Semantic Code&nbsp;Signing
   quotas:
     certificates: 'unlimited'
     projects: 'unlimited'
@@ -195,9 +195,9 @@
   pipeline_integrity:
     trusted_build_systems: optional
     origin_verification: optional
-    origin_policies: true
-    build_validation: true
-    extended_policies: true
+    origin_policies: optional
+    build_validation: false
+    extended_policies: false
   user_management:
     sso: true
     scim: true
@@ -210,10 +210,27 @@
     cert_enrollment: true
     support: 'priority'
     support-hint: 'Priority support using email, phone and screen sharing'
-    code_signing_consulting: 'available'
+    code_signing_consulting: available
   no_display:
     gpg_key_management: true
   link_type: 'sales_email'
+
+- name: Pipeline Integrity
+  title: Pipeline Integrity
+  quotas: none
+  file_based_signing: none
+  hash_based_signing: none
+  artifact_configuration: none
+  policy_enforcement: none
+  pipeline_integrity:
+    trusted_build_systems: true
+    origin_verification: true
+    origin_policies: true
+    build_validation: true
+    extended_policies: true
+  user_management: none
+  other: none
+  no_display: none
 
 - name: Code Signing Gateway
   title: Code&nbsp;Signing Gateway
@@ -245,13 +262,7 @@
     policies_for_certs: true
     resubmit: false
     disable_malware_scanning: 'n/a'
-  pipeline_integrity:
-    trusted_build_systems: optional
-    origin_verification: optional
-    origin_verification-hint: Not supported by crypto providers 
-    origin_policies: true
-    build_validation: true
-    extended_policies: true
+  pipeline_integrity: none
   user_management:
     sso: true
     scim: true
@@ -264,7 +275,7 @@
     cert_enrollment: true
     support: 'priority'
     support-hint: 'Priority support using email, phone and screen sharing'
-    code_signing_consulting: 'available'
+    code_signing_consulting: available
   no_display:
     gpg_key_management: true
   link_type: 'sales_email'
@@ -309,19 +320,19 @@
   artifact_configuration:
     deep_signing: true
     multiple_configurations_per_project: true
-    metadata_constraints: 'required'
+    metadata_constraints: required
     user_defined_parameters: true
   policy_enforcement:
-    manual_approval: 'required'
+    manual_approval: required
     quorum_approval: true
     signing_policies_per_project: 'unlimited'
-    policies_for_certs: 'required'
+    policies_for_certs: required
     resubmit: true
   pipeline_integrity:
-    trusted_build_systems: 'required'
-    origin_verification: 'required'
-    origin_policies: 'required'
-    build_validation: 'required'
+    trusted_build_systems: required
+    origin_verification: required
+    origin_policies: required
+    build_validation: required
     disable_malware_scanning: false
     extended_policies: 'predefined'
   user_management:

@@ -109,19 +109,19 @@ Processing a signing request may take several minutes, or even longer if manual 
 
 ### Parameters with `-InputArtifactPath` or `-ArtifactRetrievalLink`
 
-| Parameter                                 | Type              | Description                                                   | Default value | Editions
-|-------------------------------------------|-------------------|---------------------------------------------------------------|---------------|-----------
-| `-InputArtifactPath`                      | `String`          | Local path of the artifact you want to sign
-| `-ArtifactRetrievalLink`                  | `String`          | URL to download the artifact you want to sign
-| `-ArtifactRetrievalLinkFileName`          | `String`          | File name of the artifact 
-| `-ArtifactRetrievalLinkSha256Hash`        | `String`          | Optional hexadecimal file hash of the artifact (is specified, must match retrieved artifact)
-| `-ArtifactRetrievalLinkHttpHeaders`       | `Hashtable`       | Optional HTTP headers to use when downloading the artifact 
-| `-ProjectSlug`                            | `String`          | Slug of the project 
-| `-SigningPolicySlug`                      | `String`          | Slug of one of the project's signing policies
-| `-ArtifactConfigurationSlug`              | `String`          | Slug of one of the project's artifact configurations          | Project's default artifact configuration
-| `-SigningPolicyId`                        | `String`          | ID of a project's signing policy
-| `-ArtifactConfigurationId`                | `String`          | ID of one of the project's artifact configurations            | Project's default artifact configuration
-| `-Origin`                                 | `Hashtable`       | Information about the origin of the artifact, see below       |               | {{ site.data.editions | where: "pipeline_integrity.origin_verification", "Optional" | map: "name" | join: ", " }}
+| Parameter                           | Type        | Description                                                   | Default value | Editions
+|-------------------------------------|-------------|---------------------------------------------------------------|---------------|-----------
+| `-InputArtifactPath`                | `String`    | Local path of the artifact you want to sign
+| `-ArtifactRetrievalLink`            | `String`    | URL to download the artifact you want to sign
+| `-ArtifactRetrievalLinkFileName`    | `String`    | File name of the artifact 
+| `-ArtifactRetrievalLinkSha256Hash`  | `String`    | Optional hexadecimal file hash of the artifact (is specified, must match retrieved artifact)
+| `-ArtifactRetrievalLinkHttpHeaders` | `Hashtable` | Optional HTTP headers to use when downloading the artifact 
+| `-ProjectSlug`                      | `String`    | Slug of the project 
+| `-SigningPolicySlug`                | `String`    | Slug of one of the project's signing policies
+| `-ArtifactConfigurationSlug`        | `String`    | Slug of one of the project's artifact configurations          | Project's default artifact configuration
+| `-SigningPolicyId`                  | `String`    | ID of a project's signing policy
+| `-ArtifactConfigurationId`          | `String`    | ID of one of the project's artifact configurations            | Project's default artifact configuration
+| `-Origin`                           | `Hashtable` | Information about the origin of the artifact, see below       |               | {% include editions-inline.md feature="pipeline_integrity.origin_verification" %} 
 {: .break-column-1 }
 
 {:.panel.note}
@@ -179,18 +179,20 @@ Note: Use either slugs _or_ IDs, don't mix.
 
 ### Common parameters
 
-| Parameter                                 | Type              | Description                                                   | Default value                                   | Editions
-|-------------------------------------------|-------------------|---------------------------------------------------------------|-------------------------------------------------|---------
-| `-OrganizationId`                         | `String`          | ID of your SignPath organization
-| `-ApiToken`                               | `String`          | API token of an interactive or CI user
-| `-ClientCertificate`                      | `X509Certificate2`| Client certificate used for a secure Web API request. Not directly supported by SignPath, use for proxies. | | {{ site.data.editions | where: "pipeline_integrity.trusted_build_systems", "Optional" | map: "name" | join: ", " }}
-| `-ApiUrl`                                 | `String`          | URL to the SignPath REST API                                  | `https://app.signpath.io/Api/`
-| `-Description`                            | `String`          | Optional description of the signing request
-| `-Parameters`                             | `Hashtable`       | Values for [parameters defined in the artifact configuration](/artifact-configuration/syntax#parameters)
-| `-ServiceUnavailableTimeoutInSeconds`     | `Int32`           | Total time in seconds that the cmdlet will wait for a single service call to succeed (across several retries) | 600 seconds
-| `-UploadAndDownloadRequestTimeoutInSeconds` | `Int32`         | HTTP timeout used for upload and download HTTP requests       | 300 seconds
-| `-CancellationTimeoutInSeconds`           | `Int32`           | Timeout in seconds before the signing request gets cancelled (from submission; specify `0` for no timeout)    | if `-WaitForCompletion` is specified: `-WaitForCompletionTimeoutInSeconds` value; otherwise: none
+| Parameter                             | Type              | Description                                                                                                                       | Default value   | Editions
+|---------------------------------------|-------------------|-----------------------------------------------------------------------------------------------------------------------------------|-----------------|----------
+| `-OrganizationId`                     | `String`          | ID of your SignPath organization
+| `-ApiToken`                           | `String`          | API token of an interactive or CI user
+| `-ClientCertificate`                  | `X509Certificate2`| Client certificate used for a secure Web API request. Not directly supported by SignPath, use with [double authentication proxy]. |                  | {% include editions-inline.md feature="pipeline_integrity.trusted_build_systems" %}
+| `-ApiUrl`                             | `String`          | URL to the SignPath REST API                                                                                                      | `https://app.signpath.io/Api/`
+| `-Description`                        | `String`          | Optional description of the signing request
+| `-Parameters`                         | `Hashtable`       | Values for [parameters defined in the artifact configuration](/artifact-configuration/syntax#parameters)                    
+| `-ServiceUnavailableTimeoutInSeconds` | `Int32`           | Total time in seconds that the cmdlet will wait for a single service call to succeed (across several retries)                     | 600 seconds
+| `-UploadAndDownloadRequestTimeoutInSeconds` | `Int32`     | HTTP timeout used for upload and download HTTP requests                                                                           | 300 seconds
+| `-CancellationTimeoutInSeconds`       | `Int32`           | Timeout in seconds before the signing request gets cancelled (from submission; specify `0` for no timeout)                        | if `-WaitForCompletion` is specified: `-WaitForCompletionTimeoutInSeconds` value; otherwise: none
 {: .break-column-1 .break-column-4 }
+
+[double authentication proxy]: /trusted-build-systems/double-authentication-proxy
 
 ## Examples
 
