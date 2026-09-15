@@ -98,3 +98,55 @@ The action supports the following output parameters:
 - `SignedArtifactDownloadUrl`: download URL of the signed artifact. Available to subsequent tasks as environment variable `<TASKNAME>_SIGNEDARTIFACTDOWNLOADURL`.
 
 _Note: `<TASKNAME>` is the value of the `name` property of the `SubmitSigningRequest` task._
+
+## Pipeline Policies for Azure DevOps
+
+{% include editions.md feature="pipeline_integrity.pipeline_policies" %}
+
+You can define [pipeline policies](/pipeline-policies) that restrict source code and build settings.
+
+The available policies specific to Azure DevOps are listed in this section.
+
+### Example
+
+```yaml
+azure-devops-build-policies:
+  version: 1.0
+  agents:
+    allow_self_hosted: false
+  build:
+    disallow_classic_pipelines: true
+```
+
+### `azure-devops-build-policies`
+
+Allows to restrict the Azure DevOps build pipelines with the following policies:
+
+<table>
+  <thead>
+    <tr>
+      <th>Policy</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td markdown="1">
+```yaml
+  agents:
+    allow_self_hosted: false
+```
+</td>
+      <td>Restricts builds to AzureDevOps-hosted build agents.</td>
+    </tr>
+    <tr>
+      <td markdown="1">
+```yaml
+  build:
+    disallow_classic_pipelines: true
+```
+</td>
+      <td>Disallows classic pipelines.</td>
+    </tr>
+  </tbody>
+</table>
