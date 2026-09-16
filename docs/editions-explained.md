@@ -239,7 +239,7 @@ For _Code Signing Starter_ and _Code Signing Basic_, you get two signing policie
 * a test-signing policy for testing the signing configuration and signing test builds
 * a release-signing policy for signing builds that will be delivered to end users
 
-_Advanced Code Signing_ and _Code Signing Gateway_ allow to define any number of signing policies per project. You can use this to create policies with different levels of manual and automatic verification. 
+_Semantic Code Signing_ and _Code Signing Gateway_ allow to define any number of signing policies per project. You can use this to create policies with different levels of manual and automatic verification. 
 
 Example:
 
