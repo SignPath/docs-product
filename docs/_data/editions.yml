@@ -334,7 +334,7 @@
     origin_policies: required
     build_validation: required
     disable_malware_scanning: false
-    pipeline_policies: 'predefined'
+    pipeline_policies: true
   user_management:
     sso: false
     scim: false
