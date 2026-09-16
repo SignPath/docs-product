@@ -73,7 +73,7 @@ See the [parameter list](#supported-parameters) for a complete list of all suppo
 |-----------------------------------------------|-----------------------------------------|---------------------------
 | `stage`                                       | `sign`                                  | The GitLab pipeline stage at which the component should be executed.
 | `job_name`                                    | `submit-signing-request`                | The name of the given signing job.
-| `connector_url`                               | `https://gitlab.connectors.signpath.io` | The URL of the SignPath connector. Required if self-managed.
+| `connector_url`                               | `https://pipelineconnector.connectors.signpath.io/GitLab/GitLabCom` | The URL of the SignPath connector. Required if self-managed.
 | `api_token_var_name`                          | `SIGNPATH_API_TOKEN`                    | The _Api Token_ for a user with submitter permissions in the specified project/signing policy. The component only allows providing the token via an environment variable. The name of the environment variable can be overwritten using this input.
 | `gitlab_access_token_var_name`                | `SIGNPATH_GITLAB_ACCESS_TOKEN`          | The _GitLab Access Token_ that is used to retrieve [origin metadata](/documentation/origin-verification) from the GitLab instance. Requires the `read_api` scope. The component only allows providing the token via an environment variable. The name of the environment variable can be overwritten using this input.
 | `organization_id`                             | (mandatory)                             | The SignPath organization ID.

@@ -7,10 +7,10 @@
     projects-hint: quota-hint
     users: 'up to 2'
     users-hint: quota-hint
-    signign_requests_release: 'up to 60'
-    signign_requests_release-hint: quota-hint
-    signign_requests_test: 'up to 300'
-    signign_requests_test-hint: quota-hint
+    signing_requests_release: 'up to 60'
+    signing_requests_release-hint: quota-hint
+    signing_requests_test: 'up to 300'
+    signing_requests_test-hint: quota-hint
     ci_pipelines: '1'
   file_based_signing:
     authenticode: true
@@ -55,7 +55,7 @@
     origin_verification: false
     origin_policies: false
     build_validation: false
-    extended_policies: false
+    pipeline_policies: false
   user_management:
     sso: false
     scim: false
@@ -81,10 +81,10 @@
     projects-hint: 'You may use several artifact configurations per project, e.g. for different components. Click "buy now" and add projects to adjust quota.'
     users: 'up to 15'
     users-hint: quota-hint
-    signign_requests_release: 'up to 500'
-    signign_requests_release-hint: quota-hint
-    signign_requests_test: 'up to 2500'
-    signign_requests_test-hint: quota-hint
+    signing_requests_release: 'up to 500'
+    signing_requests_release-hint: quota-hint
+    signing_requests_test: 'up to 2500'
+    signing_requests_test-hint: quota-hint
     ci_pipelines: '1 per project'
   file_based_signing:
     authenticode: true
@@ -129,7 +129,7 @@
     origin_verification: false
     origin_policies: false
     build_validation: false
-    extended_policies: false
+    pipeline_policies: false
   user_management:
     sso: false
     scim: false
@@ -152,8 +152,8 @@
     certificates: 'unlimited'
     projects: 'unlimited'
     users: 'unlimited'
-    signign_requests_release: 'unlimited'
-    signign_requests_test: 'unlimited'
+    signing_requests_release: 'unlimited'
+    signing_requests_test: 'unlimited'
     ci_pipelines: 'unlimited'
   file_based_signing:
     authenticode: true
@@ -194,10 +194,10 @@
     disable_malware_scanning: true
   pipeline_integrity:
     trusted_build_systems: optional
-    origin_verification: optional
-    origin_policies: optional
+    origin_verification: false
+    origin_policies: false
     build_validation: false
-    extended_policies: false
+    pipeline_policies: false
   user_management:
     sso: true
     scim: true
@@ -210,7 +210,7 @@
     cert_enrollment: true
     support: 'priority'
     support-hint: 'Priority support using email, phone and screen sharing'
-    code_signing_consulting: available
+    code_signing_consulting: 'available'
   no_display:
     gpg_key_management: true
   link_type: 'sales_email'
@@ -227,7 +227,7 @@
     origin_verification: true
     origin_policies: true
     build_validation: true
-    extended_policies: true
+    pipeline_policies: true
   user_management: none
   other: none
   no_display: none
@@ -238,8 +238,8 @@
     certificates: 'unlimited'
     projects: 'n/a'
     users: 'unlimited'
-    signign_requests_release: 'unlimited'
-    signign_requests_test: 'unlimited'
+    signing_requests_release: 'unlimited'
+    signing_requests_test: 'unlimited'
     ci_pipelines: 'unlimited'
   file_based_signing: none
   hash_based_signing: 
@@ -288,8 +288,8 @@
     projects: 'unlimited'
     projects-hint: 'OSS teams must apply for each project individually.'
     users: 'unlimited'
-    signign_requests_release: 'fair use'
-    signign_requests_test: 'fair use'
+    signing_requests_release: 'fair use'
+    signing_requests_test: 'fair use'
     ci_pipelines: '1 per project'
   file_based_signing:
     authenticode: true
@@ -334,7 +334,7 @@
     origin_policies: required
     build_validation: required
     disable_malware_scanning: false
-    extended_policies: 'predefined'
+    pipeline_policies: 'predefined'
   user_management:
     sso: false
     scim: false
