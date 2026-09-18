@@ -42,7 +42,7 @@ steps:
     path: path/to/your/artifact
     
 - name: submit signing request
-  uses: signpath/github-action-submit-signing-request@v2
+  uses: signpath/github-action-submit-signing-request@v3
   with:
     api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
     organization-id: '<SignPath organization id>'

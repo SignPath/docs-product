@@ -1,4 +1,12 @@
-- date: '2026-09-08'
+- date: '2026-09-10'
+  updates:
+    jenkins_plugin:
+      version: 5.1.0
+      bug_fixes:
+        - text: |-
+            The plugin does not publish the unsigned artifact anymore.
+          issues: [SIGN-8787]
+- date: '2026-09-09'
   updates:
     self_hosted_installations:
       version: 1.220.0
@@ -20,12 +28,6 @@
         - text: |-
             TeamCity: The entire `/refs/heads/*` branch identifier is again used for Git branches instead of the shortened name (e.g. `main`).
           issues: [SIGN-8826]
-    application:
-      version: 1.220.0
-      new_features:
-        - text: |-
-            [Pipeline Policies](/pipeline-policies) allow central policy controls for restricting source code and build settings of your CI/CD pipeline .
-          issues: []
     jenkins_plugin:
       version: 5.0.0
       breaking_changes:

@@ -158,7 +158,7 @@ Although the NuGet Package format is based on OPC (see next section), it uses it
 {% include editions.md feature="file_based_signing.office_macros" %}
 
 Use this directive to sign Visual Basic for Applications (VBA) macros in Microsoft Office documents and templates.
-	
+
 Use `<office-oxml-file>` for Microsoft Office Open XML files:
 
 * **Excel:** .xlam, .xlsb, .xlsm, .xltm
@@ -767,7 +767,7 @@ Sign the input file using the custom signing method `demo-pkcs11tool` with a cus
 ~~~ xml
 <artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
   <file>
-  	<custom-sign method="demo-pkcs11tool" signature-hash-algorithm="sha256"/>
+    <custom-sign method="demo-pkcs11tool" signature-hash-algorithm="sha256"/>
   </file>
 </artifact-configuration>
 ~~~

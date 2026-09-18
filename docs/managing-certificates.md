@@ -15,6 +15,8 @@ SignPath helps you control access to your code signing certificates. You have to
 * Use **test certificates** during the development process. You can test your release process and sign every build. Test certificates are not created by a commercial CA and are therefore not trusted by operating systems or browsers. Artifacts that were mistakenly or even maliciously signed by a test certificate cannot affect your users and customers. <!-- TODO: You can read more about how to roll out and manage test certificates in your infrastructure in the [knowledge base](/code-signing/test-certificates). -->
 * Use dedicated **release certificates** for each published version of your software. SignPath allows you to enforce stricter policies for release certificates.
 
+We recommend to use the _Purpose_ field to declare each certificate's intended usage. If you also declare the purpose of each [Signing Policy](/projects/#signing-policies), SignPath will not let you accidentially select a release certificate for a test siging policy or vice versa.
+
 ## Certificate types {#certificate-types}
 
 With SignPath, you have the following options for creating or importing a certificate:
@@ -29,16 +31,16 @@ With SignPath, you have the following options for creating or importing a certif
 >
 > {% include editions.md feature="no_display.gpg_key_management" %}
 >
-> In the world of GPG, certificates are known under various names:
+> In the world of GPG, certificates are known by various names:
 >
-> * Certificate or Transferable Public Keys according to [OpenPGP](https://datatracker.ietf.org/doc/html/rfc4880) 
-> * GPG keys or GPG public keys in everyday usage (which can be confusing as _public key_ usually means the public part of an asymmetfic cryptographic key pair)
+> * Certificate or Transferable Public Key according to the [OpenPGP specification](https://datatracker.ietf.org/doc/html/rfc4880) 
+> * GPG keys or GPG public keys in everyday usage (which can be confusing as _public key_ usually means the public part of an asymmetric cryptographic key pair)
 >
 > SignPath uses the term _GPG key_ to denote this type of _Certificate_.
 >
-> These terms all refer to a specific file format that includes the actual public key, the key holder's identity (name and email address), expiration, and other data.
+> These terms all refer to a specific file format that includes the actual public key, the key holder's identity (name and email address), expiration information, and other data.
 >
-> Unlike X.509, GPG does not define a Public Key Infrastructure (PKI) based on Certificate Authoities (CAs). Instead, GPG certificates are usually provided as downloads on a separate channel and/or published on an [OpenPGP Key server](https://en.wikipedia.org/wiki/Key_server_(cryptographic)).
+> Unlike X.509, GPG does not define a Public Key Infrastructure (PKI) based on Certificate Authorities (CAs). Instead, GPG certificates are usually provided as downloads on a separate channel and/or published on an [OpenPGP Key server](https://en.wikipedia.org/wiki/Key_server_(cryptographic)).
 
 ## Restrictions
 

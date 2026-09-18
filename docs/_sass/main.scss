@@ -455,6 +455,14 @@ p.badge {
 	font-size: 1rem;
 }
 
+span.badge {
+	margin-bottom: 0.2em;
+}
+
+span.badge::before {
+	padding-right: 0.5em;	
+}
+
 span.badge > i,
 p.badge::before  {
 	margin-right: 0.5em;
