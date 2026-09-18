@@ -1,3 +1,17 @@
+- date: '2026-09-22'
+  updates:
+    application:
+      version: 1.221.1
+      new_features:
+        - text: |-
+            [PFX import](/managing-certificates) now supports certificates with ECDSA keys.
+          issues: [SIGN-8899]
+    self_hosted_installations:
+      version: 1.221.1
+      breaking_changes:
+        - text: |-
+            Windows containers switched from Windows Server 2022 to Server 2025 base images. Before starting the upgrade, ensure that your Kubernetes cluster has Windows Server 2025 worker nodes available and ready.
+          issues: [SIGN-8710]
 - date: '2026-09-10'
   updates:
     jenkins_plugin:
