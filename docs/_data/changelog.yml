@@ -10,7 +10,7 @@
       version: 1.221.1
       breaking_changes:
         - text: |-
-            Windows containers switched from Windows Server 2022 to Server 2025 base images. Before starting the upgrade, ensure that your Kubernetes cluster has Windows Server 2025 worker nodes available and ready.
+            Windows containers updated from Windows Server 2022 to Server 2025 base images. Before starting the upgrade, ensure that your Kubernetes cluster has Windows Server 2025 worker nodes available and ready.
           issues: [SIGN-8710]
 - date: '2026-09-10'
   updates:
@@ -26,11 +26,11 @@
       version: 1.220.0
       breaking_changes:
         - text: |-
-            The Fortanix SignService variant has been ported to Linux and the included Fortanix client software has been updated. Ensure that your cluster has sufficient resources to host its replicas.
+            The Fortanix SignService variant has been ported to Linux and updated to the lastest Fortanix client software. Ensure that your cluster has sufficient resources to host its replicas.
           issues: [SIGN-8730]
       bug_fixes:
         - text: |-
-            Fixed: the `administrationutility` Pod no longer writes unexpected log output to its main session.
+            Fixed: the `administrationutility` Pod wrote unexpected log output to its main session.
           issues: [SIGN-8848]
     pipeline_connector:
       version: 0.8.0
