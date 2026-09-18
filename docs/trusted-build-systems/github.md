@@ -86,7 +86,7 @@ steps:
 {% raw %}
 | Parameter                                     | Default Value                                  | Description 
 |-----------------------------------------------|------------------------------------------------|-------------
-| `connector-url`                               | `https://githubactions.connectors.signpath.io` | The URL of the SignPath connector. Required if self-hosted.
+| `connector-url`                               | `https://pipelineconnector.connectors.signpath.io/GitHub/GitHubCom` | The URL of the SignPath connector. Required if self-hosted.
 | `api-token`                                   | (mandatory)                                    | The _Api Token_ for a user with submitter permissions in the specified project/signing policy.
 | `organization-id`                             | (mandatory)                                    | The SignPath organization ID.
 | `project-slug`                                | (mandatory)                                    | The SignPath project slug.
