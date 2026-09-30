@@ -150,3 +150,8 @@ Allows to restrict the Azure DevOps build pipelines with the following policies:
     </tr>
   </tbody>
 </table>
+
+{:.panel.info}
+> **Required permissions**
+>
+> Azure DevOps automatically creates a "Build Service" user for each project. This user must be granted "Reader" permissions for Agent pools to determine whether self-hosted agents were used.
