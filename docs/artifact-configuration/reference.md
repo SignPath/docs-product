@@ -229,7 +229,7 @@ jarsigner -verify -strict <file>.zip
 Add the `-verbose` option to see the certificate.
 
 {:.panel.info}
-> ** No longer supported for Android packages
+> **No longer supported for Android packages**
 >
 > Current Android versions require signing scheme v2+. Use [`<create-apk-signature>`](#create-apk-signature) instead of `<jar-sign>`.
 
