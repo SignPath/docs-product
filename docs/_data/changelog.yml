@@ -5,8 +5,9 @@
       new_features:
         - text: |-
             Added support for APK signature scheme v4:
-            * To create v4 signatures (`$ApkName.apk.idsig` files) [`<apk-sign>`](/artifact-configuration/reference#apk-sign) needs to reside within a container (e.g. ZIP file).
-            * For compatibility reasons `<apk-sign>` will be still usable top-level (to be removed in future versions).
+            * To create v4 signatures (`$ApkName.apk.idsig` files) [`<apk-file>`](/artifact-configuration/reference#create-apk-signature) needs to reside within a container (e.g. ZIP file).
+            * The signing directive changed from `<apk-sign>` to `<create-apk-signature>`.
+            * For compatibility reasons the legacy `<apk-sign>` still exists (to be removed in future versions).
           issues: [SIGN-8869]
       improvements:
         - text: |-
@@ -20,7 +21,7 @@
       version: 1.222.1
       breaking_changes:
         - text: |-
-            Deep signing of MSI, CAB, APPX and MSIX files now requires the deploy (the optional) `windowssigningmethodservice` component. Deployment can be enabled via the `chartSettings.windowsSigningMethodService.replicaCount` setting in the `signpath-application` chart.
+            Deep signing of MSI, CAB, APPX and MSIX files now requires deploying (the optional) `windowssigningmethodservice` component. Deployment can be enabled via the `chartSettings.windowsSigningMethodService.replicaCount` setting in the `signpath-application` chart.
       new_features:
         - text: |-
             Self-hosted installations now allow to optionally host a RFC 3161 compatible Timestamping Server (TSA). For details see the _Timestamping server_  section of the installation guide.
@@ -380,7 +381,7 @@
             * Easy access to detailed filters like used certificate or signing request status.
           issues: [SIGN-8337]
         - text: |-
-            Added support for Android package (APK) signing via [`<apk-sign>`](/artifact-configuration/reference#apk-sign).
+            Added support for Android package (APK) signing via [`<apk-sign>`](/artifact-configuration/reference#create-apk-signature).
           issues: [SIGN-8324]
       improvements:
         - text: |-

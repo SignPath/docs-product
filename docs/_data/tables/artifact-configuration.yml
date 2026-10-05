@@ -77,7 +77,7 @@ signing-file-elements:
       description: "Java packages/archives"
     - element: "`<apk-file>`"
       isComposite: "No"
-      directive: "[`<apk-sign>`](#apk-sign)"
+      directive: "[`<create-apk-signature>`](#create-apk-signature)"
       extensions: ".apk"
       description: "Android app packages"
     - element: "`<rpm-file>`"
@@ -205,7 +205,7 @@ signing-directives:
     - directive: "[`<jar-sign>`](#jar-sign)"
       name: Java Archives
       category: "[Embedded](#embedded-signing-methods)"
-    - directive: "[`<apk-sign>`](#apk-sign)"
+    - directive: "[`<create-apk-signature>`](#create-apk-signature)"
       name: Android app packages
       category: "[Embedded](#embedded-signing-methods)"
     - directive: "[`<rpm-sign>`](#rpm-sign)"
