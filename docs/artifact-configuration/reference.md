@@ -231,7 +231,7 @@ Add the `-verbose` option to see the certificate.
 {:.panel.info}
 > ** No longer supported for Android packages
 >
-> Current Android versions require signing schemes v2 or v3. Use [`<apk-sign>'](#apk-sign) instead of `<jar-sign>`.
+> Current Android versions require signing schema v2+. Use [`<apk-sign>'](#apk-sign) instead of `<jar-sign>`.
 
 #### `<apk-sign>`: Android app packages {#apk-sign}
 
@@ -240,6 +240,8 @@ Add the `-verbose` option to see the certificate.
 {%- include_relative render-ac-directive-table.inc directive="apk-sign" -%}
 
 Android app package files support [signatures](https://source.android.com/docs/security/features/apksigning) in different schema versions depending on the app's SDK.
+
+Note that v1-v3 signatures are embedded in the APK file, whereas v4 signatures are created next to the input APK file as `$ApkName.apk.idsig`. That's the reason why `<apk-file>` has to be part of a container like `<zip-file>` (see the following example).
 
 **Supported options:**
 
@@ -253,9 +255,11 @@ Android app package files support [signatures](https://source.android.com/docs/s
 
 ~~~ xml
 <artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
-  <apk-file>
-    <apk-sign />
-  </apk-file>
+  <zip-file>
+    <apk-file path="sample.apk">
+      <create-apk-signature />
+    </apk-file>
+  </zip-file>
 </artifact-configuration>
 ~~~
 

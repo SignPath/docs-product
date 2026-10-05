@@ -1,3 +1,39 @@
+- date: '2026-10-05'
+  updates:
+    application:
+      version: 1.222.1
+      new_features:
+        - text: |-
+            Added support for APK signature scheme v4:
+            * To create v4 signatures (`$ApkName.apk.idsig` files) [`<apk-sign>`](/artifact-configuration/reference#apk-sign) needs to reside within a container (e.g. ZIP file).
+            * For compatibility reasons `<apk-sign>` will be still usable top-level (to be removed in future versions).
+          issues: [SIGN-8869]
+      improvements:
+        - text: |-
+            The [`<jsf-sign>`](/artifact-configuration/reference#jsf-sign) directive now preserves the JSON property order and document formatting of the input file.
+          issues: [SIGN-8889]
+      bug_fixes:
+        - text: |-
+            Fixed: the REST API Swagger description contained unnecessary `application/json-patch+json` entries in the request body description.
+          issues: [SIGN-8822]
+    self_hosted_installations:
+      version: 1.222.1
+      breaking_changes:
+        - text: |-
+            Deep signing of MSI, CAB, APPX and MSIX files now requires the deploy (the optional) `windowssigningmethodservice` component. Deployment can be enabled via the `chartSettings.windowsSigningMethodService.replicaCount` setting in the `signpath-application` chart.
+      new_features:
+        - text: |-
+            Self-hosted installations now allow to optionally host a RFC 3161 compatible Timestamping Server (TSA). For details see the _Timestamping server_  section of the installation guide.
+          issues: [SIGN-8841]
+        - text: |-
+            Added support for Utimaco u.trust HSMs (new `signpath-signservice-utimacohsm-chart` Helm chart).
+      improvements:
+        - text: |-
+            All Kubernetes Pods are now supplied with memory limits. The default values can be overridden in the `chartSettings.resources` sections.
+          issues: [SIGN-5989]
+        - text: |-
+            Applied several container security improvements, such as `automountServiceAccountToken=false` and `runAsNonRoot`.
+          issues: [SIGN-8838, SIGN-8839]
 - date: '2026-09-22'
   updates:
     application:
