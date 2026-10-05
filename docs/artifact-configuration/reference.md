@@ -231,7 +231,7 @@ Add the `-verbose` option to see the certificate.
 {:.panel.info}
 > ** No longer supported for Android packages
 >
-> Current Android versions require signing schema v2+. Use [`<create-apk-signature>'](#create-apk-signature) instead of `<jar-sign>`.
+> Current Android versions require signing scheme v2+. Use [`<create-apk-signature>`](#create-apk-signature) instead of `<jar-sign>`.
 
 #### `<create-apk-signature>`: Android app packages {#create-apk-signature}
 

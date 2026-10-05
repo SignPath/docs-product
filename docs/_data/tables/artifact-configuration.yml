@@ -207,7 +207,7 @@ signing-directives:
       category: "[Embedded](#embedded-signing-methods)"
     - directive: "[`<create-apk-signature>`](#create-apk-signature)"
       name: Android app packages
-      category: "[Embedded](#embedded-signing-methods)"
+      category: "[Embedded](#embedded-signing-methods)/[Detached](#detached-signing-methods)"
     - directive: "[`<rpm-sign>`](#rpm-sign)"
       name: RPM Package Manager
       category: "[Embedded](#embedded-signing-methods)"
