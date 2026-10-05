@@ -231,7 +231,7 @@ Add the `-verbose` option to see the certificate.
 {:.panel.info}
 > **No longer supported for Android packages**
 >
-> Current Android versions require signing scheme v2+. Use [`<create-apk-signature>`](#create-apk-signature) instead of `<jar-sign>`.
+> Current Android versions require signature schemes v2 or higher. Use [`<create-apk-signature>`](#create-apk-signature) instead of `<jar-sign>`.
 
 #### `<create-apk-signature>`: Android app packages {#create-apk-signature}
 
@@ -239,9 +239,9 @@ Add the `-verbose` option to see the certificate.
 
 {%- include_relative render-ac-directive-table.inc directive="create-apk-signature" -%}
 
-Android app package files support [signatures](https://source.android.com/docs/security/features/apksigning) in different schema versions depending on the app's SDK.
+Android app package files support [signatures](https://source.android.com/docs/security/features/apksigning) in different scheme versions depending on the app's SDK.
 
-Note that v1-v3 signatures are embedded in the APK file, whereas v4 signatures are created next to the input APK file as `$ApkName.apk.idsig`. That's the reason why `<apk-file>` has to be part of a container like `<zip-file>` (see the following example).
+Signatures of schemes v1 to v3 are embedded in the APK file. A v4 signature is added as a separate file next to the input APK file, named after it with an `.idsig` extension (for example, `sample.apk.idsig`). Therefore, `<apk-file>` must be nested in a container such as `<zip-file>`, as shown in the example below.
 
 **Supported options:**
 
@@ -249,7 +249,6 @@ Note that v1-v3 signatures are embedded in the APK file, whereas v4 signatures a
 |------------------------|----------|----------------
 | `min-sdk-version`      | Yes      | The lowest Android framework API level that `create-apk-signature` uses for verification compatibility. By default, `create-apk-signature` uses the value of the minSdkVersion attribute from the app's manifest file.
 | `max-sdk-version`      | Yes      | The highest Android framework API level that `create-apk-signature` uses for verification compatibility.
-
 
 ##### Example
 
