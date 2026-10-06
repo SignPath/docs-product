@@ -241,7 +241,7 @@ Add the `-verbose` option to see the certificate.
 
 Android app package files support [signatures](https://source.android.com/docs/security/features/apksigning) in different scheme versions depending on the app's SDK.
 
-Signatures of schemes v1 to v3 are embedded in the APK file. A v4 signature is added as a separate file next to the input APK file, named after it with an `.idsig` extension (for example, `sample.apk.idsig`). Therefore, `<apk-file>` must be nested in a container such as `<zip-file>`, as shown in the example below.
+Signatures of schemes v1 to v3 are embedded in the APK file. A v4 signature is added as a separate file next to the input APK file, named with an added `.idsig` extension (for example, `sample.apk.idsig`). Therefore, `<apk-file>` must be nested in a container such as `<zip-file>`, as shown in the example below.
 
 **Supported options:**
 
@@ -249,6 +249,8 @@ Signatures of schemes v1 to v3 are embedded in the APK file. A v4 signature is a
 |------------------------|----------|----------------
 | `min-sdk-version`      | Yes      | The lowest Android framework API level that `create-apk-signature` uses for verification compatibility. By default, `create-apk-signature` uses the value of the minSdkVersion attribute from the app's manifest file.
 | `max-sdk-version`      | Yes      | The highest Android framework API level that `create-apk-signature` uses for verification compatibility.
+
+These options are equivalent to `--min-sdk-version` and `--max-sdk-version` for [`apksigner`](https://developer.android.com/tools/apksigner#options-sign-general).
 
 ##### Example
 

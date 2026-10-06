@@ -5,17 +5,17 @@
       new_features:
         - text: |-
             Added support for APK signature scheme v4:
-            * The signing directive changed from `<apk-sign>` to `<create-apk-signature>`.
-            * Because a v4 signature is added as a separate `.idsig` file, [`<apk-file>`](/artifact-configuration/reference#create-apk-signature) must be nested in a container such as a ZIP file.
-            * For compatibility reasons, the legacy `<apk-sign>` directive still exists, but it will be removed in a future version.
+            * The signing directive `<apk-sign>` has been replaced with [`<create-apk-signature>`](/artifact-configuration/reference#create-apk-signature).
+            * Because a v4 signature is added as a separate `.idsig` file, the `<apk-file>` element must be nested in a container such as a ZIP archive.
+            * For compatibility reasons, the legacy `<apk-sign>` directive still exists, but will be removed in a future version (in this case no ZIP archive is required).
           issues: [SIGN-8869]
       improvements:
         - text: |-
-            The [`<jsf-sign>`](/artifact-configuration/reference#jsf-sign) directive now preserves the JSON property order and document formatting of the input file.
+            The [`<jsf-sign>`](/artifact-configuration/reference#jsf-sign) directive now preserves property order formatting of the JSON file.
           issues: [SIGN-8889]
       bug_fixes:
         - text: |-
-            Fixed: the REST API Swagger description contained unnecessary `application/json-patch+json` entries in request body definitions.
+            Fixed: REST API Swagger descriptions contained incorrect `application/json-patch+json` content types for request body definitions.
           issues: [SIGN-8822]
     self_hosted_installations:
       version: 1.222.1
@@ -24,16 +24,16 @@
             Deep signing of MSI, CAB, APPX and MSIX files now requires deploying the optional `windowssigningmethodservice` component. Enable it via the `chartSettings.windowsSigningMethodService.replicaCount` setting in the `signpath-application` chart.
       new_features:
         - text: |-
-            Self-hosted installations can now optionally host an RFC 3161-compatible timestamping server (TSA). For details, see the _Timestamping server_ section of the installation guide.
+            Self-hosted installations can now optionally provide an RFC 3161-compatible Time Stamping Authority (TSA) using a private PKI. While it cannot not produce generally accepted time stamps, it is useful for air-gapped environments. For details, see the _Timestamping server_ section of the installation guide.
           issues: [SIGN-8841]
         - text: |-
             Added support for Utimaco u.trust HSMs (new `signpath-signservice-utimacohsm-chart` Helm chart).
       improvements:
         - text: |-
-            All Kubernetes Pods are now supplied with memory limits. The default values can be overridden in the `chartSettings.resources` sections.
+            All Kubernetes Pods are now configured with memory limits. The default values can be overridden in the `chartSettings.resources` sections.
           issues: [SIGN-5989]
         - text: |-
-            Applied several container security improvements, such as `automountServiceAccountToken=false` and `runAsNonRoot`.
+            Several container security improvements including `automountServiceAccountToken=false` and `runAsNonRoot`.
           issues: [SIGN-8838, SIGN-8839]
 - date: '2026-09-22'
   updates:
