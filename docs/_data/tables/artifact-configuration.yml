@@ -77,7 +77,7 @@ signing-file-elements:
       description: "Java packages/archives"
     - element: "`<apk-file>`"
       isComposite: "No"
-      directive: "[`<apk-sign>`](#apk-sign)"
+      directive: "[`<create-apk-signature>`](#create-apk-signature)"
       extensions: ".apk"
       description: "Android app packages"
     - element: "`<rpm-file>`"
@@ -162,7 +162,7 @@ signing-method-categories:
       notes: |
         A signature is added, and the file's format does not change. The signed file replaces the unsigned file for all practical purposes.
 
-        Several platforms including Windows, Apple, and Java provide a variety of file formats that support embedded signatures. 
+        Embedded formats are always platform-specific. Several platforms including Windows, Apple, and Java provide a variety of file formats with embedded signatures. 
       syntax: |
         `<`_format_`-sign />`
     - category: "##### Enveloped {#enveloped-signing-methods}"
@@ -171,7 +171,7 @@ signing-method-categories:
       notes: |
         The signed file consists of the signature and the original file, often encoded. The original file usually needs to be extracted from the enveloped file in order to be used. Depending on the format and tool, extraction and verification are ideally a single step.
 
-        Enveloped signatures are available for all file types using the `<file>` element. 
+        Generic enveloped signatures are available for all file types using the `<file>` element. 
       syntax: |
         `<`_format_`-sign output-file-name="..." />`
     - category: "##### Detached {#detached-signing-methods}"
@@ -180,7 +180,7 @@ signing-method-categories:
       notes: |
         The signature file contains the signature and a cryptographic hash code of the original file. Verify the signature before accessing the signed file.
         
-        Detached signatures are available for all file types using the `<file>` element.         
+        Generic detached signatures are available for all file types using the `<file>` element. The file element must be contained in a composite file such as a ZIP archive.
       syntax: |
         `<create-`_format_`-signature output-file-name="..." />`
       
@@ -205,9 +205,9 @@ signing-directives:
     - directive: "[`<jar-sign>`](#jar-sign)"
       name: Java Archives
       category: "[Embedded](#embedded-signing-methods)"
-    - directive: "[`<apk-sign>`](#apk-sign)"
+    - directive: "[`<create-apk-signature>`](#create-apk-signature)"
       name: Android app packages
-      category: "[Embedded](#embedded-signing-methods)"
+      category: "[Embedded](#embedded-signing-methods) and [Detached](#detached-signing-methods)"
     - directive: "[`<rpm-sign>`](#rpm-sign)"
       name: RPM Package Manager
       category: "[Embedded](#embedded-signing-methods)"

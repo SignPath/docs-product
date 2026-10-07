@@ -229,33 +229,38 @@ jarsigner -verify -strict <file>.zip
 Add the `-verbose` option to see the certificate.
 
 {:.panel.info}
-> ** No longer supported for Android packages
+> **No longer supported for Android packages**
 >
-> Current Android versions require signing schemes v2 or v3. Use [`<apk-sign>'](#apk-sign) instead of `<jar-sign>`.
+> Current Android versions require signature schemes v2 or higher. Use [`<create-apk-signature>`](#create-apk-signature) instead of `<jar-sign>`.
 
-#### `<apk-sign>`: Android app packages {#apk-sign}
+#### `<create-apk-signature>`: Android app packages {#create-apk-signature}
 
 {% include editions.md feature="file_based_signing.apk" %}
 
-{%- include_relative render-ac-directive-table.inc directive="apk-sign" -%}
+{%- include_relative render-ac-directive-table.inc directive="create-apk-signature" -%}
 
-Android app package files support [signatures](https://source.android.com/docs/security/features/apksigning) in different schema versions depending on the app's SDK.
+Android app package files support [signatures](https://source.android.com/docs/security/features/apksigning) in different scheme versions depending on the app's SDK.
+
+Signatures of schemes v1 to v3 are embedded in the APK file. A v4 signature is added as a separate file next to the input APK file, named with an added `.idsig` extension (for example, `sample.apk.idsig`). Therefore, `<apk-file>` must be nested in a container such as `<zip-file>`, as shown in the example below.
 
 **Supported options:**
 
 | Option                 | Optional | Description
 |------------------------|----------|----------------
-| `min-sdk-version`      | Yes      | The lowest Android framework API level that `apk-sign` uses for verification compatibility. By default, `apk-sign` uses the value of the minSdkVersion attribute from the app's manifest file.
-| `max-sdk-version`      | Yes      | The highest Android framework API level that `apk-sign` uses for verification compatibility.
+| `min-sdk-version`      | Yes      | The lowest Android framework API level that `create-apk-signature` uses for verification compatibility. By default, `create-apk-signature` uses the value of the minSdkVersion attribute from the app's manifest file.
+| `max-sdk-version`      | Yes      | The highest Android framework API level that `create-apk-signature` uses for verification compatibility.
 
+These options are equivalent to `--min-sdk-version` and `--max-sdk-version` for [`apksigner`](https://developer.android.com/tools/apksigner#options-sign-general).
 
 ##### Example
 
 ~~~ xml
 <artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
-  <apk-file>
-    <apk-sign />
-  </apk-file>
+  <zip-file>
+    <apk-file path="sample.apk">
+      <create-apk-signature />
+    </apk-file>
+  </zip-file>
 </artifact-configuration>
 ~~~
 
