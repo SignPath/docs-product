@@ -1,0 +1,9 @@
+---
+layout: null
+---
+{% assign items = "" | split: "," %}
+{% if site.data.status.current.type != "good"  %}
+    {% assign items = items | push: site.data.status.current %}
+{% endif %}
+{% assign items = items | concat: site.data.status.incidents %}
+{% include_relative status_feed.xml entries=items rss_id="incidents" title="Incidents and maintenance" %}

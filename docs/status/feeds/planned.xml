@@ -1,0 +1,4 @@
+---
+layout: null
+---
+{% include_relative status_feed.xml entries=site.data.status.planned rss_id="planned" title="Planned maintenance" %}

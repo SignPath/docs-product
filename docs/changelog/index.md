@@ -29,8 +29,8 @@ redirect_from:
 		</select>
 	</div>
 	<a id='changelog-feed' href='/changelog/feeds/all.xml'>
-    Feed {% include rss.svg %}
-  </a>
+    	Feed {% include rss.svg %}
+	</a>
 </div>
 
 {% assign today = site.time | date: '%s' %}

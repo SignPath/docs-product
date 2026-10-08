@@ -25,9 +25,14 @@ layout: status
 {{ site.data.status.current.description }}
 			{%- if site.data.status.current.link -%} <a href="{{ site.data.status.current.link }}"> (Read more)</a> {%- endif -%}
 		</div>
+	
+		<div style="display: flex; justify-content: space-between; align-items: baseline;">
+			<h3 style="margin: 0;">Planned maintenance</h3> 
+			<a id='status-planned-feed' href='/status/feeds/planned.xml'>
+				Feed {% include rss.svg %}
+			</a>
+		</div>
 
-
-		<h3>Planned maintenance</h3>
 		{%- unless site.data.status.planned -%}
 			<div>No maintenance planned.</div>
 		{%- endunless -%}
@@ -46,7 +51,12 @@ layout: status
 			{%- endfor -%}
 		</ul>
 
-		<h3>Past incidents and maintenance</h3>
+		<div style="display: flex; justify-content: space-between; align-items: baseline;">
+			<h3>Past incidents and maintenance</h3> 
+			<a id='status-past-feed' href='/status/feeds/incidents.xml'>
+				Feed {% include rss.svg %}
+			</a>
+		</div>
 		<ul>
 			{%- for incident in site.data.status.incidents -%}
 				<li class="{{ incident.type }}">
