@@ -21,15 +21,12 @@
     <title>{{ entry.type | capitalize }}: {{ entry.title }}</title>
     <updated>{{ entry.date | default: updated | date: '%F' }}</updated>
     <published>{{ entry.date | default: updated | date: '%F' }}</published>
-    <link rel="alternate" href="https://docs.signpath.io/status#{{ entry.date | date: '%F' }}" />
-    <summary type="html">{{ entry.title }}</summary>
-    <content type="html"> <![CDATA[
-      <div>
-        <h2>{{ entry.type | capitalize }}: {{ entry.title }}</h2>
-        <p>{{ entry.range }}</p>
+    <link rel="alternate" href="https://docs.signpath.io/status#{{ entry.range | slugify }}" />
+    <summary type="html"> <![CDATA[
+        <h3>{{ entry.range }}</h3>
         {{ entry.description | markdownify }}
-      </div> ]]>
-    </content>
+      ]]>
+    </summary>
   </entry>
 {%- endfor -%}
 </feed>
