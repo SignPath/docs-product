@@ -39,7 +39,7 @@ layout: status
 		<ul>
 			{%- for incident in site.data.status.planned -%}
 				<li class="{{ incident.type }}">
-					<h3>{{ incident.date}}</h3>
+					<h3 id="{{ incident.range | slugify }}">{{ incident.date}}</h3>
 					<label>{{ incident.range }}</label>
 					<h4>{{ incident.title }}</h4>
 					<div markdown="1">
