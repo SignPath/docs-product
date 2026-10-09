@@ -11,10 +11,9 @@ planned:
     type: warning
     title: 'Planned re-deployment'
     description: |
-      A planned re-deployment may lead to
-        * signing request interruptions and
-        * REST API / UI availability interruptions.
-        * All interruptions should take less than 10 mins.
+      SaaS application components will be re-deployed due to major changes. We expect a single downtime well with the range of a [regular software update](#software-updates).
+      
+      However, since it involves provisioning of Azure services, it might take a bit longer than a regular update (no more than 10 minutes though).
 incidents:
   - date: 'Aug. 3, 2026'
     range: 'Aug 3, 2026, 08:47 - 14:40 UTC'
