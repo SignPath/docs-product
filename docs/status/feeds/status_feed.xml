@@ -17,7 +17,7 @@
 </author>
 {%- for entry in include.entries -%}
   <entry>
-    <id>tag:docs.signpath.io,{{ entry.date | date: '%F'}}:{{ componentid }}:{{ release.version }}</id>
+    <id>tag:status.docs.signpath.io,{{ entry.range | slugify }}</id>
     <title>{{ entry.type | capitalize }}: {{ entry.title }}</title>
     <updated>{{ entry.date | default: updated | date: '%F' }}</updated>
     <published>{{ entry.date | default: updated | date: '%F' }}</published>

@@ -19,20 +19,17 @@ layout: status
 				[unknown status type]
 			{%- endif -%}
 			{{ site.data.status.current.title }}
-		</h2>
-
+		</h2>			
 		<div markdown="1">
 {{ site.data.status.current.description }}
 			{%- if site.data.status.current.link -%} <a href="{{ site.data.status.current.link }}"> (Read more)</a> {%- endif -%}
-		</div>
-	
-		<div style="display: flex; justify-content: space-between; align-items: baseline;">
-			<h3 style="margin: 0;">Planned maintenance</h3> 
+		</div>	
+		<div class="rss-header">
+			<h3 id='status-planned'>Planned maintenance</h3> 
 			<a id='status-planned-feed' href='/status/feeds/planned.xml'>
 				Feed {% include rss.svg %}
 			</a>
 		</div>
-
 		{%- unless site.data.status.planned -%}
 			<div>No maintenance planned.</div>
 		{%- endunless -%}
@@ -40,7 +37,7 @@ layout: status
 			{%- for incident in site.data.status.planned -%}
 				<li class="{{ incident.type }}">
 					<h3 id="{{ incident.range | slugify }}">{{ incident.date}}</h3>
-					<label>{{ incident.range }}</label>
+					<label>{{ incident.range }} ({{ incident.type | capitalize }})</label>
 					<h4>{{ incident.title }}</h4>
 					<div markdown="1">
 					
@@ -50,9 +47,8 @@ layout: status
 				</li>
 			{%- endfor -%}
 		</ul>
-
-		<div style="display: flex; justify-content: space-between; align-items: baseline;">
-			<h3>Past incidents and maintenance</h3> 
+		<div class="rss-header">
+			<h3 id='status-past-'>Past incidents and maintenance</h3> 
 			<a id='status-past-feed' href='/status/feeds/incidents.xml'>
 				Feed {% include rss.svg %}
 			</a>
@@ -61,7 +57,7 @@ layout: status
 			{%- for incident in site.data.status.incidents -%}
 				<li class="{{ incident.type }}">
 					<h3 id="{{ incident.range | slugify }}">{{ incident.date}}</h3>
-					<label>{{ incident.range }}</label>
+					<label>{{ incident.range }} ({{ incident.type | capitalize }})</label>
 					<h4>{{ incident.title }}</h4>
 					<div markdown="1">
 
@@ -71,9 +67,13 @@ layout: status
 				</li>
 			{%- endfor -%}
 		</ul>
+		<div class="rss-header">
+			<h3 id="software-updates">Regular software updates</h3> 
+		</div>
 		<p>
 			Note that system updates and SignPath software updates are not listed here unless they may result in more than 5 minutes of downtime.
-			We recommend that you set a retry limit for <i>unavailable service</i> errors of 10 minutes. This is also the default for our <a href="/build-system-integration#powershell">PowerShell scripts</a>.
+			We recommend that you set a retry limit for <i>unavailable service</i> errors of 10 minutes.
+			This is also the default for our client components and connectors.
 		</p>
 	</div>
 </section>
