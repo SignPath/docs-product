@@ -1,4 +1,4 @@
 ---
 layout: null
 ---
-{% include_relative changelog_feed.md category="scim_connector" %}
+{% include_relative changelog_feed.xml category="scim_connector" %}

@@ -1,4 +1,4 @@
 ---
 layout: null
 ---
-{% include_relative changelog_feed.md category="application" %}
+{% include_relative changelog_feed.xml category="application" %}
