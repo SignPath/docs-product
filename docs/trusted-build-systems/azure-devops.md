@@ -6,6 +6,12 @@ show_toc: 3
 description: Azure DevOps
 ---
 
+{:.panel.warning}
+>
+> **Warning about correctness of build/origin information**
+>
+> Azure DevOps, by design, allows users with sufficient permissions (e.g. _Build_ and _Project Administrators_) to modify metadata of builds as well as artifacts **after the build run**. Origin and pipeline policy checks can therefore be circumvented by users with these elevated permissions.
+
 ## Prerequisites
 
 * In SignPath: [Use the predefined Trusted Build System](/trusted-build-systems#configuration) _Azure DevOps (dev.azure.com)_.

@@ -27,7 +27,7 @@ The following parameters are used for these URIs:
 
 | Supported hosted CI/CD systems | `$origin` value  | Supported SLSA Build levels 
 |--------------------------------|------------------|-----------------------------
-| [Azure DevOps] - In Preview    | `azure-devops`   | Build L1 - L3
+| [Azure DevOps]                 | `azure-devops`   | Build L1 - L3
 | [GitHub Actions]               | `github`         | Build L1 - L3
 | [GitLab CI/CD]                 | `gitlab`         | Build L1 - L3
 | [TeamCity] - In Preview        | `teamcity`       | Build L1 - L2
