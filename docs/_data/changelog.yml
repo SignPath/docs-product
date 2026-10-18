@@ -1,3 +1,32 @@
+- date: '2026-10-20'
+  updates:
+    application:
+      version: 1.223.1
+      bug_fixes:
+        - text: |-
+            Fixed: after selecting an entry in a drop-down list using keyboard filtering, the typed filter text was not cleared.
+          issues: [SIGN-8739]
+    self_hosted_installations:
+      version: 1.223.1
+      breaking_changes:
+        - text: |-
+            Greatly improved the `signpath-application` Helm chart:
+            * No longer uses separate blue/green Helm releases.
+            * The ingress resources are now part of the `signpath-application` chart (`signpath-application-ingress` chart has been removed).
+            * `setupMode=migrate` now performs the full migration. The `prepare-migration-target` and `premigrate` setup modes have been removed.
+            * Upgrading to the new Helm chart requires manual steps, see the _Updating from an Application version < 1.223_ section of the installation guide.
+          issues: [SIGN-8741]
+      improvements:
+        - text: |-
+            The Signing Processor Service has been ported to Linux. The `windowssigningmethodservice` is now the only Windows container in the `signpath-application` Helm chart.
+          issues: [SIGN-8764]
+        - text: |-
+            Linux containers now run with restricted Linux capabilities security settings.
+          issues: [SIGN-8840]
+      bug_fixes:
+        - text: |-
+            Fixed: some unhandled exceptions were logged twice, and aborted HTTP requests caused unnecessary error log entries.
+          issues: [SIGN-8768]
 - date: '2026-10-07'
   updates:
     application:
