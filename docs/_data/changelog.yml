@@ -24,7 +24,7 @@
             Deep signing of MSI, CAB, APPX and MSIX files now requires deploying the optional `windowssigningmethodservice` component. Enable it via the `chartSettings.windowsSigningMethodService.replicaCount` setting in the `signpath-application` chart.
       new_features:
         - text: |-
-            Self-hosted installations can now optionally provide an RFC 3161-compatible Time Stamping Authority (TSA) using a private PKI. While it cannot not produce generally accepted time stamps, it is useful for air-gapped environments. For details, see the _Timestamping server_ section of the installation guide.
+            Self-hosted installations can now optionally provide an RFC 3161-compatible Time Stamping Authority (TSA) using a private PKI. While it cannot produce generally accepted time stamps, it is useful for air-gapped environments. For details, see the _Timestamping server_ section of the installation guide.
           issues: [SIGN-8841]
         - text: |-
             Added support for Utimaco u.trust HSMs (new `signpath-signservice-utimacohsm-chart` Helm chart).
