@@ -33,7 +33,7 @@
       version: 1.222.1
       new_features:
         - text: |-
-            Added support for APK signature scheme v4:
+            **Android APK signature scheme v4** support added:
             * The signing directive `<apk-sign>` has been replaced with [`<create-apk-signature>`](/artifact-configuration/reference#create-apk-signature).
             * Because a v4 signature is added as a separate `.idsig` file, the `<apk-file>` element must be nested in a container such as a ZIP archive.
             * For compatibility reasons, the legacy `<apk-sign>` directive still exists, but will be removed in a future version (in this case no ZIP archive is required).
@@ -53,10 +53,10 @@
             Deep signing of MSI, CAB, APPX and MSIX files now requires deploying the optional `windowssigningmethodservice` component. Enable it via the `chartSettings.windowsSigningMethodService.replicaCount` setting in the `signpath-application` chart.
       new_features:
         - text: |-
-            Self-hosted installations can now optionally provide an RFC 3161-compatible Time Stamping Authority (TSA) using a private PKI. While it cannot produce generally accepted time stamps, it is useful for air-gapped environments. For details, see the _Timestamping server_ section of the installation guide.
+            **Time Stamping Authority (TSA):** Self-hosted installations can now optionally provide an RFC 3161-compatible TSA using a private PKI. While it cannot produce generally accepted time stamps, it is useful for air-gapped environments. For details, see the _Timestamping server_ section of the installation guide.
           issues: [SIGN-8841]
         - text: |-
-            Added support for Utimaco u.trust HSMs (new `signpath-signservice-utimacohsm-chart` Helm chart).
+            **Utimaco u.trust HSM support:** Added via new `signpath-signservice-utimacohsm-chart` Helm chart.
       improvements:
         - text: |-
             All Kubernetes Pods are now configured with memory limits. The default values can be overridden in the `chartSettings.resources` sections.
