@@ -1,13 +1,13 @@
 - date: '2026-10-20'
   updates:
     application:
-      version: 1.223.1
+      version: 1.223.2
       bug_fixes:
         - text: |-
             Fixed: typed text was not cleared after selecting an entry in a drop-down list.
           issues: [SIGN-8739]
     self_hosted_installations:
-      version: 1.223.1
+      version: 1.223.2
       breaking_changes:
         - text: |-
             Major improvements for the `signpath-application` Helm chart:
