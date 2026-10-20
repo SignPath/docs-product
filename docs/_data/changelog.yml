@@ -1,3 +1,32 @@
+- date: '2026-10-20'
+  updates:
+    application:
+      version: 1.223.1
+      bug_fixes:
+        - text: |-
+            Fixed: typed text was not cleared after selecting an entry in a drop-down list.
+          issues: [SIGN-8739]
+    self_hosted_installations:
+      version: 1.223.1
+      breaking_changes:
+        - text: |-
+            Major improvements for the `signpath-application` Helm chart:
+            * Separate blue/green Helm releases eliminated.
+            * The ingress resources are now part of the `signpath-application` chart (`signpath-application-ingress` chart has been removed).
+            * `setupMode=migrate` now performs the full migration. The `prepare-migration-target` and `premigrate` setup modes have been removed.
+            * Upgrading to the new Helm chart requires manual steps, see the _Updating from an Application version < 1.223_ section of the installation guide.
+          issues: [SIGN-8741]
+      improvements:
+        - text: |-
+            The Signing Processor Service has been ported to Linux. `windowssigningmethodservice` is now the only Windows container in the `signpath-application` Helm chart.
+          issues: [SIGN-8764]
+        - text: |-
+            Linux containers now run with only the required Linux capabilities.
+          issues: [SIGN-8840]
+      bug_fixes:
+        - text: |-
+            Fixed: some unhandled exceptions were logged twice and aborted HTTP requests caused unnecessary error log entries.
+          issues: [SIGN-8768]
 - date: '2026-10-07'
   updates:
     application:
@@ -24,7 +53,7 @@
             Deep signing of MSI, CAB, APPX and MSIX files now requires deploying the optional `windowssigningmethodservice` component. Enable it via the `chartSettings.windowsSigningMethodService.replicaCount` setting in the `signpath-application` chart.
       new_features:
         - text: |-
-            Self-hosted installations can now optionally provide an RFC 3161-compatible Time Stamping Authority (TSA) using a private PKI. While it cannot not produce generally accepted time stamps, it is useful for air-gapped environments. For details, see the _Timestamping server_ section of the installation guide.
+            Self-hosted installations can now optionally provide an RFC 3161-compatible Time Stamping Authority (TSA) using a private PKI. While it cannot produce generally accepted time stamps, it is useful for air-gapped environments. For details, see the _Timestamping server_ section of the installation guide.
           issues: [SIGN-8841]
         - text: |-
             Added support for Utimaco u.trust HSMs (new `signpath-signservice-utimacohsm-chart` Helm chart).
