@@ -1,3 +1,23 @@
+- date: '2026-10-22'
+  updates:
+    crypto_providers:
+      version: 6.1.0
+      new_features:
+        - text: |-
+            Added support for ML-DSA (FIPS 204) keys to the Windows KSP.
+          issues: [SIGN-8920]
+      improvements:
+        - text: |-
+            Switched CycloneDX SBOM format from XML to JSON.
+          issues: [SIGN-8865]
+      changes:
+        - text: |-
+            Dropped support for Debian 11 "bullseye" (end of life since August 2026). See [supported Linux distributions](/crypto-providers/cryptoki#supported-linux-distributions).
+          issues: [SIGN-8888]
+      bug_fixes:
+        - text: |-
+            Fixed: log files could contain control characters or zero bytes.
+          issues: [SIGN-8915]
 - date: '2026-10-20'
   updates:
     application:

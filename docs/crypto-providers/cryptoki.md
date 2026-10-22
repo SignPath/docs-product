@@ -25,7 +25,6 @@ This section provides general information about using the SignPath Cryptoki libr
 
 | Distribution | Version            | Comment
 |--------------|--------------------|------------------------
-| Debian       | 11 "bullseye"      |
 | Debian       | 12 "bookworm"      |
 | Debian       | 13 "trixie"        |
 | Ubuntu       | 20.04              | Except [osslsigncode](#osslsigncode)
