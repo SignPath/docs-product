@@ -1,14 +1,18 @@
 # possible types are good, warning, critical
 updated: 2026-10-08
 current:
-    type: critical #critical: good | warning | critical
-    title: 'Outage due to storage backend issues' # always restore this message when going back to 'good'
+    type: good #values: good | warning | critical
+    title: 'All systems are operational' # always restore this message when going back to 'good'
     description: |
-      Currently all systems are affected by storage backend issues.
-      Signing request processing as well as configuration interface is currently unavailable.
     # link:
 planned:
 incidents:
+  - date: 'Oct. 27, 2026'
+    range: 'Oct. 27, 2026, 14:35 - 16:15 UTC'
+    type: critical
+    title: 'Outage due to Azure storage backend issues' # always restore this message when going back to 'good'
+    description: |
+      Due to an outage of the Azure hosted storage backend, signing request processing as well as configuration interface was unavailable.
   - date: 'Oct. 12, 2026'
     range: 'Oct. 12, 2026, 09:10 - 10:50 UTC'
     type: warning
