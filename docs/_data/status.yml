@@ -10,9 +10,9 @@ incidents:
   - date: 'Oct. 27, 2026'
     range: 'Oct. 27, 2026, 14:35 - 16:15 UTC'
     type: critical
-    title: 'Outage due to Azure storage backend issues' # always restore this message when going back to 'good'
+    title: 'Outage due to Azure SQL database issues' 
     description: |
-      Due to an outage of the Azure hosted storage backend, signing request processing as well as configuration interface was unavailable.
+      Due to region-wide issues with Azure SQL databases, signing request processing as well as configuration interface was unavailable.
   - date: 'Oct. 12, 2026'
     range: 'Oct. 12, 2026, 09:10 - 10:50 UTC'
     type: warning
