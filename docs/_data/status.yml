@@ -1,9 +1,11 @@
 # possible types are good, warning, critical
 updated: 2026-10-08
 current:
-    type: good #values: good | warning | critical
-    title: 'All systems are operational' # always restore this message when going back to 'good'
+    type: critical #critical: good | warning | critical
+    title: 'Outage due to storage backend issues' # always restore this message when going back to 'good'
     description: |
+      Currently all systems are affected by storage backend issues.
+      Signing request processing as well as configuration interface is currently unavailable.
     # link:
 planned:
 incidents:
