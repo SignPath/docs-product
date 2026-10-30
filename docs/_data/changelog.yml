@@ -4,7 +4,7 @@
       version: 6.2.0
       improvements:
         - text: |-
-            Cryptoki: certificate objects now have the certificate type `CKC_X_509` (was `CKC_VENDOR_DEFINED`) and provide the attributes `CKA_SUBJECT`, `CKA_ISSUER` and `CKA_SERIAL_NUMBER` to improve compatibility with PKCS#11 callers like `libp11`.
+            Cryptoki: X.509 certificate objects now have the certificate type `CKC_X_509` (was `CKC_VENDOR_DEFINED`) and provide the attributes `CKA_SUBJECT`, `CKA_ISSUER` and `CKA_SERIAL_NUMBER` to improve compatibility with PKCS#11 callers like `libp11`.
           issues: [SIGN-7758]
 - date: '2026-10-22'
   updates:
