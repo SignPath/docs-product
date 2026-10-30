@@ -21,15 +21,15 @@ incidents:
       > * Resolve time: 2026-10-27T16:31:00.000Z
       >
       > Between approximately 14:38 UTC and 17:30 UTC on 27 October 2026, multiple Azure
-      > services in the West Europe region may have experienced increased latency, connec-
-      > tivity issues, failed requests, or difficulties performing management operations.
+      > services in the West Europe region may have experienced increased latency, connectivity issues,
+      > failed requests, or difficulties performing management operations.
       > The incident originated from a power event affecting infrastructure within one of
       > the datacenter facilities supporting Availability Zone 1 (AZ01) in West Europe. The
       > power interruption caused a number of racks and the network, compute, and storage
       > infrastructure hosted within them to lose power or connectivity.
       >
-      > Because this infrastructure supports multiple Azure services, the initial datacenter im-
-      > pact subsequently resulted in service-specific impact across portions of the region.
+      > Because this infrastructure supports multiple Azure services, the initial datacenter impact
+      > subsequently resulted in service-specific impact across portions of the region.
   - date: 'Oct. 12, 2026'
     range: 'Oct. 12, 2026, 09:10 - 10:50 UTC'
     type: warning
