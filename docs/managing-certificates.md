@@ -29,8 +29,6 @@ With SignPath, you have the following options for creating or importing a certif
 {:.panel.info}
 > **GPG keys and certificates**
 >
-> {% include editions.md feature="no_display.gpg_key_management" %}
->
 > In the world of GPG, certificates are known by various names:
 >
 > * Certificate or Transferable Public Key according to the [OpenPGP specification](https://datatracker.ietf.org/doc/html/rfc4880) 
