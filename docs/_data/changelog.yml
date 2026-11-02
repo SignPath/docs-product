@@ -1,3 +1,64 @@
+- date: '2026-11-03'
+  updates:
+    application:
+      version: 1.224.0
+      new_features:
+        - text: |-
+            Microsoft Access macro signing: Sign VBA projects and Access macros in `.accdb` and `.mdb` files using the new [`<office-access-macro-sign>`](/artifact-configuration/reference#office-access-macro-sign) directive.
+          issues: [SIGN-8855]
+        - text: |-
+            Outlook VBA project signing: Sign Outlook VBA projects (`VbaProject.otm`) using the new `<office-outlook-macro-file>` element with the [`<office-macro-sign>`](/artifact-configuration/reference#office-macro-sign) directive.
+          issues: [SIGN-8857]
+        - text: |-
+            Added support for ML-DSA X.509 certificates:
+            * Currently supported in software key store.
+            * Can be used file-based with [Authenticode signing](/artifact-configuration/reference#authenticode-sign).
+            * Can be used hash-based with [Windows KSP CryptoProvider](/crypto-providers/windows) starting with 6.1.0.
+          issues: [SIGN-9018, SIGN-8979]
+      improvements:
+        - text: |-
+            Improved artifact description on the signing request details page:
+            * Made visualization more appealing.
+            * Artifact description XML now lists files created during signing, including their path, size and hash (for detached signing formats).
+          issues: [SIGN-9037]
+        - text: |-
+            The `GET /v1/{organizationId}/Projects/{slug}` REST API now also returns the linked trusted build systems.
+          issues: [SIGN-8961]
+        - text: |-
+            Imported PFX certificates now show the key algorithm on the certificate details page.
+          issues: [SIGN-6738]
+        - text: |-
+            Notation signing now reports meaningful errors for invalid certificate chains and non-critical key usage extensions.
+          issues: [SIGN-8856]
+      changes:
+        - text: |-
+            Dropped support for MS Publisher ([out of support since Oct 2026](https://support.microsoft.com/en-us/publisher/microsoft-publisher-will-no-longer-be-supported-after-october-2026)) and legacy Visio files (instead use the Open XML version) for [`<office-binary-file>`](/artifact-configuration/reference#office-macro-sign).
+          issues: [SIGN-8891]
+      bug_fixes:
+        - text: |-
+            Fixed: NuGet signing failed for specific CA certificates (e.g. GlobalSign).
+          issues: [SIGN-9016]
+        - text: |-
+            Fixed: MSIX/APPX publisher name check failed for certificates with EV-specific subject attributes such as `jurisdictionCountryName`.
+          issues: [SIGN-9043]
+        - text: |-
+            Fixed: deep-signing of ZIP archives failed when the ZIP contained specific special file attributes.
+          issues: [SIGN-9025]
+        - text: |-
+            Fixed: artifact configuration generation mistakenly detected some other compound file formats as MSI files.
+          issues: [SIGN-8737]
+    self_hosted_installations:
+      version: 1.224.0
+      breaking_changes:
+        - text: |-
+            Simplified database connection strings in the `signpath-application` Helm chart:
+            * `signingRequestDatabase` and `dataProtectionDatabase` have been replaced by a single `sharedDatabase`.
+            * `hangfireDatabase` is now optional and only required if Hangfire uses a separate database.
+            * Update your values files before upgrading, see the _SQL Server databases_ section of the installation guide.
+          issues: [SIGN-8835]
+        - text: |-
+            The nShield SignService has been ported to Linux. Ensure that your cluster has sufficient resources to host its replicas.
+          issues: [SIGN-8384]
 - date: '2026-10-30'
   updates:
     crypto_providers:
@@ -12,7 +73,7 @@
       version: 6.1.0
       new_features:
         - text: |-
-            Added support for ML-DSA (FIPS 204) keys to the Windows KSP.
+            Added support for ML-DSA (FIPS 204) keys to the Windows KSP (requires SignPath 1.224 or later).
           issues: [SIGN-8920]
       improvements:
         - text: |-

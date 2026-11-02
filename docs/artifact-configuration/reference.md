@@ -171,9 +171,11 @@ Use `<office-binary-file>` for binary Microsoft Office files:
 * **Excel:** .xla, .xls, .xlt
 * **PowerPoint:** .pot, .ppa, .pps, .ppt
 * **Project:** .mpp, .mpt
-* **Publisher:** .pub
-* **Visio:** .vdw, .vdx, .vsd, .vss, .vst, .vsx, .vtx
 * **Word:** .doc, .dot, .wiz
+
+Use `<office-outlook-macro-file>` for Microsoft Outlook VBA projects:
+
+* **Outlook:** .otm (usually `VbaProject.otm`)
 
 Macro signatures apply only to the macros within the document files and are not affected by any other changes in the signed document files.
 
@@ -181,6 +183,24 @@ Macro signatures apply only to the macros within the document files and are not 
 > **Certificate chain support**
 >
 > Only publisher certificates are embedded in Office macro signatures.
+
+#### `<office-access-macro-sign>`: Microsoft Access macros {#office-access-macro-sign}
+
+{% include editions.md feature="file_based_signing.office_macros" %}
+
+{%- include_relative render-ac-directive-table.inc directive="office-access-macro-sign" -%}
+
+Use this directive to sign VBA projects and macros in Microsoft Access databases (.accdb and legacy .mdb files). The signature covers both the VBA project and the [Access macros](https://support.microsoft.com/en-us/access/introduction-to-macros).
+
+Example:
+
+```xml
+<office-access-file>
+  <office-access-macro-sign />
+</office-access-file>
+```
+
+
 
 #### `<opc-sign>`: Open Packaging Convention {#opc-sign}
 
