@@ -1,7 +1,7 @@
 - date: '2026-11-02'
   updates:
     application:
-      version: 1.224.0
+      version: 1.224.1
       new_features:
         - text: |-
             Microsoft Access macro signing: Sign VBA projects and Access macros in `.accdb` and `.mdb` files using the new [`<office-access-macro-sign>`](/artifact-configuration/reference#office-access-macro-sign) directive.
@@ -48,7 +48,7 @@
             Fixed: artifact configuration generation mistakenly detected some other compound file formats as MSI files.
           issues: [SIGN-8737]
     self_hosted_installations:
-      version: 1.224.0
+      version: 1.224.1
       breaking_changes:
         - text: |-
             Simplified database connection strings in the `signpath-application` Helm chart:
