@@ -32,7 +32,7 @@
           issues: [SIGN-8856]
       changes:
         - text: |-
-            Dropped support for MS Publisher ([out of support since Oct 2026](https://support.microsoft.com/en-us/publisher/microsoft-publisher-will-no-longer-be-supported-after-october-2026)) and legacy Visio files (instead use the Open XML version) for [`<office-binary-file>`](/artifact-configuration/reference#office-macro-sign).
+            Dropped support for MS Publisher ([out of support since Oct 2026](https://support.microsoft.com/en-us/publisher/microsoft-publisher-will-no-longer-be-supported-after-october-2026)) and legacy Visio files for [`<office-binary-file>`](/artifact-configuration/reference#office-macro-sign) (instead use the Open XML version).
           issues: [SIGN-8891]
       bug_fixes:
         - text: |-
@@ -53,7 +53,7 @@
         - text: |-
             Simplified database connection strings in the `signpath-application` Helm chart:
             * `signingRequestDatabase` and `dataProtectionDatabase` have been replaced by a single `sharedDatabase`.
-            * `hangfireDatabase` is now optional and only required if Hangfire uses a separate database.
+            * `hangfireDatabase` is now optional and only required if Hangfire used a separate database in older installations.
             * Update your values files before upgrading, see the _SQL Server databases_ section of the installation guide.
           issues: [SIGN-8835]
         - text: |-
