@@ -31,12 +31,12 @@ With SignPath, you have the following options for creating or importing a certif
 >
 > In the world of GPG, certificates are known by various names:
 >
-> * Certificate or Transferable Public Key according to the [OpenPGP specification](https://datatracker.ietf.org/doc/html/rfc4880) 
+> * Certificate or Transferable Public Key according to the [OpenPGP specification](https://datatracker.ietf.org/doc/html/rfc9580) 
 > * GPG keys or GPG public keys in everyday usage (which can be confusing as _public key_ usually means the public part of an asymmetric cryptographic key pair)
 >
 > SignPath uses the term _GPG key_ to denote this type of _Certificate_.
 >
-> These terms all refer to a specific file format that includes the actual public key, the key holder's identity (name and email address), expiration information, and other data.
+> An OpenPGP certificate contains the actual cryptographic public key and optionally the key holder's identity (name and email address), expiration information, and other data. It can be distributed in binary or ASCII-armored form.
 >
 > Unlike X.509, GPG does not define a Public Key Infrastructure (PKI) based on Certificate Authorities (CAs). Instead, GPG certificates are usually provided as downloads on a separate channel and/or published on an [OpenPGP Key server](https://en.wikipedia.org/wiki/Key_server_(cryptographic)).
 
