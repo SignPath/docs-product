@@ -1,3 +1,20 @@
+- date: '2026-11-17'
+  updates:
+    application:
+      version: 1.225.0
+      improvements:
+        - text: |-
+            Improved performance of the CSV signing request report and various database queries.
+          issues: [SIGN-9057, SIGN-8995]
+    self_hosted_installations:
+      version: 1.225.0
+      breaking_changes:
+        - text: |-
+            The `signpath-application` Helm chart now uses a single database, which requires the following configuration changes:
+            * Remove the blue/green or sourceDatabaseDdl/targetDatabaseDdl database connection strings
+            * As `connectionStrings.database(Ddl)` use the previous `sharedDatabase(Ddl)` or (when upgrading from before 1.224) `signingRequestDatabase(Ddl)` connection string.
+            * The _first_ upgrade migrates the existing blue/green database into the shared database. Therefore configure the `connectionStrings.sourceDatabaseDdl` for the migration process to point to the _active_ application database. After the update, both "blue" and "green" databases can be deleted and the `sourceDatabaseDdl` connection string _must_ be deleted.
+          issues: [SIGN-8849]
 - date: '2026-11-02'
   updates:
     application:
