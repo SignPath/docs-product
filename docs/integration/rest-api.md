@@ -8,23 +8,39 @@ description: Documentation of SignPath REST API
 
 ## HTTP REST API {#rest-api}
 
-In case the PowerShell module is not sufficient, you can communicate directly with our API by calling our public HTTP REST endpoints.
+The SignPath REST API provides endpoints for the following features:
+
+* submit and retreive signing requests 
+* access the audit log
+* query and change configuration data, such as projects, certificates or users
+
+Use either a dedicated CI user or create an API token for your interactive user account. All APIs enforce the same restrictions as interactive access.
+
+### OpenAPI specification
+
+You can find the full API specification at [https://app.signpath.io/api/swagger/index.html](https://app.signpath.io/api/swagger/index.html). 
+
+The OpenAPI specification is available in JSON format at [https://app.signpath.io/api/swagger/v1/swagger.json](https://app.signpath.io/api/swagger/v1/swagger.json).
 
 ### Base URL and authentication
 
 SignPath uses bearer authentication.
 
-| Common API arguments      |  Value                                      
+| Common API arguments      | Value
 |---------------------------|-------------------------------------------- 
 | Base URL                  | `{{site.sp_api_url}}/v1/$(OrganizationId)`
 | Authorization HTTP header | `Authorization: Bearer $(token)`
 
 You need to provide these values for every single API request.
 
+## Submitting signing requests and  retreiving artifcats
+
+The follwing sections provide additional details for APIs to submit and retreive signing requests.
+
 ### Submit a signing request
 
-| Synopsis                    |      |
-|-----------------------------|------|
+| Synopsis                    |
+|-----------------------------|------
 | URL                         | `/SigningRequests/SubmitWithArtifact`
 | Method                      | `POST`
 | Encoding                    | `multipart/form-data`
@@ -61,8 +77,8 @@ Example: `-F "parameters.productVersion=1.2.0"`
 
 ### Get signing request data
 
-| Synopsis   |      |
-|------------|------|
+| Synopsis   |
+|------------|----------
 | URL        | `/SigningRequests/$(SigningRequestId)` <br> (`Location` response-header from the call that submitted the signing request)
 | Method     | GET
 | Parameters | none
@@ -123,10 +139,10 @@ curl -H "Authorization: Bearer $API_TOKEN" \
 
 Once the signing request is successfully completed, the status response contains a `signedArtifactLink` field with a link to the signed artifact file. It can easily be retrieved by issuing the following command:
 
-| Synopsis   |      |
-|------------|------|
+| Synopsis   |      
+|------------|------
 | URL        | `/SigningRequests/$(SigningRequestId)/SignedArtifact` <br> (`signedArtifactLink` field from `GET SigningRequests/`id)
-| Method     | GET  |
+| Method     | GET  
 | Parameters | none
 
 **Example:**
@@ -143,8 +159,8 @@ curl -H "Authorization: Bearer $API_TOKEN" \
 
 See [Resubmit an existing signing request](/signing-code#resubmit) for more information.
 
-| Synopsis                    |      |
-|-----------------------------|------|
+| Synopsis                    | 
+|-----------------------------|--------------------------
 | URL                         | `/SigningRequests/Resubmit`
 | Method                      | `POST`
 | Encoding                    | `multipart/form-data`

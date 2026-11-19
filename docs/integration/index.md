@@ -27,8 +27,14 @@ The following options are available:
 * Use a dedicated [CI user](/users#ci).
 * [Add an API token](/users#interactive-api-token) to your own user account for personal API access.
 
+## CI/CD integration
+
+SignPath provides native integrations for various CI/CD systems and various.
+
+In addition, PowerShell modules, REST APIs and Webhooks are available for unsupported CI/CD systems and custom integration scenarios.
+
 ## PowerShell
 
 [![PowerShell Gallery](https://img.shields.io/powershellgallery/v/SignPath.svg?style=flat-square&label=PowerShell%20Gallery)](https://www.powershellgallery.com/packages/SignPath/)
 
-See the [SignPath PowerShell reference](powershell).
+See the [SignPath PowerShell reference](/powershell).

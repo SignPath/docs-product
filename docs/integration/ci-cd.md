@@ -8,7 +8,7 @@ description: Documentation for integrating SignPath with Continuous Integration/
 
 ## CI integrations with origin verification
 
-[Origin Verification](origin-verification) ensures that a signed artifact is the result of building a specific source code version.
+[Origin Verification](/origin-verification) ensures that a signed artifact is the result of building a specific source code version.
 
 It provides verified origin metadata including:
 
@@ -17,11 +17,11 @@ It provides verified origin metadata including:
 
 SignPath supports the following Trusted Build Systems with origin verification:
 
-* [GitHub](trusted-build-systems/github)
-* [Jenkins](trusted-build-systems/jenkins)
-* [AppVeyor](trusted-build-systems/appveyor)
-* [Azure DevOps](trusted-build-systems/azure-devops)
-* [TeamCity](trusted-build-systems/teamcity)
+* [GitHub](/trusted-build-systems/github)
+* [Jenkins](/trusted-build-systems/jenkins)
+* [AppVeyor](/trusted-build-systems/appveyor)
+* [Azure DevOps](/trusted-build-systems/azure-devops)
+* [TeamCity](/trusted-build-systems/teamcity)
 
 ## Other CI integrations
 
