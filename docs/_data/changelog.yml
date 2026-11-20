@@ -6,14 +6,6 @@
         - text: |-
             Reduced the max polling interval for signing requests to 60 seconds.
           issues: [SIGN-9114]
-- date: '2026-11-16'
-  updates:
-    github_actions_action:
-      version: 3.1.0
-      bug_fixes:
-        - text: |- 
-            Fixed a misleading error message when a wrong API token is provided.
-          issues: [SIGN-9068]
 - date: '2026-11-19'
   updates:
     application:
@@ -31,6 +23,14 @@
             * As `connectionStrings.database(Ddl)` use the previous `sharedDatabase(Ddl)` or (when upgrading from before 1.224) `signingRequestDatabase(Ddl)` connection string.
             * The _first_ upgrade migrates the existing blue/green database into the shared database. Therefore configure the `connectionStrings.sourceDatabaseDdl` for the migration process to point to the _active_ application database. After the update, both "blue" and "green" databases can be deleted and the `sourceDatabaseDdl` connection string _must_ be deleted.
           issues: [SIGN-8849]
+- date: '2026-11-16'
+  updates:
+    github_actions_action:
+      version: 3.1.0
+      bug_fixes:
+        - text: |- 
+            Fixed a misleading error message when a wrong API token is provided.
+          issues: [SIGN-9068]
 - date: '2026-11-02'
   updates:
     application:
