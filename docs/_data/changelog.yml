@@ -1,3 +1,11 @@
+- date: '2026-11-20'
+  updates:
+    github_actions_action:
+      version: 3.2.0
+      improvements:
+        - text: |-
+            Reduced the max polling interval for signing requests to 60 seconds.
+          issues: [SIGN-9114]
 - date: '2026-11-16'
   updates:
     github_actions_action:
