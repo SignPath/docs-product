@@ -33,8 +33,6 @@ This section provides general information about using the SignPath Cryptoki libr
 | RedHat       | 8 (latest minor)   |
 | RedHat       | 9 (latest minor)   |
 
-<!-- TODO: this panel (and the next?) is not needed any more - right -->
-
 {:.panel.info}
 > **Dependency on OpenSSL and `ca-certificates`**
 >
@@ -45,15 +43,6 @@ This section provides general information about using the SignPath Cryptoki libr
 > ```bash
 > curl https://app.signpath.io/Api/healthz
 > ```
-
-{:.panel.warning}
-> **OpenSSL 3.0.0 - 3.0.8 incompatibility**
->
-> Distributions with an OpenSSL version between 3.0.0 and 3.0.8 (including) don't support the [OpenSSL](#openssl) and [osslsigncode](#osslsigncode) scenarios.
-> The reason is an [OpenSSL bug](https://github.com/openssl/openssl/issues/20161) which has been fixed in OpenSSL 3.0.9.
-> The issue results in _"http_exception occurred (error code= generic:168296454): Error in SSL handshake"_ errors.
->
-> You need to replace the system's OpenSSL version with >= 3.0.9 or use an isolated OpenSSL installation.
 
 ### Installation
 
