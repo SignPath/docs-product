@@ -34,7 +34,7 @@ This section provides general information about using the SignPath Cryptoki libr
 | RedHat       | 9 (latest minor)   |
 
 {:.panel.info}
-> **Dependency on OpenSSL and `ca-certificates`**
+> **Dependency on OpenSSL and `ca-certificates` (Linux)**
 >
 > The Crypto Providers use OpenSSL internally to perform HTTPS requests. So the packages `openssl` and `ca-certificates` (which contains the HTTPS/TLS root certificates) must be present on your system.
 >
