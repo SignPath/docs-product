@@ -21,8 +21,7 @@ SignPath provides the following advantages:
 
 * Your **signing keys are securely stored** on a Hardware Security Module (HSM)
 * You can use the full power of SignPath **signing policies**, including permissions, approval, and origin verification
-* You can use all **Pipeline integrity** features of SignPath, ensuring that the image was built from **approved source code** on a 
-**trusted build system**
+* You can use all **Pipeline integrity** features of SignPath, ensuring that the image was built from **approved source code** on a **trusted build system**
 * Configuration and policy management is **aligned with other signing methods**, such as Authenticode or Java signing
 * SignPath maintains a **full audit log** of all signing activities including metadata such as the registry URL and signed image tag
 * You can **sign multiple images in a single signing request**, making audits/reviews of multi-image releases a lot easier

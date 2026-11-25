@@ -34,6 +34,7 @@ This section provides general information about using the SignPath Cryptoki libr
 | RedHat       | 9 (latest minor)   |
 
 <!-- TODO: this panel (and the next?) is not needed any more - right -->
+
 {:.panel.info}
 > **Dependency on OpenSSL and `ca-certificates`**
 >

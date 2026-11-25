@@ -77,7 +77,7 @@ Choose the correct package and install it on all build agents:
 * [SignPath Notation Plugin](/crypto-providers/notation) for Notary container signatures
 * [SignPath CryptoTokenKit](/crypto-providers/macos) for macOS _codesign_
 
-<!-- should really include notation_plugin here also and merge other PR -->
+<!-- TODO: should really include notation_plugin here also and merge other PR -->
 {% include download-cryptoproviders-panel.md major="6" components="cryptoki,windows_ksp,notation_plugin" %}
 
 {% include download-cryptoproviders-panel.md major="2" components="macos_cryptotokenkit" title_details="MacOS CryptoTokenKit" %}
