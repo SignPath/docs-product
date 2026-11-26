@@ -1,3 +1,15 @@
+- date: '2026-11-26'
+  updates:
+    crypto_providers:
+      version: 6.2.3
+      improvements:
+        - text: |-
+            Linux PKCS#11 CryptoProvider: Added support for Ubuntu 26.04 distro.
+          issues: [SIGN-8934]
+      bug_fixes:
+        - text: |-
+            Fixed in Linux PKCS#11 CryptoProvider: Segmentation fault during unloading of the PKCS#11 module in specific scenarios (e.g. in combination with `libp11` and `openssl cms` in newer OpenSSL versions).
+          issues: [SIGN-8216]
 - date: '2026-11-20'
   updates:
     github_actions_action:
