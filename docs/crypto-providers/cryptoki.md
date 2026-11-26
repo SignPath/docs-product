@@ -30,6 +30,7 @@ This section provides general information about using the SignPath Cryptoki libr
 | Ubuntu       | 20.04              | Except [osslsigncode](#osslsigncode)
 | Ubuntu       | 22.04              |
 | Ubuntu       | 24.04              |
+| Ubuntu       | 26.04              |
 | RedHat       | 8 (latest minor)   |
 | RedHat       | 9 (latest minor)   |
 
