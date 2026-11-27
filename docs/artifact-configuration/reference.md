@@ -213,6 +213,12 @@ Note that not all OPC-based formats use OPC signatures:
 * Office Open XML files (Microsoft Office): OPC signatures are only partially recognized by Office applications
 * NuGet packages: ignored, use `<nuget-sign>` instead
 
+**Optional attributes:**
+
+| Attribute | Default value | Description
+|-----------|---------------|---------------------------------------------------
+| `append`  | `false`       | When `true`, append the signature to any existing signatures. When `false`, replace any existing signatures.
+
 {:.panel.info}
 > **No certificate chain support**
 >

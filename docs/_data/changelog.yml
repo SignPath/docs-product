@@ -1,3 +1,38 @@
+- date: '2026-12-01'
+  updates:
+    application:
+      version: 1.226.2
+      new_features:
+        - text: |-
+            Signing policies have a new "Allow self-approval" setting in the approval process. If it is disabled (which is the default for newly created signing policies), submitters can't approve or deny their own signing requests.
+          issues: [SIGN-9096]
+      improvements:
+        - text: |-
+            Office macro signing now gives clearer error messages for unsupported or mismatched files, e.g. when a legacy Office file is passed where an Open XML file was expected, or the other way round.
+          issues: [SIGN-8991, SIGN-9041]
+        - text: |-
+            Improved the top bar layout for very narrow (mobile) viewports.
+          issues: [SIGN-8989]
+      changes:
+        - text: |-
+            [OPC/VSIX signing](/artifact-configuration/reference#opc-sign) now replaces existing signatures by default, because the Visual Studio installer can't handle VSIX files with multiple signatures. To keep existing signatures, set the new `append` attribute.
+          issues: [SIGN-9050]
+      bug_fixes:
+        - text: |-
+            Fixed: Authenticode signing created an invalid program name attribute (`SPC_SP_OPUS_INFO`) for PE files without a file description. This caused a garbled program name in the Windows UAC dialog.
+          issues: [SIGN-9090]
+        - text: |-
+            Fixed: Jar signing with specific GlobalSign certificate chains produced signatures that failed verification. Now only the root certificate is replaced with the cross-signed root.
+          issues: [SIGN-9094]
+        - text: |-
+            Fixed: Downloading the CSV signing request report for large time ranges could fail.
+          issues: [SIGN-9106]
+    self_hosted_installations:
+      version: 1.226.2
+      new_features:
+        - text: |-
+            The SignService Helm chart now offers an optional Ingress configuration (disabled by default).
+          issues: [SIGN-9042]
 - date: '2026-11-26'
   updates:
     crypto_providers:
