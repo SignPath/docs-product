@@ -4,7 +4,7 @@
       version: 1.226.2
       new_features:
         - text: |-
-            Signing policies have a new "Allow self-approval" setting in the approval process. If it is disabled, submitters can't approve or deny their own signing requests.
+            Signing policies have a new "Allow self-approval" setting in the approval process. If it is disabled (which is the default for newly created signing policies), submitters can't approve or deny their own signing requests.
           issues: [SIGN-9096]
       improvements:
         - text: |-
