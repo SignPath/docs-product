@@ -219,14 +219,6 @@ Note that not all OPC-based formats use OPC signatures:
 |-----------|---------------|------------------|---------------------------------------------------
 | `append`  | `false`       | boolean          | When true, append the signature to any existing signatures. When false, replace any existing signatures.
 
-By default, existing signatures are removed before signing. Use `append="true"` only if you need to keep existing OPC signatures. Note that this invalidates the existing signatures, and the Visual Studio installer rejects VSIX files with multiple signatures.
-
-Example: append signature, keeping any existing signatures
-
-~~~ xml
-<opc-sign append="true" />
-~~~
-
 {:.panel.info}
 > **No certificate chain support**
 >
