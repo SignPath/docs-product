@@ -215,9 +215,9 @@ Note that not all OPC-based formats use OPC signatures:
 
 **Optional attributes:**
 
-| Attribute | Default value | Available values | Description
-|-----------|---------------|------------------|---------------------------------------------------
-| `append`  | `false`       | boolean          | When true, append the signature to any existing signatures. When false, replace any existing signatures.
+| Attribute | Default value | Description
+|-----------|---------------|---------------------------------------------------
+| `append`  | `false`       | When `true`, append the signature to any existing signatures. When `false`, replace any existing signatures.
 
 {:.panel.info}
 > **No certificate chain support**
